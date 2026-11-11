@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Bahagi bil · My Ihsan</title>
+<style>
+:root{--bg:#f4f1ea;--fg:#1d2a22;--card:#fff;--card2:#efeadf;--green:#0b5d3b;--gold:#c9a646;--mut:#6b746e}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1512;--fg:#e9efe9;--card:#17221c;--card2:#203028;--mut:#9aa69f}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,-apple-system,Roboto,"Segoe UI",sans-serif}
+#top{display:flex;align-items:center;gap:8px;padding:12px 16px;background:var(--green);color:#fff}#top b{flex:1;font-size:17px}
+#top button{background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:14px;padding:4px 10px;font:inherit}
+#app{max-width:640px;margin:0 auto;padding:12px 16px 80px}
+.card{display:block;background:var(--card);border-radius:14px;padding:12px 14px;margin:10px 0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.card h3{margin:0 0 6px;font-size:16px}
+.mut{color:var(--mut)}.small{font-size:13px}.tiny{font-size:11px}.fneg{color:#c0392b}.fpos{color:#1f9d63}
+.row{display:flex}.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:10px 14px;font:inherit;font-weight:600;background:var(--card2);color:var(--fg);cursor:pointer}
+.btn.gold{background:var(--gold);color:#1b1407}.btn.full{display:block;width:100%}
+.chip{border:1px solid rgba(127,127,127,.3);border-radius:16px;padding:5px 11px;background:var(--card2);color:var(--fg);font:inherit;font-size:13px;cursor:pointer}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.ilq{display:block;width:100%;padding:9px 10px;border-radius:10px;border:1px solid rgba(127,127,127,.35);background:var(--card2);color:var(--fg);font:inherit;margin:4px 0}
+label.small{display:block;margin-top:8px}
+.linkb{border:0;background:none;color:inherit;cursor:pointer}
+details summary{cursor:pointer;font-weight:600}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:9}
+#ov.hidden{display:none}
+.sheet{background:var(--card);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:14px 16px 24px}
+.sheet h2{margin:0 0 8px;font-size:17px;display:flex;justify-content:space-between}
+.sheet h2 button{border:0;background:none;color:inherit;font-size:20px}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222;color:#fff;padding:8px 14px;border-radius:18px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:10}
+#toast.on{opacity:.95}
+footer{text-align:center;font-size:12px;color:var(--mut);margin-top:24px}
+.ssTrip{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;font:inherit;color:inherit;border:0;cursor:pointer}
+.ssNet{font-size:11px;opacity:.8}.ssNet.on{color:#1f9d63;opacity:1}
+.ssWho{margin-top:8px}.ssPaid{margin-top:8px;font-size:17px;padding:12px}
+.ssPay{padding:6px 0;border-bottom:1px solid rgba(127,127,127,.15)}.ssPay.mine{background:rgba(201,166,70,.12);border-radius:8px;padding:6px}
+.ssBal{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(127,127,127,.12)}
+.ssBill{display:flex;align-items:center;gap:8px;width:100%;background:var(--card2);border:0;border-radius:10px;padding:8px 10px;margin:4px 0;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.ssIc{font-size:20px}.ssChips{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0}
+.ssAmt{display:flex;align-items:center;gap:8px;margin:4px 0 8px}.ssAmt span{font-weight:700;opacity:.8}
+.ssAmt input{flex:1;font-size:30px;font-weight:700;padding:8px 10px;border-radius:12px;border:2px solid var(--gold);background:var(--card2);color:inherit;min-width:0}
+.ssW{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 0}.ssW input.ilq{max-width:110px}
+</style>
+</head>
+<body>
+<div id="top"><b>🧾 Bahagi bil</b><button id="lang">EN</button></div>
+<div id="app"></div>
+<footer id="foot"></footer>
+<div id="ov" class="hidden"></div><div id="toast"></div>
+<script src="nostrkit.js"></script>
+<script src="split.js"></script>
+<script>
+(function(){
+  var lang = localStorage.getItem("ss_lang") || (/^ms|^id/i.test(navigator.language || "") ? "ms" : "en");
+  var app = document.getElementById("app"), ov = document.getElementById("ov"), tt = null;
+  var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); };
+  var U = {
+    L: function(a, b){ return lang === "en" ? b : a; }, en: function(){ return lang === "en"; }, esc: esc, app: false,
+    toast: function(m){ var t = document.getElementById("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(function(){ t.classList.remove("on"); }, 2200); },
+    load: function(k, d){ try{ var v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); }catch(e){ return d; } },
+    save: function(k, v){ try{ if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, JSON.stringify(v)); }catch(e){} },
+    sheet: function(title, html){ ov.innerHTML = '<div class="sheet"><h2><span>' + title + '</span><button aria-label="✕">✕</button></h2>' + html + '</div>'; ov.classList.remove("hidden");
+      ov.querySelector("h2 button").onclick = U.close; ov.onclick = function(e){ if(e.target === ov) U.close(); }; return ov; },
+    close: function(){ ov.classList.add("hidden"); ov.innerHTML = ""; },
+    share: function(text, pkg){ if(pkg === "com.whatsapp"){ location.href = "https://wa.me/?text=" + encodeURIComponent(text); return; } if(navigator.share) navigator.share({text: text}).catch(function(){}); else U.copy(text), U.toast(U.L("Disalin", "Copied")); },
+    copy: function(x){ try{ navigator.clipboard.writeText(x); }catch(e){ var a = document.createElement("textarea"); a.value = x; document.body.appendChild(a); a.select(); try{ document.execCommand("copy"); }catch(e2){} a.remove(); } }
+  };
+  var foot = function(){ document.getElementById("foot").innerHTML = U.L("Disulitkan pada telefon anda · tiada akaun · data disimpan dalam pelayar ini", "Encrypted on your phone · no account · data kept in this browser") + "<br>My Ihsan"; document.getElementById("lang").textContent = lang === "en" ? "BM" : "EN"; document.documentElement.lang = lang; };
+  var start = function(){ foot(); var h = location.hash;
+    if(h && SharedSplit.parse(h)){ var url = location.href; try{ history.replaceState(null, "", location.pathname); }catch(e){} SharedSplit.link(app, U, url, {}); }
+    else SharedSplit.open(app, U, {}); };
+  document.getElementById("lang").onclick = function(){ lang = lang === "en" ? "ms" : "en"; localStorage.setItem("ss_lang", lang); var c = SharedSplit._t.cur(); foot(); SharedSplit.open(app, U, {trip: c}); };
+  window.addEventListener("hashchange", function(){ if(SharedSplit.parse(location.hash)) start(); });
+  start();
+})();
+</script>
+</body>
+</html>

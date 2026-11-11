@@ -1,0 +1,3 @@
+groups/nostrkit.js bundles:
+- @noble/curves, @noble/hashes, @noble/ciphers (c) Paul Miller, MIT License — https://paulmillr.com/noble/
+- qrcode-generator (c) Kazuhiko Arase, MIT License
