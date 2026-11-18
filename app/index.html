@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Ihsan</title>
+<meta name="description" content="Papan pemuka web My Ihsan: data anda dari Google Drive anda sendiri. / My Ihsan web dashboard: your data from your own Google Drive.">
+<meta name="theme-color" content="#07130d">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><img src="icon.svg" alt=""><b>My Ihsan</b></div>
+  <input id="q" type="search" placeholder="🔍 Cari / Search">
+  <div id="sync" class="sync"></div>
+  <button id="syncNow" class="btn">⟳ <span data-t="Sync sekarang|Sync now"></span></button>
+  <label class="sw"><input type="checkbox" id="auto"><span data-t="Auto sync|Auto sync"></span></label>
+  <button id="lang" class="chip" title="Bahasa / Language">BM</button>
+  <div id="acct"></div>
+</header>
+<nav id="side"></nav>
+<main id="main"><div class="card center">⏳</div></main>
+<nav id="bottom"></nav>
+<div id="toast"></div>
+<script src="config.js"></script>
+<script src="sync/drivesync.js"></script>
+<script src="dash.js"></script>
+<script async defer src="https://accounts.google.com/gsi/client"></script>
+</body>
+</html>
