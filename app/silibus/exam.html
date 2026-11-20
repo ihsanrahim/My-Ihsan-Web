@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#161B48">
+<title>My Ihsan · Sekolah</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="stylesheet" href="silibus.css">
+<style>
+/* ============================================================
+   TIGA TEMA — .t-arked (arked) · .t-bumi (bumi) · .t-kiub (kiub)
+   Semua warna melalui pemboleh ubah CSS.
+   ============================================================ */
+:root{
+  --tapak:56px;
+  --r-besar:18px; --r-sedang:14px; --r-kecil:10px;
+  --sempadan:3px; --bawah:8px;
+  --f-papar:'Titan One',system-ui,sans-serif;
+  --f-teks:'Lexend',system-ui,sans-serif;
+  --bayang-dalam:inset 0 3px 0 rgba(255,255,255,.22);
+  --tekan-y:5px;
+}
+
+/* ---------- TEMA 1: ARKED ---------- */
+.t-arked{
+  --tepi:#080B24; --panel:#2B357A; --panel-2:#3A47A0; --panel-3:#5666C9;
+  --latar:linear-gradient(170deg,#161B48 0%,#231653 55%,#160F3A 100%);
+  --teks:#FFFFFF; --teks-lembut:#B9C2F0;
+  --kertas:#FFF8E7; --tinta:#1B1F45; --tinta-lembut:#5D659A;
+  --ok:#8BE04E; --ok-tepi:#4A9418; --ok-gelap:#3E7C16;
+  --no:#FF4D5E; --no-tepi:#A81C31; --no-gelap:#8E1527;
+  --sorot:#FFB020; --sorot-tepi:#B96C00; --sorot-muda:#FFEFCF; --sorot-garis:#E9C264;
+  --emas:#FFD53D; --tanda:#35D0F0;
+  --manik-kosong:#3B47A4;
+}
+.t-arked h1,.t-arked h2,.t-arked h3,.t-arked h4,.t-arked .papar{font-family:var(--f-papar);font-weight:400}
+.t-arked .stroke{text-shadow:0 3px 0 var(--tepi)}
+
+/* ---------- TEMA 2: BUMI ---------- */
+.t-bumi{
+  --tepi:#3B4A32; --panel:#E8E3D2; --panel-2:#F2EEE0; --panel-3:#DCD6C0;
+  --latar:linear-gradient(165deg,#F7F4E9 0%,#EFEDDD 60%,#E6EADB 100%);
+  --teks:#2C3626; --teks-lembut:#6B7660;
+  --kertas:#FFFDF6; --tinta:#2C3626; --tinta-lembut:#6B7660;
+  --ok:#5C9A4E; --ok-tepi:#3B6B31; --ok-gelap:#2F5827;
+  --no:#C4593C; --no-tepi:#8E3A24; --no-gelap:#77301D;
+  --sorot:#D9A441; --sorot-tepi:#A8781F; --sorot-muda:#FAF1DA; --sorot-garis:#E0C68B;
+  --emas:#C08A2E; --tanda:#5E8F86;
+  --manik-kosong:#D3CDB8;
+  --sempadan:2px; --bawah:2px; --tekan-y:2px;
+  --r-besar:26px 10px 24px 12px; --r-sedang:18px 8px 16px 9px; --r-kecil:12px 5px 11px 6px;
+  --bayang-dalam:none;
+}
+.t-bumi h1,.t-bumi h2,.t-bumi h3,.t-bumi h4,.t-bumi .papar{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;font-variation-settings:"SOFT" 60,"WONK" 1;
+}
+.t-bumi .pnl,.t-bumi .helai,.t-bumi .baris,.t-bumi .topik{box-shadow:0 4px 14px rgba(60,74,50,.10)}
+.t-bumi .stroke{text-shadow:none}
+
+/* ---------- TEMA 3: KIUB ---------- */
+.t-kiub{
+  --tepi:#1C1C1C; --panel:#FFFFFF; --panel-2:#FFFFFF; --panel-3:#F4F5F7;
+  --latar:#FCFCFB;
+  --teks:#1C1C1C; --teks-lembut:#767676;
+  --kertas:#FFFFFF; --tinta:#1C1C1C; --tinta-lembut:#767676;
+  --ok:#0E7C4A; --ok-tepi:#0E7C4A; --ok-gelap:#0A5C37;
+  --no:#C81E3C; --no-tepi:#C81E3C; --no-gelap:#96162D;
+  --sorot:#2D5BFF; --sorot-tepi:#2D5BFF; --sorot-muda:#EEF2FF; --sorot-garis:#B9C7FF;
+  --emas:#2D5BFF; --tanda:#2D5BFF;
+  --manik-kosong:#DFDFDF;
+  --sempadan:1.5px; --bawah:1.5px; --tekan-y:1px;
+  --r-besar:3px; --r-sedang:3px; --r-kecil:2px;
+  --bayang-dalam:none;
+}
+.t-kiub h1,.t-kiub h2,.t-kiub h3,.t-kiub h4,.t-kiub .papar{
+  font-family:var(--f-teks);font-weight:600;letter-spacing:.04em;text-transform:none;
+}
+.t-kiub .stroke{text-shadow:none}
+.t-kiub .pnl,.t-kiub .baris,.t-kiub .topik,.t-kiub .btn,.t-kiub .pil,.t-kiub .kotak{background:var(--panel)!important}
+.t-kiub .btn,.t-kiub .pil,.t-kiub .tab button{color:var(--tinta)}
+.t-kiub .btn.utama,.t-kiub .pil.betul{background:#EAF6F0!important;border-color:var(--ok)!important;color:var(--ok-gelap)}
+.t-kiub .pil.salah{background:#FDECEF!important;border-color:var(--no)!important;color:var(--no-gelap)}
+.t-kiub .tab button[aria-selected="true"]{background:var(--sorot)!important;color:#fff}
+
+/* ---------- TEMA 4: APLIKASI (0.5.53) ----------
+   Follows My Ihsan's own theme: the colours and font are copied from the app (parent page) into these variables by pakaiTema(). */
+.t-apl{
+  --tepi:var(--a-line,#C9D3CB); --panel:var(--a-card,#FFFFFF); --panel-2:var(--a-card,#FFFFFF); --panel-3:var(--a-card2,#EEF2EE);
+  --latar:var(--a-bg,#F4F6F2);
+  --teks:var(--a-fg,#1B2A22); --teks-lembut:var(--a-mut,#5B6B61);
+  --kertas:var(--a-card,#FFFFFF); --tinta:var(--a-fg,#1B2A22); --tinta-lembut:var(--a-mut,#5B6B61);
+  --ok:var(--a-green,#1F7A4F); --ok-tepi:var(--a-green,#1F7A4F); --ok-gelap:var(--a-green,#1F7A4F);
+  --no:var(--a-red,#B23A3A); --no-tepi:var(--a-red,#B23A3A); --no-gelap:var(--a-red,#B23A3A);
+  --sorot:var(--a-gold,#B8862B); --sorot-tepi:var(--a-gold,#B8862B); --sorot-muda:color-mix(in srgb,var(--a-gold,#B8862B) 14%,var(--a-card,#fff)); --sorot-garis:color-mix(in srgb,var(--a-gold,#B8862B) 45%,var(--a-card,#fff));
+  --emas:var(--a-gold,#B8862B); --tanda:var(--a-blue,#3A5BC7);
+  --manik-kosong:var(--a-line,#C9D3CB);
+  --sempadan:1.5px; --bawah:2px; --tekan-y:1px;
+  --r-besar:16px; --r-sedang:12px; --r-kecil:10px;
+  --bayang-dalam:none;
+  --f-papar:var(--a-font,system-ui,sans-serif); --f-teks:var(--a-font,system-ui,sans-serif);
+}
+.t-apl h1,.t-apl h2,.t-apl h3,.t-apl h4,.t-apl .papar{font-family:var(--a-head,var(--f-teks));font-weight:700;letter-spacing:0}
+.t-apl .stroke{text-shadow:none}
+.t-apl .pnl,.t-apl .baris,.t-apl .topik,.t-apl .btn,.t-apl .pil,.t-apl .kotak{background:var(--panel)!important}
+.t-apl .btn,.t-apl .pil,.t-apl .tab button{color:var(--tinta)}
+.t-apl .btn.utama,.t-apl .pil.betul{background:color-mix(in srgb,var(--ok) 14%,var(--panel))!important;border-color:var(--ok)!important;color:var(--tinta)}
+.t-apl .pil.salah{background:color-mix(in srgb,var(--no) 14%,var(--panel))!important;border-color:var(--no)!important;color:var(--tinta)}
+.t-apl .tab button[aria-selected="true"]{background:var(--sorot)!important;color:var(--panel)}
+.t-apl .latar::before{content:"";position:absolute;inset:0;background:radial-gradient(60vw 40vw at 85% 0%,color-mix(in srgb,var(--sorot) 10%,transparent),transparent 70%)}
+
+/* ============================================================
+   ASAS
+   ============================================================ */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  background:var(--latar);background-attachment:fixed;color:var(--teks);
+  font-family:var(--f-teks);font-size:17px;line-height:1.6;overflow-x:hidden;
+  transition:background .3s ease,color .3s ease;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:none;background:none;cursor:pointer;text-align:left}
+:focus-visible{outline:3px solid var(--sorot);outline-offset:3px}
+
+/* latar hiasan per tema */
+.latar{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.t-arked .kiub-h{
+  position:absolute;border-radius:16px;
+  background:linear-gradient(140deg,rgba(255,255,255,.10),rgba(255,255,255,.02));
+  border:2px solid rgba(255,255,255,.07);animation:apung linear infinite;
+}
+@keyframes apung{0%{transform:translate3d(0,110vh,0) rotate(0)}100%{transform:translate3d(0,-30vh,0) rotate(200deg)}}
+.t-bumi .latar::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(38vw 30vw at 12% 8%, rgba(120,160,105,.16), transparent 70%),
+    radial-gradient(34vw 28vw at 88% 32%, rgba(217,164,65,.14), transparent 70%),
+    radial-gradient(42vw 34vw at 30% 92%, rgba(94,143,134,.14), transparent 70%);
+}
+.t-bumi .daun{position:absolute;opacity:.13;font-size:60px;animation:hanyut 22s ease-in-out infinite}
+@keyframes hanyut{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-22px) rotate(8deg)}}
+.t-kiub .latar::before{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:
+    repeating-linear-gradient(60deg,transparent 0 43px,rgba(0,0,0,.055) 43px 44px),
+    repeating-linear-gradient(-60deg,transparent 0 43px,rgba(0,0,0,.055) 43px 44px),
+    repeating-linear-gradient(0deg,transparent 0 43px,rgba(0,0,0,.04) 43px 44px);
+}
+
+/* ============================================================
+   RANGKA
+   ============================================================ */
+.bar{
+  position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:8px;padding:10px 12px;
+  background:var(--panel-2);border-bottom:var(--sempadan) solid var(--tepi);
+}
+.t-arked .bar{background:linear-gradient(#4351B8,#2A3378);border-bottom-width:5px}
+.bar h1{font-size:17px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ikonBtn{
+  width:42px;height:42px;flex:none;display:grid;place-items:center;font-size:18px;
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 2px);
+  border-radius:var(--r-kecil);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.ikonBtn:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.cip{
+  flex:none;font-size:12px;padding:5px 9px;border-radius:var(--r-kecil);
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);white-space:nowrap;
+}
+.skrin{position:relative;z-index:1;max-width:660px;margin:0 auto;padding:16px 13px 60px}
+.masuk{animation:masuk .28s cubic-bezier(.2,.9,.3,1.15) both}
+@keyframes masuk{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.pnl{
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-besar);box-shadow:var(--bayang-dalam);
+}
+.t-arked .pnl{background:linear-gradient(var(--panel-2),var(--panel))}
+.tajuk-kecil{font-family:var(--f-papar);font-size:14px;color:var(--emas);margin:22px 0 10px}
+.t-bumi .tajuk-kecil,.t-kiub .tajuk-kecil{font-family:var(--f-teks);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px}
+
+/* ============================================================
+   UTAMA
+   ============================================================ */
+.hero{padding:16px 16px 14px;margin-bottom:14px}
+.hero h2{font-size:21px;margin-bottom:2px}
+.hero .kecil{font-size:13px;color:var(--teks-lembut)}
+.hero .cipBaris{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+
+.baris{
+  display:flex;width:100%;margin-bottom:10px;overflow:hidden;color:var(--teks);
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-besar);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .baris{background:linear-gradient(var(--panel-2),var(--panel))}
+.baris:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.baris.tutup{opacity:.45}
+.tarikh{
+  flex:none;width:72px;background:var(--tanda);color:#fff;
+  border-right:var(--sempadan) solid var(--tepi);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:11px 4px;
+}
+.t-kiub .tarikh{background:var(--panel-3);color:var(--tinta)}
+.tarikh.esok{background:var(--sorot)}
+.tarikh b{font-family:var(--f-papar);font-size:24px;line-height:1}
+.tarikh span{font-size:11px}
+.isi-baris{padding:10px 12px;flex:1;min-width:0}
+.isi-baris h3{font-size:16px}
+.isi-baris p{font-size:12.5px;color:var(--teks-lembut);line-height:1.45}
+.kira-hari{color:var(--emas)}
+.tanda{flex:none;font-size:19px;color:var(--emas);align-self:center;padding-right:12px}
+
+/* ---------- papan manik ---------- */
+.blokSubjek{margin-bottom:14px}
+.blokSubjek > h3{
+  font-size:14px;margin:0 0 8px 2px;color:var(--teks-lembut);
+  font-family:var(--f-teks);font-weight:600;letter-spacing:.04em;
+}
+.manikBaris{
+  display:block;width:100%;padding:11px 13px;margin-bottom:8px;color:var(--teks);
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .manikBaris{background:linear-gradient(var(--panel-2),var(--panel))}
+.manikBaris:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.manikAtas{display:flex;align-items:baseline;gap:8px;margin-bottom:8px}
+.manikAtas .nm{flex:1;min-width:0;font-size:14.5px;font-weight:500;line-height:1.3}
+.manikAtas .sk{flex:none;font-size:12px;color:var(--teks-lembut);font-variant-numeric:tabular-nums}
+.strand{display:flex;flex-wrap:wrap;gap:4px}
+.manik{
+  width:11px;height:11px;border-radius:50%;flex:none;
+  background:var(--manik-kosong);border:1.5px solid var(--tepi);
+  transition:background .2s,transform .12s;
+}
+.t-kiub .manik{border-radius:1px}
+.t-bumi .manik{border-width:1px}
+.manik.b{background:var(--ok);border-color:var(--ok-tepi)}
+.manik.s{background:var(--no);border-color:var(--no-tepi)}
+.manik:active{transform:scale(1.5)}
+
+/* ============================================================
+   SENARAI TOPIK
+   ============================================================ */
+.topik{
+  display:flex;align-items:center;gap:11px;width:100%;color:var(--teks);
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-besar);box-shadow:var(--bayang-dalam);
+  padding:12px 13px;margin-bottom:10px;min-height:var(--tapak);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .topik{background:linear-gradient(var(--panel-2),var(--panel))}
+.topik:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.nombor{
+  flex:none;width:38px;height:38px;border-radius:var(--r-kecil);background:var(--ok);color:#fff;
+  border:var(--sempadan) solid var(--tepi);display:grid;place-items:center;
+  font-family:var(--f-papar);font-size:17px;box-shadow:var(--bayang-dalam);
+}
+.t-kiub .nombor{background:var(--panel-3);color:var(--tinta)}
+.nombor.habis{background:var(--sorot)}
+.topik .nama{flex:1;min-width:0;font-size:15px;font-weight:500;line-height:1.3}
+.topik .skor{display:block;font-size:12px;color:var(--teks-lembut);margin-top:3px;font-weight:400}
+
+/* ============================================================
+   TAB
+   ============================================================ */
+.tab{display:flex;gap:7px;margin-bottom:14px}
+.tab button{
+  flex:1;padding:11px 4px;text-align:center;font-size:14.5px;font-weight:600;color:var(--teks-lembut);
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 2px);
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.tab button:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.tab button[aria-selected="true"]{background:var(--sorot);color:#fff;border-bottom-color:var(--tepi)}
+
+/* ============================================================
+   NOTA INTERAKTIF
+   ============================================================ */
+.helai{
+  background:var(--kertas);color:var(--tinta);
+  border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-besar);padding:6px 14px 12px;margin-bottom:12px;
+}
+.akor{border-bottom:1px dashed var(--sorot-garis)}
+.akor:last-child{border-bottom:none}
+.akorKepala{
+  display:flex;align-items:center;gap:10px;width:100%;padding:14px 2px;
+  font-size:17px;font-weight:600;color:var(--ok-gelap);
+}
+.t-arked .akorKepala,.t-bumi .akorKepala,.t-kiub .akorKepala{font-family:inherit}
+.akorKepala .ar{margin-inline-start:auto;flex:none;transition:transform .22s;font-size:14px;color:var(--tinta-lembut)}
+.akor[open] > .akorKepala .ar{transform:rotate(90deg)}
+/* 0.5.78: nested notes (year > subject > topic > subtopic) */
+.akorBadan > .akor{margin-inline-start:10px;border-inline-start:2px solid var(--sorot-garis);padding-inline-start:8px}
+.akor1 > .akorKepala{font-size:1.15em}
+.akor2 > .akorKepala{font-size:1.06em}
+.akorBadan{padding:0 2px 14px;animation:buka .25s ease both}
+@keyframes buka{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.akorBadan p{margin-bottom:11px}
+.akorBadan ul,.akorBadan ol{margin:0 0 12px 21px}
+.akorBadan li{margin-bottom:6px}
+.kotakContoh{
+  background:var(--sorot-muda);border:2px solid var(--sorot-garis);
+  border-radius:var(--r-sedang);padding:11px 13px;margin:0 0 12px;font-size:16px;
+}
+.tahukah{
+  background:var(--panel-3);border-left:5px solid var(--sorot);
+  border-radius:var(--r-kecil);padding:11px 13px;margin:0 0 12px;font-size:15px;color:var(--tinta);
+}
+.t-arked .tahukah{color:var(--tinta);background:var(--sorot-muda)}
+.tahukah b{display:block;margin-bottom:3px;color:var(--sorot-tepi)}
+.arab{font-family:'Noto Naskh Arabic',serif;font-size:25px;line-height:2;direction:rtl;text-align:right;margin-bottom:6px}
+.langkah{counter-reset:l;list-style:none;margin-left:0}
+.langkah li{position:relative;padding-left:42px;margin-bottom:11px}
+.langkah li::before{
+  counter-increment:l;content:counter(l);position:absolute;left:0;top:-1px;
+  width:30px;height:30px;border-radius:var(--r-kecil);background:var(--ok);color:#fff;
+  border:2px solid var(--tepi);display:grid;place-items:center;font-weight:700;font-size:14px;
+}
+.t-kiub .langkah li::before{background:var(--panel-3);color:var(--tinta)}
+/* istilah boleh ditekan */
+.ist{
+  border-bottom:2.5px dotted var(--sorot-tepi);cursor:pointer;font-weight:600;color:var(--ok-gelap);
+}
+.istBox{
+  display:block;background:var(--sorot-muda);border:2px solid var(--sorot-garis);
+  border-radius:var(--r-kecil);padding:9px 12px;margin:8px 0;font-size:14.5px;
+  animation:buka .2s ease both;
+}
+.jadualNota{width:100%;border-collapse:collapse;margin:0 0 12px;font-size:15px}
+.jadualNota th,.jadualNota td{border:2px solid var(--sorot-garis);padding:8px 9px;text-align:left}
+.jadualNota th{background:var(--sorot-muda);font-weight:700}
+
+/* ============================================================
+   GLOSARI FLIP
+   ============================================================ */
+.carian{
+  width:100%;padding:12px 14px;margin-bottom:12px;font:inherit;color:var(--tinta);
+  background:var(--kertas);border:var(--sempadan) solid var(--tepi);border-radius:var(--r-sedang);
+}
+.glosKad{
+  display:block;width:100%;background:var(--kertas);color:var(--tinta);
+  border:var(--sempadan) solid var(--tepi);border-bottom-width:calc(var(--sempadan) + 3px);
+  border-radius:var(--r-sedang);padding:13px 14px;margin-bottom:8px;
+  transition:transform .07s,border-bottom-width .07s;
+}
+.glosKad:active{transform:translateY(2px);border-bottom-width:var(--sempadan)}
+.glosKad dt{font-weight:700;font-size:16px;color:var(--ok-gelap);display:flex;align-items:center;gap:8px}
+.glosKad dt .pt{margin-left:auto;font-size:12px;font-weight:400;color:var(--tinta-lembut)}
+.glosKad dd{font-size:15px;margin-top:6px;animation:buka .2s ease both}
+
+/* ============================================================
+   KUIZ SATU SKROL
+   ============================================================ */
+.hudLekat{
+  position:sticky;top:62px;z-index:22;margin-bottom:14px;padding:10px 13px;
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 3px);
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+}
+.t-arked .hudLekat{background:linear-gradient(var(--panel-2),var(--panel))}
+.hudAtas{display:flex;align-items:center;gap:9px;margin-bottom:8px;font-size:13px}
+.hudAtas .kira{font-family:var(--f-papar);font-size:16px}
+.t-bumi .hudAtas .kira,.t-kiub .hudAtas .kira{font-family:var(--f-teks);font-weight:700}
+.hudAtas .sisi{margin-left:auto;display:flex;gap:6px;font-size:12px}
+.hudAtas .sisi b{font-weight:700}
+.palang{height:12px;background:var(--manik-kosong);border:2px solid var(--tepi);border-radius:8px;overflow:hidden}
+.t-kiub .palang{border-radius:1px}
+.palang i{display:block;height:100%;background:var(--ok);transition:width .35s ease}
+
+.soalKad{
+  background:var(--kertas);color:var(--tinta);
+  border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-besar);padding:15px 14px;margin-bottom:12px;scroll-margin-top:130px;
+}
+.soalNo{
+  display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;
+  color:var(--tinta-lembut);margin-bottom:7px;
+}
+.soalNo .jn{
+  display:inline-block;margin-left:7px;padding:2px 7px;border-radius:20px;
+  background:var(--sorot-muda);color:var(--sorot-tepi);border:1.5px solid var(--sorot-garis);
+  font-weight:600;letter-spacing:0;
+}
+.soal{font-size:17.5px;font-weight:500;margin-bottom:12px;line-height:1.5}
+.emo{font-size:1.5em;line-height:1;vertical-align:-.15em}
+.petikan{
+  background:var(--sorot-muda);border:2px solid var(--sorot-garis);
+  border-radius:var(--r-sedang);padding:11px 13px;margin-bottom:13px;font-size:16px;
+}
+.petikan h4{font-size:14px;margin-bottom:4px;color:var(--sorot-tepi)}
+
+.pil{
+  display:flex;align-items:center;gap:10px;width:100%;color:var(--teks);
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 2px);
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+  padding:11px 13px;margin-bottom:8px;min-height:var(--tapak);font-size:16px;line-height:1.35;
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .pil{background:linear-gradient(var(--panel-3),var(--panel-2));color:#fff}
+.pil:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.pil .huruf{
+  flex:none;width:29px;height:29px;border-radius:var(--r-kecil);
+  background:rgba(0,0,0,.14);border:2px solid rgba(0,0,0,.2);
+  display:grid;place-items:center;font-weight:700;font-size:14px;
+}
+.pil .teks{flex:1}
+.pil .mark{flex:none;font-size:20px;font-weight:700}
+.pil.betul{background:var(--ok)!important;border-color:var(--ok-tepi);color:#fff;animation:pop .28s ease}
+.pil.salah{background:var(--no)!important;border-color:var(--no-tepi);color:#fff;animation:goyang .3s ease}
+@keyframes pop{0%{transform:scale(1)}42%{transform:scale(1.03)}100%{transform:scale(1)}}
+@keyframes goyang{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}60%{transform:translateX(7px)}}
+.bank{display:flex;flex-wrap:wrap;gap:8px}
+.bank .pil{width:auto;min-height:48px;margin:0;padding:10px 15px}
+
+/* padankan */
+.padan{display:flex;flex-direction:column;gap:8px;margin-bottom:11px}
+.padanBaris{
+  display:flex;align-items:center;gap:9px;padding:9px 11px;font-size:15.5px;
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);border-radius:var(--r-sedang);
+  color:var(--teks);min-height:52px;
+}
+.t-arked .padanBaris{color:#fff}
+.padanBaris.pilih{border-color:var(--sorot);box-shadow:0 0 0 3px var(--sorot-muda)}
+.padanBaris.betul{background:var(--ok)!important;border-color:var(--ok-tepi);color:#fff}
+.padanBaris.salah{background:var(--no)!important;border-color:var(--no-tepi);color:#fff}
+.padanBaris .kiri{flex:1;min-width:0}
+.padanBaris .slot{
+  flex:none;min-width:96px;padding:7px 10px;text-align:center;font-size:14px;
+  background:var(--kertas);color:var(--tinta);border:2px dashed var(--tinta-lembut);border-radius:var(--r-kecil);
+}
+.padanBaris .slot.isi{border-style:solid;border-color:var(--tepi);font-weight:600}
+.padanArahan{font-size:13px;color:var(--tinta-lembut);margin-bottom:9px}
+
+/* jadual isi */
+.jd{width:100%;border-collapse:collapse;margin-bottom:11px;font-size:15px}
+.jd th,.jd td{border:2px solid var(--tepi);padding:8px 9px;text-align:left;color:var(--tinta)}
+.jd th{background:var(--sorot-muda);font-weight:700;font-size:13.5px}
+.jd td.selIsi{padding:5px}
+.jdSlot{
+  display:block;width:100%;min-height:40px;padding:7px 9px;text-align:center;font-size:14px;
+  background:var(--kertas);color:var(--tinta);border:2px dashed var(--tinta-lembut);border-radius:var(--r-kecil);
+}
+.jdSlot.isi{border-style:solid;border-color:var(--tepi);font-weight:600}
+.jdSlot.pilih{border-color:var(--sorot);box-shadow:0 0 0 3px var(--sorot-muda)}
+.jdSlot.betul{background:var(--ok);border-color:var(--ok-tepi);color:#fff}
+.jdSlot.salah{background:var(--no);border-color:var(--no-tepi);color:#fff}
+
+.maklum{margin-top:12px;font-size:15.5px;font-weight:600}
+.maklum.ok{color:var(--ok-gelap)}
+.maklum.no{color:var(--no-gelap)}
+.maklum.jawapanBetul{color:var(--teks,#333);font-weight:500;font-size:14.5px;background:rgba(201,166,70,.14);border-radius:10px;padding:6px 10px;margin-top:6px}
+
+/* ============================================================
+   BUTANG
+   ============================================================ */
+.btn{
+  flex:1;min-height:var(--tapak);text-align:center;font-size:16px;font-weight:700;color:var(--teks);
+  display:grid;place-items:center;
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah));
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .btn{background:linear-gradient(var(--panel-3),var(--panel-2));color:#fff}
+.btn:active:not(:disabled){transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.btn.utama{background:var(--ok)!important;border-color:var(--ok-tepi);color:#fff}
+.btn.emas{background:var(--sorot)!important;border-color:var(--sorot-tepi);color:#fff}
+.btn:disabled{opacity:.35}
+.nav{display:flex;gap:9px;margin-top:16px}
+
+/* ============================================================
+   SEMAK
+   ============================================================ */
+.semak{padding:15px 14px;margin-top:18px}
+.semak h3{font-size:18px;margin-bottom:4px}
+.semak p.kecil{font-size:13px;color:var(--teks-lembut);margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:8px;margin-bottom:13px}
+.kotak{
+  aspect-ratio:1;border-radius:var(--r-kecil);color:var(--teks);
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 3px);
+  display:grid;place-items:center;font-weight:700;font-size:16px;
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .kotak{color:#fff}
+.kotak:active{transform:translateY(3px);border-bottom-width:var(--sempadan)}
+.kotak.betul{background:var(--ok)!important;border-color:var(--ok-tepi);color:#fff}
+.kotak.salah{background:var(--no)!important;border-color:var(--no-tepi);color:#fff}
+.petunjuk{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--teks-lembut);margin-bottom:14px}
+.petunjuk i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:5px;vertical-align:-2px;background:var(--manik-kosong);border:2px solid var(--tepi)}
+.petunjuk .b{background:var(--ok)}
+.petunjuk .s{background:var(--no)}
+.statKotak{display:flex;gap:8px;margin-bottom:13px}
+.statKotak div{
+  flex:1;text-align:center;padding:9px 5px;border-radius:var(--r-kecil);
+  background:var(--panel-3);border:2px solid var(--tepi);
+}
+.statKotak b{display:block;font-family:var(--f-papar);font-size:20px;color:var(--emas)}
+.t-bumi .statKotak b,.t-kiub .statKotak b{font-family:var(--f-teks);font-weight:700}
+.statKotak span{font-size:11px;color:var(--teks-lembut)}
+
+.amaran{
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);border-radius:var(--r-besar);
+  padding:13px 15px;font-size:13.5px;line-height:1.55;margin-top:20px;color:var(--teks);
+}
+.kosong-skrin{text-align:center;padding:38px 20px;color:var(--teks-lembut)}
+.kosong-skrin .ikon{font-size:48px}
+.kosong-skrin p{margin-top:8px;font-size:15px}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .kiub-h,.daun{display:none}
+}
+
+/* penanda details asal disembunyikan */
+summary{list-style:none;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary::marker{content:""}
+
+/* ============================================================
+   LAJUR — kira secara turus (bawa dari candy-math)
+   ============================================================ */
+.lajurWrap{display:flex;justify-content:center;margin:4px 0 14px}
+.lajur{display:inline-block;font-variant-numeric:tabular-nums}
+.lajurBaris{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-bottom:4px}
+.lajurBaris .op{
+  width:34px;flex:none;text-align:center;font-size:26px;font-weight:700;color:var(--sorot-tepi);
+}
+.sel{
+  width:40px;height:46px;flex:none;display:grid;place-items:center;
+  font-size:24px;font-weight:600;color:var(--tinta);
+}
+.sel.titik{width:16px;font-size:26px}
+.sel.simbol{width:auto;padding:0 4px;font-size:19px;color:var(--tinta-lembut)}
+.rule{height:3px;background:var(--tepi);border-radius:2px;margin:4px 0 8px}
+.kotakDigit{
+  width:40px;height:46px;flex:none;display:grid;place-items:center;
+  font-size:24px;font-weight:700;color:var(--tinta);
+  background:var(--kertas);border:2.5px solid var(--tinta-lembut);border-radius:var(--r-kecil);
+}
+.kotakDigit.kursor{border-color:var(--sorot);box-shadow:0 0 0 3px var(--sorot-muda)}
+.kotakDigit.betul{background:var(--ok);border-color:var(--ok-tepi);color:#fff}
+.kotakDigit.salah{background:var(--no);border-color:var(--no-tepi);color:#fff}
+.numpad{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:4px}
+.numKey{
+  min-height:50px;display:grid;place-items:center;font-size:20px;font-weight:700;color:var(--teks);
+  background:var(--panel-3);border:var(--sempadan) solid var(--tepi);
+  border-bottom-width:calc(var(--sempadan) + var(--bawah) - 2px);
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+  transition:transform .07s,border-bottom-width .07s;
+}
+.t-arked .numKey{background:linear-gradient(var(--panel-3),var(--panel-2));color:#fff}
+.numKey:active{transform:translateY(var(--tekan-y));border-bottom-width:var(--sempadan)}
+.numKey.padam{background:var(--sorot)!important;border-color:var(--sorot-tepi);color:#fff}
+
+/* ============================================================
+   BAR SLIM + TAB MELEKAT
+   ============================================================ */
+.bar.slim{padding:6px 10px;gap:6px}
+.bar.slim h1{font-size:15px}
+.bar.slim .ikonBtn{width:36px;height:36px;font-size:16px;border-bottom-width:calc(var(--sempadan) + 3px)}
+.lekat{
+  position:sticky;top:49px;z-index:24;margin:0 -13px 14px;padding:8px 13px 10px;
+  background:var(--latar);border-bottom:var(--sempadan) solid var(--tepi);
+}
+.t-arked .lekat{background:#191F4A}
+.t-bumi .lekat{background:#F2EFE3}
+.t-kiub .lekat{background:#FCFCFB}
+.lekat .tab{margin-bottom:8px}
+.lekat .tab button{padding:9px 4px;font-size:14px;border-bottom-width:calc(var(--sempadan) + 3px)}
+.kiraBaris{display:flex;align-items:center;gap:8px;font-size:12.5px;margin-bottom:6px}
+.kiraBaris .big{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.kiraBaris .sisi{margin-left:auto;display:flex;gap:9px;font-variant-numeric:tabular-nums}
+/* 0.6.9 sticky header: summary line, this topic's beads, statistics panel; beads + panel tuck away when scrolling down */
+html,body{overflow-anchor:none}
+.hudRingkas{display:flex;align-items:center;gap:10px;width:100%;padding:4px 2px 6px;font-size:13px;font-variant-numeric:tabular-nums;color:var(--teks);text-align:left}
+.hudNo{flex:none;min-width:22px;height:22px;padding:0 5px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;background:var(--sorot);color:#fff}
+.hudJ{font-size:15px}.hudOk{color:var(--ok);font-weight:700}.hudNg{color:var(--no);font-weight:700}
+.hudCuba{opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.hudChev{margin-left:auto;opacity:.7}
+.manikJalur{display:flex;align-items:center;gap:4px;overflow-x:auto;padding:4px 6px 5px;-webkit-overflow-scrolling:touch;scrollbar-width:none;direction:ltr;max-height:30px;transition:max-height .2s,opacity .2s,padding .2s}
+.manikJalur.grid{display:block;max-height:none;overflow:visible;padding:4px 0 6px}
+.mkRow{display:flex;align-items:center;gap:4px;margin-bottom:5px}.manikMula{flex:none;width:24px;font-size:10px;opacity:.6;text-align:right;margin-right:4px;font-variant-numeric:tabular-nums}
+.manik.g10{margin-left:8px}
+.hudTopik{margin:0 0 10px}
+.manikJalur::-webkit-scrollbar{display:none}
+.lekat.sorok .hudStat{display:none}
+.manik{flex:none;width:13px;height:13px;padding:0;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--teks) 45%,transparent);background:transparent;cursor:pointer}
+.manik.j{background:#F5C430;border-color:#C99A12}
+.manik.b{background:#2F7BEA;border-color:#1D5BB8}
+.manik.s{background:#E0443B;border-color:#A92D27}
+.manik.kini{box-shadow:0 0 0 2px var(--panel,#fff),0 0 0 3.5px var(--sorot);transform:scale(1.15)}
+.hudStat{max-height:52vh;overflow-y:auto;margin:4px 0 2px;padding:10px;border-radius:12px;border:1px solid var(--tepi);background:var(--panel);color:var(--teks);font-size:13px}
+.hsBaris{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}.hsBaris>span{flex:none;width:118px;font-weight:700;opacity:.8;padding-top:4px}
+.hsBaris>div{display:flex;flex-wrap:wrap;gap:5px}.hsBaris em{opacity:.6;padding-top:4px}
+.hudCip{min-height:28px;padding:2px 9px;border-radius:14px;border:1.5px solid var(--tepi);font-size:12.5px;font-weight:700;color:var(--teks)}
+.hudCip.s{border-color:#E0443B;color:#E0443B}.hudCip.j{border-color:#C99A12}
+.hsGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:4px 0 8px}
+.hsGrid div{padding:6px 8px;border-radius:10px;background:color-mix(in srgb,var(--teks) 6%,transparent)}.hsGrid b{display:block;font-size:17px}.hsGrid span{font-size:11.5px;opacity:.75}
+.hsSk{padding:3px 8px;border-radius:10px;font-size:12px;background:color-mix(in srgb,var(--teks) 7%,transparent)}.hsSk.lemah{background:color-mix(in srgb,#E0443B 18%,transparent)}.hsSk.kuat{background:color-mix(in srgb,#2F7BEA 16%,transparent)}
+.hsTip{margin:4px 0;font-size:12.5px;line-height:1.45}
+.lekat .tab .semakAtas{flex:1}
+.lekat .tab .semakAtas:disabled{opacity:.55}
+.palang.tipis{height:8px;border-width:2px}
+
+/* ============================================================
+   SIDEBAR KEMAJUAN
+   ============================================================ */
+.tabir{position:fixed;inset:0;z-index:39;background:rgba(8,11,36,.55);animation:pudar .2s ease both}
+.sisiBar{
+  position:fixed;top:0;left:0;bottom:0;z-index:40;width:270px;max-width:82vw;
+  background:var(--panel-2);border-right:var(--sempadan) solid var(--tepi);
+  display:flex;flex-direction:column;animation:masukKiri .24s cubic-bezier(.2,.9,.3,1.1) both;
+}
+.t-arked .sisiBar{background:linear-gradient(#2E3A78,#232C61)}
+.sisiBar.kecil{width:64px}
+@keyframes masukKiri{from{transform:translateX(-100%)}to{transform:none}}
+.sisiKepala{
+  display:flex;align-items:center;gap:8px;padding:10px;
+  border-bottom:var(--sempadan) solid var(--tepi);flex:none;
+}
+.sisiKepala h2{font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden}
+.sisiBadan{flex:1;overflow-y:auto;padding:8px}
+.sisiKaki{padding:9px;border-top:var(--sempadan) solid var(--tepi);flex:none}
+
+.sjBlok{margin-bottom:6px;border-radius:var(--r-kecil);overflow:hidden}
+.sjKepala{
+  display:flex;align-items:center;gap:9px;width:100%;padding:9px 10px;color:var(--teks);
+  background:rgba(0,0,0,.16);border-left:5px solid var(--wj,#888);
+}
+.t-kiub .sjKepala{background:#F4F5F7}
+.sjKepala .lencana{
+  flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  font-size:11px;font-weight:800;letter-spacing:.02em;background:var(--wj);color:#10121F;
+}
+.sjKepala .nm{flex:1;min-width:0;font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sjKepala .kn{flex:none;font-size:11.5px;color:var(--teks-lembut);font-variant-numeric:tabular-nums}
+.sjKepala .ar{flex:none;font-size:10px;transition:transform .2s;color:var(--teks-lembut)}
+.sjBlok.buka .sjKepala .ar{transform:rotate(90deg)}
+.sjSenarai{display:none;padding:4px 0 6px}
+.sjBlok.buka .sjSenarai{display:block}
+.stRow{
+  display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px 8px 16px;color:var(--teks);
+  border-left:5px solid transparent;
+}
+.stRow:active{background:rgba(0,0,0,.2)}
+.stRow .tt{flex:1;min-width:0;font-size:12.5px;line-height:1.3}
+.stRow .bar2{flex:none;width:44px;height:7px;border-radius:4px;background:var(--manik-kosong);overflow:hidden}
+.stRow .bar2 i{display:block;height:100%;background:var(--wj)}
+.stRow .n{flex:none;font-size:11px;color:var(--teks-lembut);font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+
+/* rail bila dikecilkan */
+.sisiBar.kecil .sisiKepala h2,.sisiBar.kecil .sjKepala .nm,
+.sisiBar.kecil .sjKepala .kn,.sisiBar.kecil .sjKepala .ar,
+.sisiBar.kecil .sjSenarai,.sisiBar.kecil .sisiKaki .btn span{display:none}
+.sisiBar.kecil .sjKepala{justify-content:center;padding:8px 4px;border-left-width:4px}
+.sisiBar.kecil .sisiBadan{padding:6px 4px}
+.sisiBar.kecil .lencana{width:38px;height:38px;font-size:12px}
+
+/* ============================================================
+   KALENDAR UTAMA
+   ============================================================ */
+.kal{padding:12px 10px 14px;margin-bottom:14px}
+.kalTajuk{display:flex;align-items:baseline;gap:8px;margin:0 4px 10px}
+.kalTajuk b{font-family:var(--f-papar);font-size:19px}
+.t-bumi .kalTajuk b,.t-kiub .kalTajuk b{font-family:var(--f-teks);font-weight:700}
+.kalTajuk span{font-size:11.5px;color:var(--teks-lembut);margin-left:auto}
+.kalGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.kalHari{text-align:center;font-size:10px;color:var(--teks-lembut);padding:2px 0 4px;font-weight:600}
+.kalSel{
+  aspect-ratio:1;border-radius:var(--r-kecil);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1px;position:relative;
+  border:2px solid transparent;color:var(--teks-lembut);
+}
+.kalSel .d{font-size:13px;font-variant-numeric:tabular-nums}
+.kalSel.ada{background:rgba(0,0,0,.2);border-color:var(--tepi);color:var(--teks)}
+.t-kiub .kalSel.ada{background:#F4F5F7}
+.kalSel.ada .d{font-weight:800;font-size:15px}
+.kalSel .ik{font-size:13px;line-height:1;display:flex;gap:1px}
+.kalSel.kini{border-color:var(--sorot);box-shadow:0 0 0 3px var(--sorot-muda)}
+.kalSel.kini .d{color:var(--sorot);font-weight:800}
+.kalSel.lepas{opacity:.42}
+.kalSel.kosong{visibility:hidden}
+.kalPetunjuk{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.kalPetunjuk button{
+  display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:20px;font-size:11px;
+  background:rgba(0,0,0,.2);border:2px solid var(--tepi);color:var(--teks);
+}
+.t-kiub .kalPetunjuk button{background:#F4F5F7}
+.kalPetunjuk .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.kalPetunjuk b{font-variant-numeric:tabular-nums}
+
+/* ============================================================
+   PILIHAN NEUTRAL (belum disemak)
+   ============================================================ */
+.pil.dipilih{border-color:var(--sorot)!important;box-shadow:inset 0 0 0 2px var(--sorot)}
+.pil.dipilih .huruf{background:var(--sorot);color:#fff}
+.padanBaris.dipilih2,.jdSlot.dipilih2{border-color:var(--sorot);border-style:solid}
+.kotakDigit.dipilih{border-color:var(--sorot)}
+.semakBar{display:flex;gap:9px;margin:16px 0 4px}
+
+/* ---- jalur subtopik dalam header ---- */
+.jalur{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.jalur::-webkit-scrollbar{display:none}
+.jalur button{
+  flex:none;display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:20px;
+  font-size:11.5px;white-space:nowrap;color:var(--teks-lembut);
+  background:rgba(0,0,0,.18);border:2px solid var(--tepi);
+}
+.t-kiub .jalur button{background:#F4F5F7}
+.jalur button b{font-variant-numeric:tabular-nums;color:var(--teks)}
+.jalur button.kini{background:var(--sorot);border-color:var(--sorot-tepi);color:#fff}
+.jalur button.kini b{color:#fff}
+.jalur button.penuh{border-color:var(--ok)}
+
+/* ---- senarai topik bawah kalendar ---- */
+.senaraiTopik{margin-top:2px}
+.stBaris{
+  display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;margin-bottom:7px;
+  color:var(--teks);background:var(--panel-2);
+  border:var(--sempadan) solid var(--tepi);border-left:5px solid var(--wj);
+  border-bottom-width:calc(var(--sempadan) + 3px);border-radius:var(--r-sedang);
+}
+.t-arked .stBaris{background:linear-gradient(var(--panel-2),var(--panel))}
+.stBaris:active{transform:translateY(2px);border-bottom-width:var(--sempadan)}
+.stBaris.lepas{opacity:.45}
+.stBaris .sk{
+  flex:none;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  font-size:11.5px;font-weight:800;background:var(--wj);color:#10121F;
+}
+.stBaris .isi{flex:1;min-width:0}
+.stBaris .isi b{display:block;font-size:14px;font-weight:600;line-height:1.25}
+.stBaris .isi span{font-size:11.5px;color:var(--teks-lembut)}
+.stBaris .kn{flex:none;text-align:right;font-size:12px;font-variant-numeric:tabular-nums}
+.stBaris .kn b{display:block;font-size:15px;font-weight:700}
+.kalSel .ab{font-size:9px;font-weight:800;letter-spacing:-.02em;line-height:1.1;text-align:center}
+.pinAktif{background:var(--sorot)!important;color:#fff}
+
+/* ---- teks Jawi / Arab: sentiasa kanan ke kiri, terasing daripada teks Rumi ---- */
+.jw{
+  font-family:'Noto Naskh Arabic',serif;
+  direction:rtl; unicode-bidi:isolate;
+  font-size:1.18em; line-height:2.1;
+}
+.soal .jw,.pil .jw,.jd .jw,.padanBaris .jw{font-size:1.28em}
+.jadualNota td .jw,.glosKad dt .jw{font-size:1.22em}
+.barisJawi{direction:rtl;text-align:right}
+
+/* perkataan yang belum ada dalam kamus Jawi — kekal Rumi, ditanda */
+.blmJawi{border-bottom:2px dotted var(--no);opacity:.85}
+.kiraJawi{font-size:12px;color:var(--teks-lembut);margin:6px 0 0}
+
+/* ============================================================
+   MOD JAWI PENUH — seluruh kad bertukar arah kanan ke kiri
+   ============================================================ */
+.rtlPenuh{direction:rtl;text-align:right}
+.rm{unicode-bidi:isolate;direction:ltr;display:inline-block;font-family:inherit;color:#1565c0;font-weight:600}
+.rtlPenuh .soalNo{direction:ltr;text-align:right;display:block}
+.rtlPenuh .soalNo .jn{margin-left:0;margin-right:7px}
+.rtlPenuh .soal{text-align:right;line-height:2.05}
+.rtlPenuh .pil{flex-direction:row-reverse;text-align:right}
+.rtlPenuh .pil .teks{text-align:right}
+.rtlPenuh .bank{justify-content:flex-end}
+.rtlPenuh .padanBaris{flex-direction:row-reverse;text-align:right}
+.rtlPenuh .padanArahan{text-align:right}
+.rtlPenuh .jd th,.rtlPenuh .jd td{text-align:right}
+.rtlPenuh .maklum{text-align:right}
+.rtlPenuh .petikan{text-align:right}
+.rtlPenuh ul,.rtlPenuh ol{margin-left:0;margin-right:22px}
+.rtlPenuh .langkah{margin-right:0}
+.rtlPenuh .langkah li{padding-left:0;padding-right:44px}
+.rtlPenuh .langkah li::before{left:auto;right:0}
+.rtlPenuh .akorKepala{flex-direction:row;text-align:right;direction:rtl}   /* 0.5.78: Jawi notes right to left, the arrow on the far left */
+.rtlPenuh .akorBadan{direction:rtl;text-align:right}
+.rtlPenuh .akorKepala .ar{margin-left:0;margin-right:0;margin-inline-start:auto;transform:rotate(180deg)}
+.rtlPenuh .akor[open] > .akorKepala .ar{transform:rotate(90deg)}
+.rtlPenuh .glosKad dt{flex-direction:row-reverse}
+.rtlPenuh .glosKad dt .pt{margin-left:0;margin-right:auto}
+.rtlPenuh .kotakContoh,.rtlPenuh .tahukah{text-align:right}
+.rtlPenuh .tahukah{border-left:none;border-right:5px solid var(--sorot)}
+.rtlPenuh .jadualNota th,.rtlPenuh .jadualNota td{text-align:right}
+.bar h1.jwTajuk{direction:rtl;text-align:right;font-family:'Noto Naskh Arabic',serif;font-size:16px}
+.topik.rtlPenuh{flex-direction:row-reverse;text-align:right}
+.topik.rtlPenuh .nama,.topik.rtlPenuh .skor{text-align:right}
+.stBaris.rtlPenuh{flex-direction:row-reverse;text-align:right;border-left:none;border-right:5px solid var(--wj)}
+.stBaris.rtlPenuh .isi span{direction:ltr;text-align:right;display:block}
+.sjKepala.rtlPenuh,.stRow.rtlPenuh{flex-direction:row-reverse;text-align:right}
+
+/* ============================================================
+   DIALOG DALAM APLIKASI — prompt()/confirm() disekat di dalam iframe
+   ============================================================ */
+.dlgTabir{position:fixed;inset:0;z-index:70;background:rgba(8,11,36,.82);
+  display:grid;place-items:center;padding:22px;animation:pudar .2s ease both}
+.dlg{
+  width:100%;max-width:360px;padding:20px 18px 16px;text-align:center;
+  background:var(--panel-2);color:var(--teks);
+  border:var(--sempadan) solid var(--tepi);border-bottom-width:calc(var(--sempadan) + 6px);
+  border-radius:var(--r-besar);box-shadow:var(--bayang-dalam);
+  animation:masuk .3s cubic-bezier(.2,.9,.3,1.3) both;
+}
+.t-arked .dlg{background:linear-gradient(var(--panel-2),var(--panel))}
+.dlg h3{font-size:19px;margin-bottom:8px}
+.dlg p{font-size:14px;color:var(--teks-lembut);line-height:1.5;margin-bottom:14px;white-space:pre-line}
+.dlg input{
+  width:100%;padding:13px 14px;margin-bottom:12px;font:inherit;font-size:18px;
+  text-align:center;letter-spacing:.14em;color:var(--tinta);background:var(--kertas);
+  border:var(--sempadan) solid var(--tepi);border-radius:var(--r-sedang);
+}
+.dlg .amar{color:var(--no);font-size:13px;font-weight:600;margin:-6px 0 10px;min-height:18px}
+
+/* ---- sel kalendar: setiap singkatan jadi pautan sendiri ---- */
+.kalSel{padding:2px 1px}
+.kalSel .ik{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;width:100%}
+.abBtn{
+  flex:none;padding:1px 3px;border-radius:4px;font-size:8.5px;font-weight:800;
+  letter-spacing:-.02em;line-height:1.25;color:#10121F;background:var(--wj,#8892C8);
+}
+.t-kiub .abBtn{color:#fff}
+.abBtn:active{transform:scale(.9)}
+
+/* ---- senarai bawah kalendar: dua lajur Rumi | Jawi ---- */
+.stBaris{
+  display:grid;grid-template-columns:auto 1fr auto auto;
+  align-items:center;column-gap:9px;row-gap:2px;text-align:left;
+}
+.stBaris .sk{grid-row:1 / span 2}
+.stBaris .rumi{grid-column:2;font-size:14px;font-weight:600;line-height:1.25;min-width:0}
+.stBaris .jawi{
+  grid-column:3;font-family:'Noto Naskh Arabic',serif;direction:rtl;
+  font-size:15px;line-height:1.9;white-space:nowrap;color:var(--emas);
+}
+.stBaris .kn{grid-column:4;grid-row:1 / span 2;text-align:right;font-size:12px;font-variant-numeric:tabular-nums}
+.stBaris .kn b{display:block;font-size:15px;font-weight:700}
+.stBaris .tkh{grid-column:2 / span 2;font-size:11px;color:var(--teks-lembut);line-height:1.3}
+.stBaris.rtlPenuh{border-left:none;border-right:5px solid var(--wj)}
+@media (max-width:360px){ .stBaris .jawi{font-size:13px} .stBaris .rumi{font-size:13px} }
+
+/* ---- dua lajur bersebelahan: Rumi | Jawi ---- */
+.duaLajur{display:grid;grid-template-columns:1fr 1fr;column-gap:8px;row-gap:8px}
+.lajurTajuk{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--teks-lembut);padding:0 2px 6px;text-align:center;
+}
+.lajurTajuk.jw{font-family:'Noto Naskh Arabic',serif;font-size:14px;letter-spacing:0;text-transform:none}
+.miniKad{
+  display:block;width:100%;text-align:left;color:var(--teks);padding:10px 10px;
+  background:var(--panel-2);border:var(--sempadan) solid var(--tepi);
+  border-left:4px solid var(--wj);border-bottom-width:calc(var(--sempadan) + 3px);
+  border-radius:var(--r-sedang);box-shadow:var(--bayang-dalam);
+}
+.t-arked .miniKad{background:linear-gradient(var(--panel-2),var(--panel))}
+.miniKad:active{transform:translateY(2px);border-bottom-width:var(--sempadan)}
+.miniKad.lepas{opacity:.45}
+.miniKad .atas{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+  .miniKad .sk{
+  flex:none;width:30px;height:25px;border-radius:6px;display:grid;place-items:center;
+  font-size:9.5px;font-weight:800;background:var(--wj);color:#10121F;
+}
+.t-kiub .miniKad .sk{color:#fff}
+.miniKad .nm{flex:1;min-width:0;font-size:14px;font-weight:600;line-height:1.3;
+  overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.miniKad .kaki{display:flex;align-items:baseline;gap:5px;font-size:11.5px;margin-top:4px;color:var(--teks-lembut)}
+.miniKad .kaki b{color:var(--teks);font-variant-numeric:tabular-nums;font-size:13px}
+.miniKad.jw{border-left:none;border-right:4px solid var(--wj);direction:rtl;text-align:right}
+.miniKad.jw .atas{flex-direction:row-reverse}
+.miniKad.jw .nm{font-family:'Noto Naskh Arabic',serif;font-size:16px;line-height:1.55;-webkit-line-clamp:2}
+.miniKad.jw .kaki{flex-direction:row-reverse}
+@media (max-width:340px){ .miniKad .nm{font-size:12.5px} .miniKad.jw .nm{font-size:14px} }
+/* satu grid dikongsi — setiap baris sama tinggi di kedua-dua belah */
+.duaLajur{align-items:stretch}
+.duaLajur .miniKad{margin-bottom:0;height:100%;display:flex;flex-direction:column;justify-content:center}
+</style>
+</head>
+<body class="t-arked">
+<div id="app"></div>
+<script src="vis.js"></script>
+<script src="sedia.js"></script><script src="f1.js"></script>
+<script src="games3d.js"></script>
+<script src="games.js"></script>
+<script src="games10.js"></script>
+<script src="ui-en.js"></script>
+<script>
+"use strict";
+/* My Ihsan Silibus: the pack is loaded at start (muatPek). exam.html?pek=t1-bm&mod=nota|kuiz|main&anak=<key>&nama=<child> */
+const QS = new URLSearchParams(location.search);
+const PEK = QS.get("pek") || "sedia-t1", MOD = QS.get("mod") || "kuiz", ANAK = (QS.get("anak") || "anak").replace(/[^A-Za-z0-9_-]/g, "") || "anak";
+const NAMA_ANAK = (QS.get("nama") || "").slice(0, 30);
+let PACK = null, BAHASA = "ms";
+let DATA = {murid:NAMA_ANAK, kelas:"", tempoh:"", tajuk:"", subjek:[]};
+
+/* ============================================================
+   KAMUS RUMI → JAWI
+   Untuk kandungan Pendidikan Islam (Akhlak, Tauhid, Feqah, Wudhuk).
+   Setiap perkataan dieja tangan mengikut ejaan Jawi DBP.
+   Perkataan yang TIADA dalam kamus dibiarkan dalam Rumi dan
+   ditanda garis putus-putus supaya mudah dikesan dan disemak.
+   ============================================================ */
+let KAMUS = {};   // silibus/kamus.json
+const KEKAL_RUMI = new Set(["a","e","i","o","u","ca","nya","va","as","saw","ai","au","ui","ia","iu","ua","pa","ga","nga",
+  "rumi","jawi","vokal","berganding","hamzah","pemisah","huruf","bunyi","berbunyi","dieja",
+  "padanan","perkataan","teks","ms"]);
+// 0.5.65: KAFA packs are full Jawi books, so only letter names stay Rumi there (huruf, Jawi, vokal… are written in Jawi)
+const KEKAL_KAFA = new Set(["a","e","i","o","u","ca","nya","va","pa","ga","nga","as","ai","au","ms"]);
+const PEK_KAFA = /-(akhlak|tauhid|feqah|hafazan|kafa|sirah|tajwid|imlak|khat)$|-upkk-/.test(new URLSearchParams(location.search).get("pek")||"");   // 0.5.75: UPKK papers too
+
+
+/* ============================================================
+   SIMPANAN
+   ============================================================ */
+const BINAAN = "2026-09-01p";   // cap binaan — semak di skrin utama
+const KUNCI = "silibus." + ANAK + "." + PEK + ".v1";
+let simpan = {};
+try { simpan = JSON.parse(localStorage.getItem(KUNCI) || "{}"); } catch(e){ simpan = {}; }
+function tulis(){ try{ localStorage.setItem(KUNCI, JSON.stringify(simpan)); }catch(e){} try{ ringkas(); }catch(e){} }
+// 0.5.71: time spent per pack (only while the page is visible and the child did something in the last 2 minutes) for the School dashboard
+(function(){ const K = "silibus." + ANAK + ".masa"; let t0 = Date.now(), act = Date.now();
+  const flush = function(){ const now = Date.now(), d = Math.round((now - t0)/1000); t0 = now; if(d < 1 || d > 900 || now - act > 120000 || document.hidden) return;
+    try{ const o = JSON.parse(localStorage.getItem(K) || "{}"); o[PEK] = (o[PEK]||0) + d; localStorage.setItem(K, JSON.stringify(o)); }catch(e){} };
+  ["pointerdown","keydown","touchstart"].forEach(function(ev){ document.addEventListener(ev, function(){ act = Date.now(); }, {passive:true, capture:true}); });
+  setInterval(flush, 15000); document.addEventListener("visibilitychange", function(){ if(document.hidden) flush(); else { t0 = Date.now(); } }); window.addEventListener("pagehide", flush); })();
+// summary for the Learn page (spec §4.3): silibus.<anak>.ringkas = {<pek>:{dijawab,betul,pertama,jum,nota,topik,kemaskini}}
+function ringkas(){ const s0 = DATA.subjek[0]; if(!s0 || MOD === "ujian") return; let dj=0, bt=0, pt=0, jm=0, nb=0;
+  let nx = null; for(const t of s0.topik){ const k = kiraTopik(t); dj+=k.jawab; bt+=k.betul; pt+=k.pBetul; jm+=k.jum; if(simpan[t.id] && simpan[t.id].baca) nb++; if(nx === null && k.jawab < k.jum) nx = t.nama; }
+  const K2 = "silibus." + ANAK + ".ringkas"; let o = {}; try{ o = JSON.parse(localStorage.getItem(K2) || "{}"); }catch(e){}
+  o[PEK] = {dijawab:dj, betul:bt, pertama:pt, jum:jm, nota:nb, topik:s0.topik.length, kemaskini:Date.now(), next:nx}; localStorage.setItem(K2, JSON.stringify(o)); }
+function rekod(tid){
+  if(!simpan[tid]) simpan[tid] = { jawapan:{}, pertama:{}, disemak:{} };
+  if(!simpan[tid].jawapan) simpan[tid].jawapan = {};
+  if(!simpan[tid].pertama) simpan[tid].pertama = {};
+  if(!simpan[tid].disemak) simpan[tid].disemak = {};
+  if(!simpan[tid].cubaan) simpan[tid].cubaan = {};
+  if(!simpan[tid].salahN) simpan[tid].salahN = {};
+  return simpan[tid];
+}
+
+/* ============================================================
+   TEMA
+   ============================================================ */
+const TEMA = [
+  {id:"arked", ikon:"🎮", nama:"Arked"},
+  {id:"bumi",  ikon:"🌿", nama:"Bumi"},
+  {id:"kiub",  ikon:"📐", nama:"Kiub"},
+  {id:"apl",   ikon:"🎨", nama:"Aplikasi"}
+];
+// Years 4-6 open in the app's own theme; the younger levels keep Arked (the person can still switch with the theme button)
+// 0.6.8: Form 1 and up always use the app theme
+const TEMA_APL = /^f\d-/.test(PEK);
+let temaKini = TEMA_APL ? "apl" : TEMA.some(t=>t.id===simpan.__tema) ? simpan.__tema : (/^t[456]-/.test(PEK) ? "apl" : "arked");
+// copy My Ihsan's theme tokens and font from the app page (same origin) into --a-* variables
+function temaApl(){
+  const B = document.body.style, K = ["bg","card","card2","line","fg","mut","green","red","gold","blue"];
+  let cs = null, fb = null, fh = null;
+  try{ const P = window.parent && window.parent !== window ? window.parent.document : null;
+    if(P){ cs = window.parent.getComputedStyle(P.documentElement); fb = window.parent.getComputedStyle(P.body).fontFamily;
+      const h3 = P.querySelector("h3"); fh = h3 ? window.parent.getComputedStyle(h3).fontFamily : fb; } }catch(e){ cs = null; }
+  K.forEach(k=>{ const v = cs ? cs.getPropertyValue("--" + k).trim() : ""; if(v && temaKini === "apl") B.setProperty("--a-" + k, v); else B.removeProperty("--a-" + k); });
+  if(fb && temaKini === "apl"){ B.setProperty("--a-font", fb); B.setProperty("--a-head", fh || fb); } else { B.removeProperty("--a-font"); B.removeProperty("--a-head"); }
+  try{ const dark = cs && /dark/.test(cs.getPropertyValue("color-scheme")); document.documentElement.style.colorScheme = temaKini === "apl" && dark ? "dark" : ""; }catch(e){}
+}
+function pakaiTema(){
+  document.body.className = "t-" + temaKini;
+  temaApl();
+  binaLatar();
+}
+function tukarTema(){
+  const i = TEMA.findIndex(t=>t.id===temaKini);
+  temaKini = TEMA[(i+1) % TEMA.length].id;
+  simpan.__tema = temaKini; tulis();
+  pakaiTema(); lukis();
+}
+
+function kurangGerak(){
+  try{ return window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){ return false; }
+}
+function binaLatar(){
+  const lama = document.querySelector(".latar"); if(lama) lama.remove();
+  const l = document.createElement("div"); l.className = "latar";
+  if(!kurangGerak()){
+    if(temaKini === "arked"){
+      for(let i=0;i<8;i++){
+        const k = document.createElement("span"); k.className = "kiub-h";
+        const s = 34 + Math.random()*72;
+        k.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}vw;
+          animation-duration:${26+Math.random()*30}s;animation-delay:${-Math.random()*40}s`;
+        l.appendChild(k);
+      }
+    } else if(temaKini === "bumi"){
+      const daun = ["🌿","🍃","🌾","🍂","🌱"];
+      for(let i=0;i<6;i++){
+        const k = document.createElement("span"); k.className = "daun";
+        k.textContent = daun[i % daun.length];
+        k.style.cssText = `left:${5+Math.random()*88}vw;top:${6+Math.random()*84}vh;
+          animation-delay:${-Math.random()*20}s;font-size:${44+Math.random()*38}px`;
+        l.appendChild(k);
+      }
+    }
+  }
+  document.body.insertBefore(l, document.body.firstChild);
+}
+
+/* ============================================================
+   BUNYI
+   ============================================================ */
+let bunyiHidup = simpan.__bunyi !== false;
+let audioCtx = null;
+const LAGU = { betul:[[660,0],[880,.07],[1180,.14]], salah:[[220,0],[155,.09]], siap:[[523,0],[659,.1],[880,.2]] };
+function bunyi(jenis){
+  if(!bunyiHidup) return;
+  try{
+    const C = window.AudioContext || window.webkitAudioContext; if(!C) return;
+    if(!audioCtx) audioCtx = new C();
+    if(audioCtx.state === "suspended") audioCtx.resume();
+    const nada = LAGU[jenis]; if(!nada) return;
+    const t0 = audioCtx.currentTime;
+    for(const [hz,off] of nada){
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+      o.connect(g); g.connect(audioCtx.destination);
+      o.type = (jenis === "salah") ? "square" : "triangle";
+      o.frequency.setValueAtTime(hz, t0+off);
+      g.gain.setValueAtTime(0.0001, t0+off);
+      g.gain.exponentialRampToValueAtTime(0.10, t0+off+0.012);
+      g.gain.exponentialRampToValueAtTime(0.0006, t0+off+0.19);
+      o.start(t0+off); o.stop(t0+off+0.21);
+    }
+  }catch(e){}
+}
+
+/* ============================================================
+   SIRI HARIAN (dikecilkan)
+   ============================================================ */
+function tarikhKunci(d){ const p=n=>String(n).padStart(2,"0"); return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate()); }
+function harian(){ if(!simpan.__harian) simpan.__harian = {tarikh:null,siri:0,terbaik:0}; return simpan.__harian; }
+function kemasHarian(){
+  const h = harian(), kini = new Date(), hariIni = tarikhKunci(kini);
+  if(h.tarikh === hariIni) return h;
+  const semalam = new Date(kini.getTime()-86400000);
+  h.siri = (h.tarikh === tarikhKunci(semalam)) ? (h.siri||0)+1 : 1;
+  h.tarikh = hariIni; h.terbaik = Math.max(h.terbaik||0, h.siri); tulis(); return h;
+}
+function siriHarianKini(){
+  const h = harian(); if(!h.tarikh) return 0;
+  const kini = new Date(), semalam = new Date(kini.getTime()-86400000);
+  return (h.tarikh===tarikhKunci(kini) || h.tarikh===tarikhKunci(semalam)) ? (h.siri||0) : 0;
+}
+
+/* ============================================================
+   PENILAIAN JAWAPAN
+   ============================================================ */
+function posDigit(q){
+  const out=[]; for(let n=0;n<q.a.length;n++) if(q.a[n]!==".") out.push(n); return out;
+}
+function siapJawab(q,v){
+  if(window.SEDIA && SEDIA.JENIS[q.j]) return SEDIA.siap(q,v);   // spec v3 §4.6-4.7 (sedia.js)
+  if(v === undefined || v === null) return false;
+  if(q.j === "padankan") return q.pasangan.every((_,i)=> v[i] != null);
+  if(q.j === "jadual")   return q.baris.every((_,i)=> v[i] != null);
+  if(q.j === "lajur")    return posDigit(q).every(n=> v[n] != null);
+  if(q.j === "susun")    return Array.isArray(v) && v.length === q.susunan.length;
+  return true;
+}
+// 0.6.31: the right answer as text (choice / fill-in / number); other question types (match, order, table, columns) show none
+function jawapanTeks(q){ if(q == null || q.a == null) return ""; if(q.j === "padankan" || q.j === "jadual" || q.j === "susun") return ""; if(Array.isArray(q.a)) return q.a.join(", "); if(typeof q.a === "object") return ""; return String(q.a); }
+function betulJawab(q,v){
+  if(window.SEDIA && SEDIA.JENIS[q.j]) return SEDIA.betul(q,v);
+  if(!siapJawab(q,v)) return false;
+  if(q.j === "padankan") return q.pasangan.every((p,i)=> v[i] === p[1]);
+  if(q.j === "jadual")   return q.baris.every((b,i)=> v[i] === b.a);
+  if(q.j === "lajur")    return posDigit(q).every(n=> v[n] === q.a[n]);
+  if(q.j === "susun")    return v.every((x,i)=> x === i);
+  if(q.j === "bs" && q.label){ const i = q.label.indexOf(v), j = ["Betul","Salah"].indexOf(q.a); if(i >= 0 && j >= 0) return i === j; }   // DLP packs: labels True/False, older data kept a = Betul/Salah
+  return v === q.a;
+}
+const NAMA_JENIS = {nombor:"Kira jawapan", kumpul:"Kelaskan", mcq:"Pilih", bs:"Betul / Salah", isi:"Isi tempat kosong", padankan:"Padankan", jadual:"Lengkapkan jadual", lajur:"Kira turus", susun:"Susun", eja:"Eja", pilihBanyak:"Pilih semua", kira:"Kira", baca:"Lisan"};
+
+
+/* ============================================================
+   META SUBJEK — ikon, singkatan, warna
+   ============================================================ */
+const META = {
+  bm:{ikon:"📖", sk:"BM", warna:"#E8A33D"},
+  bi:{ikon:"🔤", sk:"BI", warna:"#35D0F0"},
+  wu:{ikon:"💧", sk:"WU", warna:"#4FC3F7"},
+  ak:{ikon:"🤝", sk:"AK", warna:"#8BE04E"},
+  jw:{ikon:"✍️", sk:"JW", warna:"#FF4FA3"},
+  mt:{ikon:"➗", sk:"MT", warna:"#FF9F1C"},
+  th:{ikon:"☝️", sk:"TH", warna:"#B48CFF"},
+  sn:{ikon:"🔬", sk:"SN", warna:"#4EE0B0"},
+  ba:{ikon:"🕌", sk:"BA", warna:"#FFD53D"},
+  fq:{ikon:"🕋", sk:"FQ", warna:"#FF7A5C"}
+};
+function met(id){ return META[id] || {ikon:"📘", sk:id.toUpperCase(), warna:"#8892C8"}; }
+
+
+/* ============================================================
+   TEKS JAWI / ARAB — asingkan setiap jujukan tulisan Arab
+   supaya ia sentiasa dipapar kanan ke kiri.
+   ============================================================ */
+const RX_ARAB = /[\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF][\u0600-\u06FF\u0750-\u077F\uFB50-\uFDFF\uFE70-\uFEFF\s\u200c\u200d.,\-\u061F\u060C]*/g;
+function rtl(teks){
+  if(teks == null) return teks;
+  return String(teks).replace(RX_ARAB, m=>{
+    const ekor = m.match(/[\s]+$/);
+    const inti = ekor ? m.slice(0, -ekor[0].length) : m;
+    return '<bdi class="jw">' + inti + '</bdi>' + (ekor ? ekor[0] : '');
+  });
+}
+
+/* ============================================================
+   LABEL JAWI — hanya label antara muka dan nama subjek,
+   iaitu ejaan yang disahkan daripada muka depan buku teks JAIS.
+   ============================================================ */
+let jawiMod = simpan.__jawi === true && !/^f\d-/.test(new URLSearchParams(location.search).get("pek")||"");   // 0.6.14: Form packs are Rumi (no Jawi switch there)
+const NAMA_JENIS_JW = {nombor:"کيرا جواڤن", kumpul:"کلسکن", mcq:"ڤيليه", bs:"بتول / ساله", isi:"ايسي تمڤت كوسوڠ", padankan:"ڤادنكن", jadual:"لڠكڤكن جدوال", susun:"سوسون", pilihBanyak:"ڤيليه سموا"};
+const LBL = {
+  "Kuiz":"كويز", "Nota":"نوتا", "Glosari":"ݢلوساري", "Kemajuan":"كماجوان",
+  "Jadual peperiksaan":"جدوال ڤڤريكسأن", "Naik ke atas":"ناٴيق ك اتس"
+};
+const NAMA_JAWI = {
+  bm:"بهاس ملايو", bi:"بهاس اڠݢريس", wu:"عملي وضوء", mt:"ماتيماتيك", sn:"ساٴينس",
+  ba:"بهاس عرب", ak:"اخلاق", jw:"جاوي", th:"توحيد", fq:"فقه"
+};
+function L(teks){ return subJawi(laluan.sub) && LBL[teks] ? rtl(LBL[teks]) : teks; }
+const SUBJEK_PI = new Set();   // wu kekal Rumi   // hanya ini bertukar Jawi
+function subJawi(id){ return jawiMod && SUBJEK_PI.has(id); }
+function namaSubjek(sub){ return subJawi(sub.id) && NAMA_JAWI[sub.id] ? rtl(NAMA_JAWI[sub.id]) : sub.nama; }
+
+
+/* ============================================================
+   PENUKARAN RUMI → JAWI (Pendidikan Islam sahaja)
+   Hanya perkataan dalam KAMUS ditukar. Yang lain kekal Rumi
+   dan ditanda garis putus-putus untuk disemak.
+   ============================================================ */
+const SUBJEK_JAWI = new Set();      // wu kekal Rumi   // 'jw' dikecualikan: soalannya
+                                                       // memang campuran Rumi + Jawi
+let jawiTakJumpa = 0;
+function bolehTukar(){ return jawiMod && SUBJEK_JAWI.has(laluan.sub); }   // jw dikecualikan
+function tukarJawi(teks){
+  if(teks == null) return teks;
+  // 0.5.54: honorifics written in full (a.s. = عليه السلام, r.a. = رضي الله عنه)
+  teks = String(teks).replace(/\ba\.s\./g, "عليه السلام").replace(/\br\.a\./g, "رضي الله عنه");
+  // 0.5.65: <span class="rm">…</span> is Rumi on purpose (Jawi lessons: "bola → بولا") and is never converted
+  const bhg = String(teks).split(/(<span class="rm">[\s\S]*?<\/span>|<[^>]*>|&[a-zA-Z#0-9]+;)/);   // jangan sentuh tag atau entiti HTML
+  for(let i=0;i<bhg.length;i++){
+    if(bhg[i].startsWith("<")) continue;
+    bhg[i] = bhg[i].replace(/[A-Za-z][A-Za-z'\-]*/g, w=>{
+      const k = w.toLowerCase();
+      if(PEK_KAFA ? KEKAL_KAFA.has(k) : KEKAL_RUMI.has(k)) return w;
+      if(KAMUS[k]) return KAMUS[k];
+      jawiTakJumpa++;
+      return '<span class="blmJawi">' + w + '</span>';
+    });
+  }
+  return bhg.join("");
+}
+// papar() = tukar dahulu (jika perlu), kemudian asingkan arah kanan-ke-kiri
+// 0.6.17: powers written as 2^7, a^(m+n) or 10^−3 in pack text are shown raised (superscript)
+function kuasa(t){ return typeof t === "string" && t.indexOf("^") >= 0 ? t.replace(/\^\(([^()]*)\)/g, "<sup>$1</sup>").replace(/\^([−-]?[0-9A-Za-z]+)/g, "<sup>$1</sup>") : t; }
+function papar(teks){ return rtl(bolehTukar() ? tukarJawi(kuasa(teks)) : kuasa(teks)); }
+// versi untuk sidebar: subjek dinyatakan terus kerana laluan.sub belum berubah
+function papar2(id, teks){ return rtl(SUBJEK_JAWI.has(id) ? tukarJawi(kuasa(teks)) : kuasa(teks)); }
+
+
+/* ============================================================
+   DIALOG DALAM APLIKASI
+   prompt() dan confirm() disekat apabila fail dibuka di dalam
+   iframe (contohnya pemapar dalam aplikasi), jadi kita bina sendiri.
+   ============================================================ */
+function dialog(pilihan){
+  const lama = document.querySelector(".dlgTabir"); if(lama) lama.remove();
+  const tabir = document.createElement("div"); tabir.className = "dlgTabir";
+  const kotak = document.createElement("div"); kotak.className = "dlg";
+  kotak.innerHTML =
+    `<h3>${pilihan.tajuk}</h3>` +
+    (pilihan.teks ? `<p>${pilihan.teks}</p>` : "") +
+    (pilihan.input ? `<input type="${pilihan.jenisInput||'text'}" inputmode="${pilihan.jenisInput==='password'?'numeric':'text'}" autocomplete="off">
+                      <div class="amar"></div>` : "") +
+    `<div class="nav">
+       <button class="btn" data-batal>Batal</button>
+       <button class="btn ${pilihan.bahaya?'emas':'utama'}" data-ok>${pilihan.labelOk||"OK"}</button>
+     </div>`;
+  tabir.appendChild(kotak); document.body.appendChild(tabir);
+  const inp = kotak.querySelector("input"), amar = kotak.querySelector(".amar");
+  if(inp) setTimeout(()=>inp.focus(), 60);
+  const tutup = ()=> tabir.remove();
+  kotak.querySelector("[data-batal]").onclick = tutup;
+  const hantar = ()=>{
+    if(pilihan.sahkan){
+      const nilai = inp ? inp.value.trim() : "";
+      if(!pilihan.sahkan(nilai)){
+        if(amar) amar.textContent = pilihan.mesejSalah || "Tidak betul.";
+        if(inp){ inp.value = ""; inp.focus(); }
+        return;
+      }
+    }
+    tutup(); if(pilihan.onOk) pilihan.onOk();
+  };
+  kotak.querySelector("[data-ok]").onclick = hantar;
+  if(inp) inp.onkeydown = e=>{ if(e.key === "Enter") hantar(); };
+  tabir.onclick = e=>{ if(e.target === tabir) tutup(); };
+}
+
+/* ============================================================
+   BANTUAN
+   ============================================================ */
+const BULAN = ["Jan","Feb","Mac","Apr","Mei","Jun","Jul","Ogos","Sept","Okt","Nov","Dis"];
+function pecah(iso){ const [y,m,d] = iso.split("-").map(Number); return {y,m,d}; }
+function hariBaki(iso){
+  const {y,m,d} = pecah(iso), kini = new Date();
+  return Math.round((new Date(y,m-1,d) - new Date(kini.getFullYear(),kini.getMonth(),kini.getDate()))/86400000);
+}
+function lindung(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function semuaSoalan(sub){ return (sub.topik||[]).reduce((a,t)=>a.concat(t.soalan||[]),[]); }
+function kiraTopik(t){
+  const r = simpan[t.id], jum = (t.soalan||[]).length;
+  if(!r) return {jum,jawab:0,semak:0,betul:0,salah:0,pBetul:0,pJawab:0};
+  let jawab=0,semak=0,betul=0,pBetul=0,pJawab=0;
+  for(const q of t.soalan){
+    const v = r.jawapan[q.id];
+    if(siapJawab(q,v)) jawab++;
+    if(r.disemak && r.disemak[q.id]){ semak++; if(betulJawab(q,v)) betul++; }
+    if(Object.prototype.hasOwnProperty.call(r.pertama,q.id)){ pJawab++; if(r.pertama[q.id]) pBetul++; }
+  }
+  return {jum,jawab,semak,betul,salah:semak-betul,pBetul,pJawab};
+}
+// Warna hanya muncul selepas Semak ditekan.
+function statusSoalan(t,q){
+  const r = simpan[t.id]; if(!r || !r.disemak || !r.disemak[q.id]) return "";
+  return betulJawab(q, r.jawapan[q.id]) ? "b" : "s";
+}
+function sudahSemak(t,q){
+  const r = simpan[t.id];
+  return !!(r && r.disemak && r.disemak[q.id]);
+}
+function jumlahDijawab(){ let n=0; for(const s of DATA.subjek) for(const t of (s.topik||[])) n+=kiraTopik(t).jawab; return n; }
+
+/* ============================================================
+   NAVIGASI
+   ============================================================ */
+let laluan = {skrin:"utama", sub:null, topik:null, tab:"kuiz", fokus:null};
+let padanPilih = null;   // {qid, i} baris padankan yang sedang dipilih
+let lajurKursor = {};    // {qid: indeks kotak digit}
+let jdPilih = null;      // {qid, i} sel jadual yang sedang dipilih
+let posKuiz = {};        // kedudukan skrol terakhir bagi setiap subtopik
+
+function pergi(l){
+  // Simpan kedudukan skrol sebelum meninggalkan tab Kuiz.
+  if(laluan.skrin === "topik" && laluan.tab === "kuiz" && laluan.topik){
+    posKuiz[laluan.topik] = window.scrollY || window.pageYOffset || 0;
+  }
+  const lama = laluan;
+  laluan = Object.assign({}, laluan, l);
+  const balikKeKuiz = laluan.skrin === "topik" && laluan.tab === "kuiz"
+    && lama.topik === laluan.topik && lama.skrin === "topik"
+    && !laluan.fokus && posKuiz[laluan.topik];
+  if(!balikKeKuiz) window.scrollTo(0,0);
+  lukis(balikKeKuiz ? posKuiz[laluan.topik] : null);
+}
+function subjekKini(){ return DATA.subjek.find(x=>x.id===laluan.sub); }
+function topikKini(){ const s = subjekKini(); return s && (s.topik||[]).find(x=>x.id===laluan.topik); }
+
+function lukis(pulihSkrol){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  padanPilih = null; jdPilih = null;
+  if(laluan.skrin === "utama") app.appendChild(skrinUtama());
+  else if(laluan.skrin === "subjek") app.appendChild(skrinSubjek());
+  else app.appendChild(skrinTopik());
+  if(!kurangGerak()){ const s = app.querySelector(".skrin"); if(s) s.classList.add("masuk"); }
+  if(sisiPin) bukaSisi();
+  if(pulihSkrol){
+    // Kembali ke tempat yang sama selepas menyemak Nota atau Glosari.
+    const balik = ()=> window.scrollTo(0, pulihSkrol);
+    if(window.requestAnimationFrame) window.requestAnimationFrame(balik); else setTimeout(balik,0);
+  }
+  if(laluan.fokus){
+    const fq = laluan.fokus; setTimeout(()=> lompatSoalan(fq, true), 60);
+    laluan.fokus = null;
+  }
+}
+
+function bar(tajuk, balikKe){
+  const h = document.createElement("header"); h.className = "bar slim";
+  if(balikKe){
+    const b = document.createElement("button");
+    b.className = "ikonBtn"; b.textContent = "\u2039"; b.setAttribute("aria-label","Balik");
+    b.onclick = ()=>{
+      if(balikKe === "utama") keluar();
+      else pergi({skrin:"subjek", topik:null});
+    };
+    h.appendChild(b);
+  }
+  const sb = document.createElement("button");
+  sb.className = "ikonBtn"; sb.textContent = "\u2630"; sb.setAttribute("aria-label","Kemajuan");
+  sb.onclick = bukaSisi; h.appendChild(sb);
+  const t = document.createElement("h1");
+  if(typeof tajuk === "object" && tajuk.jawi){ t.innerHTML = tajuk.html; t.className = "jwTajuk"; }
+  else t.textContent = tajuk;
+  h.appendChild(t);
+  const jb = document.createElement("button");
+  jb.className = "ikonBtn" + (jawiMod ? " pinAktif" : "");
+  jb.innerHTML = jawiMod ? '<span class="jw">جاوي</span>' : "Rumi";
+  jb.style.fontSize = "11px"; jb.setAttribute("aria-label","Tukar Rumi / Jawi");
+  jb.onclick = ()=>{
+    const tukar = ()=>{ jawiMod = !jawiMod; simpan.__jawi = jawiMod; tulis(); lukis(); };
+    tukar();
+  };
+  if(SUBJEK_PI.size && !TEMA_APL) h.appendChild(jb);   // 0.6.8: no Jawi switch for Form 1
+  const tt = document.createElement("button");
+  tt.className = "ikonBtn"; tt.textContent = TEMA.find(x=>x.id===temaKini).ikon;
+  tt.setAttribute("aria-label","Tukar tema"); tt.onclick = tukarTema; if(!TEMA_APL) h.appendChild(tt);
+  const bb = document.createElement("button");
+  bb.className = "ikonBtn"; bb.textContent = bunyiHidup ? "\ud83d\udd0a" : "\ud83d\udd07";
+  bb.setAttribute("aria-label","Bunyi");
+  bb.onclick = ()=>{ bunyiHidup=!bunyiHidup; simpan.__bunyi=bunyiHidup; tulis(); if(bunyiHidup) bunyi("betul"); lukis(); };
+  h.appendChild(bb);
+  return h;
+}
+
+/* ============================================================
+   SIDEBAR KEMAJUAN
+   ============================================================ */
+let sisiKecil = !!simpan.__sisiKecil;
+let sisiPin = !!simpan.__sisiPin;
+let sjBuka = {};
+function bukaSisi(){
+  tutupSisi();
+  let tabir = null;
+  if(!sisiPin){
+    tabir = document.createElement("div"); tabir.className = "tabir";
+    tabir.onclick = tutupSisi;
+  }
+  const bar2 = document.createElement("aside");
+  bar2.className = "sisiBar" + (sisiKecil ? " kecil" : "");
+
+  const kep = document.createElement("div"); kep.className = "sisiKepala";
+  const tog = document.createElement("button");
+  tog.className = "ikonBtn"; tog.textContent = sisiKecil ? "\u00bb" : "\u00ab";
+  tog.setAttribute("aria-label","Kecilkan");
+  tog.onclick = ()=>{ sisiKecil=!sisiKecil; simpan.__sisiKecil=sisiKecil; tulis(); bukaSisi(); };
+  const h2 = document.createElement("h2"); h2.textContent = "Kemajuan";
+  const pin = document.createElement("button");
+  pin.className = "ikonBtn" + (sisiPin ? " pinAktif" : "");
+  pin.textContent = "\ud83d\udccc"; pin.setAttribute("aria-label", sisiPin ? "Buka kunci" : "Kunci terbuka");
+  pin.onclick = ()=>{ sisiPin=!sisiPin; simpan.__sisiPin=sisiPin; tulis(); bukaSisi(); };
+  kep.appendChild(tog); kep.appendChild(h2); kep.appendChild(pin); bar2.appendChild(kep);
+
+  const badan = document.createElement("div"); badan.className = "sisiBadan";
+  for(const sub of DATA.subjek){
+    if(!sub.sedia || !(sub.topik||[]).length) continue;
+    const m = met(sub.id);
+    let jw=0,jm=0,bt=0;
+    for(const t of sub.topik){ const k=kiraTopik(t); jw+=k.jawab; jm+=k.jum; bt+=k.betul; }
+    const blok = document.createElement("div");
+    blok.className = "sjBlok" + (sjBuka[sub.id] ? " buka" : "");
+    blok.style.setProperty("--wj", m.warna);
+
+    const kh = document.createElement("button"); kh.className = "sjKepala" + (subJawi(sub.id) ? " rtlPenuh" : "");
+    kh.innerHTML = `<span class="lencana">${m.sk}</span>
+      <span class="nm">${namaSubjek(sub)}</span>
+      <span class="kn">${jw}/${jm}</span><span class="ar">\u25b6</span>`;
+    kh.onclick = ()=>{
+      if(sisiKecil){ if(!sisiPin) tutupSisi(); pergi({skrin:"subjek", sub:sub.id, topik:null}); return; }
+      sjBuka[sub.id] = !sjBuka[sub.id]; bukaSisi();
+    };
+    blok.appendChild(kh);
+
+    const list = document.createElement("div"); list.className = "sjSenarai";
+    for(const t of sub.topik){
+      const k = kiraTopik(t);
+      const row = document.createElement("button"); row.className = "stRow" + (subJawi(sub.id) ? " rtlPenuh" : "");
+      row.style.setProperty("--wj", m.warna);
+      row.innerHTML = `<span class="tt">${subJawi(sub.id) ? papar2(sub.id, t.nama) : t.nama}</span>
+        <span class="bar2"><i style="width:${k.jum?Math.round(k.jawab/k.jum*100):0}%"></i></span>
+        <span class="n">${k.jawab}/${k.jum}</span>`;
+      row.onclick = ()=>{ if(!sisiPin) tutupSisi(); pergi({skrin:"topik", sub:sub.id, topik:t.id, tab:"kuiz"}); };
+      list.appendChild(row);
+    }
+    blok.appendChild(list);
+    badan.appendChild(blok);
+  }
+  bar2.appendChild(badan);
+
+  if(tabir) document.body.appendChild(tabir);
+  document.body.appendChild(bar2);
+}
+function tutupSisi(){
+  const a = document.querySelector(".tabir"), b = document.querySelector(".sisiBar");
+  if(a) a.remove(); if(b) b.remove();
+}
+function padamTopik(t, selesai){
+  dialog({ tajuk:"Padam semua?", bahaya:true, labelOk:"Padam",
+    teks:`Semua jawapan, tanda semakan dan skor cubaan pertama bagi\n"${t.nama}" akan dipadam.`,
+    onOk:()=>{ delete simpan[t.id]; tulis(); if(selesai) selesai(); } });
+}
+function padamSubjek(sub, selesai){
+  const n = (sub.topik||[]).length;
+  dialog({ tajuk:"Padam semua?", bahaya:true, labelOk:"Padam",
+    teks:`Semua jawapan bagi ${sub.nama} akan dipadam.\nIni merangkumi kesemua ${n} subtopik.`,
+    onOk:()=>{ for(const t of sub.topik) delete simpan[t.id]; tulis(); if(selesai) selesai(); } });
+}
+
+function bungkus(tajuk, balikKe){
+  const f = document.createDocumentFragment();
+  f.appendChild(bar(tajuk, balikKe));
+  const m = document.createElement("main"); m.className = "skrin";
+  f.appendChild(m);
+  f.skrin = m;
+  return f;
+}
+
+/* ============================================================
+   SKRIN: UTAMA
+   ============================================================ */
+function skrinUtama(){
+  const f = bungkus(DATA.murid + " \u00b7 " + DATA.kelas, null), m = f.skrin;
+
+  // peta tarikh -> subjek
+  const peta = {};
+  for(const sub of DATA.subjek) (peta[sub.tarikh] = peta[sub.tarikh] || []).push(sub);
+  const kini = new Date();
+  const hariIni = tarikhKunci(kini);
+
+  const kal = document.createElement("div"); kal.className = "pnl kal";
+  const tj = document.createElement("div"); tj.className = "kalTajuk";
+  tj.innerHTML = `<b>September 2026</b><span>${DATA.tempoh}</span>`;
+  kal.appendChild(tj);
+
+  const grid = document.createElement("div"); grid.className = "kalGrid";
+  for(const h of ["I","S","R","K","J","S","A"]){
+    const d = document.createElement("div"); d.className = "kalHari"; d.textContent = h; grid.appendChild(d);
+  }
+  // 1 Sept 2026 = Selasa -> satu petak kosong di hadapan
+  const sel = (iso, nombor, lampau) => {
+    const subs = peta[iso] || [];
+    const c = document.createElement(subs.length ? "div" : "button");
+    c.className = "kalSel";
+    if(subs.length) c.classList.add("ada");
+    if(iso === hariIni) c.classList.add("kini");
+    else if(lampau) c.classList.add("lepas");
+    const nb = document.createElement("span"); nb.className = "d"; nb.textContent = nombor;
+    c.appendChild(nb);
+    if(subs.length){
+      const bar2 = document.createElement("span"); bar2.className = "ik";
+      for(const x of subs){
+        const m = met(x.id);
+        const b = document.createElement("button");
+        b.className = "abBtn"; b.textContent = m.sk;
+        b.style.setProperty("--wj", m.warna);
+        b.setAttribute("aria-label", x.nama);
+        b.onclick = e=>{ e.stopPropagation(); pergi({skrin:"subjek", sub:x.id}); };
+        bar2.appendChild(b);
+      }
+      c.appendChild(bar2);
+    }
+    return c;
+  };
+  const kosong = document.createElement("div"); kosong.className = "kalSel kosong"; grid.appendChild(kosong);
+  const p2 = n => String(n).padStart(2,"0");
+  for(let d=1; d<=30; d++){
+    const iso = `2026-09-${p2(d)}`;
+    grid.appendChild(sel(iso, d, iso < hariIni));
+  }
+  for(let d=1; d<=2; d++){
+    const iso = `2026-10-${p2(d)}`;
+    grid.appendChild(sel(iso, d, iso < hariIni));
+  }
+  kal.appendChild(grid);
+
+  m.appendChild(kal);
+
+  // Satu grid dikongsi supaya kedua-dua lajur berkongsi tinggi baris yang sama.
+  const kini2 = tarikhKunci(new Date());
+  const KIRI  = ["bm","bi","wu","mt","sn"];
+  const KANAN = ["ak","jw","th","ba","fq"];
+  const ikut = ids => ids.map(i=>DATA.subjek.find(x=>x.id===i)).filter(Boolean)
+                          .sort((x,y)=> x.tarikh < y.tarikh ? -1 : 1);
+  const kiri = ikut(KIRI), kanan = ikut(KANAN);
+  const dua = document.createElement("div"); dua.className = "duaLajur";
+
+  const tajukLajur = (teks, jawi) => {
+    const p = document.createElement("p");
+    p.className = "lajurTajuk" + (jawi ? " jw" : "");
+    p.textContent = teks; return p;
+  };
+  dua.appendChild(tajukLajur("Rumi", false));
+  dua.appendChild(tajukLajur("جاوي", true));
+
+  const kad = (sub, jawi) => {
+    const mm = met(sub.id), {d,m:mo} = pecah(sub.tarikh);
+    let jw=0,jm=0;
+    for(const t of (sub.topik||[])){ const k=kiraTopik(t); jw+=k.jawab; jm+=k.jum; }
+    const b2 = document.createElement("button");
+    b2.className = "miniKad" + (jawi ? " jw" : "") + (sub.tarikh < kini2 ? " lepas" : "");
+    b2.style.setProperty("--wj", mm.warna);
+    b2.innerHTML = `<span class="atas"><span class="sk">${mm.sk}</span>
+        <span class="nm">${jawi ? (NAMA_JAWI[sub.id] || sub.nama) : sub.nama}</span></span>
+      <span class="kaki">${d} ${BULAN[mo-1]}<b>${jw}/${jm}</b></span>`;
+    b2.onclick = ()=> pergi({skrin:"subjek", sub:sub.id});
+    return b2;
+  };
+  for(let i=0; i<Math.max(kiri.length, kanan.length); i++){
+    dua.appendChild(kiri[i]  ? kad(kiri[i], false)  : document.createElement("span"));
+    dua.appendChild(kanan[i] ? kad(kanan[i], true)  : document.createElement("span"));
+  }
+  m.appendChild(dua);
+
+
+  let jumSoalan = 0;
+  for(const x of DATA.subjek) for(const t of (x.topik||[])) jumSoalan += (t.soalan||[]).length;
+  const cip = document.createElement("div"); cip.className = "pnl hero";
+  cip.style.textAlign = "left";
+  cip.innerHTML = `<div class="cipBaris">
+      <span class="cip">\ud83d\udd25 <b>${siriHarianKini()}</b></span>
+      <span class="cip">\u2705 <b>${jumlahDijawab()}</b> / ${jumSoalan}</span>
+      <span class="cip">\u2630 Kemajuan</span>
+    </div>
+    <p class="kecil" style="margin-top:9px;opacity:.65">Binaan ${BINAAN} \u00b7 ${jumSoalan} soalan</p>`;
+  cip.querySelectorAll(".cip")[2].onclick = bukaSisi;
+  m.appendChild(cip);
+  return f;
+}
+
+function tajukKecil(s, mentah){ const p = document.createElement("p"); p.className="tajuk-kecil";
+  if(mentah === true){ p.innerHTML = s; p.style.direction="rtl"; p.style.textAlign="right"; }
+  else p.textContent = s;
+  return p; }
+
+/* ============================================================
+   SKRIN: SENARAI TOPIK
+   ============================================================ */
+function skrinSubjek(){
+  const s = subjekKini();
+  const tjk = bolehTukar() ? {jawi:true, html:papar(s.nama)} : s.nama;
+  const f = bungkus(tjk, "utama"), m = f.skrin;
+  if(!s.sedia || !(s.topik||[]).length){
+    const d = document.createElement("div"); d.className = "pnl kosong-skrin";
+    d.innerHTML = `<div class="ikon">🔒</div><h2 class="papar" style="font-size:20px;margin-top:10px">Belum dibuka</h2>
+      <p>${lindung(s.catatan||"")}</p>${s.perlu?`<p style="margin-top:12px;color:var(--emas)">${lindung(s.perlu)}</p>`:""}`;
+    m.appendChild(d); return f;
+  }
+  if(s.semak && /^pending/.test(s.semak)){
+    const w = document.createElement("details"); w.className = "draf";
+    w.innerHTML = `<summary>📝 Draf</summary><div>Kandungan ini ditulis sendiri dan belum disemak ${/ustaz/.test(s.semak) ? "oleh guru dan ustaz" : "oleh guru"}. Sila laporkan kesilapan.</div>`;
+    m.appendChild(w);
+  }
+  try{ const tt = JSON.parse(localStorage.getItem("silibus." + ANAK + ".tetapan") || "{}"), hari0 = new Date(); hari0.setHours(0,0,0,0);
+    const ux = (tt.ujian || []).map(u => ({n: u.n, d: u.d, h: Math.round((new Date(u.d + "T00:00:00") - hari0) / 864e5)})).filter(u => u.d && u.h >= 0).sort((a, b) => a.h - b.h)[0];
+    if(ux){ const cd = document.createElement("div"); cd.className = "kiraUjian"; const EN = (typeof BAHASA !== "undefined" && BAHASA === "en") || /[?&]ui=en(&|$)/.test(location.search);
+      cd.innerHTML = `⏳ <b>${String(ux.n || (EN ? "Exam" : "Peperiksaan")).replace(/</g, "&lt;")}</b> · ${ux.h === 0 ? (EN ? "today" : "hari ini") : ux.h + (EN ? " days to go" : " hari lagi")}`; m.appendChild(cd); } }catch(e){}
+  const hb = MOD === "nota" ? "📖 Nota" : MOD === "main" ? "🎮 Main" : MOD === "ujian" ? "📝 Ujian Contoh" : "✏️ Kuiz";
+  if(MOD === "ujian"){ const ub = document.createElement("div"); ub.className = "ujBtns";
+    ub.innerHTML = `<button class="btn utama" id="ujSlip">🧾 Slip keputusan</button><button class="btn" id="ujBaru">🔄 Kertas baharu</button>`;
+    m.appendChild(ub); setTimeout(()=>{ const a = document.getElementById("ujSlip"), b = document.getElementById("ujBaru"); if(a) a.onclick = tunjukSlip; if(b) b.onclick = kertasBaru; }, 0);
+    m.appendChild(tajukKecil("Bertulis /" + s.topik.filter(x=>!x.uj.lisan).length*5 + " · Lisan /" + s.topik.filter(x=>x.uj.lisan).reduce((a,x)=>a+x.uj.max,0) + " · tiada pemasa", false)); }
+  m.appendChild(tajukKecil(hb + " · " + s.topik.length + " topik", false));
+  if(MOD === "kuiz"){   // 0.6.11: done/questions for every topic, at the top of the subject
+    const j = document.createElement("div"); j.className = "jalur hudTopik";
+    j.innerHTML = s.topik.map((x,n)=>{ const kk = kiraTopik(x); return `<button type="button" class="${kk.jum && kk.jawab===kk.jum ? "penuh" : ""}" title="${lindung(x.nama)}">${n+1} <b>${kk.jawab}/${kk.jum}</b></button>`; }).join("");
+    j.querySelectorAll("button").forEach((b,n)=> b.onclick = ()=> pergi({skrin:"topik", topik:s.topik[n].id, tab:"kuiz"}));
+    m.appendChild(j); }
+  if(MOD === "main" && window.GAMES){ m.appendChild(GAMES.picker(s)); return f; }
+  s.topik.forEach((t,i)=>{
+    const k = kiraTopik(t), habis = k.jum && k.jawab===k.jum;
+    const b = document.createElement("button"); b.className = "topik";
+    const dibaca = simpan[t.id] && simpan[t.id].baca;
+    const baris = MOD === "nota" ? (dibaca ? "✓ sudah dibaca" : "belum dibaca") : k.jawab ? `${k.jawab}/${k.jum} dijawab · ${k.betul} betul` : `${k.jum} soalan`;
+    b.className = "topik" + (bolehTukar() ? " rtlPenuh" : "");
+    b.innerHTML = `<span class="nombor ${habis?'habis':''}">${habis?"★":(i+1)}</span>
+      <span class="nama">${papar(t.nama)}<span class="skor">${papar(baris)}</span></span>
+      <span class="tanda">▶</span>`;
+    if(MOD === "nota" && dibaca) b.querySelector(".nombor").textContent = "✓";
+    b.onclick = ()=> pergi({skrin:"topik", topik:t.id, tab: MOD === "nota" ? "nota" : "kuiz"});
+    m.appendChild(b);
+  });
+  const nav = document.createElement("div"); nav.className = "nav";
+  const pd = document.createElement("button"); pd.className = "btn emas";
+  const lblPadam = "🧹 Padam semua " + s.topik.length + " subtopik";
+  pd.innerHTML = bolehTukar() ? papar(lblPadam) : lblPadam;
+  pd.onclick = ()=> padamSubjek(s, ()=> pergi({skrin:"subjek"}));
+  nav.appendChild(pd); m.appendChild(nav);
+  return f;
+}
+
+/* ============================================================
+   SKRIN: TOPIK (Kuiz · Nota · Glosari)
+   ============================================================ */
+function skrinTopik(){
+  const s = subjekKini(), t = topikKini();
+  const tajuk = bolehTukar() ? {jawi:true, html:papar(t.nama)} : t.nama;
+  const f = bungkus(tajuk, "subjek"), m = f.skrin;
+  const adaGlos = (t.glosari||[]).length > 0;
+  const tabs = MOD === "nota" ? [["nota","Nota"]].concat(adaGlos?[["glosari","Glosari"]]:[]) : [["kuiz","Kuiz"]];
+
+  const lekat = document.createElement("div"); lekat.className = "lekat";
+  const tb = document.createElement("div"); tb.className="tab"; tb.setAttribute("role","tablist");
+  if(laluan.tab === "kuiz"){   // 0.6.8: Check answers sits at the top
+    const sb = document.createElement("button"); sb.className = "btn utama semakAtas"; sb.onclick = ()=> semakSemua(t); tb.appendChild(sb);
+  } else for(const [k,n] of tabs){
+    const b = document.createElement("button");
+    b.setAttribute("role","tab"); b.setAttribute("aria-selected", String(laluan.tab===k));
+    b.innerHTML = L(n); b.onclick = ()=> pergi({tab:k});
+    tb.appendChild(b);
+  }
+  lekat.appendChild(tb);
+  hudEl = null;
+  if(laluan.tab === "kuiz"){ hudEl = document.createElement("div"); lekat.appendChild(hudEl);
+    const ln = document.createElement("button"); ln.className = "btn lihatNota"; ln.textContent = BAHASA === "en" ? "📖 See notes" : bolehTukar() ? "📖 ليهت نوتا" : "📖 Lihat nota";
+    ln.onclick = ()=> lihatNota(t); if(MOD !== "ujian") tb.appendChild(ln);
+    if(MOD === "ujian" && t.arahan) setTimeout(()=> SEDIA.speak(t.arahan), 350); }   // §4.8: each section's instruction is read aloud
+  m.appendChild(lekat);
+
+  jawiTakJumpa = 0;
+  if(laluan.tab === "nota"){ m.appendChild(panelNota(t)); tandaBaca(t, m); }
+  else if(laluan.tab === "glosari") m.appendChild(panelGlosari(t));
+  else panelKuiz(t, m);
+  if(bolehTukar() && jawiTakJumpa){
+    const n = document.createElement("p"); n.className = "kiraJawi";
+    n.innerHTML = `\u26a0\ufe0f ${jawiTakJumpa} perkataan belum ada dalam kamus Jawi — kekal Rumi (bergaris putus-putus).`;
+    m.insertBefore(n, m.children[1] || null);
+  }
+  return f;
+}
+
+/* ---------- NOTA INTERAKTIF ---------- */
+function petaGlosari(t){
+  const p = {};
+  for(const [a,b] of (t.glosari||[])) p[a.toLowerCase()] = b;
+  return p;
+}
+function tafsir(html, peta){
+  return papar(String(html)).replace(/\{\{(.+?)\}\}/g, (m,w)=>{
+    const kunci = w.toLowerCase();
+    if(!peta[kunci]) return w;
+    return `<span class="ist" data-ist="${lindung(w)}" role="button" tabindex="0">${w}</span>`;
+  });
+}
+function panelNota(t){
+  const peta = petaGlosari(t);
+  const wrap = document.createElement("div"); wrap.className = "helai" + (bolehTukar() ? " rtlPenuh" : "");
+  // 0.5.78 (owner): headings nest: h1 (year) > h2 (subject) > h3 (topic) > h (subtopic); packs with only 'h' look as before
+  const ARAS = {h1:1, h2:2, h3:3, h:4};
+  const isiHtml = (b)=>{
+    if(b.j==="p") return `<p>${tafsir(b.t,peta)}</p>`;
+    if(b.j==="c") return `<div class="kotakContoh">${tafsir(b.t,peta)}</div>`;
+    if(b.j==="tt") return `<div class="tahukah"><b>💡 Tahukah kamu?</b>${tafsir(b.t,peta)}</div>`;
+    if(b.j==="l") return `<ul>${b.t.map(x=>`<li>${tafsir(x,peta)}</li>`).join("")}</ul>`;
+    if(b.j==="o") return `<ol>${b.t.map(x=>`<li>${tafsir(x,peta)}</li>`).join("")}</ol>`;
+    if(b.j==="lk") return `<ol class="langkah">${b.t.map(x=>`<li>${tafsir(x,peta)}</li>`).join("")}</ol>`;
+    if(b.j==="ar") return `<p class="arab">${b.t}</p>`;
+    if(b.j==="t") return `<table class="jadualNota"><tr>${b.kepala.map(x=>`<th>${papar(x)}</th>`).join("")}</tr>`+
+      b.baris.map(r=>`<tr>${r.map(x=>`<td>${tafsir(x,peta)}</td>`).join("")}</tr>`).join("")+`</table>`;
+    return "";
+  };
+  const tindan = []; let pertama = true;
+  const buka = (tajuk, aras)=>{
+    while(tindan.length && tindan[tindan.length-1].aras >= aras) tindan.pop();
+    const det = document.createElement("details"); det.className = "akor akor" + aras;
+    if(pertama){ det.open = true; pertama = false; }
+    const sum = document.createElement("summary"); sum.className = "akorKepala";
+    sum.innerHTML = `<span>${tafsir(tajuk, peta)}</span><span class="ar">▶</span>`;
+    det.appendChild(sum);
+    const bod = document.createElement("div"); bod.className = "akorBadan"; det.appendChild(bod);
+    (tindan.length ? tindan[tindan.length-1].bod : wrap).appendChild(det);
+    tindan.push({aras, bod});
+  };
+  for(const b of t.nota){
+    if(ARAS[b.j]) buka(b.t, ARAS[b.j]);
+    else { if(!tindan.length) buka("Nota", 4); tindan[tindan.length-1].bod.insertAdjacentHTML("beforeend", isiHtml(b)); }
+  }
+  wrap.addEventListener("click", e=>{
+    const sp = e.target.closest(".ist"); if(!sp) return;
+    const blok = sp.closest("p,li,div,td,summary") || sp;
+    const sedia = blok.parentNode.querySelector(`.istBox[data-for="${sp.dataset.ist}"]`);
+    if(sedia){ sedia.remove(); return; }
+    const box = document.createElement("span");
+    box.className = "istBox"; box.dataset.for = sp.dataset.ist;
+    box.innerHTML = `<b>${lindung(sp.dataset.ist)}</b> — ${peta[sp.dataset.ist.toLowerCase()]}`;
+    blok.parentNode.insertBefore(box, blok.nextSibling);
+  });
+  return wrap;
+}
+
+/* ---------- GLOSARI FLIP + CARIAN ---------- */
+function panelGlosari(t){
+  const wrap = document.createElement("div");
+  const cari = document.createElement("input");
+  cari.className = "carian"; cari.type = "search"; cari.placeholder = bolehTukar() ? "چاري ڤركاتأن…" : "Cari perkataan…"; if(bolehTukar()) cari.dir = "rtl";
+  wrap.appendChild(cari);
+  const nota = document.createElement("p");
+  nota.style.cssText = "font-size:12.5px;color:var(--teks-lembut);margin:-4px 0 12px 2px";
+  nota.textContent = bolehTukar() ? "تكن كد اونتوق ليهت مقصودڽ. چوبا تيكا دهولو!" : "Tekan kad untuk lihat maksudnya. Cuba teka dahulu!"; if(bolehTukar()) nota.dir = "rtl";
+  wrap.appendChild(nota);
+  const senarai = document.createElement("div");
+  wrap.appendChild(senarai);
+  function lukisGlos(tapis){
+    senarai.innerHTML = "";
+    const q = (tapis||"").trim().toLowerCase();
+    let n = 0;
+    for(const [a,b] of t.glosari){
+      if(q && !(a.toLowerCase().includes(q) || b.toLowerCase().includes(q))) continue;
+      n++;
+      const kad = document.createElement("button"); kad.className = "glosKad" + (bolehTukar() ? " rtlPenuh" : "");
+      const dt = document.createElement("dt");
+      const TK = bolehTukar() ? "تكن" : "tekan"; dt.innerHTML = `<span>${papar(a)}</span><span class="pt">${TK}</span>`;
+      kad.appendChild(dt);
+      let buka = false;
+      kad.onclick = ()=>{
+        buka = !buka;
+        const ada = kad.querySelector("dd");
+        if(ada){ ada.remove(); dt.querySelector(".pt").textContent = TK; }
+        else { const dd = document.createElement("dd"); dd.innerHTML = papar(b); kad.appendChild(dd);
+               dt.querySelector(".pt").textContent = bolehTukar() ? "توتوڤ" : "tutup"; }
+      };
+      senarai.appendChild(kad);
+    }
+    if(!n){ const p = document.createElement("p"); p.style.cssText="color:var(--teks-lembut);padding:8px 2px";
+            p.textContent = bolehTukar() ? "تياد ڤركاتأن يڠ سڤادن." : "Tiada perkataan yang sepadan."; senarai.appendChild(p); }
+  }
+  cari.oninput = ()=> lukisGlos(cari.value);
+  lukisGlos("");
+  return wrap;
+}
+
+/* ============================================================
+   KUIZ — SATU SKROL
+   ============================================================ */
+function kocok(arr, benih){
+  const a = arr.slice(); let x = benih;
+  for(let i=a.length-1;i>0;i--){ x=(x*1103515245+12345)&0x7fffffff; const j=x%(i+1); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+function benihDari(id){ let n=0; for(let i=0;i<id.length;i++) n=(n*31+id.charCodeAt(i))&0x7fffffff; return n; }
+let susunan = {};
+function pilihanPapar(q){
+  if(susunan[q.id]) return susunan[q.id];
+  let p;
+  if(q.j === "bs") p = q.label || ["Betul","Salah"];
+  else if(q.j === "isi") p = kocok(q.bank, benihDari(q.id)+(Date.now()%997));
+  else if(q.j === "padankan") p = kocok(q.pasangan.map(x=>x[1]), benihDari(q.id)+(Date.now()%997));
+  else if(q.j === "jadual") p = q.bank;
+  else p = kocok(q.p, benihDari(q.id)+(Date.now()%997));
+  susunan[q.id] = p;
+  return p;
+}
+
+let hudEl = null, semakEl = null, soalanEls = {};
+
+function panelKuiz(t, m){
+  soalanEls = {};
+  segarHud(t);
+
+  t.soalan.forEach((q,i)=>{
+    const kad = nodSoalan(t,q,i);
+    soalanEls[q.id] = kad;
+    m.appendChild(kad);
+  });
+
+  semakEl = document.createElement("div"); semakEl.className = "pnl semak";
+  m.appendChild(semakEl);
+  segarSemak(t);
+}
+
+// 0.6.8: sticky header = Check button + one bead per question of the whole subject (grouped by topic).
+// Bead colours: empty = not answered, yellow = answered (not checked), blue = right, red = wrong. Tap a bead to go to that question.
+function statusManik(t,q){
+  const r = simpan[t.id], v = r && r.jawapan ? r.jawapan[q.id] : undefined;
+  if(r && r.disemak && r.disemak[q.id]) return betulJawab(q,v) ? "b" : "s";
+  return siapJawab(q,v) ? "j" : "";
+}
+function tinggiLekat(){ const l = document.querySelector(".lekat"); return l ? Math.max(0, l.getBoundingClientRect().bottom) : 120; }
+function lompatSoalan(qid, lancar){
+  const el = document.querySelector(`[data-qid="${qid}"]`); if(!el) return;
+  const y = el.getBoundingClientRect().top + (window.scrollY || window.pageYOffset || 0) - tinggiLekat() - 8;
+  window.scrollTo({top: Math.max(0, y), behavior: lancar && !kurangGerak() ? "smooth" : "auto"});
+}
+let manikKini = null;
+function tandaManikKini(){
+  if(!hudEl || !soalanEls) return;
+  const atas = tinggiLekat() + 12; let pilih = null;
+  for(const id in soalanEls){ const r = soalanEls[id].getBoundingClientRect(); if(r.bottom > atas){ pilih = id; break; } }
+  if(!pilih || pilih === manikKini) return; manikKini = pilih;
+  hudEl.querySelectorAll(".manik.kini").forEach(b=> b.classList.remove("kini"));
+  const b = hudEl.querySelector(`.manik[data-q="${pilih}"]`); if(!b) return; b.classList.add("kini");
+  const jl = hudEl.querySelector(".manikJalur"); if(!jl || jl.classList.contains("grid")) return;
+  const br = b.getBoundingClientRect(), jr = jl.getBoundingClientRect();   // 0.6.10: the strip follows the page so the bead of the question on screen stays in view (centred)
+  jl.scrollTo({left: jl.scrollLeft + (br.left - jr.left) - (jr.width - br.width) / 2, behavior: kurangGerak() ? "auto" : "smooth"});
+}
+// 0.6.10: beads per line in the opened panel: 20, 15 or 10, whichever fits the width
+function manikSebaris(){ const w = hudEl && hudEl.clientWidth || 360, b = 17; return w >= 20 * b + 8 + 34 ? 20 : w >= 15 * b + 16 + 34 ? 15 : 10; }
+let manikSkrol = null, statBuka = false, yLepas = 0;
+// 0.6.9: header = summary line (done/all, right, wrong, wrong attempts) + this topic's beads + a statistics panel (tap the summary).
+// Scrolling down tucks the beads and the panel away; scrolling up brings them back.
+function T2(ms, en){ return BAHASA === "en" ? en : ms; }
+function statTopik(t){
+  const r = rekod(t.id), salahN = r.salahN || {}, cubaan = r.cubaan || {}, out = {salahKini:[], cubaSalah:0, ramai:[], belum:[], belumSemak:0, sk:{}};
+  t.soalan.forEach((q,i)=>{ const st = statusManik(t,q), n = salahN[q.id] || 0;
+    if(st === "s") out.salahKini.push(i); if(!st) out.belum.push(i); if(st === "j") out.belumSemak++;
+    out.cubaSalah += n; if(n) out.ramai.push([i, n, cubaan[q.id] || n]);
+    if(q.sk && (st === "b" || st === "s")){ const k = out.sk[q.sk] = out.sk[q.sk] || [0,0]; k[1]++; if(st === "b") k[0]++; } });
+  out.ramai.sort((x,y)=> y[1] - x[1] || x[0] - y[0]);
+  return out;
+}
+function cipQ(i, ekor, kls){ return `<button type="button" class="hudCip${kls ? " " + kls : ""}" data-n="${i}">${T2("S","Q")}${i+1}${ekor || ""}</button>`; }
+function segarHud(t){
+  if(!hudEl) return;
+  const lama = hudEl.querySelector(".manikJalur"), kiri = lama ? lama.scrollLeft : null, k = kiraTopik(t), st = statTopik(t);
+  const sub = subjekKini(), no = (sub.topik||[]).indexOf(t) + 1;
+  let h = `<button type="button" class="hudRingkas" aria-expanded="${statBuka}">
+      <span class="hudNo">${no}</span><b class="hudJ">${k.jawab}/${k.jum}</b>
+      <span class="hudOk">✓ ${k.betul}</span><span class="hudNg">✗ ${k.salah}</span>
+      <span class="hudCuba" title="${T2("Jumlah cubaan salah","Total wrong attempts")}">↺ ${st.cubaSalah} ${T2("cubaan salah","wrong tries")}</span>
+      <span class="hudChev">${statBuka ? "▴" : "▾"}</span></button>`;
+  const manikH = (q,i)=>{ const s2 = statusManik(t,q); return `<button type="button" class="manik${s2 ? " " + s2 : ""}${q.id===manikKini ? " kini" : ""}${i && i % 10 === 0 ? " g10" : ""}" data-q="${q.id}" aria-label="${i+1}"></button>`; };
+  if(statBuka){   // opened: every bead at once, 10 / 15 / 20 per line, a gap every 5 or 10
+    const per = manikSebaris(), blok = per === 15 ? 5 : 10;
+    h += '<div class="manikJalur grid" role="navigation" aria-label="' + T2("Soalan","Questions") + '">';
+    for(let r0 = 0; r0 < t.soalan.length; r0 += per){
+      h += `<div class="mkRow"><span class="manikMula">${r0+1}</span>` + t.soalan.slice(r0, r0 + per).map((q,k)=> manikH(q, r0 + k).replace(" g10", "").replace('class="manik', 'class="manik' + (k && k % blok === 0 ? " g10" : ""))).join("") + '</div>';
+    }
+    h += '</div>';
+  } else {
+    h += '<div class="manikJalur" role="navigation" aria-label="' + T2("Soalan","Questions") + '">' + t.soalan.map(manikH).join("") + '</div>';
+  }
+  if(statBuka){
+    const ap = k.pJawab ? Math.round(100 * k.pBetul / k.pJawab) : null;
+    h += '<div class="hudStat">';
+    h += `<div class="hsBaris"><span>${T2("Salah sekarang","Wrong now")}</span><div>${st.salahKini.length ? st.salahKini.map(i=> cipQ(i, "", "s")).join("") : '<em>' + T2("tiada","none") + '</em>'}</div></div>`;
+    h += `<div class="hsBaris"><span>${T2("Cubaan salah","Wrong tries")} (${st.cubaSalah})</span><div>${st.ramai.length ? st.ramai.slice(0, 12).map(x=> cipQ(x[0], " ×" + x[1], x[1] >= 2 ? "s" : "")).join("") : '<em>' + T2("belum ada","none yet") + '</em>'}</div></div>`;
+    h += `<div class="hsGrid">
+        <div><b>${ap == null ? "–" : ap + "%"}</b><span>${T2("betul cubaan pertama","right first time")} (${k.pBetul}/${k.pJawab})</span></div>
+        <div><b>${k.semak ? Math.round(100 * k.betul / k.semak) + "%" : "–"}</b><span>${T2("ketepatan sekarang","accuracy now")} (${k.betul}/${k.semak})</span></div>
+        <div><b>${st.belum.length}</b><span>${T2("belum dijawab","not answered")}</span></div>
+        <div><b>${st.belumSemak}</b><span>${T2("belum disemak","not checked")}</span></div></div>`;
+    const sks = Object.keys(st.sk).sort((a,b)=> parseFloat(a) - parseFloat(b) || a.localeCompare(b));
+    if(sks.length){ const lemah = sks.slice().sort((a,b)=> st.sk[a][0]/st.sk[a][1] - st.sk[b][0]/st.sk[b][1])[0];
+      h += `<div class="hsBaris"><span>${T2("Ikut standard (SK)","By standard (SK)")}</span><div>${sks.map(x=>{ const v = st.sk[x], pc = v[0] / v[1]; return `<span class="hsSk${pc < .6 ? " lemah" : pc === 1 ? " kuat" : ""}">${x} · ${v[0]}/${v[1]}</span>`; }).join("")}</div></div>`;
+      if(st.sk[lemah][0] < st.sk[lemah][1]) h += `<p class="hsTip">💡 ${T2("Paling perlu diulang: SK " + lemah + ". Baca nota bahagian itu, kemudian cuba semula soalan merah.","Revise SK " + lemah + " first: read that part of the notes, then retry the red questions.")}</p>`; }
+    if(st.ramai.length && st.ramai[0][1] >= 2) h += `<p class="hsTip">🔁 ${T2("Soalan paling sukar: S","Hardest so far: Q")}${st.ramai[0][0]+1} (${st.ramai[0][1]} ${T2("cubaan salah","wrong tries")}).</p>`;
+    if(st.belum.length) h += `<div class="hsBaris"><span>${T2("Seterusnya","Next")}</span><div>${cipQ(st.belum[0], "", "j")}</div></div>`;
+    h += '</div>';
+  }
+  hudEl.innerHTML = h;
+  const jl = hudEl.querySelector(".manikJalur");
+  if(kiri != null) jl.scrollLeft = kiri;
+  jl.onclick = e=>{ const b = e.target.closest(".manik"); if(!b) return; if(statBuka){ statBuka = false; segarHud(t); } lompatSoalan(b.dataset.q, true); };
+  hudEl.querySelector(".hudRingkas").onclick = ()=>{ statBuka = !statBuka; const l = hudEl.closest(".lekat"); if(l) l.classList.remove("sorok"); segarHud(t); };
+  hudEl.querySelectorAll(".hudCip").forEach(c=> c.onclick = ()=>{ const q = t.soalan[+c.dataset.n]; if(q){ statBuka = false; segarHud(t); lompatSoalan(q.id, true); } });
+  // the Check button in the sticky header (next to See notes)
+  const sb = hudEl.parentNode && hudEl.parentNode.querySelector(".semakAtas");
+  if(sb){ const belum = k.jawab - k.semak;
+    sb.textContent = BAHASA === "en" ? (belum ? "✔ Check " + belum : "✔ Check") : bolehTukar() ? (belum ? "✔ سمق " + belum : "✔ سمق") : (belum ? "✔ Semak " + belum : "✔ Semak");
+    sb.disabled = !belum; }
+  if(!manikSkrol){ manikSkrol = ()=>{ if(manikSkrol.r) return; manikSkrol.r = requestAnimationFrame(()=>{ manikSkrol.r = 0; tandaManikKini();
+        const y = window.scrollY || 0, l = document.querySelector(".lekat"); if(!l) return;
+        if(y < 40) l.classList.remove("sorok");
+        else if(y > yLepas + 8){ l.classList.add("sorok"); if(statBuka){ statBuka = false; const tk = topikKini(); if(tk) segarHud(tk); } }
+        else if(y < yLepas - 8) l.classList.remove("sorok");
+        if(Math.abs(y - yLepas) > 8) yLepas = y; }); };
+    window.addEventListener("scroll", manikSkrol, {passive:true}); }
+  manikKini = null; setTimeout(tandaManikKini, 0);
+}
+
+function nodSoalan(t,q,i){
+  const kad = document.createElement("div");
+  kad.className = "soalKad" + (bolehTukar() ? " rtlPenuh" : ""); kad.dataset.qid = q.id;
+  isiSoalan(kad,t,q,i);
+  return kad;
+}
+
+function isiSoalan(kad,t,q,i){
+  const r = rekod(t.id);
+  const v = r.jawapan[q.id];
+  const siap = siapJawab(q,v), betul = betulJawab(q,v);
+  const ditanda = sudahSemak(t,q);
+  kad.innerHTML = "";
+
+  const no = document.createElement("div"); no.className = "soalNo";
+  no.innerHTML = bolehTukar() ? `<span class="jw">سوالن</span> ${i+1}<span class="jn jw">${NAMA_JENIS_JW[q.j]||NAMA_JENIS[q.j]||""}</span>` : `SOALAN ${i+1}<span class="jn">${NAMA_JENIS[q.j]||""}</span>`;   // 0.5.64: Jawi packs label questions in Jawi
+  kad.appendChild(no);
+
+  if(q.pt && t.petikan && t.petikan[q.pt]){
+    const p = document.createElement("div"); p.className = "petikan";
+    p.innerHTML = `<h4>${t.petikan[q.pt].t}</h4>${rtl(t.petikan[q.pt].x)}`;
+    kad.appendChild(p);
+  }
+  const s = document.createElement("p"); s.className = "soal"; s.innerHTML = papar(q.s);
+  kad.appendChild(s);
+
+  if(q.vis && window.VIS) kad.appendChild(VIS.render(q.vis, {lang: BAHASA}));
+  if(q.j === "padankan")      binaPadankan(kad,t,q,i);
+  else if(window.SEDIA && SEDIA.JENIS[q.j]) SEDIA.bina(kad,t,q,i);
+  else if(q.j === "susun")    binaSusun(kad,t,q,i);
+  else if(q.j === "jadual")   binaJadual(kad,t,q,i);
+  else if(q.j === "lajur")    binaLajur(kad,t,q,i);
+  else                        binaPilihan(kad,t,q,i);
+
+  if(ditanda){
+    const mk = document.createElement("p");
+    mk.className = "maklum " + (betul ? "ok" : "no");
+    mk.textContent = BAHASA === "en" ? (betul ? "Correct! Well done" + (NAMA_ANAK ? ", " + NAMA_ANAK : "") + "." : "Not yet. Try again, then tap Check.") : (betul ? "Betul! Bagus" + (NAMA_ANAK ? ", " + NAMA_ANAK : "") + "." : "Belum betul. Cuba lagi, kemudian tekan Semak.");
+    kad.appendChild(mk);
+    // 0.6.31 (owner): the right answer appears after N wrong tries (parent setting per child, 1 / 2 / 3 / never; default 3)
+    if(!betul){ let n0 = 3; try{ const tt = JSON.parse(localStorage.getItem("silibus." + ANAK + ".tetapan") || "{}"); if(tt.jawapanN != null) n0 = +tt.jawapanN; }catch(e){}
+      const salah = ((rekod(t.id).salahN || {})[q.id]) || 0, jw = jawapanTeks(q);
+      if(n0 > 0 && jw){ const ja = document.createElement("p"); ja.className = "maklum jawapanBetul";
+        if(salah >= n0) ja.innerHTML = (BAHASA === "en" ? "💡 Answer: " : "💡 Jawapan: ") + "<b>" + papar(jw) + "</b>";
+        else ja.textContent = BAHASA === "en" ? "💡 The answer shows after " + n0 + " wrong tr" + (n0 > 1 ? "ies" : "y") + " (" + salah + "/" + n0 + ")." : "💡 Jawapan dipaparkan selepas " + n0 + " cubaan salah (" + salah + "/" + n0 + ").";
+        kad.appendChild(ja); } }
+  }
+  if(window.F1_AFTER) window.F1_AFTER(kad, q, ditanda, betul);   // 0.6.7: Form 1 explanation + SK/TP chip (f1.js)
+}
+
+// spec §4.4: tap the chips in order; tap a placed chip to take it back. Answer = indices into q.susunan.
+function urutanSusun(q){ if(susunan[q.id]) return susunan[q.id]; let o = q.susunan.map((_,n)=>n), b = benihDari(q.id);
+  for(let k=0;k<6;k++){ o = kocok(o, b+k); if(o.some((x,n)=> x !== n)) break; } susunan[q.id] = o; return o; }
+function binaSusun(kad,t,q,i){
+  const r = rekod(t.id), v = Array.isArray(r.jawapan[q.id]) ? r.jawapan[q.id].slice() : [], urut = urutanSusun(q), semak = sudahSemak(t,q);
+  const atas = document.createElement("div"); atas.className = "susunJawab";
+  for(let n=0;n<q.susunan.length;n++){ const sl = document.createElement("button"); sl.className = "susunSlot" + (v[n]!==undefined ? " isi" : "");
+    if(semak && v[n]!==undefined) sl.classList.add(v[n]===n ? "betul" : "salah");
+    sl.innerHTML = `<b>${n+1}</b>${v[n]!==undefined ? papar(q.susunan[v[n]]) : ""}`;
+    sl.onclick = ()=>{ if(v[n]===undefined) return; const nv = v.slice(0, n).concat(v.slice(n+1)); simpanJawapan(t,q,i, nv.length ? nv : undefined); };
+    atas.appendChild(sl); }
+  kad.appendChild(atas);
+  const bawah = document.createElement("div"); bawah.className = "bank susunBank";
+  urut.forEach(n=>{ if(v.indexOf(n) >= 0) return; const b = document.createElement("button"); b.className = "pil"; b.innerHTML = `<span class="teks">${papar(q.susunan[n])}</span>`;
+    b.onclick = ()=> simpanJawapan(t,q,i, v.concat([n])); bawah.appendChild(b); });
+  kad.appendChild(bawah);
+}
+function binaPilihan(kad,t,q,i){
+  const r = rekod(t.id), dipilih = r.jawapan[q.id];
+  const opsi = pilihanPapar(q), huruf = ["A","B","C","D","E"];
+  const bekas = document.createElement("div");
+  if(q.j === "isi") bekas.className = "bank";
+  opsi.forEach((o,n)=>{
+    const b = document.createElement("button");
+    b.className = "pil";
+    let mark = "";
+    if(dipilih !== undefined && o === dipilih){
+      if(!sudahSemak(t,q)) b.classList.add("dipilih");
+      else if(o === q.a){ b.classList.add("betul"); mark = "✓"; }
+      else { b.classList.add("salah"); mark = "✗"; }
+    }
+    b.innerHTML = `<span class="huruf">${q.j==="isi" ? "◆" : huruf[n]}</span><span class="teks">${papar(o)}</span><span class="mark">${mark}</span>`;
+    b.onclick = ()=> simpanJawapan(t,q,i,o);
+    bekas.appendChild(b);
+  });
+  kad.appendChild(bekas);
+}
+
+function binaPadankan(kad,t,q,i){
+  const r = rekod(t.id);
+  const v = r.jawapan[q.id];
+  const siap = sudahSemak(t,q);
+  const arah = document.createElement("p");
+  arah.className = "padanArahan";
+  arah.textContent = bolehTukar() ? "تكن باريس د سبله كيري، كمودين تكن جواڤن د باوه." : "Tekan baris di sebelah kiri, kemudian tekan jawapan di bawah.";
+  kad.appendChild(arah);
+
+  const senarai = document.createElement("div"); senarai.className = "padan";
+  q.pasangan.forEach((p,idx)=>{
+    const row = document.createElement("button"); row.className = "padanBaris";
+    const isi = v && v[idx];
+    if(siap) row.classList.add(v[idx] === p[1] ? "betul" : "salah");
+    if(padanPilih && padanPilih.qid === q.id && padanPilih.i === idx) row.classList.add("pilih");
+    row.innerHTML = `<span class="kiri">${papar(p[0])}</span><span class="slot ${isi?'isi':''}">${papar(isi) || "—"}</span>`;
+    row.onclick = ()=>{
+      if(isi){                                   // kosongkan slot
+        const baru = Object.assign({}, v); delete baru[idx];
+        r.jawapan[q.id] = baru; tulis(); padanPilih = null;
+      } else {
+        padanPilih = (padanPilih && padanPilih.i===idx) ? null : {qid:q.id, i:idx};
+      }
+      isiSoalan(kad,t,q,i); segarHud(t); segarSemak(t);
+    };
+    senarai.appendChild(row);
+  });
+  kad.appendChild(senarai);
+
+  const bank = document.createElement("div"); bank.className = "bank";
+  const dipakai = v ? Object.values(v) : [];
+  pilihanPapar(q).forEach(teks=>{
+    const b = document.createElement("button"); b.className = "pil";
+    const habis = dipakai.includes(teks);
+    if(habis) b.style.opacity = ".35";
+    b.innerHTML = `<span class="teks">${papar(teks)}</span>`;
+    b.onclick = ()=>{
+      if(!padanPilih || padanPilih.qid !== q.id){
+        const kosong = q.pasangan.findIndex((_,n)=> !(v && v[n]));
+        if(kosong < 0) return;
+        padanPilih = {qid:q.id, i:kosong};
+      }
+      const baru = Object.assign({}, v || {});
+      for(const kk of Object.keys(baru)) if(baru[kk] === teks) delete baru[kk];
+      baru[padanPilih.i] = teks;
+      padanPilih = null;
+      simpanJawapan(t,q,i,baru);
+    };
+    bank.appendChild(b);
+  });
+  kad.appendChild(bank);
+}
+
+function binaJadual(kad,t,q,i){
+  const r = rekod(t.id);
+  const v = r.jawapan[q.id];
+  const siap = sudahSemak(t,q);
+  const arah = document.createElement("p");
+  arah.className = "padanArahan";
+  arah.textContent = bolehTukar() ? "تكن ڤتق كوسوڠ، كمودين ڤيليه جواڤن د باوه." : "Tekan petak kosong, kemudian pilih jawapan di bawah.";
+  kad.appendChild(arah);
+
+  const tab = document.createElement("table"); tab.className = "jd";
+  const hr = document.createElement("tr");
+  q.kepala.forEach(h=>{ const th=document.createElement("th"); th.innerHTML=papar(h); hr.appendChild(th); });
+  tab.appendChild(hr);
+  q.baris.forEach((b,idx)=>{
+    const tr = document.createElement("tr");
+    b.sel.forEach(c=>{ const td=document.createElement("td"); td.innerHTML=papar(c); tr.appendChild(td); });
+    const td = document.createElement("td"); td.className = "selIsi";
+    const slot = document.createElement("button");
+    const isi = v && v[idx];
+    slot.className = "jdSlot" + (isi?" isi":"") + (siap ? (v[idx]===b.a?" betul":" salah") : "")
+      + (jdPilih && jdPilih.qid===q.id && jdPilih.i===idx ? " pilih" : "");
+    slot.innerHTML = isi ? papar(isi) : "—";
+    slot.onclick = ()=>{
+      if(isi){ const baru = Object.assign({}, v); delete baru[idx]; r.jawapan[q.id]=baru; tulis(); jdPilih=null; }
+      else jdPilih = (jdPilih && jdPilih.i===idx && jdPilih.qid===q.id) ? null : {qid:q.id, i:idx};
+      isiSoalan(kad,t,q,i); segarHud(t); segarSemak(t);
+    };
+    td.appendChild(slot); tr.appendChild(td);
+    tab.appendChild(tr);
+  });
+  kad.appendChild(tab);
+
+  const bank = document.createElement("div"); bank.className = "bank";
+  q.bank.forEach(teks=>{
+    const b = document.createElement("button"); b.className = "pil";
+    b.innerHTML = `<span class="teks">${papar(teks)}</span>`;
+    b.onclick = ()=>{
+      if(!jdPilih || jdPilih.qid !== q.id){
+        const kosong = q.baris.findIndex((_,n)=> !(v && v[n]));
+        if(kosong < 0) return;
+        jdPilih = {qid:q.id, i:kosong};
+      }
+      const baru = Object.assign({}, v || {});
+      baru[jdPilih.i] = teks;
+      jdPilih = null;
+      simpanJawapan(t,q,i,baru);
+    };
+    bank.appendChild(b);
+  });
+  kad.appendChild(bank);
+}
+
+/* ---------- LAJUR: kira secara turus ---------- */
+function binaLajur(kad,t,q,i){
+  const r = rekod(t.id);
+  const v = r.jawapan[q.id] || {};
+  const siap = sudahSemak(t,q);
+  const betul = betulJawab(q, r.jawapan[q.id]);
+  const pos = posDigit(q);
+  const lebar = q.a.length;
+  const pad = s => String(s).padStart(lebar, " ");
+  const barisAtas = pad(q.atas), barisBawah = pad(q.bawah);
+
+  if(lajurKursor[q.id] === undefined){
+    // kali pertama sahaja: mula pada kotak kosong paling kanan
+    const kosong = pos.slice().reverse().find(n => v[n] == null);
+    lajurKursor[q.id] = (kosong !== undefined) ? kosong : pos[pos.length-1];
+  }
+  const kursor = lajurKursor[q.id];
+
+  const wrap = document.createElement("div"); wrap.className = "lajurWrap";
+  const lj = document.createElement("div"); lj.className = "lajur";
+
+  function barisSel(teks, op, tandaWang){
+    const b = document.createElement("div"); b.className = "lajurBaris";
+    const o = document.createElement("span"); o.className = "op"; o.textContent = op || "";
+    b.appendChild(o);
+    if(q.wang){
+      const w = document.createElement("span"); w.className="sel simbol";
+      w.textContent = tandaWang === false ? "" : "RM";
+      b.appendChild(w);
+    }
+    for(const ch of teks){
+      const c = document.createElement("span");
+      c.className = "sel" + (ch === "." ? " titik" : "");
+      c.textContent = ch === " " ? "" : ch;
+      b.appendChild(c);
+    }
+    return b;
+  }
+  lj.appendChild(barisSel(barisAtas, "", true));
+  lj.appendChild(barisSel(barisBawah, q.op, !q.bawahBiasa));
+  const rule = document.createElement("div"); rule.className = "rule";
+  lj.appendChild(rule);
+
+  const jawapanBaris = document.createElement("div"); jawapanBaris.className = "lajurBaris";
+  const kosongOp = document.createElement("span"); kosongOp.className = "op"; jawapanBaris.appendChild(kosongOp);
+  if(q.wang){ const w = document.createElement("span"); w.className="sel simbol"; w.textContent="RM"; jawapanBaris.appendChild(w); }
+  q.a.split("").forEach((ch,n)=>{
+    if(ch === "."){
+      const d = document.createElement("span"); d.className = "sel titik"; d.textContent = ".";
+      jawapanBaris.appendChild(d); return;
+    }
+    const b = document.createElement("button");
+    b.className = "kotakDigit";
+    if(siap) b.classList.add(v[n] === q.a[n] ? "betul" : "salah");
+    else if(n === kursor) b.classList.add("kursor");
+    b.textContent = v[n] != null ? v[n] : "";
+    b.onclick = ()=>{ lajurKursor[q.id] = n; isiSoalan(kad,t,q,i); };
+    jawapanBaris.appendChild(b);
+  });
+  lj.appendChild(jawapanBaris);
+  wrap.appendChild(lj);
+  kad.appendChild(wrap);
+
+  const arah = document.createElement("p");
+  arah.className = "padanArahan";
+  arah.textContent = "Mula dari kotak paling kanan. Tekan mana-mana kotak untuk pindah.";
+  kad.appendChild(arah);
+
+  const pad9 = document.createElement("div"); pad9.className = "numpad";
+  ["1","2","3","4","5","6","7","8","9","0"].forEach(n=>{
+    const b = document.createElement("button"); b.className = "numKey"; b.textContent = n;
+    b.onclick = ()=>{
+      const baru = Object.assign({}, v);
+      baru[lajurKursor[q.id]] = n;
+      // pindah ke kotak kosong seterusnya ke kiri
+      const idx = pos.indexOf(lajurKursor[q.id]);
+      lajurKursor[q.id] = idx > 0 ? pos[idx-1] : pos[idx];
+      simpanJawapan(t,q,i,baru);
+    };
+    pad9.appendChild(b);
+  });
+  const del = document.createElement("button"); del.className = "numKey padam"; del.textContent = "⌫";
+  del.onclick = ()=>{
+    const baru = Object.assign({}, v);
+    let target = lajurKursor[q.id];
+    if(baru[target] == null){
+      const idx = pos.indexOf(target);
+      if(idx < pos.length-1) target = pos[idx+1];
+    }
+    delete baru[target];
+    lajurKursor[q.id] = target;
+    r.jawapan[q.id] = baru; tulis();
+    isiSoalan(kad,t,q,i); segarHud(t); segarSemak(t);
+  };
+  pad9.appendChild(del);
+  kad.appendChild(pad9);
+}
+
+/* ---------- simpan + segarkan ---------- */
+// Memilih jawapan TIDAK menanda betul/salah. Tanda hanya muncul selepas Semak.
+function simpanJawapan(t,q,i,nilai){
+  const r = rekod(t.id);
+  if(nilai === undefined) delete r.jawapan[q.id]; else r.jawapan[q.id] = nilai;
+  delete r.disemak[q.id];        // jawapan berubah -> tanda lama tidak sah lagi
+  kemasHarian(); tulis();
+  const kad = soalanEls[q.id];
+  if(kad) isiSoalan(kad,t,q,i);
+  segarHud(t); segarSemak(t);
+  if(window.GAME_HOOK) window.GAME_HOOK(t,q,nilai);
+}
+
+// Semak: tanda semua soalan yang sudah dijawab.
+function semakSemua(t){
+  const r = rekod(t.id);
+  let baru = 0, betulBaru = 0;
+  t.soalan.forEach(q=>{
+    const v = r.jawapan[q.id];
+    if(!siapJawab(q,v)) return;
+    const ok = betulJawab(q,v);
+    if(!r.disemak[q.id]){ baru++; r.cubaan[q.id] = (r.cubaan[q.id] || 0) + 1; if(!ok) r.salahN[q.id] = (r.salahN[q.id] || 0) + 1; }   // 0.6.9: attempts and wrong tries per question
+    r.disemak[q.id] = true;
+    if(ok) betulBaru++;
+    // Skor cubaan pertama direkod pada semakan PERTAMA soalan itu sahaja.
+    if(!Object.prototype.hasOwnProperty.call(r.pertama, q.id)) r.pertama[q.id] = ok && !(q.j === "baca" && v === "h");   // ½ counts for the beads, not as first try
+  });
+  tulis();
+  bunyi(baru && betulBaru === baru ? "siap" : baru ? "betul" : "salah");
+  t.soalan.forEach((q,i)=>{ const kad = soalanEls[q.id]; if(kad) isiSoalan(kad,t,q,i); });
+  segarHud(t); segarSemak(t);
+  return baru;
+}
+
+function segarSemak(t){
+  if(!semakEl) return;
+  const k = kiraTopik(t);
+  semakEl.innerHTML = "";
+  const h = document.createElement("h3"); h.textContent = "Semak — " + t.nama; semakEl.appendChild(h);
+  const p = document.createElement("p"); p.className = "kecil";
+  p.textContent = k.jawab < k.jum
+    ? (k.jum - k.jawab) + " soalan belum dijawab."
+    : k.semak < k.jawab ? "Semua sudah dijawab. Tekan Semak untuk lihat markah."
+    : k.betul === k.jum ? "🎉 Semua betul. Syabas!"
+    : "Tekan nombor merah, betulkan, kemudian Semak sekali lagi.";
+  semakEl.appendChild(p);
+
+  const st = document.createElement("div"); st.className = "statKotak";
+  st.innerHTML = `<div><b>${k.betul}/${k.jum}</b><span>betul sekarang</span></div>
+    <div><b>${k.pBetul}/${k.pJawab}</b><span>cubaan pertama</span></div>`;
+  semakEl.appendChild(st);
+
+  const semakBar = document.createElement("div"); semakBar.className = "semakBar";
+  const sb = document.createElement("button"); sb.className = "btn utama";
+  const belum = k.jawab - k.semak;
+  sb.textContent = BAHASA === "en" ? (belum ? "✔ Check " + belum + " answers" : "✔ Check answers") : (belum ? "✔ Semak " + belum + " jawapan" : "✔ Semak jawapan");
+  sb.disabled = !k.jawab;
+  sb.onclick = ()=> semakSemua(t);
+  semakBar.appendChild(sb);
+  semakEl.insertBefore(semakBar, semakEl.querySelector(".statKotak"));
+
+  const nav = document.createElement("div"); nav.className = "nav";
+  const atas = document.createElement("button"); atas.className = "btn";
+  atas.textContent = "↑ Naik ke atas";
+  atas.onclick = ()=> window.scrollTo({top:0,behavior:"smooth"});
+  const reset = document.createElement("button"); reset.className = "btn emas";
+  reset.textContent = "🧹 Padam semua";
+  reset.onclick = ()=> padamTopik(t, ()=> pergi({tab:"kuiz"}));
+  nav.appendChild(atas); nav.appendChild(reset);
+  semakEl.appendChild(nav);
+}
+
+/* ============================================================
+   MULA
+   ============================================================ */
+function ambil(u){ return new Promise((ok, no)=>{ const x = new XMLHttpRequest(); x.open("GET", u); x.onload = ()=>{ if(x.status === 200 || (x.status === 0 && x.responseText)) { try{ ok(JSON.parse(x.responseText)); }catch(e){ no(e); } } else no(new Error(u)); }; x.onerror = ()=> no(new Error(u)); x.send(); }); }
+async function muatPek(id){
+  const [N, K] = await Promise.all([ambil("packs/" + id + ".nota.json"), ambil("packs/" + id + ".kuiz.json")]);
+  return {N, K};
+}
+function keluar(){ try{ if(window.parent && window.parent !== window){ window.parent.postMessage({silibus:"close", pek:PEK}, "*"); return; } }catch(e){} history.back(); }
+// Nota: a topic counts as read once the reader reaches the end
+function tandaBaca(t, m){ const cek = ()=>{ if(!document.body.contains(m)){ window.removeEventListener("scroll", cek); return; }
+    if(window.innerHeight + window.scrollY >= document.body.scrollHeight - 40){ const r = rekod(t.id); if(!r.baca){ r.baca = true; tulis(); } window.removeEventListener("scroll", cek); } };
+  window.addEventListener("scroll", cek, {passive:true}); setTimeout(cek, 400); }
+// Android Back inside My Ihsan: notes sheet -> game -> topic -> subject -> leave
+window.SILIBUS_BACK = function(){ const nl = document.querySelector(".notaLapis"); if(nl){ nl.remove(); return true; }
+  if(document.querySelector(".gm")){ try{ window.GAME_HOOK = null; }catch(e){} pergi({skrin:"subjek", topik:null}); return true; }
+  if(laluan.skrin === "topik"){ pergi({skrin:"subjek", topik:null}); return true; } return false; };
+// ---------- 📝 Ujian Contoh (spec §4.8): paper seed = date + child (or "Kertas baharu"); slip, history, Indeks Sedia ----------
+async function mulaUjian(){
+  const ids = SEDIA.TULIS.concat(["sedia-lisan"]), packs = {};
+  const got = await Promise.all(ids.map(id=> muatPek(id).catch(()=>null)));
+  got.forEach((x,k)=>{ if(x) packs[ids[k]] = {id:ids[k], nama:x.N.nama, ikon:x.N.ikon, topik:x.N.topik.map((t,i)=>Object.assign({}, t, {soalan:(x.K.topik[i]||{}).soalan||[], petikan:(x.K.topik[i]||{}).petikan||{}}))}; });
+  const d = new Date(), seed = QS.get("kertas") || (tarikhKunci(d) + "-" + ANAK);
+  if(simpan.__kertas !== seed){ simpan = {__kertas: seed, __jawi: simpan.__jawi, __bunyi: simpan.__bunyi, __tema: simpan.__tema}; tulis(); }
+  META.ujian = {ikon:"📝", sk:"UJ", warna:"#E8A33D"};
+  DATA = {murid:NAMA_ANAK, kelas:"", tempoh:"", tajuk:"Ujian Contoh", subjek:[{id:"ujian", nama:"📝 Ujian Contoh Tahun 1", sedia:true, topik: SEDIA.build(packs, seed)}]};
+  laluan = {skrin:"subjek", sub:"ujian", topik:null, tab:"kuiz", fokus:null}; lukis();
+}
+function tunjukSlip(){ const t = DATA.subjek[0].topik, ov = document.createElement("div"); ov.className = "notaLapis"; const b = document.createElement("div"); b.className = "notaHelai";
+  const x = document.createElement("button"); x.className = "btn"; x.textContent = "✕"; x.onclick = ()=> ov.remove(); b.appendChild(x);
+  b.appendChild(SEDIA.slip(t, simpan.__kertas, (pek, topik)=>{ location.href = "exam.html?pek=" + encodeURIComponent(pek) + "&mod=nota&anak=" + encodeURIComponent(ANAK) + "&nama=" + encodeURIComponent(NAMA_ANAK) + "&topik=" + encodeURIComponent(topik); }));
+  ov.appendChild(b); ov.onclick = e=>{ if(e.target === ov) ov.remove(); }; document.body.appendChild(ov); }
+function kertasBaru(){ const u = new URL(location.href); u.searchParams.set("kertas", tarikhKunci(new Date()) + "-" + Date.now().toString(36)); location.replace(u.toString()); }
+function lihatNota(t){ const ov = document.createElement("div"); ov.className = "notaLapis"; const b = document.createElement("div"); b.className = "notaHelai";
+  const x = document.createElement("button"); x.className = "btn"; x.textContent = "✕"; x.onclick = ()=> ov.remove(); b.appendChild(x); b.appendChild(panelNota(t)); ov.appendChild(b);
+  ov.onclick = e=>{ if(e.target === ov) ov.remove(); }; document.body.appendChild(ov); }
+(async function mula(){
+  pakaiTema();
+  document.getElementById("app").innerHTML = '<p class="memuat">⏳ Memuatkan…</p>';
+  try{
+    if(MOD === "ujian"){ await mulaUjian(); return; }
+    const [{N, K}, kamus] = await Promise.all([muatPek(PEK), ambil("kamus.json").catch(()=>({}))]);
+    KAMUS = kamus.kamus || kamus || {};
+    PACK = N; BAHASA = N.bahasa || "ms";
+    META[N.id] = {ikon:N.ikon, sk:N.sk, warna:N.warna};
+    if(BAHASA === "ms"){ SUBJEK_PI.add(N.id); if(!/-jawi$/.test(N.id) || N.upkk) SUBJEK_JAWI.add(N.id); NAMA_JAWI[N.id] = NAMA_JAWI[N.id] || ""; }
+    if(simpan.__jawi === undefined && !TEMA_APL && (N.upkk || /-(pi|jawi|akhlak|tauhid|feqah|hafazan|kafa|sirah|tajwid|imlak|khat)$/.test(N.id))) jawiMod = true;   // 0.5.64/65: KAFA packs are written in full Jawi
+    const KAFA_JN = {"t1-akhlak":"اخلاق (كفا)", "t1-tauhid":"توحيد (كفا)", "t1-feqah":"فقه (كفا)", "t1-hafazan":"حفظن (كفا)", "t1-jawi-kafa":"جاوي (كفا)", "t1-arab-kafa":"بهاس عرب (كفا)", "t3-sirah":"سيره (كفا)", "t3-tajwid":"تجويد (كفا)", "t3-imlak":"املاء (كفا)", "t3-khat":"خط (كفا)"};
+    for (const k of Object.keys(KAFA_JN)) for (const y of ["t2-", "t3-", "t4-", "t5-", "t6-"]) KAFA_JN[k.replace(/^t\d-/, y)] = KAFA_JN[k];
+    Object.assign(KAFA_JN, {"t5-upkk-akidah":"عقيدة (UPKK)", "t5-upkk-ibadah":"عبادة (UPKK)", "t5-upkk-sirah":"سيره (UPKK)", "t5-upkk-adab":"اداب (UPKK)", "t5-upkk-jawi":"جاوي دان خط (UPKK)", "t5-upkk-arab":"بهاس عرب (UPKK)"});
+    if(KAFA_JN[N.id]) NAMA_JAWI[N.id] = NAMA_JAWI[N.id] || KAFA_JN[N.id];   // 0.5.54: Years 4-6 PI words are in kamus.json, so PI opens in Jawi again
+    if(BAHASA === "ar") document.body.classList.add("pekArab");
+    DATA = {murid:NAMA_ANAK, kelas:"", tempoh:"", tajuk:N.nama, subjek:[{id:N.id, nama:N.nama, sedia:true, semak:N.semak,
+      topik:N.topik.map((t,i)=>Object.assign({}, t, {soalan:(K.topik[i]||{}).soalan||[], petikan:(K.topik[i]||{}).petikan||{}}))}]};
+    laluan = {skrin:"subjek", sub:N.id, topik:null, tab: MOD === "nota" ? "nota" : "kuiz", fokus:null};
+    const lt = QS.get("topik"); if(lt && DATA.subjek[0].topik.some(t=>t.id===lt)) laluan = Object.assign(laluan, {skrin:"topik", topik:lt});
+    lukis(); ringkas();
+  }catch(e){ document.getElementById("app").innerHTML = '<p class="memuat">⚠️ Pek tidak dapat dimuatkan: ' + lindung(String(e && e.message || e)) + '</p>'; }
+})();
+
+</script>
+<script src="pintar.js"></script>
+</body>
+</html>

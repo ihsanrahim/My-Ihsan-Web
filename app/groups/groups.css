@@ -1,0 +1,128 @@
+/* 0.5.16 Kumpulan (Groups) */
+.gpHero .gvh,.gpHead .gvh{display:flex;gap:10px;align-items:center}
+.gpHero .gvh{align-items:flex-start}
+.gpHead{border-top:4px solid var(--gc,var(--gold))}
+.rin{display:block;width:100%;box-sizing:border-box;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;font-size:14px;margin:6px 0}
+.gpRow{display:flex;gap:12px;align-items:center;width:100%;text-align:left;color:var(--fg);border-left:5px solid var(--gc,var(--gold));cursor:pointer}
+.gpIc{font-size:28px;line-height:1}
+.gpTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.gpTx small{font-size:12px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gpUn{background:var(--gold);color:#111;border-radius:12px;min-width:22px;padding:2px 7px;font-weight:700;font-size:12px;text-align:center}
+.gpTypes,.gpChips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.gpChips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+.gpChips .chip{white-space:nowrap}
+.gpCol{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.gpSw{width:30px;height:30px;border-radius:50%;border:2px solid transparent}
+.gpSw.on{border-color:var(--fg);box-shadow:0 0 0 2px var(--bg) inset}
+.gpBar{display:flex;gap:8px;align-items:center}
+.gpBar .rin{flex:1;margin:0}
+.gpPost.pin{border-color:var(--gold)}
+.gpPost.urg{border-left:5px solid var(--red)}
+.gpPh{display:flex;gap:6px;align-items:center;font-size:13px;flex-wrap:wrap}
+.gpT{margin:8px 0 4px;font-size:16px}
+.gpX{font-size:14px;line-height:1.5;margin:6px 0;overflow-wrap:anywhere}
+.gpImgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin:6px 0}
+.gpImgs img{width:100%;border-radius:10px;aspect-ratio:1;object-fit:cover}
+.gpThumb{width:54px;height:54px;object-fit:cover;border-radius:8px;margin:4px}
+.gpEv{font-size:14px;margin:6px 0}
+.gpEv a,.gpPost a{color:var(--gold)}
+.gpDeath{background:var(--card2);border-radius:10px;padding:10px;margin:6px 0;font-size:14px;display:flex;flex-direction:column;gap:3px}
+.gpDeath .ar{font-family:var(--ar);font-size:20px;text-align:center}
+.gpPoll{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.gpOpt{position:relative;display:flex;justify-content:space-between;gap:8px;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:10px;overflow:hidden;text-align:left;font:inherit}
+.gpOpt.on{border-color:var(--gold)}
+.gpOpt span,.gpOpt b{position:relative}
+.gpBarF{position:absolute!important;left:0;top:0;bottom:0;background:rgba(201,166,70,.25)}
+.gpSlots{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.gpSlot{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;background:var(--card2);border-radius:10px;padding:8px}
+.gpSlot small{grid-column:1}
+.gpSlot .chip{grid-row:1/3;grid-column:2}
+.gpProg{height:10px;background:var(--card2);border-radius:6px;overflow:hidden;margin:6px 0}
+.gpProg i{display:block;height:100%;background:var(--gold)}
+.gpRos{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
+.gpRos td{border-bottom:1px solid var(--line);padding:5px}
+.gpRx{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.gpR{background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:16px;padding:4px 10px;font:inherit;font-size:13px}
+.gpR.on{border-color:var(--gold);background:rgba(201,166,70,.18)}
+.gpRp{margin-top:6px;display:flex;flex-direction:column;gap:3px}
+.gpRpIn{display:flex;gap:6px;align-items:center}
+.gpRpIn .rin{flex:1;margin:4px 0;padding:7px}
+.gpKinds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gpKind{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:10px 4px;font:inherit;font-size:12px;text-align:center}
+.gpKind span{font-size:24px}
+.gpKind.def{border-color:var(--gold)}
+.gpQr{background:#fff;border-radius:12px;padding:10px;max-width:260px;margin:0 auto 8px}
+.gpQr svg{display:block;width:100%;height:auto}
+.gpMem{display:flex;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 0}
+.gpEvRow{padding:6px 10px;margin:6px 0;background:var(--card2);border-radius:8px}
+.senior .gpX,.senior .gpEv{font-size:17px}
+.gpUnder{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}
+.gpUnder select{flex:1;min-width:140px;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:7px;font:inherit}
+.gpTree{max-height:46vh;overflow:auto;margin:6px 0;border-top:1px solid var(--line)}
+.gpTp{display:flex;gap:8px;align-items:center;padding:8px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.gpTp span{flex:1;min-width:0}.gpTp small{font-size:11px}
+.d .dots i.gp{background:var(--gpc,#c9a646)}
+.gpClip{display:flex;gap:10px;align-items:center;justify-content:space-between;border-color:var(--gold)}
+/* 0.5.23 shared calendar and announcement mode */
+.gcalH{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.gcalG{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;text-align:center}
+.gcalG i{font-style:normal;font-size:11px;opacity:.6}
+.gcalD{position:relative;border:0;background:var(--card2);border-radius:8px;min-height:38px;font:inherit;color:inherit;padding:2px}
+.gcalD.td{outline:2px solid var(--gold,#c9a646)}
+.gcalD.on{background:var(--green,#0b5d3b);color:#fff}
+.gcalD.has{font-weight:700}
+.gcalD em{display:flex;gap:2px;justify-content:center;margin-top:2px}
+.gcalD em s{width:6px;height:6px;border-radius:50%;display:block}
+.gpAnn{margin:6px 0;padding:6px 10px;border-radius:8px;background:rgba(201,166,70,.15)}
+/* 0.5.62 group types: type picker, typed home screens (couple, parent dashboard, kid view) */
+.gtTypes{display:flex;flex-direction:column;gap:7px;margin:6px 0 10px;max-height:44vh;overflow:auto}
+.gtType{display:flex;gap:10px;align-items:center;background:var(--card2);color:var(--fg);border:1.5px solid var(--line);border-radius:14px;padding:9px 11px;font:inherit;text-align:left;cursor:pointer}
+.gtType .e{font-size:24px;line-height:1}.gtType b{font-size:14px;display:block}.gtType small{font-size:11.5px;color:var(--mut)}
+.gtType.on{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 12%,var(--card2))}
+.gtRad{margin-left:auto;flex:none;width:16px;height:16px;border-radius:50%;border:2px solid var(--mut)}.gtType.on .gtRad{border-color:var(--gold);background:radial-gradient(var(--gold) 40%,transparent 45%)}
+.gtTx{flex:1;min-width:0}
+.gtTabs{margin:8px 0}
+.gtCard{display:flex;flex-direction:column;gap:6px}
+.gtH{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--mut)}.gtH b{color:var(--fg);font-size:14px}
+.gtBar{height:7px;border-radius:9px;background:var(--line);overflow:hidden}.gtBar i{display:block;height:100%;background:var(--gold)}
+.gtRow{display:flex;align-items:center;gap:9px;font-size:14px;padding:3px 0}
+.gtRow.done .gtTx{text-decoration:line-through;color:var(--mut)}
+.gtWho{margin-left:auto;font-size:11.5px;color:var(--mut);white-space:nowrap;flex:none}
+.gtChk{width:24px;height:24px;flex:none;border-radius:7px;border:2px solid var(--mut);background:none;color:#06210f;font:700 14px/1 system-ui,sans-serif;display:grid;place-items:center;cursor:pointer;padding:0}
+.gtChk.on{background:#6fcf8e;border-color:#6fcf8e}
+.gtStatus{display:flex;gap:10px;align-items:center;margin:8px 0;padding:10px 12px;border-radius:14px;font-size:14px;background:rgba(111,179,210,.12);border:1px solid rgba(111,179,210,.4)}
+.gtStatus small{color:var(--mut)}
+.gtSplit{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.gtMini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:3px}
+.gtMini .n{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}.gtMini .l{font-size:11px;color:var(--mut)}
+.gtPill{display:inline-block;align-self:flex-start;font-size:11px;padding:2px 8px;border-radius:99px;font-weight:600;white-space:nowrap}
+.gtPill.ok{background:rgba(111,207,142,.18);color:#6fcf8e}.gtPill.warn{background:rgba(233,196,106,.2);color:#e9c46a}.gtPill.bad{background:rgba(217,112,90,.22);color:#e7826b}
+.gtQuick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.gtQuick .btn{font-size:13px;padding:10px 6px}
+.gtAdd{position:sticky;bottom:10px;display:flex;justify-content:flex-end;margin:8px 0;z-index:3}.gtAdd .btn{border-radius:99px;padding:12px 20px;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.gtKid{display:flex;flex-direction:column;gap:8px}.gtKidT{display:flex;gap:10px;align-items:center}
+.gtFace{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:22px;background:var(--card2);flex:none}
+.gtKidT small{display:block;font-size:12px;color:var(--mut)}
+.gtDots{display:flex;gap:5px;align-items:center}.gtDots i{width:22px;height:22px;border-radius:50%;background:var(--line);display:grid;place-items:center;font:700 10px/1 system-ui,sans-serif;font-style:normal;color:var(--mut)}
+.gtDots i.y{background:#6fcf8e;color:#06210f}.gtDots i.m{background:#e9c46a;color:#2a1f00}
+.gtAppr{display:flex;gap:10px;align-items:center}.gtAppr img{width:56px;height:56px;object-fit:cover;border-radius:10px;flex:none}.gtBig{font-size:28px}
+.gtHi{display:flex;justify-content:space-between;align-items:center;margin:8px 2px}.gtHi b{font-size:22px;font-family:var(--fontD,Georgia,serif)}
+.gtSolat{background:color-mix(in srgb,#2f6b9a 30%,var(--card))}
+.gtTiles{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.gtTile{display:flex;flex-direction:column;align-items:center;gap:3px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--fg);font:inherit;font-size:11px;padding:8px 2px;cursor:pointer}
+.gtTile span{font-size:22px}.gtTile.on{border-color:#6fcf8e;background:rgba(111,207,142,.15)}.gtTile.now{border-color:var(--gold);animation:gtPulse 1.6s ease-in-out infinite}
+@keyframes gtPulse{50%{box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 35%,transparent)}}
+.gtNow{color:var(--gold);font-weight:600}
+.gtCheck{font-size:16px;font-weight:600;margin:6px 0}
+.gtKidK .gpKind{padding:16px 4px;font-size:13px}.gtKidK .gpKind span{font-size:30px}
+.gtFeat{display:grid;grid-template-columns:1fr 1fr;gap:0 8px;margin:6px 0}.gtFeat .obChk{font-size:13px}
+@media (prefers-reduced-motion:reduce){.gtTile.now{animation:none}}
+.gtTabRow{display:flex;gap:8px;align-items:center}.gtTabRow .gtTabs{flex:1;min-width:0}.gtAddB{flex:none;border-radius:99px!important;padding:9px 14px!important;white-space:nowrap}
+/* 0.6.2 (owner): ⓘ for the explanation, ⋮ on every group */
+.gpHero .gvh{align-items:flex-start}
+.gpInfo{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:var(--card2);color:var(--mut);font-size:14px;line-height:1;padding:0}
+.gpInfo.on{color:var(--gold);border-color:var(--gold)}
+.gpInfoT[hidden]{display:none}
+.gpDots{flex:none;margin-left:auto;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--fg);background:var(--card2)}
+.gpUn+.gpDots{margin-left:6px}
+.gpRow .gpTx{flex:1;min-width:0}
+.gpMoreB{font-size:18px;font-weight:800;padding:4px 12px}

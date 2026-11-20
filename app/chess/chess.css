@@ -1,0 +1,17 @@
+/* 0.5.70 3D chess */
+.chSeg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}.chSeg .chip{flex:1 1 auto}
+.chL{font-size:12.5px;font-weight:700;color:var(--mut);margin-top:6px}
+.chTop{display:flex;align-items:center;gap:8px;margin:4px 2px 8px}.chTop b{flex:1;min-width:0;font-size:14px}
+.ch3d{position:relative;border-radius:16px;overflow:hidden;background:#111;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.ch3d canvas{display:block;width:100%;touch-action:none}
+.chClk{position:absolute;left:8px;z-index:6;background:rgba(0,0,0,.55);color:#fff;border-radius:10px;padding:4px 10px;font:700 13px/1.2 ui-monospace,monospace;pointer-events:none;backdrop-filter:blur(4px)}
+.chClkT{top:8px}.chClkB{bottom:8px}.chClk.on{background:rgba(212,175,55,.92);color:#1a1405}
+.chMsg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;background:rgba(0,0,0,.72);color:#fff;border-radius:16px;padding:14px 20px;text-align:center;pointer-events:none}
+.chMsg b{display:block;font-size:20px}.chMsg small{opacity:.85}
+.chCap{display:flex;justify-content:space-between;gap:8px;font-size:18px;margin:6px 4px;min-height:24px}
+.chBtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0}.chBtns .btn{padding:8px 2px;font-size:12px}
+.chList{display:grid;grid-template-columns:auto 1fr 1fr;gap:2px 10px;max-height:150px;overflow:auto;font:600 13px/1.5 ui-monospace,monospace}
+.chN{color:var(--mut)}
+.chPromo{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bn-chess .bnSc{background:repeating-conic-gradient(rgba(255,255,255,.1) 0 25%,transparent 0 50%) 100% 0/36px 36px,radial-gradient(circle at 85% 40%,rgba(255,220,150,.25),transparent 55%),linear-gradient(135deg,#2a1608,#6e3f22 55%,#d4af37)}
+.bn-chess .bnSc::after{left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,#f3ead8 0 12px,#1a1410 12px 24px);opacity:.75}

@@ -1,0 +1,86 @@
+/* My Ihsan 0.5.45 · Teman theme (light "teman" + dark "temannight"). A family companion: mint paper, forest ink, lime fills,
+   coral for one accent, 2-2.5px ink outlines, a hard offset shadow on primary buttons only, Bricolage Grotesque type.
+   Sacred text (Quran ayat, doa cards) stays calm: thin borders, no shadow, no bounce. Loaded after style.css; every rule is
+   scoped to html[data-th=teman] / html[data-th=temannight] so the other themes are untouched. */
+@font-face{font-family:"BricolageL";src:url(fonts/bricolage-grotesque-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"BricolageL";src:url(fonts/bricolage-grotesque-latin-600-normal.woff2) format("woff2");font-weight:500 700;font-display:swap}
+@font-face{font-family:"BricolageL";src:url(fonts/bricolage-grotesque-latin-800-normal.woff2) format("woff2");font-weight:800 900;font-display:swap}
+
+/* ---- tokens ---- */
+html[data-th=teman]{--bg:#F1FAEF;--card:#FFFFFF;--card2:#E3F6E2;--line:#B9D3C2;--fg:#0B2B21;--mut:#4D6B5F;--green:#1F7A4F;--deep:#0B2B21;--gold:#C2401C;--well:#DDEFDD;--nav:#F1FAEF;--hdr:#F1FAEF;--red:#C2401C;--blue:#2F5BD3;
+  --tm-ink:#0B2B21;--tm-lime:#CBFA1E;--tm-mint:#CDFBD2;--tm-coral:#FF6B4A;--tm-sh:#0B2B21;--tm-out:#0B2B21;color-scheme:light}
+html[data-th=temannight]{--bg:#06261C;--card:#0B3326;--card2:#0F3D2F;--line:#1F5543;--fg:#ECFBEA;--mut:#9FC4B2;--green:#CBFA1E;--deep:#0F3D2F;--gold:#CBFA1E;--well:#052019;--nav:#04211A;--hdr:#06261C;--red:#FF8A6B;--blue:#8FB3FF;
+  --tm-ink:#0B2B21;--tm-lime:#CBFA1E;--tm-mint:#0F3D2F;--tm-coral:#FF7A5C;--tm-sh:#000000;--tm-out:#3E7A63;color-scheme:dark}
+
+/* ---- type ---- */
+html[data-th^=teman] body{font-family:"BricolageL","Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:-.005em}
+html[data-th^=teman] h1,html[data-th^=teman] h2,html[data-th^=teman] h3{font-weight:800;letter-spacing:-.02em}
+html[data-th^=teman] #topTitle{font-weight:800;letter-spacing:-.02em;color:var(--fg)}
+html[data-th=temannight] #topTitle{color:var(--tm-lime)}
+html[data-th^=teman] header{background:var(--hdr)}
+
+/* ---- drop the glossy 3D look everywhere ---- */
+html[data-th^=teman] .g3d,html[data-th^=teman] .btn.btn,html[data-th^=teman] .btn.gold.gold,html[data-th^=teman] .btn.alt.alt,html[data-th^=teman] .chip.chip,html[data-th^=teman] .chip.on.on,
+html[data-th^=teman] nav#nav button,html[data-th^=teman] #subnav button,html[data-th^=teman] #subnav button.on,html[data-th^=teman] .qt.qt,html[data-th^=teman] .lchip.lchip,
+html[data-th^=teman] #hBtns button,html[data-th^=teman] .amdock .lv3 button,html[data-th^=teman] .amdock .lv2 button{background-image:none;box-shadow:none;transition:transform .12s cubic-bezier(.4,0,.2,1),box-shadow .12s cubic-bezier(.4,0,.2,1),background-color .2s}
+
+/* ---- buttons: ink outline; the primary one sits on a hard shadow and presses into it ---- */
+html[data-th^=teman] .btn.btn{background-color:var(--tm-lime);color:var(--tm-ink);border:2.5px solid var(--tm-out);border-radius:14px;font-weight:700;box-shadow:3px 3px 0 var(--tm-sh)}
+html[data-th^=teman] .btn.alt.alt{background-color:var(--card);color:var(--fg);box-shadow:none}
+html[data-th^=teman] .btn.gold.gold{background-color:var(--tm-coral);color:#fff;border-color:var(--tm-out)}
+html[data-th^=teman] .btn.btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--tm-sh)}
+html[data-th^=teman] .btn.alt.alt:active,html[data-th^=teman] .chip:active,html[data-th^=teman] .g3d:active,html[data-th^=teman] #hBtns button:active{transform:translateY(1px) scale(.97);box-shadow:none}
+html[data-th^=teman] .btn[disabled]{opacity:.45;box-shadow:none}
+
+/* ---- chips: outlined pills; the selected one is lime ---- */
+html[data-th^=teman] .chip.chip{background-color:var(--card);border:2px solid var(--tm-out);color:var(--fg);font-weight:600}
+html[data-th^=teman] .chip.on.on{background-color:var(--tm-lime);border-color:var(--tm-out);color:var(--tm-ink);font-weight:800}
+html[data-th^=teman] .qt.qt,html[data-th^=teman] .lchip.lchip{border:2px solid var(--tm-out)}
+
+/* ---- cards: rounder, outlined, flat ---- */
+html[data-th^=teman] .card{border-radius:20px;border:2px solid var(--tm-out)}
+html[data-th=temannight] .card{border-color:var(--line)}
+html[data-th^=teman] .mSec{border-radius:20px;border:2px solid var(--tm-out)}
+html[data-th=temannight] .mSec{border-color:var(--line)}
+html[data-th^=teman] .wg,html[data-th^=teman] .wgc{border-radius:20px}
+
+/* ---- sacred text stays calm: thin border, no outline weight, no motion ---- */
+html[data-th^=teman] .qa{border:1px solid var(--line);border-radius:16px;box-shadow:none}
+html[data-th^=teman] .twDoa{border:1px solid var(--line);border-radius:16px}
+
+/* ---- header buttons ---- */
+html[data-th^=teman] #hBtns button{background-color:var(--card);border:2px solid var(--tm-out);color:var(--fg)}
+
+/* ---- level 1 tabs: a light dock; the current tab is a lime sticker ---- */
+html[data-th^=teman] nav#nav{background:var(--nav);border-top:2.5px solid var(--tm-out);gap:6px}
+html[data-th=temannight] nav#nav{border-top-color:var(--line)}
+html[data-th^=teman] nav#nav button{background-color:transparent;border:2px solid transparent;color:var(--mut);border-radius:16px;font-weight:600}
+html[data-th^=teman] nav#nav button.on{background-color:var(--tm-lime);border-color:var(--tm-out);color:var(--tm-ink);font-weight:800;box-shadow:2px 2px 0 var(--tm-sh)}
+html[data-th^=teman] nav#nav button.snHome{color:var(--gold)}
+
+/* ---- level 2 tabs ---- */
+html[data-th^=teman] #subnav{background:var(--bg);border-top:0}
+html[data-th^=teman] #subnav button{background-color:var(--card);border:2px solid var(--tm-out);color:var(--fg);border-radius:14px}
+html[data-th=temannight] #subnav button{border-color:var(--line)}
+html[data-th^=teman] #subnav button.on{background-color:var(--tm-lime);border-color:var(--tm-out);color:var(--tm-ink);font-weight:800}
+html[data-th^=teman] #subnav button.cur:not(.on){border-color:var(--tm-coral);color:var(--fg)}
+html[data-th^=teman] .dock{background:var(--bg);border-top:0;box-shadow:none}
+
+/* ---- the middle notch ---- */
+html[data-th^=teman] #notch button{background:var(--card);border-color:var(--tm-out);color:var(--fg)}
+html[data-th^=teman] #notch #ntT{color:var(--gold)}
+html[data-th=teman] #notch #ntT{color:var(--tm-coral)}
+
+/* ---- small parts ---- */
+html[data-th^=teman] .badge{border-radius:999px;font-weight:700}
+html[data-th^=teman] .bar,html[data-th^=teman] .hbar,html[data-th^=teman] .fbar,html[data-th^=teman] .ubar1{border-radius:999px}
+html[data-th^=teman] input[type=range]{accent-color:var(--tm-lime)}
+html[data-th=teman] input[type=range]{accent-color:var(--tm-ink)}
+html[data-th^=teman] input[type=text],html[data-th^=teman] input[type=search],html[data-th^=teman] input[type=number],html[data-th^=teman] input[type=date],html[data-th^=teman] input[type=time],html[data-th^=teman] select,html[data-th^=teman] textarea{border-radius:12px}
+html[data-th=teman] .warnbox{background:#FFF1EC;color:#7A2410;border-color:#FFC2B1}
+html[data-th^=teman] .ths.on{outline:2.5px solid var(--tm-out);outline-offset:2px}
+
+/* ---- motion: one springy settle when a tab or chip is chosen; nothing loops ---- */
+@keyframes tmPop{0%{transform:scale(.94)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+html[data-th^=teman] nav#nav button.on,html[data-th^=teman] #subnav button.on{animation:tmPop .36s cubic-bezier(.34,1.56,.64,1) 1}
+@media (prefers-reduced-motion:reduce){html[data-th^=teman] *{animation:none!important;transition:none!important}}

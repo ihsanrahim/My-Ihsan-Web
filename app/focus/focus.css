@@ -1,0 +1,56 @@
+/* 0.5.1 Masa › Fokus */
+.focard{text-align:center}
+.focard .rseg{justify-content:center;margin:10px 0 6px}
+.focard .pdchk{display:flex;gap:8px;align-items:center;text-align:left;margin:6px 0;font-size:14px}
+.focard #foGo{margin-top:10px}
+.fobig{font-size:44px;line-height:1.1;margin:4px 0}
+.fonow{margin:6px auto 0;display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:4px 10px;font-size:13px}
+.foring{position:relative;width:190px;height:190px;margin:6px auto}
+.foring svg circle:last-child{transition:stroke-dashoffset .9s linear}
+.forin{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.forin b{font-size:34px;font-variant-numeric:tabular-nums}
+.forin small{opacity:.75;font-size:12px;max-width:140px}
+.fobtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.fosc{display:flex;align-items:center;gap:10px;padding:8px 2px;border-top:1px solid var(--line);cursor:pointer}
+.fosc.off{opacity:.55}
+.foic{font-size:22px;width:30px;text-align:center}
+.fot{flex:1;min-width:0;display:flex;flex-direction:column}
+.fot small{opacity:.7;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fotpl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.folock{position:fixed;inset:0;z-index:9000;background:var(--bg);color:var(--fg);display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 14px) 16px 20px}
+.folh{align-self:stretch;display:flex;justify-content:flex-end}
+.folc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;max-width:420px}
+.fols{font-size:16px;opacity:.85}
+.folt{font-size:64px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.folz{font-size:26px;line-height:1.4;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:22px;padding:18px 28px;min-width:220px;cursor:pointer}
+.folz small{font-size:13px;opacity:.7}
+.folock.min{inset:auto 12px calc(env(safe-area-inset-bottom) + 160px) auto;padding:6px 14px;border-radius:20px;border:1px solid var(--gold,#d4af37);box-shadow:0 4px 14px rgba(0,0,0,.3);cursor:pointer}
+.folock.min .folh,.folock.min .fols,.folock.min .folz,.folock.min #foQ,.folock.min .mut{display:none}
+.folock.min .folt{font-size:18px}
+.folock.min .folt::before{content:"🎯 "}
+/* 0.5.2 Statistik › screen-time insights */
+.insc .row .chips{margin:0}
+.instr{font-size:13px;margin-top:6px}.instr.up{color:#e58a4d}.instr.down{color:#3fb27f}
+.inswk{display:flex;gap:6px;height:110px;align-items:flex-end;margin-top:8px}
+.inswk div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:2px}
+.inswk i{width:70%;background:var(--gold,#d4af37);border-radius:4px 4px 0 0;min-height:2px}
+.inswk small{font-size:11px;opacity:.75}.inswk em{font-size:10px;font-style:normal;opacity:.6}
+.inshr{display:flex;gap:2px;height:70px;align-items:flex-end;margin-top:4px}
+.inshr i{flex:1;background:var(--line);border-radius:2px 2px 0 0}.inshr i.pk{background:var(--gold,#d4af37)}
+.inshl{display:flex;justify-content:space-between;font-size:10px;opacity:.6}
+.insbal{display:flex;height:12px;border-radius:6px;overflow:hidden;margin-top:4px;background:var(--line)}
+.inslg{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;margin-top:4px}.inslg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+.insap{display:grid;grid-template-columns:minmax(0,1.2fr) 1fr auto;gap:8px;align-items:center;width:100%;background:none;border:0;color:inherit;padding:5px 0;text-align:left;font:inherit;cursor:pointer}
+.insn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px}
+.insb{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.insb i{display:block;height:100%}
+.inst{font-size:12px;opacity:.8;white-space:nowrap}
+.inswarn{margin-top:8px;padding:8px 10px;border-radius:10px;background:rgba(229,138,77,.15);border:1px solid rgba(229,138,77,.4);font-size:13px}
+.insib{margin-top:10px;padding:8px 10px;border-radius:10px;background:var(--card2);border:1px solid var(--line);font-size:13px;line-height:1.5}
+.insmd{display:flex;gap:8px;margin-top:4px}.insmd button{font-size:26px;background:none;border:2px solid transparent;border-radius:50%;padding:2px 4px;cursor:pointer;opacity:.6}
+.insmd button.on{border-color:var(--gold,#d4af37);opacity:1}
+/* 0.5.23 focus tree and garden */
+.foring{position:relative}.foring .foTree{position:absolute;left:50%;top:50%;width:120px;height:120px;transform:translate(-50%,-62%);opacity:.9;pointer-events:none}
+.foring .forin{z-index:1}
+.foPlot{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;padding:10px;border-radius:12px;background:linear-gradient(180deg,transparent,rgba(120,90,40,.18));font-size:24px;line-height:1}
+.foPlot .dead{opacity:.5;filter:grayscale(1)}
+.foring .foTree{width:96px;height:96px;transform:translate(-50%,-78%)}.foring .forin{justify-content:flex-end;padding-bottom:44px}

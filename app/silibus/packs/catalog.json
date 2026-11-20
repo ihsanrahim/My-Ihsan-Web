@@ -1,0 +1,8931 @@
+{
+ "v": 3,
+ "tahap": [
+  {
+   "id": "PRA",
+   "nama": "Sedia ke Tahun 1 (Ujian Kemasukan)"
+  },
+  {
+   "id": "T1",
+   "nama": "Tahun 1"
+  },
+  {
+   "id": "T2",
+   "nama": "Tahun 2"
+  },
+  {
+   "id": "T3",
+   "nama": "Tahun 3"
+  },
+  {
+   "id": "T4",
+   "nama": "Tahun 4"
+  },
+  {
+   "id": "T5",
+   "nama": "Tahun 5"
+  },
+  {
+   "id": "T6",
+   "nama": "Tahun 6"
+  },
+  {
+   "id": "F1",
+   "nama": "Tingkatan 1"
+  },
+  {
+   "id": "F2",
+   "nama": "Tingkatan 2"
+  },
+  {
+   "id": "F3",
+   "nama": "Tingkatan 3"
+  }
+ ],
+ "pek": [
+  {
+   "id": "sedia-bm",
+   "tahap": "PRA",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-bm-1",
+     "nama": "Huruf dan Bunyi Awal",
+     "n": 20
+    },
+    {
+     "id": "sedia-bm-2",
+     "nama": "Huruf Vokal",
+     "n": 20
+    },
+    {
+     "id": "sedia-bm-3",
+     "nama": "Suku Kata",
+     "n": 20
+    },
+    {
+     "id": "sedia-bm-4",
+     "nama": "Perkataan dan Gambar",
+     "n": 20
+    },
+    {
+     "id": "sedia-bm-5",
+     "nama": "Ayat Mudah",
+     "n": 20
+    },
+    {
+     "id": "sedia-bm-6",
+     "nama": "Kata Nama dan Lawan Kata",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-bi",
+   "tahap": "PRA",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-bi-1",
+     "nama": "Alphabet and Sounds",
+     "n": 20
+    },
+    {
+     "id": "sedia-bi-2",
+     "nama": "Missing Letters",
+     "n": 20
+    },
+    {
+     "id": "sedia-bi-3",
+     "nama": "Rearrange the Letters",
+     "n": 20
+    },
+    {
+     "id": "sedia-bi-4",
+     "nama": "Colours and Numbers",
+     "n": 20
+    },
+    {
+     "id": "sedia-bi-5",
+     "nama": "Things Around Me",
+     "n": 20
+    },
+    {
+     "id": "sedia-bi-6",
+     "nama": "Read and Understand",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-mat",
+   "tahap": "PRA",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-mat-1",
+     "nama": "Nombor 1 hingga 30",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-2",
+     "nama": "Membilang",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-3",
+     "nama": "Tambah dan Tolak hingga 10",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-4",
+     "nama": "Wang Syiling",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-5",
+     "nama": "Bentuk Asas",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-6",
+     "nama": "Banding dan Pola",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-sains",
+   "tahap": "PRA",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-sains-1",
+     "nama": "Benda Hidup dan Bukan Hidup",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-2",
+     "nama": "Tumbuhan",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-3",
+     "nama": "Haiwan",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-4",
+     "nama": "Deria dan Rasa",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-5",
+     "nama": "Di Dalam Kelas dan Rumah",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-6",
+     "nama": "Alam dan Cuaca",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-pi",
+   "tahap": "PRA",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#1FA37A",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-pi-1",
+     "nama": "Rukun Iman",
+     "n": 20
+    },
+    {
+     "id": "sedia-pi-2",
+     "nama": "Rukun Islam",
+     "n": 20
+    },
+    {
+     "id": "sedia-pi-3",
+     "nama": "Allah Pencipta",
+     "n": 20
+    },
+    {
+     "id": "sedia-pi-4",
+     "nama": "Wuduk",
+     "n": 20
+    },
+    {
+     "id": "sedia-pi-5",
+     "nama": "Solat Fardu",
+     "n": 20
+    },
+    {
+     "id": "sedia-pi-6",
+     "nama": "Nabi Muhammad s.a.w. dan Adab",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-jawi",
+   "tahap": "PRA",
+   "nama": "Jawi",
+   "sk": "JW",
+   "ikon": "✍️",
+   "warna": "#B07CF0",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "sedia-jawi-1",
+     "nama": "Huruf Jawi Tunggal",
+     "n": 20
+    },
+    {
+     "id": "sedia-jawi-2",
+     "nama": "Huruf Tambahan Jawi",
+     "n": 20
+    },
+    {
+     "id": "sedia-jawi-3",
+     "nama": "Suku Kata Jawi",
+     "n": 20
+    },
+    {
+     "id": "sedia-jawi-4",
+     "nama": "Perkataan Jawi dan Gambar",
+     "n": 20
+    },
+    {
+     "id": "sedia-jawi-5",
+     "nama": "Mengeja Jawi",
+     "n": 20
+    },
+    {
+     "id": "sedia-jawi-6",
+     "nama": "Rumi ke Jawi",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-arab",
+   "tahap": "PRA",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#E86A5A",
+   "bahasa": "ar",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-arab-1",
+     "nama": "Nombor 1 hingga 10",
+     "n": 20
+    },
+    {
+     "id": "sedia-arab-2",
+     "nama": "Ucapan dan Salam",
+     "n": 20
+    },
+    {
+     "id": "sedia-arab-3",
+     "nama": "Benda di Kelas",
+     "n": 20
+    },
+    {
+     "id": "sedia-arab-4",
+     "nama": "Makanan dan Minuman",
+     "n": 20
+    },
+    {
+     "id": "sedia-arab-5",
+     "nama": "Haiwan",
+     "n": 20
+    },
+    {
+     "id": "sedia-arab-6",
+     "nama": "Badan dan Keluarga",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-iqra",
+   "tahap": "PRA",
+   "nama": "Iqra'",
+   "sk": "IQ",
+   "ikon": "📗",
+   "warna": "#2E9E5B",
+   "bahasa": "ar",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-iqra-1",
+     "nama": "Tahap 1: Huruf Berbaris Atas",
+     "n": 20
+    },
+    {
+     "id": "sedia-iqra-2",
+     "nama": "Tahap 2: Huruf Bersambung dan Mad Alif",
+     "n": 20
+    },
+    {
+     "id": "sedia-iqra-3",
+     "nama": "Tahap 3: Baris Bawah dan Baris Depan",
+     "n": 20
+    },
+    {
+     "id": "sedia-iqra-4",
+     "nama": "Tahap 4: Tanwin dan Sukun",
+     "n": 20
+    },
+    {
+     "id": "sedia-iqra-5",
+     "nama": "Tahap 5: Mad Wau, Mad Ya dan Lam Alif",
+     "n": 20
+    },
+    {
+     "id": "sedia-iqra-6",
+     "nama": "Tahap 6: Sabdu dan Alif Lam",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "sedia-lisan",
+   "tahap": "PRA",
+   "nama": "Ujian Lisan",
+   "sk": "LS",
+   "ikon": "🗣️",
+   "warna": "#FF7AA2",
+   "bahasa": "ms",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru+ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "sedia-lisan-1",
+     "nama": "BM: Huruf dan Suku Kata",
+     "n": 16
+    },
+    {
+     "id": "sedia-lisan-2",
+     "nama": "BM: Perkataan dan Ayat",
+     "n": 16
+    },
+    {
+     "id": "sedia-lisan-3",
+     "nama": "BM: Cerita Pendek dan Pantun",
+     "n": 8
+    },
+    {
+     "id": "sedia-lisan-4",
+     "nama": "BI: Read Aloud",
+     "n": 13
+    },
+    {
+     "id": "sedia-lisan-5",
+     "nama": "Jawi: Bacaan",
+     "n": 16
+    },
+    {
+     "id": "sedia-lisan-6",
+     "nama": "Iqra': Bacaan",
+     "n": 16
+    }
+   ],
+   "soalan": 85
+  },
+  {
+   "id": "t1-bm",
+   "tahap": "T1",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t1-bm-1",
+     "nama": "Huruf, Vokal & Suku Kata",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-2",
+     "nama": "Ejaan: Digraf & Diftong",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-3",
+     "nama": "Kata Nama Am & Kata Nama Khas",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-4",
+     "nama": "Kata Ganti Nama Diri",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-5",
+     "nama": "Kata Kerja",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-6",
+     "nama": "Kata Adjektif",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-7",
+     "nama": "Kata Sendi Nama & Kata Hubung",
+     "n": 25
+    },
+    {
+     "id": "t1-bm-8",
+     "nama": "Ayat, Tanda Baca & Pemahaman",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-bi",
+   "tahap": "T1",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t1-bi-1",
+     "nama": "Friends: Greetings, Numbers & Colours",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-2",
+     "nama": "Phonics: Letters & Sounds",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-3",
+     "nama": "At School",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-4",
+     "nama": "Let's Play!",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-5",
+     "nama": "Pet Show",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-6",
+     "nama": "Lunchtime",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-7",
+     "nama": "Grammar: a/an, is/are, my/your",
+     "n": 25
+    },
+    {
+     "id": "t1-bi-8",
+     "nama": "Reading: Short Texts",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-mat",
+   "tahap": "T1",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t1-mat-1",
+     "nama": "Nombor Bulat hingga 100",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-2",
+     "nama": "Tambah dan Tolak dalam Lingkungan 100",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-3",
+     "nama": "Pecahan",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-4",
+     "nama": "Wang hingga RM10",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-5",
+     "nama": "Masa dan Waktu",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-6",
+     "nama": "Ukuran dan Sukatan",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-7",
+     "nama": "Ruang",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-8",
+     "nama": "Pengurusan Data",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-sains",
+   "tahap": "T1",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t1-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-2",
+     "nama": "Peraturan Bilik Sains",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-3",
+     "nama": "Benda Hidup dan Benda Bukan Hidup",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-4",
+     "nama": "Manusia",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-5",
+     "nama": "Haiwan",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-6",
+     "nama": "Tumbuhan",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-7",
+     "nama": "Magnet",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-8",
+     "nama": "Penyerapan",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-9",
+     "nama": "Bumi",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-10",
+     "nama": "Asas Binaan",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-pi",
+   "tahap": "T1",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t1-pi-1",
+     "nama": "Al-Quran: Kitab Suciku & Surah Al-Fatihah",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-2",
+     "nama": "Al-Quran: Surah-surah Lazim",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-3",
+     "nama": "Akidah: Rukun Iman & Rukun Islam",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-4",
+     "nama": "Akidah: Mengenal Allah Maha Pencipta",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-5",
+     "nama": "Ibadah: Bersuci & Wuduk",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-6",
+     "nama": "Ibadah: Solat Fardu Lima Waktu",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-7",
+     "nama": "Sirah: Kelahiran & Keluarga Nabi Muhammad SAW",
+     "n": 25
+    },
+    {
+     "id": "t1-pi-8",
+     "nama": "Adab: Adab Harian Seorang Muslim",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-jawi",
+   "tahap": "T1",
+   "nama": "Jawi",
+   "sk": "JW",
+   "ikon": "✍️",
+   "warna": "#FF4FA3",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t1-jawi-1",
+     "nama": "Huruf Jawi Tunggal",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-2",
+     "nama": "Huruf Jawi Khas & Bunyi Huruf",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-3",
+     "nama": "Suku Kata Terbuka: Vokal a (ا)",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-4",
+     "nama": "Suku Kata Terbuka: Vokal i (ي)",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-5",
+     "nama": "Suku Kata Terbuka: Vokal u (و)",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-6",
+     "nama": "Perkataan Dua Suku Kata: Benda & Makanan",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-7",
+     "nama": "Perkataan Dua Suku Kata: Diri, Haiwan & Nombor",
+     "n": 25
+    },
+    {
+     "id": "t1-jawi-8",
+     "nama": "Rangkai Kata Mudah",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-arab",
+   "tahap": "T1",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t1-arab-1",
+     "nama": "الْحُرُوفُ وَالْحَرَكَاتُ · Huruf & Baris",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-2",
+     "nama": "التَّحِيَّاتُ · Ucapan 👋",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-3",
+     "nama": "الْأَرْقَامُ ١–١٠ · Nombor 1–10 🔢",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-4",
+     "nama": "الْأَدَوَاتُ الْمَدْرَسِيَّةُ · Alat Tulis & Kelas ✏️",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-5",
+     "nama": "أَفْرَادُ الْأُسْرَةِ · Keluarga 👨‍👩‍👧",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-6",
+     "nama": "أَعْضَاءُ الْجِسْمِ · Anggota Badan 🧍",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-7",
+     "nama": "الْأَلْوَانُ · Warna 🎨",
+     "n": 25
+    },
+    {
+     "id": "t1-arab-8",
+     "nama": "الْحَيَوَانَاتُ · Haiwan 🐾",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t1-akhlak",
+   "tahap": "T1",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (ikut e-buku Akhlak Tahun 1)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-akhlak-1",
+     "nama": "Adab dan fadhilat berdoa",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-2",
+     "nama": "Adab qada hajat",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-3",
+     "nama": "Adab mandi",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-4",
+     "nama": "Adab bersugi",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-5",
+     "nama": "Adab memotong kuku",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-6",
+     "nama": "Adab menyisir rambut",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-7",
+     "nama": "Adab bercelak",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-8",
+     "nama": "Adab bergaul dengan orang alim",
+     "n": 15
+    },
+    {
+     "id": "t1-akhlak-9",
+     "nama": "Ulang kaji akhlak Tahun 1",
+     "n": 13
+    }
+   ],
+   "soalan": 133
+  },
+  {
+   "id": "t1-tauhid",
+   "tahap": "T1",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (ikut e-buku Tauhid Tahun 1)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-tauhid-1",
+     "nama": "Iman dan rukun iman",
+     "n": 14
+    },
+    {
+     "id": "t1-tauhid-2",
+     "nama": "Islam dan rukun Islam",
+     "n": 14
+    },
+    {
+     "id": "t1-tauhid-3",
+     "nama": "Beriman kepada Allah",
+     "n": 13
+    },
+    {
+     "id": "t1-tauhid-4",
+     "nama": "Mengucap dua kalimah syahadah",
+     "n": 11
+    },
+    {
+     "id": "t1-tauhid-5",
+     "nama": "Makrifah: mengenal Allah",
+     "n": 12
+    },
+    {
+     "id": "t1-tauhid-6",
+     "nama": "Sifat wujud",
+     "n": 12
+    },
+    {
+     "id": "t1-tauhid-7",
+     "nama": "Alam tidak kekal",
+     "n": 11
+    },
+    {
+     "id": "t1-tauhid-8",
+     "nama": "Allah mencipta langit dan bumi",
+     "n": 11
+    },
+    {
+     "id": "t1-tauhid-9",
+     "nama": "Al-Quran mukjizat Nabi Muhammad SAW",
+     "n": 10
+    },
+    {
+     "id": "t1-tauhid-10",
+     "nama": "Rezeki ditentukan oleh Allah",
+     "n": 11
+    }
+   ],
+   "soalan": 119
+  },
+  {
+   "id": "t1-feqah",
+   "tahap": "T1",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "💧",
+   "warna": "#1E88A8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (ikut e-buku Feqah Tahun 1)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-feqah-1",
+     "nama": "Bersuci (taharah)",
+     "n": 10
+    },
+    {
+     "id": "t1-feqah-2",
+     "nama": "Air mutlak",
+     "n": 8
+    },
+    {
+     "id": "t1-feqah-3",
+     "nama": "Air musyammas",
+     "n": 8
+    },
+    {
+     "id": "t1-feqah-4",
+     "nama": "Air musta'mal",
+     "n": 8
+    },
+    {
+     "id": "t1-feqah-5",
+     "nama": "Air mutanajjis",
+     "n": 8
+    },
+    {
+     "id": "t1-feqah-6",
+     "nama": "Air muqayyad",
+     "n": 9
+    },
+    {
+     "id": "t1-feqah-7",
+     "nama": "Najis dan cara menyucikannya",
+     "n": 12
+    },
+    {
+     "id": "t1-feqah-8",
+     "nama": "Istinjak",
+     "n": 10
+    },
+    {
+     "id": "t1-feqah-9",
+     "nama": "Wuduk: fardu wuduk",
+     "n": 12
+    },
+    {
+     "id": "t1-feqah-10",
+     "nama": "Wuduk: sunat dan perkara yang membatalkan",
+     "n": 13
+    }
+   ],
+   "soalan": 98
+  },
+  {
+   "id": "t1-hafazan",
+   "tahap": "T1",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (hafazan surah-surah pendek)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-hafazan-1",
+     "nama": "Surah Al-Fatihah",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-2",
+     "nama": "Surah An-Nas",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-3",
+     "nama": "Surah Al-Falaq",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-4",
+     "nama": "Surah Al-Ikhlas",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-5",
+     "nama": "Surah Al-Masad",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-6",
+     "nama": "Surah An-Nasr",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-7",
+     "nama": "Surah Al-Kafirun",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-8",
+     "nama": "Surah Al-Kauthar",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-9",
+     "nama": "Surah Al-Ma'un",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-10",
+     "nama": "Surah Quraisy",
+     "n": 11
+    },
+    {
+     "id": "t1-hafazan-11",
+     "nama": "Ulang kaji hafazan",
+     "n": 7
+    }
+   ],
+   "soalan": 117
+  },
+  {
+   "id": "t1-jawi-kafa",
+   "tahap": "T1",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (ikut e-buku Jawi Tahun 1)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-jawi-kafa-1",
+     "nama": "Huruf Jawi",
+     "n": 12
+    },
+    {
+     "id": "t1-jawi-kafa-2",
+     "nama": "Penulisan huruf Jawi",
+     "n": 10
+    },
+    {
+     "id": "t1-jawi-kafa-3",
+     "nama": "Padanan huruf vokal",
+     "n": 11
+    },
+    {
+     "id": "t1-jawi-kafa-4",
+     "nama": "Padanan huruf konsonan",
+     "n": 12
+    },
+    {
+     "id": "t1-jawi-kafa-5",
+     "nama": "Suku kata terbuka vokal a",
+     "n": 10
+    },
+    {
+     "id": "t1-jawi-kafa-6",
+     "nama": "Suku kata terbuka e pepet, o, u, i dan e taling",
+     "n": 11
+    },
+    {
+     "id": "t1-jawi-kafa-7",
+     "nama": "Suku kata tertutup vokal a",
+     "n": 11
+    },
+    {
+     "id": "t1-jawi-kafa-8",
+     "nama": "Suku kata tertutup e pepet",
+     "n": 11
+    },
+    {
+     "id": "t1-jawi-kafa-9",
+     "nama": "Ulang kaji Jawi Tahun 1",
+     "n": 10
+    }
+   ],
+   "soalan": 98
+  },
+  {
+   "id": "t1-arab-kafa",
+   "tahap": "T1",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 1 (ikut e-buku Bahasa Arab Tahun 1)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t1-arab-kafa-1",
+     "nama": "Huruf hijaiyah dan nombor",
+     "n": 17
+    },
+    {
+     "id": "t1-arab-kafa-2",
+     "nama": "Salam dan perkenalan",
+     "n": 15
+    },
+    {
+     "id": "t1-arab-kafa-3",
+     "nama": "Sekolahku",
+     "n": 14
+    },
+    {
+     "id": "t1-arab-kafa-4",
+     "nama": "Alatan sekolah",
+     "n": 12
+    },
+    {
+     "id": "t1-arab-kafa-5",
+     "nama": "Hari dalam seminggu",
+     "n": 11
+    },
+    {
+     "id": "t1-arab-kafa-6",
+     "nama": "Jam",
+     "n": 11
+    },
+    {
+     "id": "t1-arab-kafa-7",
+     "nama": "Anggota badan",
+     "n": 14
+    },
+    {
+     "id": "t1-arab-kafa-8",
+     "nama": "Ahli keluarga",
+     "n": 11
+    },
+    {
+     "id": "t1-arab-kafa-9",
+     "nama": "Haiwan jinak dan haiwan buas",
+     "n": 16
+    }
+   ],
+   "soalan": 121
+  },
+  {
+   "id": "t2-bm",
+   "tahap": "T2",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t2-bm-1",
+     "nama": "Kata Nama & Penjodoh Bilangan",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-2",
+     "nama": "Kata Ganti Nama & Kata Tanya",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-3",
+     "nama": "Kata Kerja & Imbuhan",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-4",
+     "nama": "Kata Adjektif: Sinonim & Antonim",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-5",
+     "nama": "Kata Sendi Nama, Kata Hubung & Kata Seru",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-6",
+     "nama": "Jenis Ayat, Ayat Tanya & Tanda Baca",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-7",
+     "nama": "Simpulan Bahasa, Kata Ganda & Kata Majmuk",
+     "n": 25
+    },
+    {
+     "id": "t2-bm-8",
+     "nama": "Pemahaman",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-bi",
+   "tahap": "T2",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t2-bi-1",
+     "nama": "Free Time",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-2",
+     "nama": "The Old House",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-3",
+     "nama": "Get Dressed!",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-4",
+     "nama": "The Robot",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-5",
+     "nama": "At the Beach",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-6",
+     "nama": "Grammar: have got, plurals & pronouns",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-7",
+     "nama": "Phonics & Spelling",
+     "n": 25
+    },
+    {
+     "id": "t2-bi-8",
+     "nama": "Reading",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-mat",
+   "tahap": "T2",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t2-mat-1",
+     "nama": "Nombor Bulat hingga 1 000",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-2",
+     "nama": "Operasi Asas: Tambah, Tolak, Darab, Bahagi",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-3",
+     "nama": "Pecahan dan Perpuluhan",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-4",
+     "nama": "Wang hingga RM100",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-5",
+     "nama": "Masa dan Waktu",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-6",
+     "nama": "Ukuran dan Sukatan",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-7",
+     "nama": "Ruang",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-8",
+     "nama": "Pengurusan Data",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-sains",
+   "tahap": "T2",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t2-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-2",
+     "nama": "Peraturan Bilik Sains",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-3",
+     "nama": "Manusia",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-4",
+     "nama": "Haiwan",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-5",
+     "nama": "Tumbuh-tumbuhan",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-6",
+     "nama": "Terang dan Gelap",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-7",
+     "nama": "Elektrik",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-8",
+     "nama": "Campuran",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-9",
+     "nama": "Bumi",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-10",
+     "nama": "Teknologi",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-pi",
+   "tahap": "T2",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t2-pi-1",
+     "nama": "Al-Quran: Surah An-Nas & Surah Al-Falaq",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-2",
+     "nama": "Tajwid: Mad Asli · Nun dan Mim Bersabdu",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-3",
+     "nama": "Akidah: Sifat-sifat Allah · Al-Ahad & As-Samad",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-4",
+     "nama": "Akidah: Beriman kepada Malaikat",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-5",
+     "nama": "Ibadah: Istinjak & Kebersihan Diri",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-6",
+     "nama": "Ibadah: Rukun & Bacaan dalam Solat",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-7",
+     "nama": "Sirah: Nabi Muhammad SAW Semasa Kecil & Remaja",
+     "n": 25
+    },
+    {
+     "id": "t2-pi-8",
+     "nama": "Adab: Makan, Bersahabat, Berdoa & Selawat",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-jawi",
+   "tahap": "T2",
+   "nama": "Jawi",
+   "sk": "JW",
+   "ikon": "✍️",
+   "warna": "#FF4FA3",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t2-jawi-1",
+     "nama": "Suku Kata Tertutup (KV + KVK)",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-2",
+     "nama": "Perkataan Tiga Suku Kata",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-3",
+     "nama": "Rangkai Kata",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-4",
+     "nama": "Vokal Berganding: ia · iu · ua",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-5",
+     "nama": "Vokal Berganding dengan Hamzah: ai · au · ui",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-6",
+     "nama": "Diftong di Hujung Kata: ai · au · oi",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-7",
+     "nama": "Alam & Haiwan di Sekelilingku",
+     "n": 25
+    },
+    {
+     "id": "t2-jawi-8",
+     "nama": "Ayat Pendek",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-arab",
+   "tahap": "T2",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t2-arab-1",
+     "nama": "هٰذَا وَهٰذِهِ · Ini & Itu",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-2",
+     "nama": "الْأَرْقَامُ ١١–٢٠ · Nombor 11–20 🔢",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-3",
+     "nama": "الْبَيْتُ · Rumah 🏠",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-4",
+     "nama": "الْمَلَابِسُ · Pakaian 👕",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-5",
+     "nama": "الْخَضْرَاوَاتُ · Sayur-sayuran 🥕",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-6",
+     "nama": "الْمَأْكُولَاتُ وَالْمَشْرُوبَاتُ · Makanan & Minuman 🍚",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-7",
+     "nama": "الْفَوَاكِهُ · Buah-buahan 🍎",
+     "n": 25
+    },
+    {
+     "id": "t2-arab-8",
+     "nama": "الضَّمَائِرُ · Kata Ganti Nama & Ayat Mudah",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t2-akhlak",
+   "tahap": "T2",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (ikut e-buku Akhlak Tahun 2)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-akhlak-1",
+     "nama": "Adab makan dan minum",
+     "n": 13
+    },
+    {
+     "id": "t2-akhlak-2",
+     "nama": "Adab tidur",
+     "n": 12
+    },
+    {
+     "id": "t2-akhlak-3",
+     "nama": "Adab berkenderaan",
+     "n": 11
+    },
+    {
+     "id": "t2-akhlak-4",
+     "nama": "Adab di masjid",
+     "n": 12
+    },
+    {
+     "id": "t2-akhlak-5",
+     "nama": "Adab belajar",
+     "n": 11
+    },
+    {
+     "id": "t2-akhlak-6",
+     "nama": "Adab dengan mushaf al-Quran",
+     "n": 11
+    },
+    {
+     "id": "t2-akhlak-7",
+     "nama": "Adab memelihara harta benda awam",
+     "n": 11
+    },
+    {
+     "id": "t2-akhlak-8",
+     "nama": "Ulang kaji akhlak Tahun 2",
+     "n": 7
+    }
+   ],
+   "soalan": 88
+  },
+  {
+   "id": "t2-tauhid",
+   "tahap": "T2",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (ikut e-buku Tauhid Tahun 2)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-tauhid-1",
+     "nama": "Sifat wajib dan sifat mustahil",
+     "n": 7
+    },
+    {
+     "id": "t2-tauhid-2",
+     "nama": "Sifat Qidam",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-3",
+     "nama": "Sifat Baqa'",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-4",
+     "nama": "Sifat Mukhalafatuhu lil-hawadith",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-5",
+     "nama": "Sifat Qiyamuhu binafsihi",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-6",
+     "nama": "Sifat Wahdaniyyah",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-7",
+     "nama": "Beriman kepada malaikat",
+     "n": 9
+    },
+    {
+     "id": "t2-tauhid-8",
+     "nama": "Sepuluh malaikat dan tugasnya",
+     "n": 14
+    },
+    {
+     "id": "t2-tauhid-9",
+     "nama": "Beriman kepada kitab",
+     "n": 12
+    },
+    {
+     "id": "t2-tauhid-10",
+     "nama": "Suhuf",
+     "n": 8
+    },
+    {
+     "id": "t2-tauhid-11",
+     "nama": "Ulang kaji tauhid Tahun 2",
+     "n": 6
+    }
+   ],
+   "soalan": 96
+  },
+  {
+   "id": "t2-feqah",
+   "tahap": "T2",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "🕋",
+   "warna": "#1F8A8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (solat fardu)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-feqah-1",
+     "nama": "Pengertian dan hukum solat",
+     "n": 9
+    },
+    {
+     "id": "t2-feqah-2",
+     "nama": "Waktu dan bilangan rakaat",
+     "n": 10
+    },
+    {
+     "id": "t2-feqah-3",
+     "nama": "Syarat wajib solat",
+     "n": 7
+    },
+    {
+     "id": "t2-feqah-4",
+     "nama": "Syarat sah solat",
+     "n": 8
+    },
+    {
+     "id": "t2-feqah-5",
+     "nama": "Rukun solat",
+     "n": 9
+    },
+    {
+     "id": "t2-feqah-6",
+     "nama": "Perkara yang membatalkan solat",
+     "n": 7
+    },
+    {
+     "id": "t2-feqah-7",
+     "nama": "Azan dan iqamah",
+     "n": 9
+    },
+    {
+     "id": "t2-feqah-8",
+     "nama": "Ulang kaji feqah Tahun 2",
+     "n": 5
+    }
+   ],
+   "soalan": 64
+  },
+  {
+   "id": "t2-hafazan",
+   "tahap": "T2",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (hafazan surah-surah pendek)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-hafazan-1",
+     "nama": "Surah Al-Fil",
+     "n": 12
+    },
+    {
+     "id": "t2-hafazan-2",
+     "nama": "Surah Al-Humazah",
+     "n": 13
+    },
+    {
+     "id": "t2-hafazan-3",
+     "nama": "Surah Al-'Asr",
+     "n": 12
+    },
+    {
+     "id": "t2-hafazan-4",
+     "nama": "Surah At-Takathur",
+     "n": 13
+    },
+    {
+     "id": "t2-hafazan-5",
+     "nama": "Surah Al-Qari'ah",
+     "n": 13
+    },
+    {
+     "id": "t2-hafazan-6",
+     "nama": "Surah Al-'Adiyat",
+     "n": 13
+    },
+    {
+     "id": "t2-hafazan-7",
+     "nama": "Surah Az-Zalzalah",
+     "n": 13
+    },
+    {
+     "id": "t2-hafazan-8",
+     "nama": "Surah Al-Qadr",
+     "n": 12
+    },
+    {
+     "id": "t2-hafazan-9",
+     "nama": "Ulang kaji hafazan Tahun 2",
+     "n": 7
+    }
+   ],
+   "soalan": 108
+  },
+  {
+   "id": "t2-jawi-kafa",
+   "tahap": "T2",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (ikut e-buku Jawi Tahun 2)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-jawi-kafa-1",
+     "nama": "Suku kata tertutup vokal o dan u",
+     "n": 16
+    },
+    {
+     "id": "t2-jawi-kafa-2",
+     "nama": "Vokal u dan o di awal kata",
+     "n": 11
+    },
+    {
+     "id": "t2-jawi-kafa-3",
+     "nama": "Suku kata tertutup vokal i dan e taling",
+     "n": 16
+    },
+    {
+     "id": "t2-jawi-kafa-4",
+     "nama": "Vokal berganding",
+     "n": 16
+    },
+    {
+     "id": "t2-jawi-kafa-5",
+     "nama": "Membaca dan menulis ayat",
+     "n": 9
+    },
+    {
+     "id": "t2-jawi-kafa-6",
+     "nama": "Ulang kaji Jawi Tahun 2",
+     "n": 7
+    }
+   ],
+   "soalan": 75
+  },
+  {
+   "id": "t2-arab-kafa",
+   "tahap": "T2",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 2 (ikut e-buku Bahasa Arab Tahun 2)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t2-arab-kafa-1",
+     "nama": "Nombor 101 hingga 200",
+     "n": 12
+    },
+    {
+     "id": "t2-arab-kafa-2",
+     "nama": "Warna",
+     "n": 18
+    },
+    {
+     "id": "t2-arab-kafa-3",
+     "nama": "Sukan",
+     "n": 21
+    },
+    {
+     "id": "t2-arab-kafa-4",
+     "nama": "Pakaian",
+     "n": 19
+    },
+    {
+     "id": "t2-arab-kafa-5",
+     "nama": "Sayur-sayuran",
+     "n": 17
+    },
+    {
+     "id": "t2-arab-kafa-6",
+     "nama": "Makanan dan minuman",
+     "n": 26
+    },
+    {
+     "id": "t2-arab-kafa-7",
+     "nama": "Buah-buahan",
+     "n": 17
+    },
+    {
+     "id": "t2-arab-kafa-8",
+     "nama": "Ulang kaji bahasa Arab Tahun 2",
+     "n": 5
+    }
+   ],
+   "soalan": 135
+  },
+  {
+   "id": "t3-bm",
+   "tahap": "T3",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t3-bm-1",
+     "nama": "Kata Nama, Penjodoh Bilangan & Kata Bilangan",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-2",
+     "nama": "Kata Kerja Aktif & Pasif, Imbuhan",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-3",
+     "nama": "Kata Adjektif & Kata Penguat",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-4",
+     "nama": "Kata Tugas: Sendi, Hubung, Seru & Perintah",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-5",
+     "nama": "Sinonim, Antonim & Kata Banyak Makna",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-6",
+     "nama": "Peribahasa",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-7",
+     "nama": "Ayat Tunggal, Ayat Majmuk & Tanda Baca",
+     "n": 25
+    },
+    {
+     "id": "t3-bm-8",
+     "nama": "Pemahaman",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-bi",
+   "tahap": "T3",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t3-bi-1",
+     "nama": "Welcome!",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-2",
+     "nama": "Every Day",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-3",
+     "nama": "Right Now",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-4",
+     "nama": "Year In, Year Out",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-5",
+     "nama": "My New House",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-6",
+     "nama": "Food, Please!",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-7",
+     "nama": "Out and About",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-8",
+     "nama": "Where Were You Yesterday?",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-9",
+     "nama": "On Holiday",
+     "n": 20
+    },
+    {
+     "id": "t3-bi-10",
+     "nama": "The World Around Us",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-mat",
+   "tahap": "T3",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t3-mat-1",
+     "nama": "Nombor Bulat hingga 10 000",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-2",
+     "nama": "Operasi Asas",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-3",
+     "nama": "Pecahan, Perpuluhan dan Peratus",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-4",
+     "nama": "Wang",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-5",
+     "nama": "Masa dan Waktu",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-6",
+     "nama": "Ukuran dan Sukatan",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-7",
+     "nama": "Ruang",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-8",
+     "nama": "Koordinat",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-9",
+     "nama": "Pengurusan Data",
+     "n": 23
+    }
+   ],
+   "soalan": 207
+  },
+  {
+   "id": "t3-sains",
+   "tahap": "T3",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t3-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-2",
+     "nama": "Peraturan Bilik Sains",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-3",
+     "nama": "Manusia",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-4",
+     "nama": "Haiwan",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-5",
+     "nama": "Tumbuhan",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-6",
+     "nama": "Pengukuran",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-7",
+     "nama": "Ketumpatan",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-8",
+     "nama": "Asid dan Alkali",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-9",
+     "nama": "Sistem Suria",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-10",
+     "nama": "Mesin",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-pi",
+   "tahap": "T3",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t3-pi-1",
+     "nama": "Al-Quran: Pengajaran Surah-surah Lazim",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-2",
+     "nama": "Tajwid: Izhar Halqi & Idgham",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-3",
+     "nama": "Akidah: Beriman kepada Kitab",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-4",
+     "nama": "Akidah: Beriman kepada Rasul",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-5",
+     "nama": "Ibadah: Syarat Sah & Perkara Membatalkan Solat",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-6",
+     "nama": "Ibadah: Puasa Ramadan",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-7",
+     "nama": "Sirah: Wahyu Pertama & Dakwah di Makkah",
+     "n": 25
+    },
+    {
+     "id": "t3-pi-8",
+     "nama": "Adab: Menuntut Ilmu, Guru, Masjid & Jiran",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-jawi",
+   "tahap": "T3",
+   "nama": "Jawi",
+   "sk": "JW",
+   "ikon": "✍️",
+   "warna": "#FF4FA3",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t3-jawi-1",
+     "nama": "Huruf ڠ dan ڽ dalam Perkataan",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-2",
+     "nama": "Kata Berimbuhan Awalan",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-3",
+     "nama": "Kata Berimbuhan Akhiran & Apitan",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-4",
+     "nama": "Kata Pinjaman Bahasa Arab",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-5",
+     "nama": "Kata Pinjaman Bahasa Inggeris",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-6",
+     "nama": "Nombor & Hari",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-7",
+     "nama": "Ucapan & Rangkai Kata",
+     "n": 25
+    },
+    {
+     "id": "t3-jawi-8",
+     "nama": "Ayat & Teks Pendek",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-arab",
+   "tahap": "T3",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t3-arab-1",
+     "nama": "الْمِهَنُ · Pekerjaan 👷",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-2",
+     "nama": "الْأَمَاكِنُ · Tempat 🏙️",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-3",
+     "nama": "وَسَائِلُ الْمُوَاصَلَاتِ · Kenderaan 🚗",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-4",
+     "nama": "الْأَيَّامُ وَالْأَوْقَاتُ · Hari & Waktu 📅",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-5",
+     "nama": "الْأَفْعَالُ الْيَوْمِيَّةُ · Kata Kerja Harian 🏃",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-6",
+     "nama": "الصِّفَاتُ · Kata Sifat 🔤",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-7",
+     "nama": "أَيْنَ؟ · Kata Sendi & Arah 📍",
+     "n": 25
+    },
+    {
+     "id": "t3-arab-8",
+     "nama": "الطَّبِيعَةُ · Alam Semula Jadi 🌍",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "id": "t3-akhlak",
+   "tahap": "T3",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (adab harian)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-akhlak-1",
+     "nama": "Adab berpakaian",
+     "n": 10
+    },
+    {
+     "id": "t3-akhlak-2",
+     "nama": "Adab bercakap",
+     "n": 9
+    },
+    {
+     "id": "t3-akhlak-3",
+     "nama": "Adab memberi dan menjawab salam",
+     "n": 9
+    },
+    {
+     "id": "t3-akhlak-4",
+     "nama": "Adab bersin dan menguap",
+     "n": 9
+    },
+    {
+     "id": "t3-akhlak-5",
+     "nama": "Adab menziarahi orang sakit",
+     "n": 8
+    },
+    {
+     "id": "t3-akhlak-6",
+     "nama": "Adab berjiran",
+     "n": 8
+    },
+    {
+     "id": "t3-akhlak-7",
+     "nama": "Adab menerima tetamu",
+     "n": 9
+    },
+    {
+     "id": "t3-akhlak-8",
+     "nama": "Adab di tandas",
+     "n": 8
+    },
+    {
+     "id": "t3-akhlak-9",
+     "nama": "Ulang kaji akhlak Tahun 3",
+     "n": 5
+    }
+   ],
+   "soalan": 75
+  },
+  {
+   "id": "t3-tauhid",
+   "tahap": "T3",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Tauhid Tahun 3)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-tauhid-1",
+     "nama": "Beriman kepada rasul",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-2",
+     "nama": "Nabi dan rasul",
+     "n": 12
+    },
+    {
+     "id": "t3-tauhid-3",
+     "nama": "Rasul Ulul Azmi",
+     "n": 9
+    },
+    {
+     "id": "t3-tauhid-4",
+     "nama": "Taat kepada rasul",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-5",
+     "nama": "Nabi Muhammad SAW khatam al-anbiya'",
+     "n": 6
+    },
+    {
+     "id": "t3-tauhid-6",
+     "nama": "Sifat dua puluh dan pembahagiannya",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-7",
+     "nama": "Sifat Qudrah",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-8",
+     "nama": "Sifat Iradah",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-9",
+     "nama": "Sifat Ilmu",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-10",
+     "nama": "Sifat Hayah",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-11",
+     "nama": "Sifat Sama'",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-12",
+     "nama": "Sifat Basar",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-13",
+     "nama": "Sifat Kalam",
+     "n": 8
+    },
+    {
+     "id": "t3-tauhid-14",
+     "nama": "Ulang kaji tauhid Tahun 3",
+     "n": 9
+    }
+   ],
+   "soalan": 116
+  },
+  {
+   "id": "t3-feqah",
+   "tahap": "T3",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "🕋",
+   "warna": "#1F8A8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (tayammum dan solat)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-feqah-1",
+     "nama": "Tayammum",
+     "n": 11
+    },
+    {
+     "id": "t3-feqah-2",
+     "nama": "Rukun solat",
+     "n": 10
+    },
+    {
+     "id": "t3-feqah-3",
+     "nama": "Bacaan dalam solat",
+     "n": 10
+    },
+    {
+     "id": "t3-feqah-4",
+     "nama": "Sunat ab'adh dan sunat hai'ah",
+     "n": 8
+    },
+    {
+     "id": "t3-feqah-5",
+     "nama": "Perkara makruh dalam solat",
+     "n": 6
+    },
+    {
+     "id": "t3-feqah-6",
+     "nama": "Sujud sahwi",
+     "n": 8
+    },
+    {
+     "id": "t3-feqah-7",
+     "nama": "Zikir selepas solat",
+     "n": 8
+    },
+    {
+     "id": "t3-feqah-8",
+     "nama": "Ulang kaji feqah Tahun 3",
+     "n": 4
+    }
+   ],
+   "soalan": 65
+  },
+  {
+   "id": "t3-hafazan",
+   "tahap": "T3",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (hafazan Juz 'Amma)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-hafazan-1",
+     "nama": "Surah Al-Bayyinah",
+     "n": 13
+    },
+    {
+     "id": "t3-hafazan-2",
+     "nama": "Surah Al-'Alaq",
+     "n": 14
+    },
+    {
+     "id": "t3-hafazan-3",
+     "nama": "Surah At-Tin",
+     "n": 13
+    },
+    {
+     "id": "t3-hafazan-4",
+     "nama": "Surah Asy-Syarh",
+     "n": 13
+    },
+    {
+     "id": "t3-hafazan-5",
+     "nama": "Surah Ad-Duha",
+     "n": 14
+    },
+    {
+     "id": "t3-hafazan-6",
+     "nama": "Surah Al-Lail",
+     "n": 14
+    },
+    {
+     "id": "t3-hafazan-7",
+     "nama": "Ulang kaji hafazan Tahun 3",
+     "n": 6
+    }
+   ],
+   "soalan": 87
+  },
+  {
+   "id": "t3-jawi-kafa",
+   "tahap": "T3",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Jawi Tahun 3)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-jawi-kafa-1",
+     "nama": "Konsonan di akhir suku kata",
+     "n": 17
+    },
+    {
+     "id": "t3-jawi-kafa-2",
+     "nama": "Suku kata terbuka di akhir kata",
+     "n": 19
+    },
+    {
+     "id": "t3-jawi-kafa-3",
+     "nama": "Pola vokal dua suku kata terbuka",
+     "n": 21
+    },
+    {
+     "id": "t3-jawi-kafa-4",
+     "nama": "Tiga suku kata atau lebih",
+     "n": 13
+    },
+    {
+     "id": "t3-jawi-kafa-5",
+     "nama": "Ejaan Jawi lama",
+     "n": 18
+    },
+    {
+     "id": "t3-jawi-kafa-6",
+     "nama": "Diftong",
+     "n": 18
+    },
+    {
+     "id": "t3-jawi-kafa-7",
+     "nama": "Ulang kaji Jawi Tahun 3",
+     "n": 7
+    }
+   ],
+   "soalan": 113
+  },
+  {
+   "id": "t3-arab-kafa",
+   "tahap": "T3",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Bahasa Arab Tahun 3)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-arab-kafa-1",
+     "nama": "Nombor 201 hingga 300",
+     "n": 10
+    },
+    {
+     "id": "t3-arab-kafa-2",
+     "nama": "Peralatan rumah",
+     "n": 20
+    },
+    {
+     "id": "t3-arab-kafa-3",
+     "nama": "Peralatan dapur",
+     "n": 18
+    },
+    {
+     "id": "t3-arab-kafa-4",
+     "nama": "Bulan hijrah dan masihi",
+     "n": 12
+    },
+    {
+     "id": "t3-arab-kafa-5",
+     "nama": "Mudhakkar dan muannath",
+     "n": 10
+    },
+    {
+     "id": "t3-arab-kafa-6",
+     "nama": "Ayat namaan",
+     "n": 9
+    },
+    {
+     "id": "t3-arab-kafa-7",
+     "nama": "Mufrad, muthanna dan jamak",
+     "n": 10
+    },
+    {
+     "id": "t3-arab-kafa-8",
+     "nama": "Di sekolah",
+     "n": 17
+    },
+    {
+     "id": "t3-arab-kafa-9",
+     "nama": "Di bandar",
+     "n": 17
+    },
+    {
+     "id": "t3-arab-kafa-10",
+     "nama": "Ulang kaji bahasa Arab Tahun 3",
+     "n": 4
+    }
+   ],
+   "soalan": 127
+  },
+  {
+   "id": "t3-sirah",
+   "tahap": "T3",
+   "nama": "Sirah (KAFA)",
+   "sk": "Sirah",
+   "ikon": "🐪",
+   "warna": "#B5523B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Sirah Tahun 3)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-sirah-1",
+     "nama": "Kemuliaan bangsa Quraisy",
+     "n": 9
+    },
+    {
+     "id": "t3-sirah-2",
+     "nama": "Nasab Nabi Muhammad SAW",
+     "n": 9
+    },
+    {
+     "id": "t3-sirah-3",
+     "nama": "Peristiwa sebelum kelahiran",
+     "n": 9
+    },
+    {
+     "id": "t3-sirah-4",
+     "nama": "Peristiwa semasa dan selepas kelahiran",
+     "n": 10
+    },
+    {
+     "id": "t3-sirah-5",
+     "nama": "Akhlak Nabi Muhammad SAW",
+     "n": 9
+    },
+    {
+     "id": "t3-sirah-6",
+     "nama": "Pekerjaan Nabi Muhammad SAW",
+     "n": 8
+    },
+    {
+     "id": "t3-sirah-7",
+     "nama": "Kehidupan bermasyarakat",
+     "n": 8
+    },
+    {
+     "id": "t3-sirah-8",
+     "nama": "Rumah tangga Nabi Muhammad SAW",
+     "n": 10
+    },
+    {
+     "id": "t3-sirah-9",
+     "nama": "Ulang kaji sirah Tahun 3",
+     "n": 8
+    }
+   ],
+   "soalan": 80
+  },
+  {
+   "id": "t3-tajwid",
+   "tahap": "T3",
+   "nama": "Tajwid (KAFA)",
+   "sk": "Tajwid",
+   "ikon": "🎙️",
+   "warna": "#2E86AB",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Tajwid Tahun 3)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-tajwid-1",
+     "nama": "Makhraj al-huruf",
+     "n": 9
+    },
+    {
+     "id": "t3-tajwid-2",
+     "nama": "Makhraj al-jauf",
+     "n": 7
+    },
+    {
+     "id": "t3-tajwid-3",
+     "nama": "Makhraj al-halq",
+     "n": 8
+    },
+    {
+     "id": "t3-tajwid-4",
+     "nama": "Makhraj al-lisan",
+     "n": 7
+    },
+    {
+     "id": "t3-tajwid-5",
+     "nama": "Makhraj asy-syafatan dan al-khaisyum",
+     "n": 7
+    },
+    {
+     "id": "t3-tajwid-6",
+     "nama": "Nun dan mim syaddah",
+     "n": 7
+    },
+    {
+     "id": "t3-tajwid-7",
+     "nama": "Isti'azah",
+     "n": 6
+    },
+    {
+     "id": "t3-tajwid-8",
+     "nama": "Basmalah",
+     "n": 8
+    },
+    {
+     "id": "t3-tajwid-9",
+     "nama": "Lam lafaz al-jalalah",
+     "n": 9
+    },
+    {
+     "id": "t3-tajwid-10",
+     "nama": "Rasm Uthmani",
+     "n": 8
+    },
+    {
+     "id": "t3-tajwid-11",
+     "nama": "Ulang kaji tajwid Tahun 3",
+     "n": 4
+    }
+   ],
+   "soalan": 80
+  },
+  {
+   "id": "t3-imlak",
+   "tahap": "T3",
+   "nama": "Imlak (KAFA)",
+   "sk": "Imlak",
+   "ikon": "📝",
+   "warna": "#8E6C3A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Imlak Tahun 3)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-imlak-1",
+     "nama": "Kata nama mufrad mudhakkar",
+     "n": 11
+    },
+    {
+     "id": "t3-imlak-2",
+     "nama": "Kata nama muthanna mudhakkar",
+     "n": 10
+    },
+    {
+     "id": "t3-imlak-3",
+     "nama": "Kata nama mufrad muannath",
+     "n": 10
+    },
+    {
+     "id": "t3-imlak-4",
+     "nama": "Kata nama muthanna muannath",
+     "n": 8
+    },
+    {
+     "id": "t3-imlak-5",
+     "nama": "Jamak mudhakkar salim",
+     "n": 10
+    },
+    {
+     "id": "t3-imlak-6",
+     "nama": "Jamak muannath salim",
+     "n": 10
+    },
+    {
+     "id": "t3-imlak-7",
+     "nama": "Ulang kaji imlak Tahun 3",
+     "n": 4
+    }
+   ],
+   "soalan": 63
+  },
+  {
+   "id": "t3-khat",
+   "tahap": "T3",
+   "nama": "Khat (KAFA)",
+   "sk": "Khat",
+   "ikon": "🖋️",
+   "warna": "#5C4B8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 3 (ikut e-buku Khat Tahun 3)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t3-khat-1",
+     "nama": "Peralatan kaligrafi Islam",
+     "n": 8
+    },
+    {
+     "id": "t3-khat-2",
+     "nama": "Titik ukuran khat nasakh",
+     "n": 7
+    },
+    {
+     "id": "t3-khat-3",
+     "nama": "Huruf tunggal bahagian pertama",
+     "n": 8
+    },
+    {
+     "id": "t3-khat-4",
+     "nama": "Huruf tunggal bahagian kedua",
+     "n": 8
+    },
+    {
+     "id": "t3-khat-5",
+     "nama": "Huruf bersambung",
+     "n": 8
+    },
+    {
+     "id": "t3-khat-6",
+     "nama": "Ulang kaji khat Tahun 3",
+     "n": 4
+    }
+   ],
+   "soalan": 43
+  },
+  {
+   "id": "t4-bm",
+   "tahap": "T4",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-bm-1",
+     "nama": "Tema 1: Harmoni Sentiasa",
+     "n": 24
+    },
+    {
+     "id": "t4-bm-2",
+     "nama": "Tema 2: Kebersihan dan Kesihatan",
+     "n": 23
+    },
+    {
+     "id": "t4-bm-3",
+     "nama": "Tema 3: Waspada Pasti Selamat",
+     "n": 23
+    },
+    {
+     "id": "t4-bm-4",
+     "nama": "Tema 4: Indahnya Budaya, Halusnya Seni",
+     "n": 26
+    },
+    {
+     "id": "t4-bm-5",
+     "nama": "Tema 5: Alam Bersih Hidup Sejahtera",
+     "n": 26
+    },
+    {
+     "id": "t4-bm-6",
+     "nama": "Tema 6: Malaysia Bumi Bertuah",
+     "n": 23
+    },
+    {
+     "id": "t4-bm-7",
+     "nama": "Tema 7: Kuasai Sains, Teknologi dan Inovasi",
+     "n": 29
+    },
+    {
+     "id": "t4-bm-8",
+     "nama": "Tema 8: Bijak Belanja Celik Wang",
+     "n": 28
+    }
+   ],
+   "soalan": 202
+  },
+  {
+   "id": "t4-bi",
+   "tahap": "T4",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017 (CEFR)",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-bi-1",
+     "nama": "Where Are You From?",
+     "n": 22
+    },
+    {
+     "id": "t4-bi-2",
+     "nama": "My Week",
+     "n": 23
+    },
+    {
+     "id": "t4-bi-3",
+     "nama": "In the Past",
+     "n": 21
+    },
+    {
+     "id": "t4-bi-4",
+     "nama": "Celebrations",
+     "n": 18
+    },
+    {
+     "id": "t4-bi-5",
+     "nama": "Eating Right",
+     "n": 14
+    },
+    {
+     "id": "t4-bi-6",
+     "nama": "Getting Around",
+     "n": 25
+    },
+    {
+     "id": "t4-bi-7",
+     "nama": "Helping Out",
+     "n": 22
+    },
+    {
+     "id": "t4-bi-8",
+     "nama": "Amazing Animals",
+     "n": 20
+    },
+    {
+     "id": "t4-bi-9",
+     "nama": "Get Active!",
+     "n": 15
+    },
+    {
+     "id": "t4-bi-10",
+     "nama": "What's the Matter?",
+     "n": 15
+    },
+    {
+     "id": "t4-bi-11",
+     "nama": "Reader: The King of Kites",
+     "n": 13
+    },
+    {
+     "id": "t4-bi-12",
+     "nama": "Reader: The Jungle Book",
+     "n": 16
+    }
+   ],
+   "soalan": 224
+  },
+  {
+   "id": "t4-mat",
+   "tahap": "T4",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-mat-1",
+     "nama": "Nombor dan Operasi",
+     "n": 50
+    },
+    {
+     "id": "t4-mat-2",
+     "nama": "Pecahan, Perpuluhan dan Peratus",
+     "n": 64
+    },
+    {
+     "id": "t4-mat-3",
+     "nama": "Wang",
+     "n": 14
+    },
+    {
+     "id": "t4-mat-4",
+     "nama": "Masa dan Waktu",
+     "n": 61
+    },
+    {
+     "id": "t4-mat-5",
+     "nama": "Panjang, Jisim dan Isi Padu Cecair",
+     "n": 55
+    },
+    {
+     "id": "t4-mat-6",
+     "nama": "Ruang",
+     "n": 21
+    },
+    {
+     "id": "t4-mat-7",
+     "nama": "Koordinat, Nisbah dan Kadaran",
+     "n": 59
+    },
+    {
+     "id": "t4-mat-8",
+     "nama": "Pengurusan Data",
+     "n": 20
+    }
+   ],
+   "soalan": 344
+  },
+  {
+   "id": "t4-sains",
+   "tahap": "T4",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-2",
+     "nama": "Manusia",
+     "n": 24
+    },
+    {
+     "id": "t4-sains-3",
+     "nama": "Haiwan",
+     "n": 22
+    },
+    {
+     "id": "t4-sains-4",
+     "nama": "Tumbuh-tumbuhan",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-5",
+     "nama": "Sifat Cahaya",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-6",
+     "nama": "Bunyi",
+     "n": 28
+    },
+    {
+     "id": "t4-sains-7",
+     "nama": "Tenaga",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-8",
+     "nama": "Bahan",
+     "n": 24
+    },
+    {
+     "id": "t4-sains-9",
+     "nama": "Bumi",
+     "n": 28
+    },
+    {
+     "id": "t4-sains-10",
+     "nama": "Mesin",
+     "n": 24
+    }
+   ],
+   "soalan": 254
+  },
+  {
+   "id": "t4-sej",
+   "tahap": "T4",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5835A",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-sej-1",
+     "nama": "Sejarah dan Kita",
+     "n": 22
+    },
+    {
+     "id": "t4-sej-2",
+     "nama": "Keluarga Harmoni",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-3",
+     "nama": "Sekolah Kebanggaan Saya",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-4",
+     "nama": "Tempat Tinggal Saya",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-5",
+     "nama": "Zaman Air Batu",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-6",
+     "nama": "Zaman Prasejarah",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-7",
+     "nama": "Kerajaan Melayu Awal",
+     "n": 28
+    },
+    {
+     "id": "t4-sej-8",
+     "nama": "Tokoh Terbilang",
+     "n": 24
+    },
+    {
+     "id": "t4-sej-9",
+     "nama": "Parameswara Pengasas Melaka",
+     "n": 28
+    },
+    {
+     "id": "t4-sej-10",
+     "nama": "Tun Perak Bendahara Terbilang",
+     "n": 26
+    },
+    {
+     "id": "t4-sej-11",
+     "nama": "Hang Tuah Laksamana Melaka",
+     "n": 28
+    }
+   ],
+   "soalan": 286
+  },
+  {
+   "id": "t4-pi",
+   "tahap": "T4",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t4-pi-1",
+     "nama": "Al-Quran: At-Takathur, Al-Qari'ah, Al-Ikhlas dan Tajwid",
+     "n": 37
+    },
+    {
+     "id": "t4-pi-2",
+     "nama": "Hadis: Memuliakan Tetamu",
+     "n": 32
+    },
+    {
+     "id": "t4-pi-3",
+     "nama": "Jawi: Cintai Tulisan Jawi",
+     "n": 36
+    },
+    {
+     "id": "t4-pi-4",
+     "nama": "Akidah: Allah Maha Agung, Rasul yang Mulia, Kufur dan Nifaq",
+     "n": 32
+    },
+    {
+     "id": "t4-pi-5",
+     "nama": "Ibadah: Bersuci, Seruan Azan dan Puasa Ramadan",
+     "n": 32
+    },
+    {
+     "id": "t4-pi-6",
+     "nama": "Sirah: Janji Setia Yathrib, Kebijaksanaan dan Dakwah Nabi SAW",
+     "n": 32
+    },
+    {
+     "id": "t4-pi-7",
+     "nama": "Adab: Tutup Aurat, Beriadah, Berjiran dan Menghormati Guru",
+     "n": 34
+    }
+   ],
+   "soalan": 235
+  },
+  {
+   "id": "t4-arab",
+   "tahap": "T4",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t4-arab-1",
+     "nama": "بَيْتِي جَنَّتِي · Rumahku syurgaku",
+     "n": 65
+    },
+    {
+     "id": "t4-arab-2",
+     "nama": "الشُّهُورُ الْمِيلَادِيَّةُ · Bulan-bulan Masihi",
+     "n": 69
+    },
+    {
+     "id": "t4-arab-3",
+     "nama": "مَنْ فِي الْمَدْرَسَةِ؟ · Siapa di sekolah?",
+     "n": 65
+    },
+    {
+     "id": "t4-arab-4",
+     "nama": "أُحِبُّ مَدْرَسَتِي · Saya sayang sekolah saya",
+     "n": 65
+    }
+   ],
+   "soalan": 264
+  },
+  {
+   "id": "t4-akhlak",
+   "tahap": "T4",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (akhlak terhadap orang lain dan alam)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-akhlak-1",
+     "nama": "Akhlak terhadap ibu bapa",
+     "n": 8
+    },
+    {
+     "id": "t4-akhlak-2",
+     "nama": "Akhlak terhadap guru",
+     "n": 7
+    },
+    {
+     "id": "t4-akhlak-3",
+     "nama": "Akhlak terhadap saudara dan kawan",
+     "n": 7
+    },
+    {
+     "id": "t4-akhlak-4",
+     "nama": "Akhlak terhadap binatang",
+     "n": 6
+    },
+    {
+     "id": "t4-akhlak-5",
+     "nama": "Akhlak terhadap alam sekitar",
+     "n": 7
+    },
+    {
+     "id": "t4-akhlak-6",
+     "nama": "Adab bermusafir",
+     "n": 7
+    },
+    {
+     "id": "t4-akhlak-7",
+     "nama": "Sifat terpuji dan sifat tercela",
+     "n": 8
+    },
+    {
+     "id": "t4-akhlak-8",
+     "nama": "Ulang kaji akhlak Tahun 4",
+     "n": 3
+    }
+   ],
+   "soalan": 53
+  },
+  {
+   "id": "t4-tauhid",
+   "tahap": "T4",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (hari akhirat dan sifat ma'nawiyyah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-tauhid-1",
+     "nama": "Sifat ma'nawiyyah",
+     "n": 14
+    },
+    {
+     "id": "t4-tauhid-2",
+     "nama": "Beriman kepada hari akhirat",
+     "n": 7
+    },
+    {
+     "id": "t4-tauhid-3",
+     "nama": "Tanda-tanda kiamat",
+     "n": 7
+    },
+    {
+     "id": "t4-tauhid-4",
+     "nama": "Peringkat alam akhirat",
+     "n": 11
+    },
+    {
+     "id": "t4-tauhid-5",
+     "nama": "Syurga dan neraka",
+     "n": 7
+    },
+    {
+     "id": "t4-tauhid-6",
+     "nama": "Beriman kepada qada dan qadar",
+     "n": 8
+    },
+    {
+     "id": "t4-tauhid-7",
+     "nama": "Ulang kaji tauhid Tahun 4",
+     "n": 4
+    }
+   ],
+   "soalan": 58
+  },
+  {
+   "id": "t4-feqah",
+   "tahap": "T4",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "🕋",
+   "warna": "#1F8A8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (solat berjemaah, Jumaat, sunat, puasa, zakat fitrah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-feqah-1",
+     "nama": "Solat berjemaah",
+     "n": 8
+    },
+    {
+     "id": "t4-feqah-2",
+     "nama": "Solat Jumaat",
+     "n": 9
+    },
+    {
+     "id": "t4-feqah-3",
+     "nama": "Solat sunat",
+     "n": 8
+    },
+    {
+     "id": "t4-feqah-4",
+     "nama": "Puasa Ramadan",
+     "n": 10
+    },
+    {
+     "id": "t4-feqah-5",
+     "nama": "Zakat fitrah",
+     "n": 9
+    },
+    {
+     "id": "t4-feqah-6",
+     "nama": "Ulang kaji feqah Tahun 4",
+     "n": 3
+    }
+   ],
+   "soalan": 47
+  },
+  {
+   "id": "t4-hafazan",
+   "tahap": "T4",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (hafazan Juz 'Amma)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-hafazan-1",
+     "nama": "Surah Asy-Syams",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-2",
+     "nama": "Surah Al-Balad",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-3",
+     "nama": "Surah Al-Fajr",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-4",
+     "nama": "Surah Al-Ghasyiyah",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-5",
+     "nama": "Surah Al-A'la",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-6",
+     "nama": "Surah At-Tariq",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-7",
+     "nama": "Surah Al-Buruj",
+     "n": 14
+    },
+    {
+     "id": "t4-hafazan-8",
+     "nama": "Ulang kaji hafazan Tahun 4",
+     "n": 6
+    }
+   ],
+   "soalan": 104
+  },
+  {
+   "id": "t4-jawi-kafa",
+   "tahap": "T4",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (ejaan kata berimbuhan)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-jawi-kafa-1",
+     "nama": "Awalan",
+     "n": 15
+    },
+    {
+     "id": "t4-jawi-kafa-2",
+     "nama": "Akhiran",
+     "n": 11
+    },
+    {
+     "id": "t4-jawi-kafa-3",
+     "nama": "Apitan",
+     "n": 11
+    },
+    {
+     "id": "t4-jawi-kafa-4",
+     "nama": "Kata ganda",
+     "n": 8
+    },
+    {
+     "id": "t4-jawi-kafa-5",
+     "nama": "Partikel dan kata sendi",
+     "n": 8
+    },
+    {
+     "id": "t4-jawi-kafa-6",
+     "nama": "Ulang kaji Jawi Tahun 4",
+     "n": 5
+    }
+   ],
+   "soalan": 58
+  },
+  {
+   "id": "t4-arab-kafa",
+   "tahap": "T4",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (ikut e-buku Bahasa Arab Tahun 4)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-arab-kafa-1",
+     "nama": "Nombor 301 hingga 400",
+     "n": 9
+    },
+    {
+     "id": "t4-arab-kafa-2",
+     "nama": "Kenderaan dan pengangkutan",
+     "n": 22
+    },
+    {
+     "id": "t4-arab-kafa-3",
+     "nama": "Kata tunjuk",
+     "n": 11
+    },
+    {
+     "id": "t4-arab-kafa-4",
+     "nama": "Kata tanya",
+     "n": 13
+    },
+    {
+     "id": "t4-arab-kafa-5",
+     "nama": "Ayat kerja",
+     "n": 11
+    },
+    {
+     "id": "t4-arab-kafa-6",
+     "nama": "Cerita: menziarahi bapa saudara",
+     "n": 8
+    },
+    {
+     "id": "t4-arab-kafa-7",
+     "nama": "Cerita: orang beriman bersaudara",
+     "n": 8
+    },
+    {
+     "id": "t4-arab-kafa-8",
+     "nama": "Perbualan di perpustakaan",
+     "n": 12
+    },
+    {
+     "id": "t4-arab-kafa-9",
+     "nama": "Perbualan di padang",
+     "n": 14
+    },
+    {
+     "id": "t4-arab-kafa-10",
+     "nama": "Ulang kaji bahasa Arab Tahun 4",
+     "n": 4
+    }
+   ],
+   "soalan": 112
+  },
+  {
+   "id": "t4-sirah",
+   "tahap": "T4",
+   "nama": "Sirah (KAFA)",
+   "sk": "Sirah",
+   "ikon": "🐪",
+   "warna": "#B5523B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (kerasulan hingga hijrah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-sirah-1",
+     "nama": "Bertahannuth di Gua Hira'",
+     "n": 6
+    },
+    {
+     "id": "t4-sirah-2",
+     "nama": "Wahyu yang pertama",
+     "n": 9
+    },
+    {
+     "id": "t4-sirah-3",
+     "nama": "Dakwah secara rahsia",
+     "n": 8
+    },
+    {
+     "id": "t4-sirah-4",
+     "nama": "Dakwah secara terang dan tentangan Quraisy",
+     "n": 8
+    },
+    {
+     "id": "t4-sirah-5",
+     "nama": "Hijrah ke Habsyah",
+     "n": 7
+    },
+    {
+     "id": "t4-sirah-6",
+     "nama": "Tahun Dukacita dan peristiwa Taif",
+     "n": 7
+    },
+    {
+     "id": "t4-sirah-7",
+     "nama": "Israk dan Mikraj",
+     "n": 9
+    },
+    {
+     "id": "t4-sirah-8",
+     "nama": "Hijrah ke Madinah",
+     "n": 10
+    },
+    {
+     "id": "t4-sirah-9",
+     "nama": "Ulang kaji sirah Tahun 4",
+     "n": 3
+    }
+   ],
+   "soalan": 67
+  },
+  {
+   "id": "t4-tajwid",
+   "tahap": "T4",
+   "nama": "Tajwid (KAFA)",
+   "sk": "Tajwid",
+   "ikon": "🎙️",
+   "warna": "#2E86AB",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (ikut e-buku Tajwid Tahun 4)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-tajwid-1",
+     "nama": "Nun sakinah dan tanwin",
+     "n": 7
+    },
+    {
+     "id": "t4-tajwid-2",
+     "nama": "Izhar halqi",
+     "n": 8
+    },
+    {
+     "id": "t4-tajwid-3",
+     "nama": "Idgham",
+     "n": 10
+    },
+    {
+     "id": "t4-tajwid-4",
+     "nama": "Iqlab",
+     "n": 8
+    },
+    {
+     "id": "t4-tajwid-5",
+     "nama": "Ikhfa' haqiqi",
+     "n": 8
+    },
+    {
+     "id": "t4-tajwid-6",
+     "nama": "Hukum mim sakinah",
+     "n": 9
+    },
+    {
+     "id": "t4-tajwid-7",
+     "nama": "Qalqalah",
+     "n": 9
+    },
+    {
+     "id": "t4-tajwid-8",
+     "nama": "Alif lam ta'rif",
+     "n": 9
+    },
+    {
+     "id": "t4-tajwid-9",
+     "nama": "Ulang kaji tajwid Tahun 4",
+     "n": 4
+    }
+   ],
+   "soalan": 72
+  },
+  {
+   "id": "t4-imlak",
+   "tahap": "T4",
+   "nama": "Imlak (KAFA)",
+   "sk": "Imlak",
+   "ikon": "📝",
+   "warna": "#8E6C3A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (imlak kata nama dan hamzah)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-imlak-1",
+     "nama": "Jamak taksir",
+     "n": 12
+    },
+    {
+     "id": "t4-imlak-2",
+     "nama": "Ta marbutah dan ta maftuhah",
+     "n": 8
+    },
+    {
+     "id": "t4-imlak-3",
+     "nama": "Hamzah wasal dan hamzah qata'",
+     "n": 7
+    },
+    {
+     "id": "t4-imlak-4",
+     "nama": "Alif lam dalam tulisan",
+     "n": 6
+    },
+    {
+     "id": "t4-imlak-5",
+     "nama": "Tanwin fathah dengan alif",
+     "n": 5
+    },
+    {
+     "id": "t4-imlak-6",
+     "nama": "Ulang kaji imlak Tahun 4",
+     "n": 3
+    }
+   ],
+   "soalan": 41
+  },
+  {
+   "id": "t4-khat",
+   "tahap": "T4",
+   "nama": "Khat (KAFA)",
+   "sk": "Khat",
+   "ikon": "🖋️",
+   "warna": "#5C4B8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 4 (ikut e-buku Khat Tahun 4)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t4-khat-1",
+     "nama": "Mengingat semula kaedah khat nasakh",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-2",
+     "nama": "Huruf tunggal kumpulan 1",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-3",
+     "nama": "Huruf tunggal kumpulan 2",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-4",
+     "nama": "Huruf tunggal kumpulan 3",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-5",
+     "nama": "Huruf tunggal kumpulan 4",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-6",
+     "nama": "Huruf tunggal kumpulan 5",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-7",
+     "nama": "Huruf tunggal kumpulan 6",
+     "n": 5
+    },
+    {
+     "id": "t4-khat-8",
+     "nama": "Huruf tunggal kumpulan 7",
+     "n": 3
+    },
+    {
+     "id": "t4-khat-9",
+     "nama": "Huruf bersambung",
+     "n": 7
+    },
+    {
+     "id": "t4-khat-10",
+     "nama": "Ulang kaji khat Tahun 4",
+     "n": 3
+    }
+   ],
+   "soalan": 48
+  },
+  {
+   "id": "t5-bm",
+   "tahap": "T5",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-bm-1",
+     "nama": "Tema 1: Kemasyarakatan",
+     "n": 29
+    },
+    {
+     "id": "t5-bm-2",
+     "nama": "Tema 2: Kesihatan dan Kebersihan",
+     "n": 27
+    },
+    {
+     "id": "t5-bm-3",
+     "nama": "Tema 3: Keselamatan",
+     "n": 27
+    },
+    {
+     "id": "t5-bm-4",
+     "nama": "Tema 4: Perpaduan",
+     "n": 23
+    },
+    {
+     "id": "t5-bm-5",
+     "nama": "Tema 5: Jati Diri, Patriotisme dan Kewarganegaraan",
+     "n": 28
+    },
+    {
+     "id": "t5-bm-6",
+     "nama": "Tema 6: Sains, Teknologi dan Inovasi",
+     "n": 26
+    },
+    {
+     "id": "t5-bm-7",
+     "nama": "Tema 7: Kelestarian Alam",
+     "n": 29
+    },
+    {
+     "id": "t5-bm-8",
+     "nama": "Tema 8: Ekonomi, Keusahawanan dan Pengurusan Kewangan",
+     "n": 29
+    },
+    {
+     "id": "t5-bm-9",
+     "nama": "Tema 9: Integriti",
+     "n": 27
+    }
+   ],
+   "soalan": 245
+  },
+  {
+   "id": "t5-bi",
+   "tahap": "T5",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017 (CEFR)",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-bi-1",
+     "nama": "Starter Unit",
+     "n": 18
+    },
+    {
+     "id": "t5-bi-2",
+     "nama": "Towns and Cities",
+     "n": 28
+    },
+    {
+     "id": "t5-bi-3",
+     "nama": "Days",
+     "n": 24
+    },
+    {
+     "id": "t5-bi-4",
+     "nama": "Wildlife",
+     "n": 27
+    },
+    {
+     "id": "t5-bi-5",
+     "nama": "Learning World",
+     "n": 26
+    },
+    {
+     "id": "t5-bi-6",
+     "nama": "Food and Health",
+     "n": 27
+    },
+    {
+     "id": "t5-bi-7",
+     "nama": "Sport",
+     "n": 29
+    },
+    {
+     "id": "t5-bi-8",
+     "nama": "Growing Up",
+     "n": 18
+    },
+    {
+     "id": "t5-bi-9",
+     "nama": "Going Away",
+     "n": 29
+    }
+   ],
+   "soalan": 226
+  },
+  {
+   "id": "t5-mat",
+   "tahap": "T5",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-mat-1",
+     "nama": "Nombor Bulat dan Operasi",
+     "n": 50
+    },
+    {
+     "id": "t5-mat-2",
+     "nama": "Pecahan, Perpuluhan dan Peratus",
+     "n": 78
+    },
+    {
+     "id": "t5-mat-3",
+     "nama": "Wang",
+     "n": 18
+    },
+    {
+     "id": "t5-mat-4",
+     "nama": "Masa dan Waktu",
+     "n": 61
+    },
+    {
+     "id": "t5-mat-5",
+     "nama": "Ukuran dan Sukatan",
+     "n": 58
+    },
+    {
+     "id": "t5-mat-6",
+     "nama": "Ruang",
+     "n": 31
+    },
+    {
+     "id": "t5-mat-7",
+     "nama": "Koordinat, Nisbah dan Kadaran",
+     "n": 59
+    },
+    {
+     "id": "t5-mat-8",
+     "nama": "Pengurusan Data",
+     "n": 20
+    }
+   ],
+   "soalan": 375
+  },
+  {
+   "id": "t5-sains",
+   "tahap": "T5",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-2",
+     "nama": "Manusia",
+     "n": 28
+    },
+    {
+     "id": "t5-sains-3",
+     "nama": "Haiwan",
+     "n": 21
+    },
+    {
+     "id": "t5-sains-4",
+     "nama": "Tumbuh-tumbuhan",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-5",
+     "nama": "Elektrik",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-6",
+     "nama": "Haba",
+     "n": 28
+    },
+    {
+     "id": "t5-sains-7",
+     "nama": "Pengaratan",
+     "n": 20
+    },
+    {
+     "id": "t5-sains-8",
+     "nama": "Jirim",
+     "n": 24
+    },
+    {
+     "id": "t5-sains-9",
+     "nama": "Fasa Bulan dan Buruj",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-10",
+     "nama": "Mesin",
+     "n": 26
+    }
+   ],
+   "soalan": 251
+  },
+  {
+   "id": "t5-sej",
+   "tahap": "T5",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5835A",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-sej-1",
+     "nama": "Kedaulatan Negara",
+     "n": 26
+    },
+    {
+     "id": "t5-sej-2",
+     "nama": "Raja Berperlembagaan dan Yang di-Pertuan Agong",
+     "n": 28
+    },
+    {
+     "id": "t5-sej-3",
+     "nama": "Agama Islam di Malaysia",
+     "n": 26
+    },
+    {
+     "id": "t5-sej-4",
+     "nama": "Bahasa Melayu Bahasa Kebangsaan",
+     "n": 26
+    },
+    {
+     "id": "t5-sej-5",
+     "nama": "Lambang dan Identiti Negara",
+     "n": 26
+    },
+    {
+     "id": "t5-sej-6",
+     "nama": "Kedatangan Kuasa Barat dan Penjajahan",
+     "n": 26
+    },
+    {
+     "id": "t5-sej-7",
+     "nama": "Tokoh Penentang Penjajahan",
+     "n": 28
+    },
+    {
+     "id": "t5-sej-8",
+     "nama": "Kemerdekaan Persekutuan Tanah Melayu",
+     "n": 26
+    }
+   ],
+   "soalan": 212
+  },
+  {
+   "id": "t5-pi",
+   "tahap": "T5",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t5-pi-1",
+     "nama": "Al-Quran: Al-Qadr, At-Tin, An-Nasr dan Tajwid",
+     "n": 37
+    },
+    {
+     "id": "t5-pi-2",
+     "nama": "Hadis: Sayangi Pemimpin Kita",
+     "n": 34
+    },
+    {
+     "id": "t5-pi-3",
+     "nama": "Jawi: Seni Khat Warisan Bangsa",
+     "n": 37
+    },
+    {
+     "id": "t5-pi-4",
+     "nama": "Akidah: Al-Malik, Al-Hasib, Hari Akhirat, Syirik dan Sihir",
+     "n": 32
+    },
+    {
+     "id": "t5-pi-5",
+     "nama": "Ibadah: Tayamum, Solat Berjemaah, Jumaat dan Dua Hari Raya",
+     "n": 35
+    },
+    {
+     "id": "t5-pi-6",
+     "nama": "Sirah: Hijrah, Itqan dan Nabi SAW Pemimpin Agung",
+     "n": 30
+    },
+    {
+     "id": "t5-pi-7",
+     "nama": "Adab: Kenderaan, Jual Beli, Berkomunikasi dan Alam",
+     "n": 34
+    }
+   ],
+   "soalan": 239
+  },
+  {
+   "id": "t5-arab",
+   "tahap": "T5",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t5-arab-1",
+     "nama": "فِي الْمَطْبَخِ · Di dapur",
+     "n": 68
+    },
+    {
+     "id": "t5-arab-2",
+     "nama": "مَا أَلَذَّ الطَّعَامَ! · Sedapnya makanan!",
+     "n": 68
+    },
+    {
+     "id": "t5-arab-3",
+     "nama": "هَيَّا نَشْتَرِكْ فِي الْأَنْشِطَةِ اللَّاصَفِّيَّةِ · Mari sertai aktiviti kokurikulum",
+     "n": 71
+    },
+    {
+     "id": "t5-arab-4",
+     "nama": "رِفْقًا بِالْحَيَوَانَاتِ · Berlemah lembut terhadap haiwan",
+     "n": 69
+    }
+   ],
+   "soalan": 276
+  },
+  {
+   "id": "t5-akhlak",
+   "tahap": "T5",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (akhlak mahmudah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-akhlak-1",
+     "nama": "Akhlak kepada Allah",
+     "n": 6
+    },
+    {
+     "id": "t5-akhlak-2",
+     "nama": "Akhlak kepada Rasulullah SAW",
+     "n": 5
+    },
+    {
+     "id": "t5-akhlak-3",
+     "nama": "Menjaga lidah",
+     "n": 5
+    },
+    {
+     "id": "t5-akhlak-4",
+     "nama": "Amanah dan menepati janji",
+     "n": 6
+    },
+    {
+     "id": "t5-akhlak-5",
+     "nama": "Adab bergaul",
+     "n": 5
+    },
+    {
+     "id": "t5-akhlak-6",
+     "nama": "Adab menggunakan media dan teknologi",
+     "n": 5
+    },
+    {
+     "id": "t5-akhlak-7",
+     "nama": "Ulang kaji akhlak Tahun 5",
+     "n": 2
+    }
+   ],
+   "soalan": 34
+  },
+  {
+   "id": "t5-tauhid",
+   "tahap": "T5",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (sifat rasul, mukjizat, menjaga iman)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-tauhid-1",
+     "nama": "Sifat harus bagi Allah",
+     "n": 5
+    },
+    {
+     "id": "t5-tauhid-2",
+     "nama": "Sifat wajib, mustahil dan harus bagi rasul",
+     "n": 12
+    },
+    {
+     "id": "t5-tauhid-3",
+     "nama": "Mukjizat para rasul",
+     "n": 9
+    },
+    {
+     "id": "t5-tauhid-4",
+     "nama": "Perkara yang membatalkan iman",
+     "n": 6
+    },
+    {
+     "id": "t5-tauhid-5",
+     "nama": "Khurafat dan tahyul",
+     "n": 6
+    },
+    {
+     "id": "t5-tauhid-6",
+     "nama": "Ulang kaji tauhid Tahun 5",
+     "n": 3
+    }
+   ],
+   "soalan": 41
+  },
+  {
+   "id": "t5-feqah",
+   "tahap": "T5",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "🕋",
+   "warna": "#1F8A8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (puasa, zakat, haji, korban, akikah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-feqah-1",
+     "nama": "Puasa sunat dan qada",
+     "n": 7
+    },
+    {
+     "id": "t5-feqah-2",
+     "nama": "Zakat harta",
+     "n": 6
+    },
+    {
+     "id": "t5-feqah-3",
+     "nama": "Haji dan umrah",
+     "n": 8
+    },
+    {
+     "id": "t5-feqah-4",
+     "nama": "Korban",
+     "n": 7
+    },
+    {
+     "id": "t5-feqah-5",
+     "nama": "Akikah",
+     "n": 6
+    },
+    {
+     "id": "t5-feqah-6",
+     "nama": "Ulang kaji feqah Tahun 5",
+     "n": 2
+    }
+   ],
+   "soalan": 36
+  },
+  {
+   "id": "t5-hafazan",
+   "tahap": "T5",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (ikut e-buku Hafazan Tahun 5)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-hafazan-1",
+     "nama": "Surah Al-Insyiqaq",
+     "n": 14
+    },
+    {
+     "id": "t5-hafazan-2",
+     "nama": "Surah Al-Mutaffifin",
+     "n": 14
+    },
+    {
+     "id": "t5-hafazan-3",
+     "nama": "Surah Al-Infitar",
+     "n": 14
+    },
+    {
+     "id": "t5-hafazan-4",
+     "nama": "Surah At-Takwir",
+     "n": 14
+    },
+    {
+     "id": "t5-hafazan-5",
+     "nama": "Ulang kaji hafazan Tahun 5",
+     "n": 6
+    }
+   ],
+   "soalan": 62
+  },
+  {
+   "id": "t5-jawi-kafa",
+   "tahap": "T5",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (ikut e-buku Jawi Tahun 5)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-jawi-kafa-1",
+     "nama": "Imbuhan selepas vokal",
+     "n": 11
+    },
+    {
+     "id": "t5-jawi-kafa-2",
+     "nama": "Akhiran -i",
+     "n": 12
+    },
+    {
+     "id": "t5-jawi-kafa-3",
+     "nama": "Istilah agama",
+     "n": 16
+    },
+    {
+     "id": "t5-jawi-kafa-4",
+     "nama": "Kata pinjaman bahasa Inggeris",
+     "n": 14
+    },
+    {
+     "id": "t5-jawi-kafa-5",
+     "nama": "Singkatan dan akronim",
+     "n": 10
+    },
+    {
+     "id": "t5-jawi-kafa-6",
+     "nama": "Ulang kaji Jawi Tahun 5",
+     "n": 5
+    }
+   ],
+   "soalan": 68
+  },
+  {
+   "id": "t5-arab-kafa",
+   "tahap": "T5",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (ikut e-buku Bahasa Arab Tahun 5)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-arab-kafa-1",
+     "nama": "Nombor 401 hingga 500",
+     "n": 6
+    },
+    {
+     "id": "t5-arab-kafa-2",
+     "nama": "Kata ganti nama",
+     "n": 12
+    },
+    {
+     "id": "t5-arab-kafa-3",
+     "nama": "Ke pantai",
+     "n": 13
+    },
+    {
+     "id": "t5-arab-kafa-4",
+     "nama": "Burung dan serangga",
+     "n": 15
+    },
+    {
+     "id": "t5-arab-kafa-5",
+     "nama": "Alat komunikasi moden",
+     "n": 13
+    },
+    {
+     "id": "t5-arab-kafa-6",
+     "nama": "Ke zoo",
+     "n": 13
+    },
+    {
+     "id": "t5-arab-kafa-7",
+     "nama": "Huruf nafi dan la nahiyah",
+     "n": 6
+    },
+    {
+     "id": "t5-arab-kafa-8",
+     "nama": "Huruf jar",
+     "n": 8
+    },
+    {
+     "id": "t5-arab-kafa-9",
+     "nama": "Melawat hospital",
+     "n": 11
+    },
+    {
+     "id": "t5-arab-kafa-10",
+     "nama": "Al-fa'il",
+     "n": 5
+    },
+    {
+     "id": "t5-arab-kafa-11",
+     "nama": "Al-maf'ul bihi",
+     "n": 5
+    },
+    {
+     "id": "t5-arab-kafa-12",
+     "nama": "Fi'il thulathi mazid satu huruf",
+     "n": 6
+    },
+    {
+     "id": "t5-arab-kafa-13",
+     "nama": "Ke kedai",
+     "n": 11
+    },
+    {
+     "id": "t5-arab-kafa-14",
+     "nama": "Ulang kaji bahasa Arab Tahun 5",
+     "n": 3
+    }
+   ],
+   "soalan": 127
+  },
+  {
+   "id": "t5-sirah",
+   "tahap": "T5",
+   "nama": "Sirah (KAFA)",
+   "sk": "Sirah",
+   "ikon": "🐪",
+   "warna": "#B5523B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (Madinah dan peperangan awal)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-sirah-1",
+     "nama": "Pembinaan Masjid Nabawi",
+     "n": 6
+    },
+    {
+     "id": "t5-sirah-2",
+     "nama": "Persaudaraan Ansar dan Muhajirin",
+     "n": 6
+    },
+    {
+     "id": "t5-sirah-3",
+     "nama": "Piagam Madinah",
+     "n": 5
+    },
+    {
+     "id": "t5-sirah-4",
+     "nama": "Perang Badar",
+     "n": 6
+    },
+    {
+     "id": "t5-sirah-5",
+     "nama": "Perang Uhud",
+     "n": 6
+    },
+    {
+     "id": "t5-sirah-6",
+     "nama": "Perang Khandaq",
+     "n": 6
+    },
+    {
+     "id": "t5-sirah-7",
+     "nama": "Ulang kaji sirah Tahun 5",
+     "n": 2
+    }
+   ],
+   "soalan": 37
+  },
+  {
+   "id": "t5-tajwid",
+   "tahap": "T5",
+   "nama": "Tajwid (KAFA)",
+   "sk": "Tajwid",
+   "ikon": "🎙️",
+   "warna": "#2E86AB",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (ikut e-buku Tajwid Tahun 5)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-tajwid-1",
+     "nama": "Mad dan bahagiannya",
+     "n": 7
+    },
+    {
+     "id": "t5-tajwid-2",
+     "nama": "Mad asli",
+     "n": 7
+    },
+    {
+     "id": "t5-tajwid-3",
+     "nama": "Mad far'i yang disebabkan hamzah",
+     "n": 10
+    },
+    {
+     "id": "t5-tajwid-4",
+     "nama": "Mad lazim",
+     "n": 8
+    },
+    {
+     "id": "t5-tajwid-5",
+     "nama": "Mad 'arid, lin, 'iwad, tamkin dan silah",
+     "n": 10
+    },
+    {
+     "id": "t5-tajwid-6",
+     "nama": "Tingkatan mad",
+     "n": 4
+    },
+    {
+     "id": "t5-tajwid-7",
+     "nama": "Waqaf",
+     "n": 9
+    },
+    {
+     "id": "t5-tajwid-8",
+     "nama": "Ibtida'",
+     "n": 5
+    },
+    {
+     "id": "t5-tajwid-9",
+     "nama": "Ulang kaji tajwid Tahun 5",
+     "n": 3
+    }
+   ],
+   "soalan": 63
+  },
+  {
+   "id": "t5-imlak",
+   "tahap": "T5",
+   "nama": "Imlak (KAFA)",
+   "sk": "Imlak",
+   "ikon": "📝",
+   "warna": "#8E6C3A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (penulisan hamzah)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-imlak-1",
+     "nama": "Hamzah di awal kata",
+     "n": 5
+    },
+    {
+     "id": "t5-imlak-2",
+     "nama": "Hamzah di tengah kata",
+     "n": 7
+    },
+    {
+     "id": "t5-imlak-3",
+     "nama": "Hamzah di akhir kata",
+     "n": 6
+    },
+    {
+     "id": "t5-imlak-4",
+     "nama": "Latihan ejaan hamzah",
+     "n": 8
+    },
+    {
+     "id": "t5-imlak-5",
+     "nama": "Ulang kaji imlak Tahun 5",
+     "n": 2
+    }
+   ],
+   "soalan": 28
+  },
+  {
+   "id": "t5-khat",
+   "tahap": "T5",
+   "nama": "Khat (KAFA)",
+   "sk": "Khat",
+   "ikon": "🖋️",
+   "warna": "#5C4B8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 5 (ikut e-buku Khat Tahun 5)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-khat-1",
+     "nama": "Huruf kumpulan 1",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-2",
+     "nama": "Huruf kumpulan 2",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-3",
+     "nama": "Huruf kumpulan 3",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-4",
+     "nama": "Huruf kumpulan 4",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-5",
+     "nama": "Huruf kumpulan 5",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-6",
+     "nama": "Huruf kumpulan 6",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-7",
+     "nama": "Huruf kumpulan 7",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-8",
+     "nama": "Huruf kumpulan 8",
+     "n": 2
+    },
+    {
+     "id": "t5-khat-9",
+     "nama": "Titik dan kedudukan huruf",
+     "n": 8
+    },
+    {
+     "id": "t5-khat-10",
+     "nama": "Ulang kaji khat Tahun 5",
+     "n": 2
+    }
+   ],
+   "soalan": 26
+  },
+  {
+   "id": "t6-bm",
+   "tahap": "T6",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#E8A33D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-bm-1",
+     "nama": "Tema 1: Kekeluargaan",
+     "n": 27
+    },
+    {
+     "id": "t6-bm-2",
+     "nama": "Tema 2: Kesihatan dan Kebersihan",
+     "n": 27
+    },
+    {
+     "id": "t6-bm-3",
+     "nama": "Tema 3: Keselamatan",
+     "n": 24
+    },
+    {
+     "id": "t6-bm-4",
+     "nama": "Tema 4: Perpaduan",
+     "n": 30
+    },
+    {
+     "id": "t6-bm-5",
+     "nama": "Tema 5: Kebudayaan, Kesenian dan Estetika",
+     "n": 26
+    },
+    {
+     "id": "t6-bm-6",
+     "nama": "Tema 6: Sains, Teknologi dan Inovasi",
+     "n": 24
+    },
+    {
+     "id": "t6-bm-7",
+     "nama": "Tema 7: Pertanian dan Penternakan",
+     "n": 34
+    },
+    {
+     "id": "t6-bm-8",
+     "nama": "Tema 8: Ekonomi, Keusahawanan dan Pengurusan Kewangan",
+     "n": 25
+    },
+    {
+     "id": "t6-bm-9",
+     "nama": "Tema 9: Integriti",
+     "n": 26
+    }
+   ],
+   "soalan": 243
+  },
+  {
+   "id": "t6-bi",
+   "tahap": "T6",
+   "nama": "Bahasa Inggeris",
+   "sk": "BI",
+   "ikon": "🔤",
+   "warna": "#35D0F0",
+   "bahasa": "en",
+   "kur": "KSSR-S2017 (CEFR)",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-bi-1",
+     "nama": "Welcome",
+     "n": 17
+    },
+    {
+     "id": "t6-bi-2",
+     "nama": "It's an Emergency!",
+     "n": 18
+    },
+    {
+     "id": "t6-bi-3",
+     "nama": "Life in the Past",
+     "n": 25
+    },
+    {
+     "id": "t6-bi-4",
+     "nama": "Adventure Time",
+     "n": 27
+    },
+    {
+     "id": "t6-bi-5",
+     "nama": "Cool Jobs",
+     "n": 18
+    },
+    {
+     "id": "t6-bi-6",
+     "nama": "Getting Around",
+     "n": 26
+    },
+    {
+     "id": "t6-bi-7",
+     "nama": "How Is It Made?",
+     "n": 27
+    },
+    {
+     "id": "t6-bi-8",
+     "nama": "Music and Song",
+     "n": 18
+    },
+    {
+     "id": "t6-bi-9",
+     "nama": "Tell Me a Story",
+     "n": 23
+    },
+    {
+     "id": "t6-bi-10",
+     "nama": "What's Your Opinion?",
+     "n": 23
+    },
+    {
+     "id": "t6-bi-11",
+     "nama": "It's a Mystery",
+     "n": 18
+    }
+   ],
+   "soalan": 240
+  },
+  {
+   "id": "t6-mat",
+   "tahap": "T6",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-mat-1",
+     "nama": "Nombor Bulat dan Operasi",
+     "n": 50
+    },
+    {
+     "id": "t6-mat-2",
+     "nama": "Pecahan, Perpuluhan dan Peratus",
+     "n": 85
+    },
+    {
+     "id": "t6-mat-3",
+     "nama": "Wang",
+     "n": 21
+    },
+    {
+     "id": "t6-mat-4",
+     "nama": "Masa dan Waktu",
+     "n": 61
+    },
+    {
+     "id": "t6-mat-5",
+     "nama": "Ukuran dan Sukatan",
+     "n": 58
+    },
+    {
+     "id": "t6-mat-6",
+     "nama": "Ruang",
+     "n": 36
+    },
+    {
+     "id": "t6-mat-7",
+     "nama": "Koordinat, Nisbah dan Kadaran",
+     "n": 59
+    },
+    {
+     "id": "t6-mat-8",
+     "nama": "Pengurusan Data dan Kebolehjadian",
+     "n": 46
+    }
+   ],
+   "soalan": 416
+  },
+  {
+   "id": "t6-sains",
+   "tahap": "T6",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-sains-1",
+     "nama": "Kemahiran Saintifik",
+     "n": 29
+    },
+    {
+     "id": "t6-sains-2",
+     "nama": "Manusia",
+     "n": 28
+    },
+    {
+     "id": "t6-sains-3",
+     "nama": "Mikroorganisma",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-4",
+     "nama": "Interaksi antara Haiwan",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-5",
+     "nama": "Pemeliharaan dan Pemuliharaan",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-6",
+     "nama": "Daya",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-7",
+     "nama": "Kelajuan",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-8",
+     "nama": "Teknologi dan Pengawetan Makanan",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-9",
+     "nama": "Bahan Buangan",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-10",
+     "nama": "Gerhana",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-11",
+     "nama": "Galaksi",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-12",
+     "nama": "Kestabilan dan Kekuatan",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-13",
+     "nama": "Teknologi",
+     "n": 24
+    }
+   ],
+   "soalan": 331
+  },
+  {
+   "id": "t6-sej",
+   "tahap": "T6",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5835A",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-sej-1",
+     "nama": "Lahirnya Sebuah Cinta",
+     "n": 26
+    },
+    {
+     "id": "t6-sej-2",
+     "nama": "Bumi Dipijak Langit Dijunjung",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-3",
+     "nama": "Rukun Negara",
+     "n": 26
+    },
+    {
+     "id": "t6-sej-4",
+     "nama": "Rakyat Malaysia",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-5",
+     "nama": "Agama dan Kepercayaan di Malaysia",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-6",
+     "nama": "Perayaan di Malaysia",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-7",
+     "nama": "Malaysia di Persada Sukan",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-8",
+     "nama": "Kegiatan Ekonomi Negara",
+     "n": 28
+    },
+    {
+     "id": "t6-sej-9",
+     "nama": "Pemimpin Negara yang Kusanjungi",
+     "n": 26
+    },
+    {
+     "id": "t6-sej-10",
+     "nama": "Malaysia dan Dunia",
+     "n": 13
+    }
+   ],
+   "soalan": 259
+  },
+  {
+   "id": "t6-pi",
+   "tahap": "T6",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕋",
+   "warna": "#8BE04E",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": true,
+   "topik": [
+    {
+     "id": "t6-pi-1",
+     "nama": "Ibadah: Haji dan Umrah",
+     "n": 44
+    },
+    {
+     "id": "t6-pi-2",
+     "nama": "Ibadah: Pengurusan Jenazah",
+     "n": 40
+    },
+    {
+     "id": "t6-pi-3",
+     "nama": "Akidah: Beriman kepada Hari Akhirat dan Qada Qadar",
+     "n": 44
+    },
+    {
+     "id": "t6-pi-4",
+     "nama": "Sirah: Perang Badar dan Pembukaan Kota Makkah",
+     "n": 42
+    },
+    {
+     "id": "t6-pi-5",
+     "nama": "Sirah: Khulafa' Ar-Rasyidin",
+     "n": 42
+    },
+    {
+     "id": "t6-pi-6",
+     "nama": "Adab dan Akhlak",
+     "n": 44
+    }
+   ],
+   "soalan": 256
+  },
+  {
+   "id": "t6-arab",
+   "tahap": "T6",
+   "nama": "Bahasa Arab",
+   "sk": "BA",
+   "ikon": "🕌",
+   "warna": "#FFD53D",
+   "bahasa": "ms",
+   "kur": "KSSR-S2017",
+   "semak": "pending-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "t6-arab-1",
+     "nama": "السَّفَرُ · Melancong",
+     "n": 41
+    },
+    {
+     "id": "t6-arab-2",
+     "nama": "الْأَعْيَادُ · Perayaan",
+     "n": 43
+    },
+    {
+     "id": "t6-arab-3",
+     "nama": "الْبِيئَةُ · Alam Sekitar",
+     "n": 43
+    },
+    {
+     "id": "t6-arab-4",
+     "nama": "أَدَوَاتُ الْاِسْتِفْهَامِ · Kata Tanya",
+     "n": 24
+    },
+    {
+     "id": "t6-arab-5",
+     "nama": "الْأَفْعَالُ · Kata Kerja",
+     "n": 28
+    },
+    {
+     "id": "t6-arab-6",
+     "nama": "الضَّمَائِرُ · Kata Ganti Nama",
+     "n": 28
+    }
+   ],
+   "soalan": 207
+  },
+  {
+   "id": "t6-akhlak",
+   "tahap": "T6",
+   "nama": "Akhlak (KAFA)",
+   "sk": "Akhlak",
+   "ikon": "🤲",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (pembentukan peribadi)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-akhlak-1",
+     "nama": "Ikhlas",
+     "n": 5
+    },
+    {
+     "id": "t6-akhlak-2",
+     "nama": "Malu",
+     "n": 5
+    },
+    {
+     "id": "t6-akhlak-3",
+     "nama": "Adil",
+     "n": 5
+    },
+    {
+     "id": "t6-akhlak-4",
+     "nama": "Pemaaf",
+     "n": 5
+    },
+    {
+     "id": "t6-akhlak-5",
+     "nama": "Menjauhi sifat mazmumah",
+     "n": 6
+    },
+    {
+     "id": "t6-akhlak-6",
+     "nama": "Persediaan menjadi remaja muslim",
+     "n": 5
+    },
+    {
+     "id": "t6-akhlak-7",
+     "nama": "Ulang kaji akhlak Tahun 6",
+     "n": 2
+    }
+   ],
+   "soalan": 33
+  },
+  {
+   "id": "t6-tauhid",
+   "tahap": "T6",
+   "nama": "Tauhid (KAFA)",
+   "sk": "Tauhid",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (pengukuhan akidah)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-tauhid-1",
+     "nama": "Ulang kaji sifat dua puluh",
+     "n": 8
+    },
+    {
+     "id": "t6-tauhid-2",
+     "nama": "Al-Asma' al-Husna",
+     "n": 14
+    },
+    {
+     "id": "t6-tauhid-3",
+     "nama": "Hari akhirat dan syafaat",
+     "n": 6
+    },
+    {
+     "id": "t6-tauhid-4",
+     "nama": "Ahli Sunnah wal Jamaah",
+     "n": 6
+    },
+    {
+     "id": "t6-tauhid-5",
+     "nama": "Menjaga akidah daripada ajaran sesat",
+     "n": 5
+    },
+    {
+     "id": "t6-tauhid-6",
+     "nama": "Ulang kaji tauhid Tahun 6",
+     "n": 3
+    }
+   ],
+   "soalan": 42
+  },
+  {
+   "id": "t6-feqah",
+   "tahap": "T6",
+   "nama": "Feqah (KAFA)",
+   "sk": "Feqah",
+   "ikon": "🕋",
+   "warna": "#1F8A8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (jenazah, halal haram, sembelihan, jual beli)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-feqah-1",
+     "nama": "Pengurusan jenazah",
+     "n": 5
+    },
+    {
+     "id": "t6-feqah-2",
+     "nama": "Memandikan dan mengkafankan jenazah",
+     "n": 6
+    },
+    {
+     "id": "t6-feqah-3",
+     "nama": "Solat jenazah dan mengebumikan",
+     "n": 7
+    },
+    {
+     "id": "t6-feqah-4",
+     "nama": "Makanan dan minuman halal dan haram",
+     "n": 7
+    },
+    {
+     "id": "t6-feqah-5",
+     "nama": "Sembelihan",
+     "n": 6
+    },
+    {
+     "id": "t6-feqah-6",
+     "nama": "Jual beli",
+     "n": 6
+    },
+    {
+     "id": "t6-feqah-7",
+     "nama": "Ulang kaji feqah Tahun 6",
+     "n": 2
+    }
+   ],
+   "soalan": 39
+  },
+  {
+   "id": "t6-hafazan",
+   "tahap": "T6",
+   "nama": "Hafazan (KAFA)",
+   "sk": "Hafazan",
+   "ikon": "📖",
+   "warna": "#7A5AB8",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (melengkapkan Juz 'Amma)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-hafazan-1",
+     "nama": "Surah 'Abasa",
+     "n": 14
+    },
+    {
+     "id": "t6-hafazan-2",
+     "nama": "Surah An-Nazi'at",
+     "n": 14
+    },
+    {
+     "id": "t6-hafazan-3",
+     "nama": "Surah An-Naba'",
+     "n": 14
+    },
+    {
+     "id": "t6-hafazan-4",
+     "nama": "Ulang kaji hafazan Tahun 6",
+     "n": 7
+    }
+   ],
+   "soalan": 49
+  },
+  {
+   "id": "t6-jawi-kafa",
+   "tahap": "T6",
+   "nama": "Jawi (KAFA)",
+   "sk": "Jawi",
+   "ikon": "✍️",
+   "warna": "#B8862B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (kata majmuk, nama khas, ayat)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-jawi-kafa-1",
+     "nama": "Kata majmuk",
+     "n": 11
+    },
+    {
+     "id": "t6-jawi-kafa-2",
+     "nama": "Kata nama khas",
+     "n": 10
+    },
+    {
+     "id": "t6-jawi-kafa-3",
+     "nama": "Tanda baca",
+     "n": 5
+    },
+    {
+     "id": "t6-jawi-kafa-4",
+     "nama": "Mentransliterasi ayat",
+     "n": 5
+    },
+    {
+     "id": "t6-jawi-kafa-5",
+     "nama": "Ulang kaji Jawi Tahun 6",
+     "n": 4
+    }
+   ],
+   "soalan": 35
+  },
+  {
+   "id": "t6-arab-kafa",
+   "tahap": "T6",
+   "nama": "Bahasa Arab (KAFA)",
+   "sk": "Bahasa Arab",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (ikut e-buku Bahasa Arab Tahun 6)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-arab-kafa-1",
+     "nama": "Nombor 600 hingga 2000",
+     "n": 9
+    },
+    {
+     "id": "t6-arab-kafa-2",
+     "nama": "Wazan fi'il",
+     "n": 5
+    },
+    {
+     "id": "t6-arab-kafa-3",
+     "nama": "Cerita: berbuat baik kepada ibu bapa",
+     "n": 5
+    },
+    {
+     "id": "t6-arab-kafa-4",
+     "nama": "Tasrif fi'il",
+     "n": 9
+    },
+    {
+     "id": "t6-arab-kafa-5",
+     "nama": "Mubtada' dan khabar",
+     "n": 5
+    },
+    {
+     "id": "t6-arab-kafa-6",
+     "nama": "Huruf 'ataf",
+     "n": 5
+    },
+    {
+     "id": "t6-arab-kafa-7",
+     "nama": "Kata berlawanan",
+     "n": 10
+    },
+    {
+     "id": "t6-arab-kafa-8",
+     "nama": "Dialog",
+     "n": 5
+    },
+    {
+     "id": "t6-arab-kafa-9",
+     "nama": "Hikmah dan peribahasa",
+     "n": 7
+    },
+    {
+     "id": "t6-arab-kafa-10",
+     "nama": "Ulang kaji bahasa Arab Tahun 6",
+     "n": 3
+    }
+   ],
+   "soalan": 63
+  },
+  {
+   "id": "t6-sirah",
+   "tahap": "T6",
+   "nama": "Sirah (KAFA)",
+   "sk": "Sirah",
+   "ikon": "🐪",
+   "warna": "#B5523B",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (Hudaibiyah hingga Khulafa' ar-Rasyidin)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-sirah-1",
+     "nama": "Perjanjian Hudaibiyah",
+     "n": 6
+    },
+    {
+     "id": "t6-sirah-2",
+     "nama": "Surat dakwah kepada raja-raja",
+     "n": 5
+    },
+    {
+     "id": "t6-sirah-3",
+     "nama": "Pembukaan kota Mekah",
+     "n": 6
+    },
+    {
+     "id": "t6-sirah-4",
+     "nama": "Haji Wida'",
+     "n": 6
+    },
+    {
+     "id": "t6-sirah-5",
+     "nama": "Kewafatan Nabi Muhammad SAW",
+     "n": 6
+    },
+    {
+     "id": "t6-sirah-6",
+     "nama": "Khulafa' ar-Rasyidin",
+     "n": 7
+    },
+    {
+     "id": "t6-sirah-7",
+     "nama": "Ulang kaji sirah Tahun 6",
+     "n": 2
+    }
+   ],
+   "soalan": 38
+  },
+  {
+   "id": "t6-tajwid",
+   "tahap": "T6",
+   "nama": "Tajwid (KAFA)",
+   "sk": "Tajwid",
+   "ikon": "🎙️",
+   "warna": "#2E86AB",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (ikut e-buku Tajwid Tahun 6)",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-tajwid-1",
+     "nama": "Idgham dan bahagiannya",
+     "n": 8
+    },
+    {
+     "id": "t6-tajwid-2",
+     "nama": "Hukum ra",
+     "n": 8
+    },
+    {
+     "id": "t6-tajwid-3",
+     "nama": "Tanwin bertemu hamzah wasal",
+     "n": 5
+    },
+    {
+     "id": "t6-tajwid-4",
+     "nama": "Bacaan khas riwayat Hafs",
+     "n": 12
+    },
+    {
+     "id": "t6-tajwid-5",
+     "nama": "Rukun bacaan al-Quran",
+     "n": 7
+    },
+    {
+     "id": "t6-tajwid-6",
+     "nama": "Ulang kaji tajwid Tahun 6",
+     "n": 3
+    }
+   ],
+   "soalan": 43
+  },
+  {
+   "id": "t6-imlak",
+   "tahap": "T6",
+   "nama": "Imlak (KAFA)",
+   "sk": "Imlak",
+   "ikon": "📝",
+   "warna": "#8E6C3A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (alif dan huruf yang tidak dibaca)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-imlak-1",
+     "nama": "Alif maqsurah dan alif mamdudah",
+     "n": 6
+    },
+    {
+     "id": "t6-imlak-2",
+     "nama": "Huruf yang ditulis tetapi tidak dibaca",
+     "n": 5
+    },
+    {
+     "id": "t6-imlak-3",
+     "nama": "Huruf yang dibaca tetapi tidak ditulis",
+     "n": 5
+    },
+    {
+     "id": "t6-imlak-4",
+     "nama": "Lafaz al-jalalah dalam tulisan",
+     "n": 4
+    },
+    {
+     "id": "t6-imlak-5",
+     "nama": "Latihan ejaan",
+     "n": 7
+    },
+    {
+     "id": "t6-imlak-6",
+     "nama": "Ulang kaji imlak Tahun 6",
+     "n": 2
+    }
+   ],
+   "soalan": 29
+  },
+  {
+   "id": "t6-khat",
+   "tahap": "T6",
+   "nama": "Khat (KAFA)",
+   "sk": "Khat",
+   "ikon": "🖋️",
+   "warna": "#5C4B8A",
+   "bahasa": "ms",
+   "kur": "KAFA Tahun 6 (ikut e-buku Khat Tahun 6)",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t6-khat-1",
+     "nama": "Sudut pena",
+     "n": 4
+    },
+    {
+     "id": "t6-khat-2",
+     "nama": "Lam alif",
+     "n": 4
+    },
+    {
+     "id": "t6-khat-3",
+     "nama": "Menulis perkataan dan ayat",
+     "n": 4
+    },
+    {
+     "id": "t6-khat-4",
+     "nama": "Jenis-jenis khat",
+     "n": 8
+    },
+    {
+     "id": "t6-khat-5",
+     "nama": "Ulang kaji khat Tahun 6",
+     "n": 2
+    }
+   ],
+   "soalan": 22
+  },
+  {
+   "tahap": "PRA",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "id": "sedia-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "sedia-mat",
+   "topik": [
+    {
+     "id": "sedia-mat-dlp-1",
+     "nama": "Numbers 1 to 30",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-dlp-2",
+     "nama": "Counting",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-dlp-3",
+     "nama": "Add and Subtract up to 10",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-dlp-4",
+     "nama": "Money Coins",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-dlp-5",
+     "nama": "Basic Shapes",
+     "n": 20
+    },
+    {
+     "id": "sedia-mat-dlp-6",
+     "nama": "Comparison and Pattern",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "tahap": "PRA",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSPK / kemasukan Tahun 1",
+   "semak": "pending-guru",
+   "id": "sedia-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "sedia-sains",
+   "topik": [
+    {
+     "id": "sedia-sains-dlp-1",
+     "nama": "Living and Non-Living Things",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-dlp-2",
+     "nama": "Plants",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-dlp-3",
+     "nama": "Animals",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-dlp-4",
+     "nama": "Sense and Taste",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-dlp-5",
+     "nama": "In the Classroom and at Home",
+     "n": 20
+    },
+    {
+     "id": "sedia-sains-dlp-6",
+     "nama": "Nature and Weather",
+     "n": 20
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "tahap": "T1",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t1-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t1-mat",
+   "topik": [
+    {
+     "id": "t1-mat-dlp-1",
+     "nama": "Whole Numbers up to 100",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-2",
+     "nama": "Add and Subtract in the Neighborhood of 100",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-3",
+     "nama": "Fraction",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-4",
+     "nama": "Money up to RM10",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-5",
+     "nama": "Time and Time",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-6",
+     "nama": "Measures and Measurements",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-7",
+     "nama": "Space",
+     "n": 25
+    },
+    {
+     "id": "t1-mat-dlp-8",
+     "nama": "Data Management",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "tahap": "T1",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t1-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t1-sains",
+   "topik": [
+    {
+     "id": "t1-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-2",
+     "nama": "Science Room Rules",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-3",
+     "nama": "Living Things and Non-Living Things",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-4",
+     "nama": "Humans",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-5",
+     "nama": "Animals",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-6",
+     "nama": "Plants",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-7",
+     "nama": "Magnets",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-8",
+     "nama": "Absorption",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-9",
+     "nama": "Earth",
+     "n": 20
+    },
+    {
+     "id": "t1-sains-dlp-10",
+     "nama": "Basic Construction",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "tahap": "T2",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t2-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t2-mat",
+   "topik": [
+    {
+     "id": "t2-mat-dlp-1",
+     "nama": "Whole Numbers up to 1 000",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-2",
+     "nama": "Basic Operations: Add, Subtract, Multiply, Divide",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-3",
+     "nama": "Fractions and Decimals",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-4",
+     "nama": "Money up to RM100",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-5",
+     "nama": "Time and Time",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-6",
+     "nama": "Measures and Measurements",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-7",
+     "nama": "Space",
+     "n": 25
+    },
+    {
+     "id": "t2-mat-dlp-8",
+     "nama": "Data Management",
+     "n": 25
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "tahap": "T2",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t2-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t2-sains",
+   "topik": [
+    {
+     "id": "t2-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-2",
+     "nama": "Science Room Rules",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-3",
+     "nama": "Humans",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-4",
+     "nama": "Animals",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-5",
+     "nama": "Plants",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-6",
+     "nama": "Light and Dark",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-7",
+     "nama": "Electricity",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-8",
+     "nama": "A mixture",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-9",
+     "nama": "Earth",
+     "n": 20
+    },
+    {
+     "id": "t2-sains-dlp-10",
+     "nama": "Technology",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "tahap": "T3",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t3-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t3-mat",
+   "topik": [
+    {
+     "id": "t3-mat-dlp-1",
+     "nama": "Whole Numbers up to 10 000",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-2",
+     "nama": "Basic Operations",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-3",
+     "nama": "Fractions, Decimals and Percents",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-4",
+     "nama": "Money",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-5",
+     "nama": "Time and Time",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-6",
+     "nama": "Measures and Measurements",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-7",
+     "nama": "Space",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-8",
+     "nama": "Coordinates",
+     "n": 23
+    },
+    {
+     "id": "t3-mat-dlp-9",
+     "nama": "Data Management",
+     "n": 23
+    }
+   ],
+   "soalan": 207
+  },
+  {
+   "tahap": "T3",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t3-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t3-sains",
+   "topik": [
+    {
+     "id": "t3-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-2",
+     "nama": "Science Room Rules",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-3",
+     "nama": "Humans",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-4",
+     "nama": "Animals",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-5",
+     "nama": "Plants",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-6",
+     "nama": "Measurements",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-7",
+     "nama": "Density",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-8",
+     "nama": "Acids and Alkalies",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-9",
+     "nama": "Solar System",
+     "n": 20
+    },
+    {
+     "id": "t3-sains-dlp-10",
+     "nama": "Machine",
+     "n": 20
+    }
+   ],
+   "soalan": 200
+  },
+  {
+   "tahap": "T4",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t4-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t4-mat",
+   "topik": [
+    {
+     "id": "t4-mat-dlp-1",
+     "nama": "Numbers and Operations",
+     "n": 50
+    },
+    {
+     "id": "t4-mat-dlp-2",
+     "nama": "Fractions, Decimals and Percents",
+     "n": 64
+    },
+    {
+     "id": "t4-mat-dlp-3",
+     "nama": "Money",
+     "n": 14
+    },
+    {
+     "id": "t4-mat-dlp-4",
+     "nama": "Time and Time",
+     "n": 61
+    },
+    {
+     "id": "t4-mat-dlp-5",
+     "nama": "Length, Mass and Liquid Volume",
+     "n": 55
+    },
+    {
+     "id": "t4-mat-dlp-6",
+     "nama": "Space",
+     "n": 20
+    },
+    {
+     "id": "t4-mat-dlp-7",
+     "nama": "Coordinates, Ratios and Proportions",
+     "n": 59
+    },
+    {
+     "id": "t4-mat-dlp-8",
+     "nama": "Data Management",
+     "n": 20
+    }
+   ],
+   "soalan": 343
+  },
+  {
+   "tahap": "T4",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t4-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t4-sains",
+   "topik": [
+    {
+     "id": "t4-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 25
+    },
+    {
+     "id": "t4-sains-dlp-2",
+     "nama": "Humans",
+     "n": 24
+    },
+    {
+     "id": "t4-sains-dlp-3",
+     "nama": "Animals",
+     "n": 22
+    },
+    {
+     "id": "t4-sains-dlp-4",
+     "nama": "Plants",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-dlp-5",
+     "nama": "Nature of Light",
+     "n": 26
+    },
+    {
+     "id": "t4-sains-dlp-6",
+     "nama": "Sound",
+     "n": 28
+    },
+    {
+     "id": "t4-sains-dlp-7",
+     "nama": "Energy",
+     "n": 25
+    },
+    {
+     "id": "t4-sains-dlp-8",
+     "nama": "Material",
+     "n": 24
+    },
+    {
+     "id": "t4-sains-dlp-9",
+     "nama": "Earth",
+     "n": 28
+    },
+    {
+     "id": "t4-sains-dlp-10",
+     "nama": "Machine",
+     "n": 24
+    }
+   ],
+   "soalan": 252
+  },
+  {
+   "tahap": "T5",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t5-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t5-mat",
+   "topik": [
+    {
+     "id": "t5-mat-dlp-1",
+     "nama": "Whole Numbers and Operations",
+     "n": 50
+    },
+    {
+     "id": "t5-mat-dlp-2",
+     "nama": "Fractions, Decimals and Percents",
+     "n": 78
+    },
+    {
+     "id": "t5-mat-dlp-3",
+     "nama": "Money",
+     "n": 18
+    },
+    {
+     "id": "t5-mat-dlp-4",
+     "nama": "Time and Time",
+     "n": 60
+    },
+    {
+     "id": "t5-mat-dlp-5",
+     "nama": "Measures and Measurements",
+     "n": 58
+    },
+    {
+     "id": "t5-mat-dlp-6",
+     "nama": "Space",
+     "n": 30
+    },
+    {
+     "id": "t5-mat-dlp-7",
+     "nama": "Coordinates, Ratios and Proportions",
+     "n": 59
+    },
+    {
+     "id": "t5-mat-dlp-8",
+     "nama": "Data Management",
+     "n": 20
+    }
+   ],
+   "soalan": 373
+  },
+  {
+   "tahap": "T5",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t5-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t5-sains",
+   "topik": [
+    {
+     "id": "t5-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-dlp-2",
+     "nama": "Humans",
+     "n": 27
+    },
+    {
+     "id": "t5-sains-dlp-3",
+     "nama": "Animals",
+     "n": 21
+    },
+    {
+     "id": "t5-sains-dlp-4",
+     "nama": "Plants",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-dlp-5",
+     "nama": "Electricity",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-dlp-6",
+     "nama": "Heat",
+     "n": 28
+    },
+    {
+     "id": "t5-sains-dlp-7",
+     "nama": "Rusting",
+     "n": 20
+    },
+    {
+     "id": "t5-sains-dlp-8",
+     "nama": "Matter",
+     "n": 24
+    },
+    {
+     "id": "t5-sains-dlp-9",
+     "nama": "Moon Phases and Constellations",
+     "n": 26
+    },
+    {
+     "id": "t5-sains-dlp-10",
+     "nama": "Machine",
+     "n": 26
+    }
+   ],
+   "soalan": 250
+  },
+  {
+   "id": "t5-upkk-akidah",
+   "tahap": "T5",
+   "nama": "UPKK Akidah",
+   "sk": "UPKK",
+   "ikon": "☝️",
+   "warna": "#3E7CB1",
+   "bahasa": "ms",
+   "kur": "UPKK 02 Akidah: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-akidah-1",
+     "nama": "Nota lengkap Akidah",
+     "n": 48
+    },
+    {
+     "id": "t5-upkk-akidah-2",
+     "nama": "Set 1 · mudah",
+     "n": 41
+    },
+    {
+     "id": "t5-upkk-akidah-3",
+     "nama": "Set 2 · sederhana",
+     "n": 42
+    },
+    {
+     "id": "t5-upkk-akidah-4",
+     "nama": "Set 3 · sukar",
+     "n": 44
+    }
+   ],
+   "soalan": 175,
+   "upkk": "02"
+  },
+  {
+   "id": "t5-upkk-ibadah",
+   "tahap": "T5",
+   "nama": "UPKK Ibadah",
+   "sk": "UPKK",
+   "ikon": "🧎",
+   "warna": "#2E8B57",
+   "bahasa": "ms",
+   "kur": "UPKK 07 Ibadah: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-ibadah-1",
+     "nama": "Nota lengkap Ibadah",
+     "n": 38
+    },
+    {
+     "id": "t5-upkk-ibadah-2",
+     "nama": "Set 1 · mudah",
+     "n": 37
+    },
+    {
+     "id": "t5-upkk-ibadah-3",
+     "nama": "Set 2 · sederhana",
+     "n": 42
+    },
+    {
+     "id": "t5-upkk-ibadah-4",
+     "nama": "Set 3 · sukar",
+     "n": 45
+    }
+   ],
+   "soalan": 162,
+   "upkk": "07"
+  },
+  {
+   "id": "t5-upkk-sirah",
+   "tahap": "T5",
+   "nama": "UPKK Sirah",
+   "sk": "UPKK",
+   "ikon": "🐪",
+   "warna": "#B8860B",
+   "bahasa": "ms",
+   "kur": "UPKK 03 Sirah: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-sirah-1",
+     "nama": "Nota lengkap Sirah",
+     "n": 50
+    },
+    {
+     "id": "t5-upkk-sirah-2",
+     "nama": "Set 1 · mudah",
+     "n": 37
+    },
+    {
+     "id": "t5-upkk-sirah-3",
+     "nama": "Set 2 · sederhana",
+     "n": 37
+    },
+    {
+     "id": "t5-upkk-sirah-4",
+     "nama": "Set 3 · sukar",
+     "n": 39
+    }
+   ],
+   "soalan": 163,
+   "upkk": "03"
+  },
+  {
+   "id": "t5-upkk-adab",
+   "tahap": "T5",
+   "nama": "UPKK Adab",
+   "sk": "UPKK",
+   "ikon": "🤝",
+   "warna": "#2E9D6B",
+   "bahasa": "ms",
+   "kur": "UPKK 04 Adab: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending ustaz review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-adab-1",
+     "nama": "Nota lengkap Adab",
+     "n": 41
+    },
+    {
+     "id": "t5-upkk-adab-2",
+     "nama": "Set 1 · mudah",
+     "n": 35
+    },
+    {
+     "id": "t5-upkk-adab-3",
+     "nama": "Set 2 · sederhana",
+     "n": 36
+    },
+    {
+     "id": "t5-upkk-adab-4",
+     "nama": "Set 3 · sukar",
+     "n": 40
+    }
+   ],
+   "soalan": 152,
+   "upkk": "04"
+  },
+  {
+   "id": "t5-upkk-jawi",
+   "tahap": "T5",
+   "nama": "UPKK Jawi dan Khat",
+   "sk": "UPKK",
+   "ikon": "✍️",
+   "warna": "#8A5A2B",
+   "bahasa": "ms",
+   "kur": "UPKK 05 Jawi dan Khat: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-jawi-1",
+     "nama": "Nota lengkap Jawi dan Khat",
+     "n": 60
+    },
+    {
+     "id": "t5-upkk-jawi-2",
+     "nama": "Set 1 · mudah",
+     "n": 46
+    },
+    {
+     "id": "t5-upkk-jawi-3",
+     "nama": "Set 2 · sederhana",
+     "n": 49
+    },
+    {
+     "id": "t5-upkk-jawi-4",
+     "nama": "Set 3 · sukar",
+     "n": 52
+    }
+   ],
+   "soalan": 207,
+   "upkk": "05"
+  },
+  {
+   "id": "t5-upkk-arab",
+   "tahap": "T5",
+   "nama": "UPKK Bahasa Arab",
+   "sk": "UPKK",
+   "ikon": "🕌",
+   "warna": "#C0703A",
+   "bahasa": "ms",
+   "kur": "UPKK 06 Bahasa Arab: 6 set latihan (mudah, sukar, sangat sukar) mengikut format 2024",
+   "semak": "pending teacher review",
+   "jawi": true,
+   "kafa": true,
+   "topik": [
+    {
+     "id": "t5-upkk-arab-1",
+     "nama": "Nota lengkap Bahasa Arab",
+     "n": 51
+    },
+    {
+     "id": "t5-upkk-arab-2",
+     "nama": "Set 1 · mudah",
+     "n": 44
+    },
+    {
+     "id": "t5-upkk-arab-3",
+     "nama": "Set 2 · sederhana",
+     "n": 46
+    },
+    {
+     "id": "t5-upkk-arab-4",
+     "nama": "Set 3 · sukar",
+     "n": 48
+    }
+   ],
+   "soalan": 189,
+   "upkk": "06"
+  },
+  {
+   "tahap": "T6",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t6-mat-dlp",
+   "nama": "Mathematics (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t6-mat",
+   "topik": [
+    {
+     "id": "t6-mat-dlp-1",
+     "nama": "Whole Numbers and Operations",
+     "n": 50
+    },
+    {
+     "id": "t6-mat-dlp-2",
+     "nama": "Fractions, Decimals and Percents",
+     "n": 85
+    },
+    {
+     "id": "t6-mat-dlp-3",
+     "nama": "Money",
+     "n": 21
+    },
+    {
+     "id": "t6-mat-dlp-4",
+     "nama": "Time and Time",
+     "n": 60
+    },
+    {
+     "id": "t6-mat-dlp-5",
+     "nama": "Measures and Measurements",
+     "n": 58
+    },
+    {
+     "id": "t6-mat-dlp-6",
+     "nama": "Space",
+     "n": 35
+    },
+    {
+     "id": "t6-mat-dlp-7",
+     "nama": "Coordinates, Ratios and Proportions",
+     "n": 59
+    },
+    {
+     "id": "t6-mat-dlp-8",
+     "nama": "Data Management and Feasibility",
+     "n": 45
+    }
+   ],
+   "soalan": 413
+  },
+  {
+   "tahap": "T6",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#3DBE6E",
+   "kur": "KSSR-S2017",
+   "semak": "pending-guru",
+   "id": "t6-sains-dlp",
+   "nama": "Science (DLP)",
+   "bahasa": "en",
+   "jawi": false,
+   "dlp": true,
+   "asal": "t6-sains",
+   "topik": [
+    {
+     "id": "t6-sains-dlp-1",
+     "nama": "Scientific Skills",
+     "n": 29
+    },
+    {
+     "id": "t6-sains-dlp-2",
+     "nama": "Humans",
+     "n": 27
+    },
+    {
+     "id": "t6-sains-dlp-3",
+     "nama": "Microorganisms",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-dlp-4",
+     "nama": "Interaction between Animals",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-dlp-5",
+     "nama": "Conservation and Conservation",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-dlp-6",
+     "nama": "Power",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-dlp-7",
+     "nama": "Speed",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-dlp-8",
+     "nama": "Food Technology and Preservation",
+     "n": 24
+    },
+    {
+     "id": "t6-sains-dlp-9",
+     "nama": "Waste Materials",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-dlp-10",
+     "nama": "eclipse",
+     "n": 23
+    },
+    {
+     "id": "t6-sains-dlp-11",
+     "nama": "Galaxy",
+     "n": 26
+    },
+    {
+     "id": "t6-sains-dlp-12",
+     "nama": "Stability and Strength",
+     "n": 23
+    },
+    {
+     "id": "t6-sains-dlp-13",
+     "nama": "Technology",
+     "n": 24
+    }
+   ],
+   "soalan": 328
+  },
+  {
+   "id": "f1-bm",
+   "tahap": "F1",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-bm-1",
+     "nama": "1. Mendengar dan Bertutur",
+     "n": 20
+    },
+    {
+     "id": "f1-bm-2",
+     "nama": "2. Membaca dan Memahami",
+     "n": 20
+    },
+    {
+     "id": "f1-bm-3",
+     "nama": "3. Menulis: Karangan, Surat dan Ringkasan",
+     "n": 21
+    },
+    {
+     "id": "f1-bm-4",
+     "nama": "4. Golongan Kata: Kata Nama dan Kata Kerja",
+     "n": 31
+    },
+    {
+     "id": "f1-bm-5",
+     "nama": "5. Golongan Kata: Kata Adjektif dan Kata Tugas",
+     "n": 85
+    },
+    {
+     "id": "f1-bm-6",
+     "nama": "6. Pembentukan Kata: Imbuhan, Penggandaan dan Pemajmukan",
+     "n": 59
+    },
+    {
+     "id": "f1-bm-7",
+     "nama": "7. Sintaksis: Binaan dan Jenis Ayat",
+     "n": 21
+    },
+    {
+     "id": "f1-bm-8",
+     "nama": "8. Peribahasa, Simpulan Bahasa dan Kosa Kata",
+     "n": 117
+    },
+    {
+     "id": "f1-bm-9",
+     "nama": "9. Aspek Seni Bahasa: Puisi dan Bahasa Figuratif",
+     "n": 17
+    },
+    {
+     "id": "f1-bm-10",
+     "nama": "10. Unsur Kesusasteraan (Prosa)",
+     "n": 17
+    },
+    {
+     "id": "f1-bm-u1",
+     "nama": "Ujian Akhir Sesi · Set 1 (contoh)",
+     "n": 40
+    },
+    {
+     "id": "f1-bm-u2",
+     "nama": "Ujian Akhir Sesi · Set 2 (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 488
+  },
+  {
+   "id": "f1-mat",
+   "tahap": "F1",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-mat-1",
+     "nama": "1. Nombor Nisbah",
+     "n": 80
+    },
+    {
+     "id": "f1-mat-2",
+     "nama": "2. Faktor dan Gandaan",
+     "n": 41
+    },
+    {
+     "id": "f1-mat-3",
+     "nama": "3. Kuasa Dua, Punca Kuasa Dua, Kuasa Tiga dan Punca Kuasa Tiga",
+     "n": 42
+    },
+    {
+     "id": "f1-mat-4",
+     "nama": "4. Nisbah, Kadar dan Kadaran",
+     "n": 33
+    },
+    {
+     "id": "f1-mat-5",
+     "nama": "5. Ungkapan Algebra",
+     "n": 36
+    },
+    {
+     "id": "f1-mat-6",
+     "nama": "6. Persamaan Linear",
+     "n": 47
+    },
+    {
+     "id": "f1-mat-7",
+     "nama": "7. Ketaksamaan Linear",
+     "n": 25
+    },
+    {
+     "id": "f1-mat-8",
+     "nama": "8. Garis dan Sudut",
+     "n": 41
+    },
+    {
+     "id": "f1-mat-9",
+     "nama": "9. Poligon Asas",
+     "n": 35
+    },
+    {
+     "id": "f1-mat-10",
+     "nama": "10. Perimeter dan Luas",
+     "n": 32
+    },
+    {
+     "id": "f1-mat-11",
+     "nama": "11. Pengenalan Set",
+     "n": 17
+    },
+    {
+     "id": "f1-mat-12",
+     "nama": "12. Pengendalian Data",
+     "n": 19
+    },
+    {
+     "id": "f1-mat-13",
+     "nama": "13. Teorem Pythagoras",
+     "n": 25
+    },
+    {
+     "id": "f1-mat-u1",
+     "nama": "Ujian Akhir Sesi · Set 1 (contoh)",
+     "n": 39
+    },
+    {
+     "id": "f1-mat-u2",
+     "nama": "Ujian Akhir Sesi · Set 2 (contoh)",
+     "n": 39
+    }
+   ],
+   "soalan": 551
+  },
+  {
+   "id": "f1-mat-dlp",
+   "tahap": "F1",
+   "nama": "Mathematics (DLP)",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f1-mat",
+   "topik": [
+    {
+     "id": "f1-mat-dlp-1",
+     "nama": "1. Rational Numbers",
+     "n": 80
+    },
+    {
+     "id": "f1-mat-dlp-2",
+     "nama": "2. Factors and Multiples",
+     "n": 41
+    },
+    {
+     "id": "f1-mat-dlp-3",
+     "nama": "3. Squares, Square Roots, Cubes and Cube Roots",
+     "n": 42
+    },
+    {
+     "id": "f1-mat-dlp-4",
+     "nama": "4. Ratios, Rates and Proportions",
+     "n": 33
+    },
+    {
+     "id": "f1-mat-dlp-5",
+     "nama": "5. Algebraic Expressions",
+     "n": 36
+    },
+    {
+     "id": "f1-mat-dlp-6",
+     "nama": "6. Linear Equations",
+     "n": 47
+    },
+    {
+     "id": "f1-mat-dlp-7",
+     "nama": "7. Linear Inequalities",
+     "n": 25
+    },
+    {
+     "id": "f1-mat-dlp-8",
+     "nama": "8. Lines and Angles",
+     "n": 41
+    },
+    {
+     "id": "f1-mat-dlp-9",
+     "nama": "9. Basic Polygons",
+     "n": 35
+    },
+    {
+     "id": "f1-mat-dlp-10",
+     "nama": "10. Perimeter and Area",
+     "n": 32
+    },
+    {
+     "id": "f1-mat-dlp-11",
+     "nama": "11. Introduction to Sets",
+     "n": 17
+    },
+    {
+     "id": "f1-mat-dlp-12",
+     "nama": "12. Data Handling",
+     "n": 19
+    },
+    {
+     "id": "f1-mat-dlp-13",
+     "nama": "13. Pythagoras' Theorem",
+     "n": 25
+    },
+    {
+     "id": "f1-mat-dlp-u1",
+     "nama": "End-of-Year Test · Set 1 (sample)",
+     "n": 39
+    },
+    {
+     "id": "f1-mat-dlp-u2",
+     "nama": "End-of-Year Test · Set 2 (sample)",
+     "n": 39
+    }
+   ],
+   "soalan": 551
+  },
+  {
+   "id": "f1-bi",
+   "tahap": "F1",
+   "nama": "English",
+   "sk": "BI",
+   "ikon": "🗣️",
+   "warna": "#3F8CFF",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-bi-1",
+     "nama": "1. Grammar: Tenses",
+     "n": 192
+    },
+    {
+     "id": "f1-bi-2",
+     "nama": "2. Grammar: Nouns, Articles and Pronouns",
+     "n": 60
+    },
+    {
+     "id": "f1-bi-3",
+     "nama": "3. Grammar: Comparisons and Modals",
+     "n": 108
+    },
+    {
+     "id": "f1-bi-4",
+     "nama": "4. Vocabulary",
+     "n": 129
+    },
+    {
+     "id": "f1-bi-5",
+     "nama": "5. Reading",
+     "n": 8
+    },
+    {
+     "id": "f1-bi-6",
+     "nama": "6. Speaking: Everyday Functions",
+     "n": 4
+    },
+    {
+     "id": "f1-bi-7",
+     "nama": "7. Writing",
+     "n": 5
+    },
+    {
+     "id": "f1-bi-8",
+     "nama": "8. Literature: Poetry",
+     "n": 4
+    },
+    {
+     "id": "f1-bi-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 32
+    }
+   ],
+   "soalan": 542
+  },
+  {
+   "id": "f1-sains",
+   "tahap": "F1",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-sains-1",
+     "nama": "1. Pengenalan kepada Penyiasatan Saintifik",
+     "n": 92
+    },
+    {
+     "id": "f1-sains-2",
+     "nama": "2. Sel sebagai Unit Asas Hidupan",
+     "n": 88
+    },
+    {
+     "id": "f1-sains-3",
+     "nama": "3. Koordinasi dan Gerak Balas",
+     "n": 69
+    },
+    {
+     "id": "f1-sains-4",
+     "nama": "4. Pembiakan",
+     "n": 54
+    },
+    {
+     "id": "f1-sains-5",
+     "nama": "5. Jirim",
+     "n": 49
+    },
+    {
+     "id": "f1-sains-6",
+     "nama": "6. Jadual Berkala",
+     "n": 94
+    },
+    {
+     "id": "f1-sains-7",
+     "nama": "7. Udara",
+     "n": 45
+    },
+    {
+     "id": "f1-sains-8",
+     "nama": "8. Cahaya dan Optik",
+     "n": 44
+    },
+    {
+     "id": "f1-sains-9",
+     "nama": "9. Bumi",
+     "n": 43
+    },
+    {
+     "id": "f1-sains-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 36
+    }
+   ],
+   "soalan": 614
+  },
+  {
+   "id": "f1-sains-dlp",
+   "tahap": "F1",
+   "nama": "Science (DLP)",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f1-sains",
+   "topik": [
+    {
+     "id": "f1-sains-dlp-1",
+     "nama": "1. Introduction to Scientific Investigation",
+     "n": 92
+    },
+    {
+     "id": "f1-sains-dlp-2",
+     "nama": "2. Cell as the Basic Unit of Life",
+     "n": 88
+    },
+    {
+     "id": "f1-sains-dlp-3",
+     "nama": "3. Coordination and Response",
+     "n": 69
+    },
+    {
+     "id": "f1-sains-dlp-4",
+     "nama": "4. Reproduction",
+     "n": 54
+    },
+    {
+     "id": "f1-sains-dlp-5",
+     "nama": "5. Matter",
+     "n": 49
+    },
+    {
+     "id": "f1-sains-dlp-6",
+     "nama": "6. The Periodic Table",
+     "n": 94
+    },
+    {
+     "id": "f1-sains-dlp-7",
+     "nama": "7. Air",
+     "n": 45
+    },
+    {
+     "id": "f1-sains-dlp-8",
+     "nama": "8. Light and Optics",
+     "n": 44
+    },
+    {
+     "id": "f1-sains-dlp-9",
+     "nama": "9. Earth",
+     "n": 49
+    },
+    {
+     "id": "f1-sains-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 36
+    }
+   ],
+   "soalan": 620
+  },
+  {
+   "id": "f1-sej",
+   "tahap": "F1",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5651D",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-sej-1",
+     "nama": "1. Mengenali Sejarah",
+     "n": 105
+    },
+    {
+     "id": "f1-sej-2",
+     "nama": "2. Zaman Prasejarah",
+     "n": 76
+    },
+    {
+     "id": "f1-sej-3",
+     "nama": "3. Tamadun Awal Manusia",
+     "n": 27
+    },
+    {
+     "id": "f1-sej-4",
+     "nama": "4. Tamadun Awal Dunia",
+     "n": 111
+    },
+    {
+     "id": "f1-sej-5",
+     "nama": "5. Tamadun Yunani dan Rom",
+     "n": 82
+    },
+    {
+     "id": "f1-sej-6",
+     "nama": "6. Tamadun India dan China",
+     "n": 57
+    },
+    {
+     "id": "f1-sej-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 24
+    }
+   ],
+   "soalan": 482
+  },
+  {
+   "id": "f1-geo",
+   "tahap": "F1",
+   "nama": "Geografi",
+   "sk": "GE",
+   "ikon": "🧭",
+   "warna": "#4CAF50",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-geo-1",
+     "nama": "1. Arah",
+     "n": 59
+    },
+    {
+     "id": "f1-geo-2",
+     "nama": "2. Kedudukan dan Skala Peta",
+     "n": 66
+    },
+    {
+     "id": "f1-geo-3",
+     "nama": "3. Peta Lakar",
+     "n": 52
+    },
+    {
+     "id": "f1-geo-4",
+     "nama": "4. Bentuk Muka Bumi dan Saliran Malaysia",
+     "n": 106
+    },
+    {
+     "id": "f1-geo-5",
+     "nama": "5. Cuaca dan Iklim Malaysia",
+     "n": 60
+    },
+    {
+     "id": "f1-geo-6",
+     "nama": "6. Penduduk dan Petempatan",
+     "n": 47
+    },
+    {
+     "id": "f1-geo-7",
+     "nama": "7. Sisa Pepejal dan Alam Sekitar",
+     "n": 36
+    },
+    {
+     "id": "f1-geo-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 28
+    }
+   ],
+   "soalan": 454
+  },
+  {
+   "id": "f1-pi",
+   "tahap": "F1",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕌",
+   "warna": "#1F7A4F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-pi-1",
+     "nama": "1. Al-Quran: Tilawah dan Tajwid",
+     "n": 107
+    },
+    {
+     "id": "f1-pi-2",
+     "nama": "2. Akidah: Rukun Iman dan Sifat Allah",
+     "n": 105
+    },
+    {
+     "id": "f1-pi-3",
+     "nama": "3. Ibadah: Bersuci",
+     "n": 72
+    },
+    {
+     "id": "f1-pi-4",
+     "nama": "4. Ibadah: Solat Fardu",
+     "n": 57
+    },
+    {
+     "id": "f1-pi-5",
+     "nama": "5. Sirah: Nabi Muhammad SAW di Makkah",
+     "n": 44
+    },
+    {
+     "id": "f1-pi-6",
+     "nama": "6. Adab dan Akhlak",
+     "n": 43
+    },
+    {
+     "id": "f1-pi-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 24
+    }
+   ],
+   "soalan": 452
+  },
+  {
+   "id": "f1-moral",
+   "tahap": "F1",
+   "nama": "Pendidikan Moral",
+   "sk": "PM",
+   "ikon": "🤝",
+   "warna": "#E07A5F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-moral-1",
+     "nama": "1. Nilai dan Pembangunan Diri",
+     "n": 47
+    },
+    {
+     "id": "f1-moral-2",
+     "nama": "2. Nilai dalam Keluarga",
+     "n": 4
+    },
+    {
+     "id": "f1-moral-3",
+     "nama": "3. Nilai dalam Masyarakat",
+     "n": 33
+    },
+    {
+     "id": "f1-moral-4",
+     "nama": "4. Nilai sebagai Warganegara",
+     "n": 18
+    },
+    {
+     "id": "f1-moral-5",
+     "nama": "5. Nilai dan Alam Sekitar",
+     "n": 3
+    },
+    {
+     "id": "f1-moral-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 19
+    }
+   ],
+   "soalan": 124
+  },
+  {
+   "id": "f1-rbt",
+   "tahap": "F1",
+   "nama": "Reka Bentuk dan Teknologi",
+   "sk": "RBT",
+   "ikon": "🛠️",
+   "warna": "#7E57C2",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-rbt-1",
+     "nama": "1. Proses Reka Bentuk",
+     "n": 4
+    },
+    {
+     "id": "f1-rbt-2",
+     "nama": "2. Lakaran Idea",
+     "n": 4
+    },
+    {
+     "id": "f1-rbt-3",
+     "nama": "3. Bahan, Alatan dan Keselamatan",
+     "n": 46
+    },
+    {
+     "id": "f1-rbt-4",
+     "nama": "4. Asas Elektrik dan Elektronik",
+     "n": 44
+    },
+    {
+     "id": "f1-rbt-5",
+     "nama": "5. Kos, Pemasaran dan Harta Intelek",
+     "n": 15
+    },
+    {
+     "id": "f1-rbt-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 20
+    }
+   ],
+   "soalan": 133
+  },
+  {
+   "id": "f1-ask",
+   "tahap": "F1",
+   "nama": "Asas Komputer",
+   "sk": "ASK",
+   "ikon": "💻",
+   "warna": "#455A64",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-ask-1",
+     "nama": "1. Perwakilan Data",
+     "n": 46
+    },
+    {
+     "id": "f1-ask-2",
+     "nama": "2. Algoritma dan Pengaturcaraan",
+     "n": 21
+    },
+    {
+     "id": "f1-ask-3",
+     "nama": "3. Sistem Komputer dan Etika",
+     "n": 34
+    },
+    {
+     "id": "f1-ask-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 12
+    }
+   ],
+   "soalan": 113
+  },
+  {
+   "id": "f1-pjpk",
+   "tahap": "F1",
+   "nama": "Pendidikan Jasmani dan Kesihatan",
+   "sk": "PJ",
+   "ikon": "⚽",
+   "warna": "#F4511E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f1-pjpk-1",
+     "nama": "1. Kecergasan Fizikal",
+     "n": 42
+    },
+    {
+     "id": "f1-pjpk-2",
+     "nama": "2. Pemakanan, Keselamatan dan Kesihatan",
+     "n": 44
+    },
+    {
+     "id": "f1-pjpk-3",
+     "nama": "3. Permainan dan Olahraga",
+     "n": 22
+    },
+    {
+     "id": "f1-pjpk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 12
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "f2-bm",
+   "tahap": "F2",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-bm-1",
+     "nama": "1. Mendengar dan Bertutur",
+     "n": 18
+    },
+    {
+     "id": "f2-bm-2",
+     "nama": "2. Membaca dan Memahami",
+     "n": 89
+    },
+    {
+     "id": "f2-bm-3",
+     "nama": "3. Menulis dan Kata Hubung",
+     "n": 19
+    },
+    {
+     "id": "f2-bm-4",
+     "nama": "4. Tatabahasa: Pembentukan Kata",
+     "n": 69
+    },
+    {
+     "id": "f2-bm-5",
+     "nama": "5. Tatabahasa: Sintaksis",
+     "n": 24
+    },
+    {
+     "id": "f2-bm-6",
+     "nama": "6. Peribahasa dan Simpulan Bahasa",
+     "n": 241
+    },
+    {
+     "id": "f2-bm-7",
+     "nama": "7. Seni Bahasa: Puisi dan Gaya Bahasa",
+     "n": 12
+    },
+    {
+     "id": "f2-bm-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 28
+    }
+   ],
+   "soalan": 500
+  },
+  {
+   "id": "f2-mat",
+   "tahap": "F2",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-mat-1",
+     "nama": "1. Pola dan Jujukan",
+     "n": 39
+    },
+    {
+     "id": "f2-mat-2",
+     "nama": "2. Pemfaktoran dan Pecahan Algebra",
+     "n": 40
+    },
+    {
+     "id": "f2-mat-3",
+     "nama": "3. Rumus Algebra",
+     "n": 37
+    },
+    {
+     "id": "f2-mat-4",
+     "nama": "4. Poligon",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-5",
+     "nama": "5. Bulatan",
+     "n": 16
+    },
+    {
+     "id": "f2-mat-6",
+     "nama": "6. Bentuk Geometri Tiga Dimensi",
+     "n": 48
+    },
+    {
+     "id": "f2-mat-7",
+     "nama": "7. Koordinat",
+     "n": 36
+    },
+    {
+     "id": "f2-mat-8",
+     "nama": "8. Graf Fungsi",
+     "n": 26
+    },
+    {
+     "id": "f2-mat-9",
+     "nama": "9. Laju dan Pecutan",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-10",
+     "nama": "10. Kecerunan Garis Lurus",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-11",
+     "nama": "11. Transformasi Isometri",
+     "n": 29
+    },
+    {
+     "id": "f2-mat-12",
+     "nama": "12. Sukatan Kecenderungan Memusat",
+     "n": 26
+    },
+    {
+     "id": "f2-mat-13",
+     "nama": "13. Kebarangkalian Mudah",
+     "n": 22
+    },
+    {
+     "id": "f2-mat-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 473
+  },
+  {
+   "id": "f2-mat-dlp",
+   "tahap": "F2",
+   "nama": "Mathematics (DLP)",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f2-mat",
+   "topik": [
+    {
+     "id": "f2-mat-dlp-1",
+     "nama": "1. Patterns and Sequences",
+     "n": 39
+    },
+    {
+     "id": "f2-mat-dlp-2",
+     "nama": "2. Factorisation and Algebraic Fractions",
+     "n": 40
+    },
+    {
+     "id": "f2-mat-dlp-3",
+     "nama": "3. Algebraic Formulae",
+     "n": 37
+    },
+    {
+     "id": "f2-mat-dlp-4",
+     "nama": "4. Polygons",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-dlp-5",
+     "nama": "5. Circles",
+     "n": 16
+    },
+    {
+     "id": "f2-mat-dlp-6",
+     "nama": "6. Three-Dimensional Geometrical Shapes",
+     "n": 48
+    },
+    {
+     "id": "f2-mat-dlp-7",
+     "nama": "7. Coordinates",
+     "n": 36
+    },
+    {
+     "id": "f2-mat-dlp-8",
+     "nama": "8. Graphs of Functions",
+     "n": 26
+    },
+    {
+     "id": "f2-mat-dlp-9",
+     "nama": "9. Speed and Acceleration",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-dlp-10",
+     "nama": "10. Gradient of a Straight Line",
+     "n": 34
+    },
+    {
+     "id": "f2-mat-dlp-11",
+     "nama": "11. Isometric Transformations",
+     "n": 29
+    },
+    {
+     "id": "f2-mat-dlp-12",
+     "nama": "12. Measures of Central Tendency",
+     "n": 26
+    },
+    {
+     "id": "f2-mat-dlp-13",
+     "nama": "13. Simple Probability",
+     "n": 22
+    },
+    {
+     "id": "f2-mat-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 52
+    }
+   ],
+   "soalan": 473
+  },
+  {
+   "id": "f2-bi",
+   "tahap": "F2",
+   "nama": "English",
+   "sk": "BI",
+   "ikon": "🗣️",
+   "warna": "#3F8CFF",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-bi-1",
+     "nama": "1. Grammar: Past Continuous and Past Simple",
+     "n": 60
+    },
+    {
+     "id": "f2-bi-2",
+     "nama": "2. Grammar: Present Perfect",
+     "n": 61
+    },
+    {
+     "id": "f2-bi-3",
+     "nama": "3. Grammar: Conditionals, Relatives and Prepositions",
+     "n": 95
+    },
+    {
+     "id": "f2-bi-4",
+     "nama": "4. Vocabulary: Phrasal Verbs and Word Meaning",
+     "n": 154
+    },
+    {
+     "id": "f2-bi-5",
+     "nama": "5. Reading",
+     "n": 32
+    },
+    {
+     "id": "f2-bi-6",
+     "nama": "6. Writing and Speaking",
+     "n": 10
+    },
+    {
+     "id": "f2-bi-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 24
+    }
+   ],
+   "soalan": 436
+  },
+  {
+   "id": "f2-sains",
+   "tahap": "F2",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-sains-1",
+     "nama": "1. Biodiversiti",
+     "n": 55
+    },
+    {
+     "id": "f2-sains-2",
+     "nama": "2. Ekosistem",
+     "n": 55
+    },
+    {
+     "id": "f2-sains-3",
+     "nama": "3. Nutrisi",
+     "n": 57
+    },
+    {
+     "id": "f2-sains-4",
+     "nama": "4. Kesihatan Manusia",
+     "n": 39
+    },
+    {
+     "id": "f2-sains-5",
+     "nama": "5. Air dan Larutan",
+     "n": 37
+    },
+    {
+     "id": "f2-sains-6",
+     "nama": "6. Asid dan Alkali",
+     "n": 35
+    },
+    {
+     "id": "f2-sains-7",
+     "nama": "7. Elektrik dan Kemagnetan",
+     "n": 39
+    },
+    {
+     "id": "f2-sains-8",
+     "nama": "8. Daya dan Gerakan",
+     "n": 45
+    },
+    {
+     "id": "f2-sains-9",
+     "nama": "9. Haba",
+     "n": 20
+    },
+    {
+     "id": "f2-sains-10",
+     "nama": "10. Gelombang Bunyi",
+     "n": 19
+    },
+    {
+     "id": "f2-sains-11",
+     "nama": "11. Bintang dan Galaksi",
+     "n": 23
+    },
+    {
+     "id": "f2-sains-12",
+     "nama": "12. Sistem Suria",
+     "n": 34
+    },
+    {
+     "id": "f2-sains-13",
+     "nama": "13. Meteoroid, Asteroid dan Komet",
+     "n": 19
+    },
+    {
+     "id": "f2-sains-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 529
+  },
+  {
+   "id": "f2-sains-dlp",
+   "tahap": "F2",
+   "nama": "Science (DLP)",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f2-sains",
+   "topik": [
+    {
+     "id": "f2-sains-dlp-1",
+     "nama": "1. Biodiversity",
+     "n": 55
+    },
+    {
+     "id": "f2-sains-dlp-2",
+     "nama": "2. Ecosystem",
+     "n": 55
+    },
+    {
+     "id": "f2-sains-dlp-3",
+     "nama": "3. Nutrition",
+     "n": 57
+    },
+    {
+     "id": "f2-sains-dlp-4",
+     "nama": "4. Human Health",
+     "n": 39
+    },
+    {
+     "id": "f2-sains-dlp-5",
+     "nama": "5. Water and Solutions",
+     "n": 37
+    },
+    {
+     "id": "f2-sains-dlp-6",
+     "nama": "6. Acids and Alkalis",
+     "n": 35
+    },
+    {
+     "id": "f2-sains-dlp-7",
+     "nama": "7. Electricity and Magnetism",
+     "n": 39
+    },
+    {
+     "id": "f2-sains-dlp-8",
+     "nama": "8. Force and Motion",
+     "n": 45
+    },
+    {
+     "id": "f2-sains-dlp-9",
+     "nama": "9. Heat",
+     "n": 20
+    },
+    {
+     "id": "f2-sains-dlp-10",
+     "nama": "10. Sound Waves",
+     "n": 19
+    },
+    {
+     "id": "f2-sains-dlp-11",
+     "nama": "11. Stars and Galaxies",
+     "n": 23
+    },
+    {
+     "id": "f2-sains-dlp-12",
+     "nama": "12. The Solar System",
+     "n": 34
+    },
+    {
+     "id": "f2-sains-dlp-13",
+     "nama": "13. Meteoroids, Asteroids and Comets",
+     "n": 19
+    },
+    {
+     "id": "f2-sains-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 52
+    }
+   ],
+   "soalan": 529
+  },
+  {
+   "id": "f2-sej",
+   "tahap": "F2",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5651D",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-sej-1",
+     "nama": "1. Kerajaan Alam Melayu",
+     "n": 117
+    },
+    {
+     "id": "f2-sej-2",
+     "nama": "2. Kesultanan Melayu Melaka",
+     "n": 146
+    },
+    {
+     "id": "f2-sej-3",
+     "nama": "3. Kesultanan Johor-Riau",
+     "n": 88
+    },
+    {
+     "id": "f2-sej-4",
+     "nama": "4. Kesultanan Melayu di Malaysia",
+     "n": 63
+    },
+    {
+     "id": "f2-sej-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 430
+  },
+  {
+   "id": "f2-geo",
+   "tahap": "F2",
+   "nama": "Geografi",
+   "sk": "GE",
+   "ikon": "🧭",
+   "warna": "#4CAF50",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-geo-1",
+     "nama": "1. Kemahiran Peta Topografi",
+     "n": 103
+    },
+    {
+     "id": "f2-geo-2",
+     "nama": "2. Bentuk Muka Bumi Sungai dan Pantai",
+     "n": 81
+    },
+    {
+     "id": "f2-geo-3",
+     "nama": "3. Tumbuhan Semula Jadi dan Alam Sekitar",
+     "n": 69
+    },
+    {
+     "id": "f2-geo-4",
+     "nama": "4. Asia Tenggara",
+     "n": 165
+    },
+    {
+     "id": "f2-geo-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 434
+  },
+  {
+   "id": "f2-pi",
+   "tahap": "F2",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕌",
+   "warna": "#1F7A4F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-pi-1",
+     "nama": "1. Al-Quran: Tajwid",
+     "n": 66
+    },
+    {
+     "id": "f2-pi-2",
+     "nama": "2. Akidah: Beriman kepada Rasul",
+     "n": 231
+    },
+    {
+     "id": "f2-pi-3",
+     "nama": "3. Ibadah: Solat Sunat, Jamak, Qasar dan Sujud Sahwi",
+     "n": 50
+    },
+    {
+     "id": "f2-pi-4",
+     "nama": "4. Sirah dan Adab",
+     "n": 101
+    },
+    {
+     "id": "f2-pi-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 464
+  },
+  {
+   "id": "f2-moral",
+   "tahap": "F2",
+   "nama": "Pendidikan Moral",
+   "sk": "PM",
+   "ikon": "🤝",
+   "warna": "#E07A5F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-moral-1",
+     "nama": "1. Nilai dalam Kehidupan Remaja",
+     "n": 36
+    },
+    {
+     "id": "f2-moral-2",
+     "nama": "2. Nilai dalam Keluarga",
+     "n": 13
+    },
+    {
+     "id": "f2-moral-3",
+     "nama": "3. Nilai sebagai Warganegara",
+     "n": 18
+    },
+    {
+     "id": "f2-moral-4",
+     "nama": "4. Tingkah Laku dan Membuat Keputusan",
+     "n": 38
+    },
+    {
+     "id": "f2-moral-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 15
+    }
+   ],
+   "soalan": 120
+  },
+  {
+   "id": "f2-rbt",
+   "tahap": "F2",
+   "nama": "Reka Bentuk dan Teknologi",
+   "sk": "RBT",
+   "ikon": "🛠️",
+   "warna": "#7E57C2",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-rbt-1",
+     "nama": "1. Sistem Mekanikal",
+     "n": 29
+    },
+    {
+     "id": "f2-rbt-2",
+     "nama": "2. Komponen Elektronik",
+     "n": 24
+    },
+    {
+     "id": "f2-rbt-3",
+     "nama": "3. Lukisan Teknikal dan Alatan",
+     "n": 42
+    },
+    {
+     "id": "f2-rbt-4",
+     "nama": "4. Bahan dan Komponen: Ulang Kaji",
+     "n": 27
+    },
+    {
+     "id": "f2-rbt-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 138
+  },
+  {
+   "id": "f2-ask",
+   "tahap": "F2",
+   "nama": "Asas Sains Komputer",
+   "sk": "ASK",
+   "ikon": "💻",
+   "warna": "#455A64",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-ask-1",
+     "nama": "1. Perwakilan Nombor",
+     "n": 47
+    },
+    {
+     "id": "f2-ask-2",
+     "nama": "2. Jenis Data, Operator dan Get Logik",
+     "n": 42
+    },
+    {
+     "id": "f2-ask-3",
+     "nama": "3. Algoritma dan Carta Alir",
+     "n": 18
+    },
+    {
+     "id": "f2-ask-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 12
+    }
+   ],
+   "soalan": 119
+  },
+  {
+   "id": "f2-pjpk",
+   "tahap": "F2",
+   "nama": "Pendidikan Jasmani dan Kesihatan",
+   "sk": "PJ",
+   "ikon": "⚽",
+   "warna": "#F4511E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f2-pjpk-1",
+     "nama": "1. Kecergasan Fizikal",
+     "n": 25
+    },
+    {
+     "id": "f2-pjpk-2",
+     "nama": "2. Sukan dan Permainan",
+     "n": 25
+    },
+    {
+     "id": "f2-pjpk-3",
+     "nama": "3. Olahraga dan Kecergasan: Latihan",
+     "n": 39
+    },
+    {
+     "id": "f2-pjpk-4",
+     "nama": "4. Bantu Mula dan Kesihatan",
+     "n": 25
+    },
+    {
+     "id": "f2-pjpk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 15
+    }
+   ],
+   "soalan": 129
+  },
+  {
+   "id": "f3-bm",
+   "tahap": "F3",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-bm-1",
+     "nama": "1. Tatabahasa: Golongan Kata dan Kata Sendi",
+     "n": 80
+    },
+    {
+     "id": "f3-bm-2",
+     "nama": "2. Membaca dan Kosa Kata",
+     "n": 105
+    },
+    {
+     "id": "f3-bm-3",
+     "nama": "3. Peribahasa dan Simpulan Bahasa",
+     "n": 196
+    },
+    {
+     "id": "f3-bm-4",
+     "nama": "4. Seni Bahasa: Gurindam dan Gaya Bahasa",
+     "n": 49
+    },
+    {
+     "id": "f3-bm-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 446
+  },
+  {
+   "id": "f3-mat",
+   "tahap": "F3",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-mat-1",
+     "nama": "1. Indeks",
+     "n": 85
+    },
+    {
+     "id": "f3-mat-2",
+     "nama": "2. Bentuk Piawai",
+     "n": 65
+    },
+    {
+     "id": "f3-mat-3",
+     "nama": "3. Matematik Pengguna: Simpanan, Pelaburan, Kredit dan Hutang",
+     "n": 66
+    },
+    {
+     "id": "f3-mat-4",
+     "nama": "4. Lukisan Berskala",
+     "n": 36
+    },
+    {
+     "id": "f3-mat-5",
+     "nama": "5. Nisbah Trigonometri",
+     "n": 42
+    },
+    {
+     "id": "f3-mat-6",
+     "nama": "6. Sudut dan Tangen bagi Bulatan",
+     "n": 34
+    },
+    {
+     "id": "f3-mat-7",
+     "nama": "7. Pelan, Dongakan dan Lokus",
+     "n": 23
+    },
+    {
+     "id": "f3-mat-8",
+     "nama": "8. Garis Lurus",
+     "n": 69
+    },
+    {
+     "id": "f3-mat-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 32
+    }
+   ],
+   "soalan": 452
+  },
+  {
+   "id": "f3-mat-dlp",
+   "tahap": "F3",
+   "nama": "Mathematics (DLP)",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f3-mat",
+   "topik": [
+    {
+     "id": "f3-mat-dlp-1",
+     "nama": "1. Indices",
+     "n": 85
+    },
+    {
+     "id": "f3-mat-dlp-2",
+     "nama": "2. Standard Form",
+     "n": 65
+    },
+    {
+     "id": "f3-mat-dlp-3",
+     "nama": "3. Consumer Mathematics: Savings, Investments, Credit and Debt",
+     "n": 66
+    },
+    {
+     "id": "f3-mat-dlp-4",
+     "nama": "4. Scale Drawings",
+     "n": 36
+    },
+    {
+     "id": "f3-mat-dlp-5",
+     "nama": "5. Trigonometric Ratios",
+     "n": 42
+    },
+    {
+     "id": "f3-mat-dlp-6",
+     "nama": "6. Angles and Tangents of Circles",
+     "n": 34
+    },
+    {
+     "id": "f3-mat-dlp-7",
+     "nama": "7. Plans, Elevations and Loci",
+     "n": 23
+    },
+    {
+     "id": "f3-mat-dlp-8",
+     "nama": "8. Straight Lines",
+     "n": 69
+    },
+    {
+     "id": "f3-mat-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 32
+    }
+   ],
+   "soalan": 452
+  },
+  {
+   "id": "f3-bi",
+   "tahap": "F3",
+   "nama": "English",
+   "sk": "BI",
+   "ikon": "🗣️",
+   "warna": "#3F8CFF",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-bi-1",
+     "nama": "1. Grammar: Passive Voice and Reported Speech",
+     "n": 84
+    },
+    {
+     "id": "f3-bi-2",
+     "nama": "2. Grammar: Modals, Connectors and Prefixes",
+     "n": 49
+    },
+    {
+     "id": "f3-bi-3",
+     "nama": "3. Vocabulary: Collocations and Idioms",
+     "n": 255
+    },
+    {
+     "id": "f3-bi-4",
+     "nama": "4. Reading",
+     "n": 30
+    },
+    {
+     "id": "f3-bi-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 16
+    }
+   ],
+   "soalan": 434
+  },
+  {
+   "id": "f3-sains",
+   "tahap": "F3",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-sains-1",
+     "nama": "1. Rangsangan dan Gerak Balas",
+     "n": 47
+    },
+    {
+     "id": "f3-sains-2",
+     "nama": "2. Respirasi",
+     "n": 42
+    },
+    {
+     "id": "f3-sains-3",
+     "nama": "3. Pengangkutan",
+     "n": 29
+    },
+    {
+     "id": "f3-sains-4",
+     "nama": "4. Kereaktifan Logam",
+     "n": 52
+    },
+    {
+     "id": "f3-sains-5",
+     "nama": "5. Termokimia",
+     "n": 23
+    },
+    {
+     "id": "f3-sains-6",
+     "nama": "6. Elektrik: Penjanaan dan Penghantaran",
+     "n": 71
+    },
+    {
+     "id": "f3-sains-7",
+     "nama": "7. Tenaga dan Kuasa",
+     "n": 68
+    },
+    {
+     "id": "f3-sains-8",
+     "nama": "8. Keradioaktifan",
+     "n": 39
+    },
+    {
+     "id": "f3-sains-9",
+     "nama": "9. Cuaca Angkasa dan Penerokaan Angkasa",
+     "n": 38
+    },
+    {
+     "id": "f3-sains-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 36
+    }
+   ],
+   "soalan": 445
+  },
+  {
+   "id": "f3-sains-dlp",
+   "tahap": "F3",
+   "nama": "Science (DLP)",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f3-sains",
+   "topik": [
+    {
+     "id": "f3-sains-dlp-1",
+     "nama": "1. Stimuli and Responses",
+     "n": 47
+    },
+    {
+     "id": "f3-sains-dlp-2",
+     "nama": "2. Respiration",
+     "n": 42
+    },
+    {
+     "id": "f3-sains-dlp-3",
+     "nama": "3. Transport",
+     "n": 29
+    },
+    {
+     "id": "f3-sains-dlp-4",
+     "nama": "4. Reactivity of Metals",
+     "n": 52
+    },
+    {
+     "id": "f3-sains-dlp-5",
+     "nama": "5. Thermochemistry",
+     "n": 23
+    },
+    {
+     "id": "f3-sains-dlp-6",
+     "nama": "6. Electricity: Generation and Transmission",
+     "n": 71
+    },
+    {
+     "id": "f3-sains-dlp-7",
+     "nama": "7. Energy and Power",
+     "n": 68
+    },
+    {
+     "id": "f3-sains-dlp-8",
+     "nama": "8. Radioactivity",
+     "n": 39
+    },
+    {
+     "id": "f3-sains-dlp-9",
+     "nama": "9. Space Weather and Space Exploration",
+     "n": 38
+    },
+    {
+     "id": "f3-sains-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 36
+    }
+   ],
+   "soalan": 445
+  },
+  {
+   "id": "f3-sej",
+   "tahap": "F3",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5651D",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-sej-1",
+     "nama": "1. Kedatangan Kuasa Barat",
+     "n": 84
+    },
+    {
+     "id": "f3-sej-2",
+     "nama": "2. Perjanjian dan Pentadbiran British",
+     "n": 93
+    },
+    {
+     "id": "f3-sej-3",
+     "nama": "3. Penentangan Masyarakat Tempatan",
+     "n": 67
+    },
+    {
+     "id": "f3-sej-4",
+     "nama": "4. Kesan Penjajahan",
+     "n": 164
+    },
+    {
+     "id": "f3-sej-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 424
+  },
+  {
+   "id": "f3-geo",
+   "tahap": "F3",
+   "nama": "Geografi",
+   "sk": "GE",
+   "ikon": "🧭",
+   "warna": "#4CAF50",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-geo-1",
+     "nama": "1. Kemahiran Peta, Longitud dan Waktu",
+     "n": 42
+    },
+    {
+     "id": "f3-geo-2",
+     "nama": "2. Bencana Alam",
+     "n": 63
+    },
+    {
+     "id": "f3-geo-3",
+     "nama": "3. Sumber dan Ekonomi Malaysia",
+     "n": 122
+    },
+    {
+     "id": "f3-geo-4",
+     "nama": "4. Benua, Lautan dan Negara Dunia",
+     "n": 186
+    },
+    {
+     "id": "f3-geo-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 429
+  },
+  {
+   "id": "f3-pi",
+   "tahap": "F3",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕌",
+   "warna": "#1F7A4F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-pi-1",
+     "nama": "1. Al-Quran: Hukum Mad dan Idgham",
+     "n": 154
+    },
+    {
+     "id": "f3-pi-2",
+     "nama": "2. Akidah: Hari Akhirat, Qada dan Qadar",
+     "n": 104
+    },
+    {
+     "id": "f3-pi-3",
+     "nama": "3. Ibadah: Puasa dan Zakat",
+     "n": 78
+    },
+    {
+     "id": "f3-pi-4",
+     "nama": "4. Sirah: Khulafa al-Rasyidin",
+     "n": 89
+    },
+    {
+     "id": "f3-pi-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 441
+  },
+  {
+   "id": "f3-moral",
+   "tahap": "F3",
+   "nama": "Pendidikan Moral",
+   "sk": "PM",
+   "ikon": "🤝",
+   "warna": "#E07A5F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-moral-1",
+     "nama": "1. Nilai dalam Kehidupan",
+     "n": 32
+    },
+    {
+     "id": "f3-moral-2",
+     "nama": "2. Isu Remaja",
+     "n": 29
+    },
+    {
+     "id": "f3-moral-3",
+     "nama": "3. Hak dan Tanggungjawab Warganegara",
+     "n": 17
+    },
+    {
+     "id": "f3-moral-4",
+     "nama": "4. Membuat Keputusan Bermoral",
+     "n": 30
+    },
+    {
+     "id": "f3-moral-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 124
+  },
+  {
+   "id": "f3-rbt",
+   "tahap": "F3",
+   "nama": "Reka Bentuk dan Teknologi",
+   "sk": "RBT",
+   "ikon": "🛠️",
+   "warna": "#7E57C2",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-rbt-1",
+     "nama": "1. Sistem Kawalan Elektronik",
+     "n": 45
+    },
+    {
+     "id": "f3-rbt-2",
+     "nama": "2. Reka Bentuk Seni Bina",
+     "n": 30
+    },
+    {
+     "id": "f3-rbt-3",
+     "nama": "3. Reka Bentuk Fesyen dan Kos",
+     "n": 21
+    },
+    {
+     "id": "f3-rbt-4",
+     "nama": "4. Ulang Kaji: Bahan, Struktur dan Jahitan",
+     "n": 22
+    },
+    {
+     "id": "f3-rbt-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 134
+  },
+  {
+   "id": "f3-ask",
+   "tahap": "F3",
+   "nama": "Asas Sains Komputer",
+   "sk": "ASK",
+   "ikon": "💻",
+   "warna": "#455A64",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-ask-1",
+     "nama": "1. Pembangunan Laman Web: HTML",
+     "n": 28
+    },
+    {
+     "id": "f3-ask-2",
+     "nama": "2. Pengaturcaraan",
+     "n": 42
+    },
+    {
+     "id": "f3-ask-3",
+     "nama": "3. Sistem Nombor, Logik dan Ulang Kaji",
+     "n": 46
+    },
+    {
+     "id": "f3-ask-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 12
+    }
+   ],
+   "soalan": 128
+  },
+  {
+   "id": "f3-pjpk",
+   "tahap": "F3",
+   "nama": "Pendidikan Jasmani dan Kesihatan",
+   "sk": "PJ",
+   "ikon": "⚽",
+   "warna": "#F4511E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f3-pjpk-1",
+     "nama": "1. Peraturan Permainan",
+     "n": 26
+    },
+    {
+     "id": "f3-pjpk-2",
+     "nama": "2. Keselamatan dan Bantu Mula",
+     "n": 20
+    },
+    {
+     "id": "f3-pjpk-3",
+     "nama": "3. Pemakanan dan Kecergasan",
+     "n": 32
+    },
+    {
+     "id": "f3-pjpk-4",
+     "nama": "4. Kecergasan dan Aktiviti Fizikal",
+     "n": 46
+    },
+    {
+     "id": "f3-pjpk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 16
+    }
+   ],
+   "soalan": 140
+  }
+ ]
+}

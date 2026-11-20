@@ -1,0 +1,48 @@
+/* My Ihsan 0.5.52 · onboarding tours: spotlight hole, bubble, ▶ chip, Home card. Colours come from each theme's tokens. */
+#tourBlk{position:fixed;inset:0;z-index:9600;background:transparent}
+#tourBlk.pass{pointer-events:none}
+#tourHole{position:fixed;z-index:9601;pointer-events:none;border-radius:12px;box-shadow:0 0 0 200vmax rgba(0,0,0,.58);outline:2px solid var(--gold);outline-offset:0;transition:top .32s cubic-bezier(.22,1,.36,1),left .32s cubic-bezier(.22,1,.36,1),width .32s cubic-bezier(.22,1,.36,1),height .32s cubic-bezier(.22,1,.36,1)}
+#tourHole.none{top:50%!important;left:50%!important;width:0!important;height:0!important;outline:0}
+#tourHole.pulse{animation:trPulse 1.4s ease-in-out infinite}
+@keyframes trPulse{0%,100%{outline-offset:0}50%{outline-offset:5px}}
+#tourBub{position:fixed;z-index:9602;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;box-shadow:0 10px 30px rgba(0,0,0,.35);width:calc(100vw - 24px);max-width:360px;transition:top .28s cubic-bezier(.22,1,.36,1),left .28s cubic-bezier(.22,1,.36,1),opacity .2s}
+#tourBub.busy{opacity:.0}
+#tourBub .trCh{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:.03em;text-transform:uppercase;margin-bottom:4px}
+#tourBub .trTx{font-size:15px;line-height:1.45}
+#tourBub .trBar{height:3px;background:var(--line);border-radius:3px;margin:10px 0 8px;overflow:hidden}
+#tourBub .trBar i{display:block;height:100%;background:var(--gold);border-radius:3px}
+#tourBub .trBtns{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#tourBub .trN{font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums;margin-right:auto}
+#tourBub .trB{min-width:38px;height:36px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card2);color:var(--fg);font:inherit;font-size:14px;cursor:pointer}
+#tourBub .trB.go{background:var(--green);border-color:var(--green);color:#fff;font-weight:700}
+#tourBub .trB[disabled]{opacity:.35}
+#tourBub .trShare{margin-top:10px;border:1px solid var(--line);border-radius:12px;padding:8px;background:var(--well)}
+#tourBub .trSrc{display:flex;justify-content:space-between;gap:4px}
+#tourBub .trSrc span{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;min-width:0}
+#tourBub .trSrc i{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-style:normal;font-weight:700;font-size:15px}
+#tourBub .trSrc small{font-size:9.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+#tourBub .trArrow{text-align:center;font-size:12px;color:var(--mut);margin:4px 0}
+#tourBub .trSheet{display:flex;align-items:center;gap:8px;justify-content:center;background:var(--card);border:2px solid var(--gold);border-radius:10px;padding:6px}
+#tourBub .trSheet img{width:28px;height:28px;border-radius:7px}
+#tourChip{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(150px + env(safe-area-inset-bottom,0px));z-index:45;border:1px solid var(--gold);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.25);white-space:nowrap}
+body.touring #tourChip{display:none}
+.trHome{position:relative}
+.trHome .trX{position:absolute;top:8px;right:8px;border:0;background:none;color:var(--mut);font-size:16px;cursor:pointer}
+.trChoice{margin-top:8px}
+@media (prefers-reduced-motion:reduce){#tourHole,#tourBub{transition:none}#tourHole.pulse{animation:none}}
+/* 0.6.39 lessons hub */
+.trLes{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}
+.trLes.done .trLesT b{color:var(--mut)}
+.trLesT{min-width:0}
+.trLesT b{display:block;font-size:15px;line-height:1.25;margin:1px 0 2px}
+.trLesB{display:flex;gap:6px;align-items:center}
+.trLesB .btn{padding:6px 12px;font-size:13px;white-space:nowrap}
+.trLesH{margin:12px 0 2px;font-weight:700;color:var(--gold);letter-spacing:.03em;text-transform:uppercase}
+.trRing{width:40px;height:40px}
+.trRing circle{fill:none;stroke-width:3.5}
+.trRing .bg{stroke:var(--line)}
+.trRing .fg{stroke:var(--gold);stroke-linecap:round}
+.trLes.done .trRing .fg{stroke:var(--green)}
+.trRing text{font-size:9.5px;fill:var(--fg);font-weight:700;font-variant-numeric:tabular-nums}
+.trLesB .chip{min-width:34px;justify-content:center}
+.trLesT b{font-size:14.5px}

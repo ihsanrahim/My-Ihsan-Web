@@ -1,0 +1,69 @@
+/* My Ihsan 0.5.46 · Taman theme ("taman" light, "tamannight" dark). A courtyard of gates: limestone and emerald, brass used sparingly,
+   the header is an emerald band with a faint eight-point-star pattern, tappable things are octagon-cut tiles, reading panels are quiet
+   4 px rectangles. Marcellus display + Figtree. Scoped to html[data-th^=taman]; other themes are untouched. */
+@font-face{font-family:"MarcellusT";src:url(fonts/marcellus-latin-400-normal.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"FigtreeT";src:url(fonts/figtree-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"FigtreeT";src:url(fonts/figtree-latin-600-normal.woff2) format("woff2");font-weight:500 900;font-display:swap}
+
+/* ---- tokens ---- */
+html[data-th=taman]{--bg:#EAEFE9;--card:#F6F8F4;--card2:#DCE5DC;--line:#C3D1C5;--fg:#0F2A20;--mut:#4E6559;--green:#14533D;--deep:#14533D;--gold:#7E6024;--well:#DFE7DF;--nav:#F6F8F4;--hdr:#14533D;--red:#A63A2E;--blue:#2E5E8C;
+  --tg-em:#14533D;--tg-brass:#D4AE62;--tg-cream:#F3E9D2;--tg-on:#0F2A20;color-scheme:light}
+html[data-th=tamannight]{--bg:#0B1D16;--card:#10261D;--card2:#12291F;--line:#234536;--fg:#E9F2EC;--mut:#9BB5A8;--green:#6FC79B;--deep:#0F3B2C;--gold:#D4AE62;--well:#08160F;--nav:#0A1A13;--hdr:#0F3B2C;--red:#FF8A80;--blue:#8FB3FF;
+  --tg-em:#0F3B2C;--tg-brass:#D4AE62;--tg-cream:#F3E9D2;--tg-on:#D4AE62;color-scheme:dark}
+
+/* ---- type ---- */
+html[data-th^=taman] body{font-family:"FigtreeT","Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+html[data-th^=taman] h1,html[data-th^=taman] h2,html[data-th^=taman] h3,html[data-th^=taman] #topTitle{font-family:"MarcellusT","Marcellus",Georgia,serif;font-weight:400;letter-spacing:.005em}
+
+/* ---- the header is the arch band: emerald with a faint star pattern, brass name, cream text ---- */
+html[data-th^=taman] header{background-color:var(--tg-em);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23D4AE62' stroke-opacity='.22' stroke-width='1'%3E%3Crect x='10' y='10' width='20' height='20'/%3E%3Crect x='10' y='10' width='20' height='20' transform='rotate(45 20 20)'/%3E%3Ccircle cx='20' cy='20' r='4'/%3E%3C/g%3E%3C/svg%3E");background-size:40px 40px;color:var(--tg-cream);border-bottom:1.5px solid var(--tg-brass);border-radius:0 0 22px 22px}
+html[data-th^=taman] header{--fg:var(--tg-cream);--mut:#CFE0D5;--gold:var(--tg-brass);--line:rgba(212,174,98,.45);--card2:rgba(243,233,210,.1)}
+html[data-th^=taman] #topTitle{color:var(--tg-brass);font-size:22px}
+html[data-th^=taman] #topSub,html[data-th^=taman] header .mut{color:#D5E2D9}
+html[data-th^=taman] #hCur,html[data-th^=taman] #hLeft{color:var(--tg-cream)}
+html[data-th^=taman] #hCur b,html[data-th^=taman] #hLeft bdi{color:var(--tg-brass)}
+html[data-th^=taman] #hBar{background:var(--tg-brass)}
+html[data-th^=taman] #hBtns button{background-color:rgba(243,233,210,.1);border:1px solid rgba(212,174,98,.55);color:var(--tg-cream)}
+
+/* ---- no gloss ---- */
+html[data-th^=taman] .g3d,html[data-th^=taman] .btn.btn,html[data-th^=taman] .btn.gold.gold,html[data-th^=taman] .btn.alt.alt,html[data-th^=taman] .chip.chip,html[data-th^=taman] .chip.on.on,
+html[data-th^=taman] nav#nav button,html[data-th^=taman] #subnav button,html[data-th^=taman] #subnav button.on,html[data-th^=taman] .qt.qt,html[data-th^=taman] .lchip.lchip,
+html[data-th^=taman] #hBtns button,html[data-th^=taman] .amdock .lv3 button,html[data-th^=taman] .amdock .lv2 button{background-image:none;box-shadow:none;transition:transform .12s cubic-bezier(.4,0,.2,1),background-color .24s}
+
+/* ---- octagon-cut tiles for everything you tap ---- */
+html[data-th^=taman] .btn.btn,html[data-th^=taman] .chip.chip,html[data-th^=taman] #subnav button{clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);border-radius:0}
+html[data-th^=taman] .btn.btn{background-color:var(--tg-em);color:var(--tg-cream);border:0;font-weight:600}
+html[data-th=tamannight] .btn.btn{background-color:#1A5A43}
+html[data-th^=taman] .btn.alt.alt{background-color:var(--card2);color:var(--fg)}
+html[data-th^=taman] .btn.gold.gold{background-color:var(--tg-brass);color:#1B160A}
+html[data-th^=taman] .chip.chip{background-color:var(--card2);border:0;color:var(--fg)}
+html[data-th^=taman] .chip.on.on{background-color:var(--fg);color:var(--bg);font-weight:600}
+html[data-th=tamannight] .chip.on.on{background-color:var(--tg-brass);color:#1B160A}
+html[data-th^=taman] .btn:active,html[data-th^=taman] .chip:active,html[data-th^=taman] .g3d:active{transform:scale(.98);box-shadow:none}
+
+/* ---- reading panels: quiet 4 px rectangles; the Quran stays calm ---- */
+html[data-th^=taman] .card,html[data-th^=taman] .mSec{background:var(--card);border:1px solid var(--line);border-radius:4px}
+html[data-th^=taman] .wg,html[data-th^=taman] .wgc{border-radius:6px}
+html[data-th^=taman] .qa{border:1px solid var(--line);border-radius:4px}
+
+/* ---- tabs: a brass arch cap above the current tab ---- */
+html[data-th^=taman] nav#nav{background:var(--nav);border-top:1px solid var(--line)}
+html[data-th^=taman] nav#nav button{background-color:transparent;border:0;color:var(--mut);position:relative;overflow:visible}
+html[data-th^=taman] nav#nav button.on{background-color:transparent;color:var(--fg);font-weight:700}
+html[data-th=tamannight] nav#nav button.on{color:var(--tg-brass)}
+html[data-th^=taman] nav#nav button.on:before{content:"";position:absolute;top:-6px;left:50%;width:28px;margin-left:-14px;height:8px;border-radius:14px 14px 0 0;background:var(--tg-brass)}
+html[data-th^=taman] #subnav{background:var(--bg);border-top:0}
+html[data-th^=taman] #subnav button{background-color:var(--card2);border:0;color:var(--fg)}
+html[data-th^=taman] #subnav button.on{background-color:var(--fg);color:var(--bg);font-weight:700}
+html[data-th=tamannight] #subnav button.on{background-color:var(--tg-brass);color:#1B160A}
+html[data-th^=taman] #subnav button.cur:not(.on){color:var(--gold)}
+html[data-th^=taman] .dock{background:var(--bg);border-top:1px solid var(--line);box-shadow:none}
+html[data-th^=taman] #notch button{background:var(--card);border-color:var(--line);color:var(--fg)}
+html[data-th^=taman] #notch #ntT{color:var(--gold)}
+
+/* ---- small parts ---- */
+html[data-th^=taman] input[type=range]{accent-color:var(--tg-em)}
+html[data-th=tamannight] input[type=range]{accent-color:var(--tg-brass)}
+html[data-th^=taman] .ths.on{outline:2px solid var(--gold);outline-offset:2px}
+html[data-th=taman] .warnbox{background:#F4EEDD;color:#4A3A12;border-color:#DCCB9A}
+@media (prefers-reduced-motion:reduce){html[data-th^=taman] *{transition:none!important;animation:none!important}}

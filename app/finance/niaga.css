@@ -1,0 +1,178 @@
+/* My Ihsan 0.6.25 · Kewangan › Niaga */
+@font-face{font-family:"NgSans";src:url(../fonts/plus-jakarta-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"NgSans";src:url(../fonts/plus-jakarta-sans-latin-600-normal.woff2) format("woff2");font-weight:500 600;font-display:swap}
+@font-face{font-family:"NgSans";src:url(../fonts/plus-jakarta-sans-latin-700-normal.woff2) format("woff2");font-weight:700 900;font-display:swap}
+@font-face{font-family:"NgSerif";src:url(../fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:300 400;font-display:swap}
+@font-face{font-family:"NgSerif";src:url(../fonts/fraunces-latin-700-normal.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"NgSig1";src:url(../fonts/pinyon-script-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"NgSig2";src:url(../fonts/im-fell-english-latin-400-italic.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"NgSig3";src:url(../fonts/marcellus-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"NgSig4";src:url(../fonts/im-fell-english-latin-400-normal.woff2) format("woff2");font-display:swap}
+.ngTop{display:flex;gap:8px;align-items:center;margin:4px 0 8px}
+.ngPS{flex:1;min-width:0;display:flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:22px;padding:5px 12px 5px 5px;font-size:14px;text-align:left}
+.ngPS b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.ngPS img,.ngPS i,.ngRow>img,.ngPH>img,.ngPH>i{width:32px;height:32px;border-radius:50%;object-fit:contain;background:#fff;flex:none;font-style:normal;display:grid;place-items:center;font-size:17px}
+.ngPH>img,.ngPH>i{width:56px;height:56px;border-radius:14px;font-size:28px}
+.ngNew{flex:none;min-height:42px;padding:8px 16px;font-size:15px}
+.ngNav{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:3px;margin:2px 0 3px}
+#ngBody{padding-bottom:64px}
+.ngNav button{background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:4px 0;font-size:9.4px;letter-spacing:-.25px;overflow:hidden;text-overflow:clip;white-space:nowrap;line-height:1.15;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:42px}
+.ngNav button span{font-size:16px}.ngNav button.on{background:var(--gold);color:#111;font-weight:700;border-color:var(--gold)}
+.ngHero{text-align:center;padding:22px 16px}.ngHi{font-size:54px}.ngHero h2{margin:6px 0}
+.ngTog{display:flex;gap:10px;align-items:flex-start;margin:9px 0;font-size:14px}.ngTog input{width:22px;height:22px;flex:none;margin-top:1px;accent-color:var(--gold)}
+.ngTog span{display:flex;flex-direction:column}.ngTog small{color:var(--mut);font-size:12px}
+.f3{display:grid;grid-template-columns:1.7fr 1fr .8fr;gap:6px}.f3>*{min-width:0}
+.btn.sm{min-height:34px;padding:6px 10px;font-size:13px}
+.ngImg{display:flex;gap:12px;align-items:center;margin:10px 0;padding:10px;border:1px dashed var(--line);border-radius:12px}
+.ngImgP{width:86px;height:86px;flex:none;border-radius:10px;background:#fff repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 50%/14px 14px;display:grid;place-items:center;overflow:hidden;color:#888;font-size:12px}
+.ngImgP img{max-width:100%;max-height:100%}.ngImgB{display:flex;flex-direction:column;gap:3px;min-width:0}.ngImgB .btns{margin-top:4px}
+.ngDes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.ngDes button{background:var(--card2);border:2px solid var(--line);color:var(--fg);border-radius:12px;padding:6px 4px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.ngDes button.on{border-color:var(--gold)}
+.ngDi{width:44px;height:56px;border-radius:4px;background:#fff;display:block;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.ngDi-moden{background:linear-gradient(#0f5132 0 12%,#fff 12% 30%,#e6e8eb 30% 34%,#fff 34% 44%,#e6e8eb 44% 47%,#fff 47%)}
+.ngDi-klasik{background:linear-gradient(#fff 0 10%,#333 10% 12%,#fff 12% 30%,#333 30% 31%,#fff 31% 44%,#ddd 44% 46%,#fff 46%)}
+.ngDi-minimal{background:linear-gradient(#fff 0 20%,#eee 20% 22%,#fff 22% 50%,#eee 50% 51%,#fff 51%)}
+.ngDi-thermal{width:26px;background:repeating-linear-gradient(#fff 0 5px,#ccc 5px 6px)}
+.ngCols{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.ngCols button{width:34px;height:34px;border-radius:50%;border:3px solid transparent;box-shadow:0 0 0 1px var(--line)}.ngCols button.on{border-color:var(--fg)}
+.ngColP{position:relative;width:34px;height:34px;border-radius:50%;border:1px dashed var(--line);display:grid;place-items:center;overflow:hidden}.ngColP input{position:absolute;inset:0;opacity:0}
+.ngPrevBox{margin-top:12px}
+.ngPv{display:flex;flex-direction:column;gap:10px;align-items:center;margin:10px 0}.ngPv.sm{max-height:46vh;overflow:auto}
+.ngPg{width:100%;max-width:620px;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.35);background:#fff}.ngPg.th{max-width:300px}
+.ngLoad{padding:40px;font-size:28px;opacity:.6}
+.ngZoom{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);overflow:auto;display:flex;align-items:flex-start;justify-content:center}.ngZoom img{width:160%;max-width:none;margin:10px}.ngZoom button{position:fixed;top:14px;right:14px}
+.ngWiz h3{margin:10px 0 6px}.ngWizS{display:flex;gap:5px;margin-bottom:6px}.ngWizS i{flex:1;height:5px;border-radius:3px;background:var(--line)}.ngWizS i.on{background:var(--gold)}
+.ngWizB{margin-top:14px}.ngWizB .btn.gold{flex:1}
+.ngSig{display:flex;align-items:center;gap:10px;padding:8px;border:1px solid var(--line);border-radius:12px;margin:8px 0}
+.ngSig>div:nth-child(2){flex:1;display:flex;flex-direction:column}
+.ngSigP{width:120px;height:56px;background:#fff;border-radius:8px;display:grid;place-items:center;overflow:hidden;flex:none}.ngSigP img{max-width:100%;max-height:100%}.ngSigP span{font-size:26px;white-space:nowrap}
+.ngTS{display:flex;flex-direction:column;gap:6px;margin:8px 0}.ngTS button{background:#fff;border:2px solid #ddd;border-radius:10px;padding:8px;font-size:32px;text-align:left;overflow:hidden;white-space:nowrap}.ngTS button.on{border-color:var(--gold)}
+.ngPad{position:fixed;inset:0;z-index:1500;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 8px) 10px 10px}
+.ngPadT{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.ngPadT b{flex:1}
+.ngPad canvas{flex:1;width:100%;background:#fff;border-radius:12px;margin:8px 0;touch-action:none;background-image:linear-gradient(transparent calc(75% - 1px),#c9ccd1 calc(75% - 1px) 75%,transparent 75%)}
+.ngPadN{display:flex;gap:8px}.ngPadN>*{flex:1}.ngPadB{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.ngTiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}.ngTiles.sm{margin:10px 0}
+.ngTile{background:var(--card);border:1px solid var(--line);color:var(--fg);border-radius:14px;padding:11px 12px;text-align:left;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ngTile small{font-size:12px;color:var(--mut)}.ngTile b{font-size:19px;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ngTile i{font-style:normal;font-size:11.5px;color:var(--mut)}
+.ngTile.good b{color:var(--green,#3fa36b)}.ngTile.bad b,.bad{color:var(--red,#e0533b)}
+.ngPer{flex-wrap:nowrap;overflow-x:auto}
+.ngChart h3{margin:0 0 6px}.ngLeg{display:flex;gap:14px;font-size:12px;color:var(--mut);margin-bottom:4px}.ngLeg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.ngLeg .lb{background:#8fb3a0}.ngLeg .lc{background:#e0b44c;border-radius:50%}
+.ngSvg{width:100%;height:auto;display:block}.ngBarB{fill:#8fb3a0}.ngLine{fill:none;stroke:#e0b44c;stroke-width:2.5}.ngDot{fill:#e0b44c}.ngBase{stroke:var(--line)}.ngAx{font-size:9px;fill:var(--mut);text-anchor:middle}
+.ngAge{display:flex;height:18px;border-radius:9px;overflow:hidden;gap:2px;margin:6px 0 10px}.ngAge i{display:block;min-width:4px}
+.ngAgeL{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:12.5px}.ngAgeL span{display:flex;align-items:center;gap:6px}.ngAgeL span i{width:10px;height:10px;border-radius:2px;flex:none}.ngAgeL b{margin-left:auto;font-variant-numeric:tabular-nums}
+.ngKV{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px;width:100%;background:none;border-left:0;border-right:0;border-top:0;color:var(--fg);text-align:left}.ngKV:last-child{border-bottom:0}.ngKV b{font-variant-numeric:tabular-nums}
+.ngComp{display:block;width:100%;text-align:left;color:var(--fg)}
+.ngMeter{height:7px;border-radius:4px;background:var(--line);overflow:hidden;margin:6px 0 4px}.ngMeter i{display:block;height:100%;background:linear-gradient(90deg,#c99a45,#e6c35c)}
+.ngDoc{display:flex;gap:10px;align-items:center;width:100%;background:var(--card);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:9px 10px;margin:6px 0;text-align:left}
+.ngDI{font-size:22px;flex:none}.ngDM{flex:1;min-width:0;display:flex;flex-direction:column}.ngDM b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ngDM small{font-size:12px;color:var(--mut)}.ngDM em{color:var(--red,#e0533b);font-style:normal}
+.ngDA{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none}.ngDA b{font-size:14px;font-variant-numeric:tabular-nums}.ngDA small{font-size:11.5px;color:var(--mut)}
+.ngPill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:color-mix(in srgb,var(--pc) 20%,transparent);color:var(--pc);border:1px solid color-mix(in srgb,var(--pc) 45%,transparent);white-space:nowrap}
+.ngMon{display:flex;justify-content:space-between;margin:14px 2px 2px;font-size:13px;color:var(--mut)}.ngMon b{color:var(--fg)}
+.ngSearch input{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:var(--well);color:var(--fg);font-size:14px}
+.ngSeg{flex-wrap:nowrap;overflow-x:auto;margin:8px 0;padding-bottom:2px}
+.ngRow{display:flex;align-items:center;gap:10px;width:100%;background:var(--card);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:9px 10px;margin:6px 0;text-align:left;font-size:14px}
+.ngRow>span{flex:1;min-width:0;display:flex;flex-direction:column}.ngRow small{font-size:12px;color:var(--mut)}.ngRow>i{font-style:normal;font-size:20px;flex:none;width:32px;text-align:center}
+.ngRow.card{margin:6px 0}.ngRow .ib{font-size:18px}
+.ngVH{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:2px 0 8px}
+.ngVS{display:flex;justify-content:space-between;gap:10px;align-items:center}.ngVS>div:first-child{display:flex;flex-direction:column;min-width:0}.ngVS b{font-size:18px}.ngVS small{color:var(--mut);font-size:12.5px}
+.ngVT{text-align:right;display:flex;flex-direction:column}.ngVT b{font-size:22px;font-variant-numeric:tabular-nums}
+.ngActs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.ngActs .btn{flex:1 1 auto;min-height:40px;padding:8px 10px;font-size:13.5px}
+.ngShare{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
+.ngTypes{display:grid;grid-template-columns:1fr;gap:8px}.ngTypes button{display:grid;grid-template-columns:44px 1fr;grid-template-rows:auto auto;column-gap:8px;align-items:center;text-align:left;background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:14px;padding:11px 12px}
+.ngTypes span{grid-row:1/3;font-size:28px;text-align:center}.ngTypes b{font-size:15px}.ngTypes small{color:var(--mut);font-size:12.5px}
+.ngEd{padding-bottom:6px}.ngEdC{padding:10px 12px}
+.ngEdC details summary{cursor:pointer;list-style:none;margin:0}.ngEdC details summary::-webkit-details-marker{display:none}
+#edCq{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--well);color:var(--fg);font-size:14px;margin:6px 0}
+.ngCl .ngRow{margin:4px 0;padding:7px 9px}
+.ngCust{display:flex;gap:8px;align-items:flex-start;margin:6px 0}.ngCust>div{flex:1;display:flex;flex-direction:column;min-width:0}.ngCust small{color:var(--mut);font-size:12.5px}
+.ngLn{border:1px solid var(--line);border-radius:12px;padding:8px;margin:8px 0;background:var(--card2)}
+.ngLn.hd{display:flex;gap:6px;align-items:center;background:transparent;border-style:dashed}.ngLn.hd input{flex:1;font-weight:700}
+.ngLn input,.ngLn textarea,.ngLn select{width:100%;box-sizing:border-box;padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--well);color:var(--fg);font-size:14.5px;font-family:inherit}
+.ngLn textarea{resize:none;line-height:1.35;min-height:38px}
+.ngLnT{display:flex;gap:6px;align-items:flex-start}.ngLnT textarea{flex:1}.ngLnN{font-size:12px;color:var(--mut);padding-top:10px;width:16px;flex:none;text-align:center}
+.ngLnM{display:flex;gap:3px;flex:none}.ngLnM .ib{padding:4px 7px;font-size:12px}
+.ngLnR{display:grid;grid-template-columns:.8fr .9fr 1.2fr auto;gap:6px;align-items:end;margin-top:6px}.ngLnR label,.ngLnX label{font-size:11.5px;color:var(--mut);display:flex;flex-direction:column;gap:2px;min-width:0}
+.ngLnA{font-variant-numeric:tabular-nums;font-size:15px;padding-bottom:9px;min-width:68px;text-align:right}
+.ngLnX{display:flex;gap:6px;align-items:end;margin-top:6px}.ngLnX label{flex:1}.ngLnX .seg{margin-bottom:4px}
+.ngFav{margin:4px 0 8px}
+.ngDisc{display:flex;gap:8px;align-items:end}.ngDisc .fl{flex:1}.ngDisc .seg{margin-bottom:8px}
+.ngAp{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}.ngAp span{flex:1;display:flex;flex-direction:column}.ngAp small{color:var(--mut);font-size:12px}
+.ngAp input{width:110px;padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--well);color:var(--fg);font-size:14.5px;text-align:right}
+input.bad{border-color:var(--red,#e0533b)!important}input.warn{border-color:#e0a03b!important}
+.ngBar{position:fixed;left:10px;right:10px;bottom:0;z-index:40;display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--gold);border-radius:16px 16px 10px 10px;padding:8px 10px;margin:0;box-shadow:0 -4px 18px rgba(0,0,0,.3)}
+.ngBar>div{flex:1;display:flex;flex-direction:column;min-width:0}.ngBar small{font-size:11px;color:var(--mut)}.ngBar b{font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ngBar .btn{min-height:42px;padding:8px 11px;font-size:13.5px}
+.ngNumR{padding:8px 0;border-bottom:1px solid var(--line)}
+.ngSw{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px}
+.ngPH{display:flex;gap:12px;align-items:center}.ngPH>div{flex:1;display:flex;flex-direction:column;min-width:0}
+.ngImpS b{display:block;margin-bottom:6px}
+.btn small{display:block;font-weight:400;font-size:11.5px;opacity:.8;margin-top:2px}
+.btn.full+.btn.full{margin-top:8px}
+.ngCsvPv{max-height:34vh;overflow:auto;border:1px solid var(--line);border-radius:10px;margin:8px 0}.ngCsvPv div{display:flex;gap:8px;padding:5px 8px;font-size:12.5px;border-bottom:1px solid var(--line)}
+.ngCsvPv div span{color:var(--mut);width:26px}.ngCsvPv div b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ngCsvPv div.bad{background:rgba(224,83,59,.12)}
+.center{text-align:center}
+.ngSync{display:block;width:100%;text-align:left;background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:7px 11px;margin:-4px 0 8px;font-size:12.5px}.ngSync.warn{border-color:#e0a03b}
+.ngNote{display:flex;gap:8px;align-items:center;font-size:13px}
+.ngStep{display:flex;gap:10px;margin:12px 0;align-items:flex-start}.ngStep>i{flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#111;font-style:normal;font-weight:800;display:grid;place-items:center}
+.ngStep>div{flex:1;display:flex;flex-direction:column;gap:5px;min-width:0}.ngStep input{width:100%;box-sizing:border-box;padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--well);color:var(--fg)}.ngStep .btn{align-self:flex-start}
+.ngQr{background:#fff;border-radius:12px;padding:8px;width:min(260px,70vw);margin:12px auto}.ngQr svg{display:block;width:100%;height:auto}
+.ngCode{font-size:26px;letter-spacing:3px;font-variant-numeric:tabular-nums}
+.ngCfB{display:flex;flex-direction:column;gap:4px;flex:none}
+.ngMonNav{display:flex;align-items:center;justify-content:space-between;margin:2px 0 6px}.ngMonNav b{font-size:16px}
+.ngCats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;max-height:34vh;overflow:auto;padding:2px}
+.ngCats button{background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:6px 3px;font-size:11.5px;line-height:1.2;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.ngCats button span{font-size:18px}.ngCats button.on{background:var(--gold);color:#111;border-color:var(--gold);font-weight:700}
+.ngExPh{display:flex;gap:8px;align-items:flex-start;margin:4px 0}.ngExPh img{max-width:140px;max-height:180px;border-radius:8px}
+.ngCatB{position:relative;display:flex;justify-content:space-between;padding:6px 8px;margin:4px 0;font-size:13px;border-radius:8px;overflow:hidden}.ngCatB i{position:absolute;left:0;top:0;bottom:0;background:rgba(224,83,59,.18);z-index:0}.ngCatB span,.ngCatB b{position:relative;z-index:1}
+.ngBig{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+.ngKV b{white-space:nowrap}
+.ngDi-korporat{background:linear-gradient(#0f5132 0 22%,#fff 22% 36%,#e6e8eb 36% 40%,#fff 40% 50%,#e6e8eb 50% 54%,#fff 54% 94%,#0f5132 94%)}
+.ngDi-songket{background:#fff;box-shadow:inset 0 0 0 3px #b8862b,inset 0 0 0 5px #fff,inset 0 0 0 6px #b8862b,0 1px 3px rgba(0,0,0,.3)}
+.ngDi-islamik{background:radial-gradient(circle at 0 0,#0f5132 0 7px,transparent 8px),radial-gradient(circle at 100% 0,#0f5132 0 7px,transparent 8px),radial-gradient(circle at 0 100%,#0f5132 0 7px,transparent 8px),radial-gradient(circle at 100% 100%,#0f5132 0 7px,transparent 8px),#fff;box-shadow:inset 0 0 0 2px #0f5132,0 1px 3px rgba(0,0,0,.3)}
+.ngDi-kreatif{background:radial-gradient(circle at 90% 5%,rgba(15,81,50,.35) 0 12px,transparent 13px),linear-gradient(#fff 0 6%,transparent 6%),linear-gradient(90deg,#0f5132 0 70%,#fff 70%) 0 6%/100% 20% no-repeat,#fff;border-radius:6px}
+.ngDes{grid-template-columns:repeat(4,1fr)}
+.ngAIrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+
+/* 0.6.50 📅 Bookings (finance/niaga_book.js) */
+.nbTabs{margin:0 0 10px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nbTabs .chip{flex:none}
+.nbHero{background:linear-gradient(135deg,var(--card2),var(--card) 65%);border:1px solid rgba(201,166,70,.35)}
+.nbTpl{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px;margin:6px 0;color:var(--fg)}.nbTpl span{font-size:24px}.nbTpl b{font-size:14px}
+.nbG3{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:8px}
+.nbPl{display:flex;flex-wrap:wrap;gap:6px}
+.nbGridW{overflow-x:auto;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.nbGrid{border-collapse:separate;border-spacing:2px;font-size:11px}
+.nbGrid th{font-weight:600;color:var(--mut);min-width:30px;padding:2px 0;text-align:center}.nbGrid th small{display:block;font-size:9px}.nbGrid th.now{color:var(--gold)}.nbGrid th.we{color:#e39a4f}
+.nbGrid .nbU{position:sticky;left:0;z-index:2;background:var(--card);text-align:left;color:var(--fg);min-width:96px;max-width:110px;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}.nbGrid .nbU span{font-size:12px}
+.nbC{height:30px;min-width:30px;background:var(--card2);border-radius:6px;cursor:pointer;text-align:center}.nbC.past{opacity:.45}
+.nbC.busy{background:var(--bc)}.nbC.busy i{font-style:normal;font-size:9.5px;color:#07130d;font-weight:700;white-space:nowrap}
+.nbLeg{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:12px;color:var(--mut)}.nbLeg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.nbRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px;margin:5px 0;color:var(--fg)}.nbRow b{flex:1;min-width:0}.nbRow small{color:var(--mut);font-size:12px}
+.nbRow2{display:block;width:100%;text-align:left;color:var(--fg);border-left:4px solid var(--bc);cursor:pointer}
+.nbF{margin:0 0 8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.nbF .chip{flex:none}
+.nbSlots{display:flex;flex-wrap:wrap;gap:5px}.nbSlots .chip[disabled]{opacity:.35;text-decoration:line-through}
+.nbClash{margin-top:8px;color:var(--red);font-weight:600;font-size:13px}
+.nbMoney{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.nbMoney>div{background:var(--card2);border-radius:10px;padding:8px;text-align:center}.nbMoney small{display:block;font-size:11px;color:var(--mut)}.nbMoney b{font-size:15px}.nbMoney b.due{color:#f0a24a}
+.nbPays{margin-top:6px}.nbPays .chip{padding:1px 7px}
+/* 0.6.52 bookings: prices, add-ons, group, discounts, refunds, codes */
+.nbIn{display:inline-block!important;width:58px!important;padding:4px 6px!important;margin:0 3px!important;vertical-align:middle}
+.nbDow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.nbDow .hfld{font-size:11px;text-align:center}.nbDow .rin{padding:6px 3px;text-align:center}
+.nbURow{display:flex;align-items:center;gap:8px}.nbURow input[type=checkbox]{width:20px;height:20px;flex:none;accent-color:var(--gold)}.nbURow .nbRow{flex:1;min-width:0}
+.nbHol{border-bottom:1px solid var(--line);padding:4px 0}
+.nbSea{display:flex;align-items:center;gap:8px;background:var(--card2);border-radius:10px;padding:7px 9px;margin:5px 0}.nbSea b{font-size:13px}.nbSea small{flex:1;min-width:0;color:var(--mut);font-size:12px}
+.nbFmt{display:grid;grid-template-columns:1fr 1.2fr .6fr 1fr;gap:5px}.nbFmt .rin{padding:7px 6px}
+.nbTier{font-size:13px;margin:6px 0}
+.nbCust{display:flex;align-items:center;gap:8px;background:var(--card2);border-radius:12px;padding:8px 10px;margin-bottom:6px}.nbCust div{flex:1;min-width:0}.nbCust b{display:block}.nbCust small{color:var(--mut)}.nbCust .btn{margin:0}
+.nbGrp{margin-top:8px;font-size:13px}.nbGrp summary{cursor:pointer;color:var(--gold)}.nbChk{margin:4px 8px 4px 0!important}
+.nbAdd{display:flex;align-items:center;gap:6px;margin:5px 0;font-size:13px}.nbAdd span{flex:1;min-width:0}.nbAdd b{width:22px;text-align:center}.nbAdd .chip{padding:3px 10px;margin:0}.nbAdd .chip[disabled]{opacity:.35}
+.nbBr{margin-top:10px;background:var(--card2);border-radius:10px;padding:8px 10px}.nbBr summary{cursor:pointer;font-size:13px;font-weight:600}.nbBr .small{padding:3px 0;border-bottom:1px dashed var(--line)}.nbDisc{color:#3fb27f}
+.nbMoney{grid-template-columns:repeat(4,1fr)!important}
+.nbGrid th.ph{color:#e0605a}.nbGrid th.sc{color:#4a9be8}.nbLeg b.ph{color:#e0605a}.nbLeg b.sc{color:#4a9be8}
+.nbC.via{opacity:.55}
+/* 0.6.53 online booking page, promo codes */
+.nbWeb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:9px 11px;margin-bottom:8px;border-radius:12px;background:rgba(52,120,246,.12);border:1px solid rgba(52,120,246,.35);font-size:14px}
+.nbWeb small{opacity:.75}.nbWeb .chip{margin-left:auto}
+.nbWebB{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:9px;background:rgba(52,120,246,.18);color:var(--fg)}
+.nbPromo{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(127,127,127,.18)}.nbPromo>div{flex:1}
+.nbPrN{display:flex;gap:6px;margin-top:8px}.nbPrN>*{flex:1;min-width:0}.nbPrN select{flex:0 0 70px}
+.nbUrl{font-family:monospace;font-size:12px;word-break:break-all;padding:8px;margin:8px 0;border-radius:10px;background:rgba(127,127,127,.12)}
+.nbQr{max-width:280px;margin:6px auto 10px}.nbQr svg{width:100%;height:auto;display:block}

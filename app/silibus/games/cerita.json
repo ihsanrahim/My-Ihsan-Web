@@ -1,0 +1,75 @@
+{
+ "v": 1,
+ "nota": "Templat cerita untuk mod Pilih Pengembaraan. {nama} = nama anak (profil), {subjek} = nama subjek, {topik} = nama topik. Nod 'soal' menarik soalan daripada kuiz topik; 'betul' dan 'salah' ialah nod seterusnya. Nod 'pilih' ialah pilihan cerita (tiada betul/salah); setiap pilihan boleh memberi +bintang. Pengakhiran ditentukan oleh bintang terkumpul (min).",
+ "cerita": [
+  {
+   "id": "hutan",
+   "tajuk": "Rahsia Hutan Ilmu",
+   "ikon": "🌳",
+   "watak": {"wira": "🧒", "pemandu": "🦉 Pak Hikmah", "lawan": "🐊 Sang Buaya"},
+   "mula": "n1",
+   "nod": {
+    "n1": {"j": "cerita", "teks": "{nama} terjumpa peta lama di perpustakaan sekolah. Peta itu menunjukkan Hutan Ilmu, tempat Kristal {subjek} disimpan. 🦉 Pak Hikmah muncul: \"Hanya yang rajin belajar boleh sampai ke sana!\"", "seterusnya": "n2"},
+    "n2": {"j": "pilih", "teks": "Di pinggir hutan ada dua jalan.", "pilihan": [{"t": "🌉 Seberangi jambatan buluh", "ke": "n3a", "bintang": 0}, {"t": "🌿 Ikut denai bunga", "ke": "n3b", "bintang": 0}]},
+    "n3a": {"j": "soal", "teks": "Jambatan itu bergoyang! Papan jambatan hanya kukuh jika {nama} menjawab dengan betul.", "betul": "n4", "salah": "n3a2", "bintang": 1},
+    "n3a2": {"j": "cerita", "teks": "Krek! Satu papan patah, tetapi {nama} sempat berpaut pada tali. Pak Hikmah membantu {nama} naik semula.", "seterusnya": "n4"},
+    "n3b": {"j": "soal", "teks": "Seekor rama-rama menghalang denai. \"Jawab soalanku, baru aku beri laluan.\"", "betul": "n4", "salah": "n3b2", "bintang": 1},
+    "n3b2": {"j": "cerita", "teks": "Rama-rama itu terbang berpusing-pusing. {nama} tersesat sebentar sebelum menemui jalan semula.", "seterusnya": "n4"},
+    "n4": {"j": "soal", "teks": "Di tepi sungai, 🐊 Sang Buaya berkata, \"Aku hanya menyeberangkan murid yang bijak!\"", "betul": "n5", "salah": "n4b", "bintang": 1},
+    "n4b": {"j": "pilih", "teks": "Sang Buaya enggan membantu. Apa yang {nama} lakukan?", "pilihan": [{"t": "🪵 Cari batang kayu untuk menyeberang", "ke": "n5", "bintang": 0}, {"t": "🔁 Cuba jawab soalan lain", "ke": "n4", "bintang": 0}]},
+    "n5": {"j": "soal", "teks": "Pintu gua kristal dikunci dengan teka-teki terakhir.", "betul": "n6", "salah": "n6", "bintang": 2},
+    "n6": {"j": "cerita", "teks": "Pintu gua terbuka perlahan-lahan…", "seterusnya": "tamat"}
+   },
+   "tamat": [
+    {"min": 4, "tajuk": "🏆 Penjaga Kristal", "teks": "Kristal {subjek} bersinar terang! Pak Hikmah melantik {nama} sebagai Penjaga Hutan Ilmu."},
+    {"min": 2, "tajuk": "💎 Penjumpa Kristal", "teks": "{nama} membawa pulang serpihan kristal. Ulang kaji lagi untuk mendapatkan kristal yang penuh!"},
+    {"min": 0, "tajuk": "🗺️ Peneroka Muda", "teks": "Gua itu tertutup semula. Jangan risau — baca nota {topik} dan cuba sekali lagi!"}
+   ]
+  },
+  {
+   "id": "angkasa",
+   "tajuk": "Misi Kapal Angkasa Ihsan",
+   "ikon": "🚀",
+   "watak": {"wira": "🧑‍🚀", "pemandu": "🤖 Robo", "lawan": "☄️ Hujan meteor"},
+   "mula": "a1",
+   "nod": {
+    "a1": {"j": "cerita", "teks": "Kapten {nama}! Kapal angkasa Ihsan kehabisan tenaga. 🤖 Robo berkata, \"Setiap jawapan betul mengisi satu sel tenaga.\"", "seterusnya": "a2"},
+    "a2": {"j": "soal", "teks": "Enjin pertama perlu dihidupkan.", "betul": "a3", "salah": "a2b", "bintang": 1},
+    "a2b": {"j": "cerita", "teks": "Enjin terbatuk-batuk tetapi akhirnya hidup juga dengan bantuan Robo.", "seterusnya": "a3"},
+    "a3": {"j": "pilih", "teks": "☄️ Hujan meteor di hadapan! Ke mana kapal patut pergi?", "pilihan": [{"t": "⬆️ Terbang di atas meteor", "ke": "a4a", "bintang": 0}, {"t": "🌑 Berlindung di belakang bulan", "ke": "a4b", "bintang": 0}]},
+    "a4a": {"j": "soal", "teks": "Perisai kapal perlu diaktifkan sekarang!", "betul": "a5", "salah": "a4c", "bintang": 1},
+    "a4b": {"j": "soal", "teks": "Untuk mendarat di bulan, komputer meminta kod.", "betul": "a5", "salah": "a4c", "bintang": 1},
+    "a4c": {"j": "cerita", "teks": "Gegaran! Sedikit kerosakan, tetapi Kapten {nama} tetap tenang.", "seterusnya": "a5"},
+    "a5": {"j": "soal", "teks": "Planet Ilmu sudah kelihatan. Satu soalan lagi untuk mendarat dengan selamat.", "betul": "a6", "salah": "a6", "bintang": 2},
+    "a6": {"j": "cerita", "teks": "Kapal angkasa menurunkan kaki pendaratan…", "seterusnya": "tamat"}
+   },
+   "tamat": [
+    {"min": 4, "tajuk": "🌟 Kapten Cemerlang", "teks": "Pendaratan sempurna! Penduduk Planet Ilmu bersorak untuk Kapten {nama}."},
+    {"min": 2, "tajuk": "🛸 Juruterbang Berani", "teks": "Kapal mendarat dengan sedikit hentakan. Latihan lagi, Kapten {nama}!"},
+    {"min": 0, "tajuk": "🔧 Jurutera Gigih", "teks": "Kapal perlu dibaiki dahulu. Ulang kaji {topik} dan lancarkan misi semula!"}
+   ]
+  },
+  {
+   "id": "kampung",
+   "tajuk": "Pesta Kampung Datuk",
+   "ikon": "🏡",
+   "watak": {"wira": "🧒", "pemandu": "👴 Datuk", "lawan": "🌧️ Ribut"},
+   "mula": "k1",
+   "nod": {
+    "k1": {"j": "cerita", "teks": "Cuti sekolah! {nama} pulang ke kampung. 👴 Datuk meminta bantuan menyiapkan pesta kampung sebelum senja.", "seterusnya": "k2"},
+    "k2": {"j": "pilih", "teks": "Tugas mana yang {nama} pilih dahulu?", "pilihan": [{"t": "🪁 Membuat wau", "ke": "k3a", "bintang": 0}, {"t": "🍲 Membantu di dapur", "ke": "k3b", "bintang": 0}]},
+    "k3a": {"j": "soal", "teks": "Datuk mengajar cara membuat wau. Jawab betul supaya wau terbang tinggi.", "betul": "k4", "salah": "k4", "bintang": 1},
+    "k3b": {"j": "soal", "teks": "Nenek perlukan bantuan menyukat bahan.", "betul": "k4", "salah": "k4", "bintang": 1},
+    "k4": {"j": "soal", "teks": "🌧️ Ribut kecil datang! Khemah perlu diikat dengan betul.", "betul": "k5", "salah": "k4b", "bintang": 1},
+    "k4b": {"j": "cerita", "teks": "Satu khemah terbang, tetapi orang kampung bergotong-royong memasangnya semula.", "seterusnya": "k5"},
+    "k5": {"j": "soal", "teks": "Malam pesta tiba. Datuk mengadakan kuiz untuk semua kanak-kanak!", "betul": "k6", "salah": "k6", "bintang": 2},
+    "k6": {"j": "cerita", "teks": "Lampu pelita dinyalakan satu demi satu…", "seterusnya": "tamat"}
+   },
+   "tamat": [
+    {"min": 4, "tajuk": "🎖️ Wira Kampung", "teks": "Pesta paling meriah! Datuk memberi {nama} pingat Wira Kampung."},
+    {"min": 2, "tajuk": "🤝 Pembantu Setia", "teks": "Pesta berjaya. Datuk bangga dengan usaha {nama}."},
+    {"min": 0, "tajuk": "🌱 Anak Rajin", "teks": "Pesta tetap berlangsung. Tahun depan {nama} pasti lebih hebat — ulang kaji {topik} dahulu!"}
+   ]
+  }
+ ]
+}

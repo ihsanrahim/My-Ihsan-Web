@@ -2,31 +2,42 @@
 <html lang="ms">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=yes">
 <title>My Ihsan</title>
-<meta name="description" content="Papan pemuka web My Ihsan: data anda dari Google Drive anda sendiri. / My Ihsan web dashboard: your data from your own Google Drive.">
+<script>window.IHSAN_WEB=1;</script>
+<meta name="description" content="My Ihsan: solat, Quran, ilmu, keluarga, kewangan dan perniagaan. Data anda kekal dalam pelayar dan Google Drive anda sendiri.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Ihsan">
 <meta name="theme-color" content="#07130d">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg">
-<link rel="stylesheet" href="app.css">
+<script src="config.js"></script><script src="webbridge.js"></script>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ai/airun.css">
+<link rel="stylesheet" href="media/media.css">
+<link rel="stylesheet" href="teman.css">
+<link rel="stylesheet" href="waktu.css">
+<link rel="stylesheet" href="taman.css">
 </head>
 <body>
-<header id="top">
-  <div class="brand"><img src="icon.svg" alt=""><b>My Ihsan</b></div>
-  <input id="q" type="search" placeholder="🔍 Cari / Search">
-  <div id="sync" class="sync"></div>
-  <button id="syncNow" class="btn">⟳ <span data-t="Sync sekarang|Sync now"></span></button>
-  <label class="sw"><input type="checkbox" id="auto"><span data-t="Auto sync|Auto sync"></span></label>
-  <button id="lang" class="chip" title="Bahasa / Language">BM</button>
-  <div id="acct"></div>
-</header>
-<nav id="side"></nav>
-<main id="main"><div class="card center">⏳</div></main>
-<nav id="bottom"></nav>
-<div id="toast"></div>
-<script src="config.js"></script>
-<script src="sync/drivesync.js"></script>
-<script src="dash.js"></script>
-<script async defer src="https://accounts.google.com/gsi/client"></script>
+<div id="app">
+  <header id="top"><div class="hrow"><button id="hMenu" class="g3d" aria-label="Menu">☰</button><div id="topTitle">My Ihsan</div><div id="hBtns"><button id="hDon" class="g3d" aria-label="Derma / Donate">🤲</button><button id="hGift" class="g3d" aria-label="Hadiah / Gifts">🎁</button><button id="hSync" class="g3d" aria-label="Sync / Segerak"><span class="hsIc">⟳</span><i class="hsDot"></i></button><button id="hSet" class="g3d" aria-label="Tetapan / Settings">⚙</button></div></div><div class="hrow"><div id="topSub"></div><div class="hR"><div id="hCur"></div><div id="hLeft"></div></div></div><div class="hbar"><div id="hBar"></div></div></header>
+  <main id="view"></main>
+  <div id="mini" class="hidden"></div>
+  <nav id="nav"></nav>
+</div>
+<div id="overlay" class="hidden"></div>
+<div id="toast" class="hidden"></div>
+<script src="icons.js"></script><script src="i18n.js"></script><script src="lang/id.js"></script><script>/* 0.6.3: Arabic table only when Arabic is chosen */try{var _u=JSON.parse(localStorage.getItem("ihsan_settings")||"{}").ulang;if(_u==="ar"){document.write('<script src="lang/ar.js"><\/script>');document.documentElement.setAttribute("dir","rtl");document.documentElement.setAttribute("lang","ar");}}catch(e){}</script><script src="data.js"></script>
+<script src="doa_more.js"></script><script src="wirid.js"></script>
+<script src="sunat.js"></script><script src="content.js"></script><script src="asma_info.js"></script><script src="rumi.js"></script>
+<script src="play.js"></script><script src="sport/sport_list.js"></script><script src="ai/airun.js"></script><script src="sync/drivesync.js"></script>
+<script src="app.js"></script>
+<script src="media/media_data.js"></script><script src="media/media.js"></script>
+<script>if("serviceWorker" in navigator && location.protocol==="https:") navigator.serviceWorker.register("sw.js").catch(function(){});</script>
 </body>
 </html>

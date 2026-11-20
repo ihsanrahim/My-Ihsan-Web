@@ -1,0 +1,7 @@
+/* Silibus engine fonts, bundled for offline use (SIL Open Font License 1.1, via @fontsource) */
+@font-face{font-family:'Titan One';src:url(titan-one-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Fraunces';src:url(../../fonts/fraunces-latin-700-normal.woff2) format('woff2');font-weight:500 900;font-display:swap}
+@font-face{font-family:'Lexend';src:url(lexend-latin-400-normal.woff2) format('woff2');font-weight:300 400;font-display:swap}
+@font-face{font-family:'Lexend';src:url(lexend-latin-700-normal.woff2) format('woff2');font-weight:600 900;font-display:swap}
+/* Noto Naskh Arabic is a system font on Android; on other devices the app's Amiri is used */
+@font-face{font-family:'Noto Naskh Arabic';src:local('Noto Naskh Arabic'),local('NotoNaskhArabic-Regular'),url(../../fonts/amiri-arabic-400-normal.woff2) format('woff2');font-display:swap}

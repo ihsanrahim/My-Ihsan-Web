@@ -1,0 +1,23 @@
+/* 0.4.3 Tetapan › Skrin utama telefon (launcher settings), Nova-style sections */
+.hspage{position:fixed;inset:0;z-index:45;background:var(--bg,#0b1611);color:var(--fg,#fff);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.hshead{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--bg,#0b1611);border-bottom:1px solid var(--line,#ffffff22);font-size:17px}
+.hsbody{padding:10px 12px}
+.hstop{border:1px solid var(--gold,#c9a646)}
+.hssec{padding:0;overflow:hidden}
+.hshd{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;color:inherit;text-align:left;padding:14px 14px}
+.hsic{font-size:22px;width:30px;text-align:center}
+.hst{flex:1;min-width:0;display:flex;flex-direction:column}
+.hst small{opacity:.65;font-size:12px;margin-top:2px}
+.hsbd{padding:0 14px 12px}
+.hsrow{padding:9px 0;border-top:1px solid var(--line,#ffffff14)}
+.hsb{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hsb input[type=checkbox]{width:20px;height:20px;accent-color:var(--gold,#c9a646);flex:none}
+.hsb input[type=color]{width:44px;height:30px;border:0;background:none;padding:0}
+.hsl{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px}
+.hsl b{font-variant-numeric:tabular-nums;color:var(--gold,#c9a646)}
+.hsrow input[type=range]{width:100%;accent-color:var(--gold,#c9a646);margin-top:6px}
+.hsseg{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.hsnote{padding:8px 0;line-height:1.45}
+.hsfc label{display:flex;align-items:center;gap:8px;flex:1}
+.hsfc input{width:18px;height:18px;accent-color:var(--gold,#c9a646)}
+.hsfc .chip{padding:2px 8px}

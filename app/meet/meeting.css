@@ -1,0 +1,53 @@
+/* 0.6.44 Masa › Mesyuarat (meet/meeting.js) */
+.mtHero{display:flex;flex-direction:column;gap:10px;background:linear-gradient(135deg,var(--card2),var(--card) 65%);border:1px solid rgba(201,166,70,.35)}
+.mtHero h3{margin:0 0 2px}
+.mtRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;color:var(--fg);cursor:pointer}
+.mtIc{font-size:26px;flex:none}.mtTx{flex:1;min-width:0}.mtTx b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mtTx small{color:var(--mut);font-size:12px}
+.mtTips h3{margin-top:0}.mtTip{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line)}.mtTip:last-child{border-bottom:0}.mtTip>span{font-size:22px}.mtTip b{display:block;font-size:14px}.mtTip small{font-size:12.5px;color:var(--mut)}
+.mtQh{font-size:13px;font-weight:600;margin:12px 0 6px}
+.mtTpl{display:flex;flex-wrap:wrap;gap:6px}
+.mtModes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.mtMode{background:var(--card2);border:1.5px solid var(--line);border-radius:12px;padding:9px 5px;color:var(--fg);display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.mtMode span{font-size:24px}.mtMode b{font-size:12.5px}.mtMode small{font-size:10.5px;color:var(--mut);line-height:1.2}.mtMode.on{border-color:var(--gold);background:rgba(201,166,70,.12)}
+.mtLive{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));gap:10px}
+.mtLh{display:flex;align-items:center;gap:10px}.mtLh b{font-size:30px;font-variant-numeric:tabular-nums}.mtLh small{color:var(--mut);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtDot{width:14px;height:14px;border-radius:50%;background:var(--red);animation:mtBlink 1.2s infinite}.mtLive.paused .mtDot{animation:none;background:var(--mut)}
+@keyframes mtBlink{50%{opacity:.3}}
+.mtMeter{background:var(--card);border-radius:14px;padding:8px}.mtMeter canvas{width:100%;height:64px;display:block}
+.mtHint{text-align:center}
+.mtLines{flex:1;min-height:120px;overflow:auto;background:var(--card);border-radius:14px;padding:10px;font-size:15px;line-height:1.5}
+.mtLn{margin-bottom:6px}.mtLn i{font-style:normal;font-size:11px;color:var(--gold);margin-right:4px;font-variant-numeric:tabular-nums}
+.mtPart{min-height:20px;color:var(--mut);font-size:14px;font-style:italic}
+.mtMarks{min-height:22px}
+.mtNoteIn{margin-top:auto}
+.mtLb{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mtBig{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:12px 0;font-size:26px;color:var(--fg);display:flex;flex-direction:column;align-items:center}
+.mtBig small{font-size:12px;margin-top:2px}.mtBig.stop{background:rgba(224,96,90,.18);border-color:var(--red)}
+.mtTop{display:flex;align-items:center;gap:8px;margin:4px 2px 2px}.mtTop b{flex:1;min-width:0;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mtMeta{padding:0 4px 8px}
+.mtTabs{margin:0 2px 8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.mtTabs .chip{flex:none}
+.mtWarn{border:1px dashed var(--gold)}
+.mtAct{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--line)}.mtAct:last-child{border-bottom:0}
+.mtAct input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}.mtAct div{flex:1;min-width:0}.mtAct span{font-size:14px}.mtAct small{display:block;font-size:12px;color:var(--mut)}.mtAct.ok span{text-decoration:line-through;opacity:.6}
+.mtLi{font-size:14px;margin:5px 0}.mtLi b{color:var(--gold);font-variant-numeric:tabular-nums}
+.mtSec{margin-bottom:4px}
+.mtAI{background:var(--card2);border-radius:12px;padding:10px;font-size:14px;line-height:1.55;margin-top:6px}
+.mtTxt{font-size:14px;line-height:1.5;font-family:inherit}
+.mtMk{display:flex;align-items:center;gap:6px;margin:6px 0}.mtMk .rin{flex:1;min-width:0}.mtMk .chip{flex:none}
+.mtSegs{display:flex;flex-wrap:wrap;gap:5px}
+.mtHb{display:flex;gap:8px}.mtHb .btn{flex:1}
+.mtSpk{overflow:auto}.mtSpk .mtLh b{font-size:22px}.mtDot.off{animation:none;background:var(--mut)}
+.mtHowl{min-height:18px;color:#f0a24a;font-size:13px;font-weight:600}
+.mtSpkGo{margin-top:10px;padding:16px;font-size:18px}
+.gwSl{display:flex;align-items:center;gap:8px;margin:10px 0}.gwSl span{width:30%;font-size:13px}.gwSl input{flex:1;accent-color:var(--gold)}.gwSl b{width:42px;text-align:right}
+.mtCast{margin-top:10px;text-align:center}.mtQr{background:#fff;border-radius:12px;padding:10px;width:200px;margin:6px auto}.mtQr svg{width:100%;height:auto;display:block}
+.mtUrl{font-family:monospace;font-size:13px;word-break:break-all;margin:6px 0}
+.mtPg{padding-bottom:50px}
+.mtDock .grp3 .chip{justify-content:center}
+
+.mtNoBt{opacity:.7;border-style:dashed}
+.mtTips summary{cursor:pointer;list-style:none;padding:2px 0}.mtTips summary::-webkit-details-marker{display:none}.mtTips summary::after{content:" ▾";color:var(--mut)}.mtTips[open] summary::after{content:" ▴"}.mtTips[open] summary{margin-bottom:6px}
+.mtBtRow{display:flex;gap:6px;align-items:stretch;width:100%}.mtBtRow .chip{flex:1;min-width:0;margin:0}.mtFind{flex:none;padding:8px 14px;font-size:14px;margin:0;white-space:nowrap}
+/* 0.6.56: no phone mic in Speaker: a hint until another mic is connected */
+.mtNoMic{margin:10px 0 0;padding:9px 11px;border-radius:12px;border:1px dashed var(--line);font-size:13px;opacity:.9}
+.mtSpkGo.dis{opacity:.5;filter:grayscale(.6)}

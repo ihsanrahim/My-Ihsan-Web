@@ -1,0 +1,45 @@
+/* My Ihsan: Sports (Move › Sports) */
+.sphero{cursor:pointer}
+.sphero .sphb{display:flex;align-items:center;gap:12px;margin-top:4px}
+.sphero .spic{font-size:40px;line-height:1}
+.spgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:8px 0}
+.spc{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 8px;border-radius:16px;border:1px solid var(--line,rgba(255,255,255,.12));background:var(--card,rgba(255,255,255,.04));color:inherit;font:inherit;text-align:center;min-height:104px;position:relative}
+.spc .spic{font-size:30px;line-height:1.1}
+.spc b{font-size:12.5px;line-height:1.15}
+.spc.off{opacity:.45}
+.spbd{font-style:normal;font-size:10px;padding:1px 6px;border-radius:9px;background:rgba(203,250,30,.18);color:var(--gold,#CBFA1E)}
+.sppr{display:block;width:70%;height:4px;border-radius:3px;background:rgba(127,127,127,.25);overflow:hidden;margin-top:2px}
+.sppr i{display:block;height:100%;background:var(--gold,#CBFA1E)}
+.sphead{display:flex;align-items:center;gap:10px;margin:2px 2px 8px}
+.sphead b{font-size:17px}
+.spbox{position:relative;width:100%;height:58vw;max-height:440px;min-height:150px;transition:height .2s ease;border-radius:18px;overflow:hidden;background:#0b2a22;touch-action:none}
+.spbox canvas.spcv{display:block;width:100%;height:100%}
+.sphud{position:absolute;left:0;right:0;top:0;padding:8px 10px;pointer-events:none;color:#fff;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.6);font-size:14px;z-index:2}
+.sphud .sphb2{pointer-events:auto;margin:14% auto 0;max-width:260px;background:rgba(1,42,32,.9);border-radius:16px;padding:14px;text-align:center;text-shadow:none}
+.sphud .sphb2 b{display:block;font-size:17px;margin-bottom:6px}
+.sphud .spmeter{height:10px;border-radius:6px;background:rgba(255,255,255,.25);overflow:hidden;margin-top:6px;max-width:220px}
+.sphud .spmeter i{display:block;height:100%;background:#CBFA1E}
+.sptabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:8px 0}
+.sptabs .chip{margin:0;justify-content:center;padding:7px 2px;font-size:12.5px}
+.spcard h3{margin:2px 0 6px}
+.spcard p{margin:0 0 8px;line-height:1.45}
+.spcn{font-size:11px;opacity:.65;font-weight:700;letter-spacing:.5px}
+.spnav{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.spdots{display:flex;gap:4px;flex-wrap:wrap;justify-content:center}
+.spdots i{display:block;width:7px;height:7px;border-radius:50%;background:rgba(127,127,127,.35)}
+.spdots i.seen{background:rgba(203,250,30,.45)}
+.spdots i.on{background:var(--gold,#CBFA1E);transform:scale(1.3)}
+.spzc{margin-top:8px}
+.sptab{width:100%;border-collapse:collapse;font-size:13px}
+.sptab td{padding:5px 2px;border-bottom:1px solid rgba(127,127,127,.18);vertical-align:top}
+.spq .spqa{display:block;width:100%;text-align:left;margin:6px 0;padding:11px 12px;border-radius:12px;border:1px solid rgba(127,127,127,.3);background:transparent;color:inherit;font:inherit}
+.spq .spqa.ok{border-color:#3fb97a;background:rgba(63,185,122,.18)}
+.spq .spqa.no{border-color:#e05a5a;background:rgba(224,90,90,.15)}
+.spbest{margin:6px 0 10px;font-size:13px}
+
+/* 0.5.36: the window height is set to the free space (no max) on Rules, Play and Quiz */
+.spbox[style*="height"]{max-height:none}
+.spzc{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}.spzc .chip{flex:none}
+
+/* 0.5.37 reset view button over the 3D window */
+.spReset{position:absolute;right:8px;bottom:8px;z-index:3;width:38px;height:38px;border-radius:50%;border:0;background:rgba(1,42,32,.82);color:#CBFA1E;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4)}

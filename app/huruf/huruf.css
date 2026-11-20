@@ -1,0 +1,51 @@
+/* Gerak Huruf (Letter Moves): game box on top, compact controls below. Uses the app's colour tokens. */
+.hf{display:flex;flex-direction:column;gap:8px}
+.hfBox{position:relative;width:100%;height:clamp(230px,calc(100vh - 515px),560px);height:clamp(230px,calc(100dvh - 515px),560px);border-radius:var(--r-card,14px);overflow:hidden;background:#0d241a;border:1px solid var(--line)}
+.hfGL{position:absolute;inset:0;width:100%!important;height:100%!important;display:block}
+.hfSt{position:absolute;left:8px;bottom:8px;max-width:calc(100% - 64px);padding:5px 10px;border-radius:14px;background:rgba(5,20,14,.66);color:#fff;font-size:12.5px;line-height:1.3;pointer-events:none}
+.hfSc{position:absolute;right:8px;top:8px;padding:5px 10px;border-radius:14px;background:rgba(5,20,14,.66);color:#ffd34d;font-weight:800;font-size:14px;pointer-events:none}
+.hfSkip{position:absolute;right:8px;bottom:8px;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(5,20,14,.6);color:#fff;font-size:16px}
+.hfMsg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(5,20,14,.78)}
+.hfMsgC{text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center;max-width:340px}
+.hfMsgI{font-size:34px}
+.hfCtl{display:flex;flex-direction:column;gap:6px}
+.hfRow{display:flex;gap:6px;align-items:stretch}
+.hfTop .btn{padding:9px 12px}
+.hfGo{flex:1.1}.hfPause,.hfStop{flex:1}
+.hfTop .btn[disabled]{opacity:.45}
+.hfNum{flex:.8;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--card2);border:1px solid var(--line);border-radius:10px;line-height:1.1;min-width:58px}
+.hfNum b{font-size:18px;color:var(--gold)}.hfNum span{font-size:11px;color:var(--mut)}
+.hfG2>*{flex:1;min-width:0}
+.hfDd{display:flex;align-items:center;gap:7px;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--fg);padding:6px 8px;min-height:44px}
+.hfDdI{font-size:17px;width:22px;text-align:center;flex:none;font-family:"ScheherazadeL",system-ui,sans-serif}
+.hfDdT{flex:1;min-width:0;display:flex;flex-direction:column}
+.hfDdT b{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hfDdT small{font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hfDdA{flex:none;width:32px;height:32px;border-radius:8px;background:var(--line);display:flex;align-items:center;justify-content:center;font-size:24px;line-height:1;color:var(--gold)}
+.hfG3{align-items:center}
+.hfTg{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--fg);padding:6px 8px;font-size:12.5px;white-space:nowrap;min-height:44px}
+.hfSw{position:relative;flex:none;width:30px;height:17px;border-radius:9px;background:#3a4d43;transition:background .15s}
+.hfSw:after{content:"";position:absolute;left:2px;top:2px;width:13px;height:13px;border-radius:50%;background:#cfd8d2;transition:left .15s}
+.hfTg.on .hfSw{background:var(--green)}.hfTg.on .hfSw:after{left:15px;background:#fff}
+.hfTol{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:4px 8px 3px}
+.hfTolH{font-size:11.5px;color:var(--mut)}.hfTolH b{color:var(--fg)}
+.hfTol input{width:100%;margin:2px 0 0;accent-color:var(--gold)}
+.hfTolL{display:flex;justify-content:space-between;font-size:10px;color:var(--mut)}.hfTolL i{font-style:normal}
+.hfFoot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.hfNote{flex:1;font-size:11.5px;color:var(--mut);min-width:180px}
+.hfLnk{background:none;border:0;color:var(--mut);font-size:12px;text-decoration:underline;padding:6px 0}
+.hfOpts{display:flex;flex-direction:column;gap:6px}
+.hfOpt{display:flex;align-items:center;gap:10px;text-align:left;background:var(--card2);border:1px solid var(--line);border-radius:12px;color:var(--fg);padding:10px 12px}
+.hfOpt.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+.hfOptI{font-size:22px;width:28px;text-align:center;font-family:"ScheherazadeL",system-ui,sans-serif}
+.hfOptT{flex:1;display:flex;flex-direction:column}.hfOptT small{color:var(--mut);font-size:12px}
+.hfOptC{color:var(--gold);font-weight:800;width:16px}
+.hfOptX{margin-top:10px}.hfOptX .hfTg{width:100%;justify-content:space-between}
+.hfPar p{margin:0 0 9px;line-height:1.5}
+.hfBar{height:8px;border-radius:5px;background:var(--line);overflow:hidden;margin:6px 0}.hfBar i{display:block;height:100%;width:0;background:var(--gold);transition:width .2s}
+@media (max-width:360px){.hfG3{flex-wrap:wrap}.hfTol{flex-basis:100%}}
+/* 0.5.40: settings in a card that slides down out of the way while playing; only the Start / Pause / Stop row stays */
+.hfSet{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-card,14px);padding:8px;overflow:hidden;max-height:420px;transition:transform .32s ease,opacity .32s ease,max-height .32s ease,padding .32s ease,margin .32s ease}
+.hfSet.hide{transform:translateY(110%);opacity:0;max-height:0;padding-top:0;padding-bottom:0;border-width:0;pointer-events:none}
+.hfBox{transition:height .32s ease}
+.hf.run .hfBox{height:clamp(230px,calc(100vh - 345px),760px);height:clamp(230px,calc(100dvh - 345px),760px)}

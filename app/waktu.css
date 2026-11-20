@@ -1,0 +1,72 @@
+/* My Ihsan 0.5.46 · Waktu theme ("waktu" light, "waktunight" dark). The day is the interface: in the light theme the palette follows
+   the current prayer (html[data-wk=subuh|zohor|asar|maghrib|isyak], set by app.js), the dark theme is the Isyak night sky.
+   Calm paper, hairline rules instead of heavy boxes, pill buttons, one accent per state; Fraunces display + Plus Jakarta Sans.
+   Colour changes glide (600 ms) when the prayer time changes. Scoped to html[data-th^=waktu]; other themes are untouched. */
+@font-face{font-family:"FrauncesW";src:url(fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"FrauncesW";src:url(fonts/fraunces-latin-600-normal.woff2) format("woff2");font-weight:500 900;font-display:swap}
+@font-face{font-family:"JakartaW";src:url(fonts/plus-jakarta-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"JakartaW";src:url(fonts/plus-jakarta-sans-latin-600-normal.woff2) format("woff2");font-weight:500 600;font-display:swap}
+@font-face{font-family:"JakartaW";src:url(fonts/plus-jakarta-sans-latin-700-normal.woff2) format("woff2");font-weight:700 900;font-display:swap}
+
+/* ---- tokens: light follows the prayer (Zohor is the default before the first tick) ---- */
+html[data-th=waktu]{--bg:#F5F4EE;--card:#FCFBF7;--card2:#EAE8DE;--line:#D8D5C8;--fg:#1E2420;--mut:#5E665F;--green:#0F7B5F;--deep:#0F7B5F;--gold:#0F7B5F;--well:#ECEAE1;--nav:#F5F4EE;--hdr:#F5F4EE;--red:#B23A3A;--blue:#3A5BC7;--wk-sky:#BFE3F2;color-scheme:light}
+html[data-th=waktu][data-wk=subuh]{--bg:#E9ECF5;--card:#F5F6FB;--card2:#DDE2EF;--line:#C9D0E3;--fg:#1B2238;--mut:#5A6382;--green:#4C5FD5;--deep:#4C5FD5;--gold:#4C5FD5;--well:#E0E4F0;--nav:#E9ECF5;--hdr:#E9ECF5;--wk-sky:#AEB8E8}
+html[data-th=waktu][data-wk=asar]{--bg:#F6EEDF;--card:#FBF6EC;--card2:#EDE2CC;--line:#DCCDB0;--fg:#2A2218;--mut:#6E604D;--green:#985A0C;--deep:#985A0C;--gold:#985A0C;--well:#EFE5D1;--nav:#F6EEDF;--hdr:#F6EEDF;--wk-sky:#F2C989}
+html[data-th=waktu][data-wk=maghrib]{--bg:#F3E6E3;--card:#FAF2F0;--card2:#EAD8D4;--line:#DCC3BE;--fg:#2B1D1F;--mut:#6D5458;--green:#A13F4E;--deep:#A13F4E;--gold:#A13F4E;--well:#EDDDD9;--nav:#F3E6E3;--hdr:#F3E6E3;--wk-sky:#E9A3A1}
+html[data-th=waktu][data-wk=isyak]{--bg:#ECEBF5;--card:#F7F6FC;--card2:#DFDDEE;--line:#CBC8E0;--fg:#1B1F38;--mut:#5B5F80;--green:#5B4FC9;--deep:#5B4FC9;--gold:#5B4FC9;--well:#E3E1F0;--nav:#ECEBF5;--hdr:#ECEBF5;--wk-sky:#B9B3E6}
+html[data-th=waktunight]{--bg:#0E1424;--card:#151C30;--card2:#1C2440;--line:#2A3456;--fg:#E8ECF6;--mut:#9AA6C4;--green:#8FA6FF;--deep:#2A3A78;--gold:#8FA6FF;--well:#0A0F1C;--nav:#0E1424;--hdr:#0E1424;--red:#FF8A80;--blue:#8FA6FF;--wk-sky:#1B2546;color-scheme:dark}
+
+/* the sky glides when the prayer changes */
+html[data-th^=waktu] body,html[data-th^=waktu] header,html[data-th^=waktu] .card,html[data-th^=waktu] nav#nav,html[data-th^=waktu] #subnav{transition:background-color .6s cubic-bezier(.22,1,.36,1),color .6s cubic-bezier(.22,1,.36,1),border-color .6s cubic-bezier(.22,1,.36,1)}
+
+/* ---- type ---- */
+html[data-th^=waktu] body{font-family:"JakartaW","Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+html[data-th^=waktu] h1,html[data-th^=waktu] h2,html[data-th^=waktu] h3,html[data-th^=waktu] #topTitle{font-family:"FrauncesW","Fraunces",Georgia,serif;font-weight:500;letter-spacing:-.015em}
+html[data-th^=waktu] #topTitle{color:var(--fg);font-size:22px}
+html[data-th^=waktu] header{background:linear-gradient(180deg,var(--wk-sky),var(--hdr) 92%)}
+html[data-th^=waktu] #hBar{background:var(--gold)}
+
+/* ---- no gloss, no 3D ---- */
+html[data-th^=waktu] .g3d,html[data-th^=waktu] .btn.btn,html[data-th^=waktu] .btn.gold.gold,html[data-th^=waktu] .btn.alt.alt,html[data-th^=waktu] .chip.chip,html[data-th^=waktu] .chip.on.on,
+html[data-th^=waktu] nav#nav button,html[data-th^=waktu] #subnav button,html[data-th^=waktu] #subnav button.on,html[data-th^=waktu] .qt.qt,html[data-th^=waktu] .lchip.lchip,
+html[data-th^=waktu] #hBtns button,html[data-th^=waktu] .amdock .lv3 button,html[data-th^=waktu] .amdock .lv2 button{background-image:none;box-shadow:none}
+
+/* ---- buttons: pills; the primary one is the accent ---- */
+html[data-th^=waktu] .btn.btn{background-color:var(--gold);color:#fff;border:0;border-radius:999px;font-weight:600}
+html[data-th=waktunight] .btn.btn{color:#0E1424}
+html[data-th^=waktu] .btn.alt.alt{background-color:transparent;color:var(--fg);border:1px solid var(--line)}
+html[data-th^=waktu] .btn.gold.gold{background-color:var(--fg);color:var(--bg);border:0}
+html[data-th^=waktu] .btn:active,html[data-th^=waktu] .chip:active,html[data-th^=waktu] .g3d:active,html[data-th^=waktu] #hBtns button:active{transform:none;opacity:.72;box-shadow:none}
+
+/* ---- chips: hairline pills; the selected one is ink ---- */
+html[data-th^=waktu] .chip.chip{background-color:transparent;border:1px solid var(--line);color:var(--fg)}
+html[data-th^=waktu] .chip.on.on{background-color:var(--fg);border-color:var(--fg);color:var(--bg);font-weight:600}
+
+/* ---- cards become paper with a hairline ---- */
+html[data-th^=waktu] .card,html[data-th^=waktu] .mSec{background:var(--card);border:1px solid var(--line);border-radius:14px}
+html[data-th^=waktu] .wg,html[data-th^=waktu] .wgc{border-radius:14px}
+html[data-th^=waktu] .qa{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+
+/* ---- header buttons ---- */
+html[data-th^=waktu] #hBtns button{background-color:transparent;border:1px solid var(--line);color:var(--fg)}
+
+/* ---- tabs: text with an accent underline, no filled blocks ---- */
+html[data-th^=waktu] nav#nav{background:var(--nav);border-top:1px solid var(--line)}
+html[data-th^=waktu] nav#nav button{background-color:transparent;border:0;color:var(--mut);position:relative}
+html[data-th^=waktu] nav#nav button.on{background-color:transparent;color:var(--fg);font-weight:700}
+html[data-th^=waktu] nav#nav button.on:after{content:"";position:absolute;left:30%;right:30%;bottom:1px;height:2.5px;border-radius:2px;background:var(--gold)}
+html[data-th^=waktu] #subnav{background:var(--bg);border-top:1px solid var(--line)}
+html[data-th^=waktu] #subnav button{background-color:transparent;border:0;color:var(--mut);position:relative}
+html[data-th^=waktu] #subnav button.on{background-color:transparent;color:var(--fg);font-weight:700}
+html[data-th^=waktu] #subnav button.on:after{content:"";position:absolute;left:28%;right:28%;bottom:0;height:2px;border-radius:2px;background:var(--gold)}
+html[data-th^=waktu] #subnav button.cur:not(.on){color:var(--gold)}
+html[data-th^=waktu] .dock{background:var(--bg);border-top:1px solid var(--line);box-shadow:none}
+html[data-th^=waktu] #notch button{background:var(--bg);border-color:var(--line);color:var(--fg)}
+html[data-th^=waktu] #notch #ntT{color:var(--gold)}
+
+/* ---- small parts ---- */
+html[data-th^=waktu] input[type=range]{accent-color:var(--gold)}
+html[data-th^=waktu] .bar,html[data-th^=waktu] .hbar,html[data-th^=waktu] .fbar,html[data-th^=waktu] .ubar1{border-radius:999px}
+html[data-th=waktu] .warnbox{background:var(--card2);color:var(--fg);border-color:var(--line)}
+html[data-th^=waktu] .ths.on{outline:2px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html[data-th^=waktu] *{transition:none!important;animation:none!important}}

@@ -1,0 +1,129 @@
+/* My Ihsan 0.6.18 · Baca › Karya (AI writing studio) */
+.kyRoot{position:relative}
+/* AI settings shortcut: sticky pill, hides while scrolling down */
+.kyAi{position:sticky;top:6px;z-index:6;margin:0 0 6px auto;display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid rgba(201,162,74,.55);
+  background:rgba(20,32,28,.82);color:#f3d98a;font:600 12.5px/1 var(--uiFont,system-ui);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 4px 14px rgba(0,0,0,.25);
+  transition:transform .28s ease,opacity .28s ease;width:max-content}
+.kyAi span{opacity:.85}
+.kyAi.hid{transform:translateY(-60px);opacity:0;pointer-events:none}
+/* classic art frame around the form */
+.kyFrame{position:relative;margin:4px 2px 14px;padding:26px 18px 18px;border-radius:6px;color:#3d2a14;
+  background:radial-gradient(ellipse at 50% 0%,#fbf4e2 0%,#f1e3c0 70%,#e7d3a5 100%);
+  border:2px solid #9a6b2c;box-shadow:inset 0 0 0 6px #f7ecd2,inset 0 0 0 8px #b8873b,inset 0 0 40px rgba(120,80,30,.22),0 8px 22px rgba(0,0,0,.22)}
+.kyC{position:absolute;width:44px;height:44px;pointer-events:none;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' fill='none' stroke='%239a6b2c' stroke-width='1.6'%3E%3Cpath d='M3 41V14C3 7 7 3 14 3h27'/%3E%3Cpath d='M9 41V18c0-6 3-9 9-9h23'/%3E%3Cpath d='M15 22c0-5 3-7 7-7 3 0 5 2 5 5s-2 4-4 4-3-1-3-3'/%3E%3Ccircle cx='9' cy='9' r='2.5' fill='%239a6b2c'/%3E%3C/svg%3E")}
+.kyC.tl{top:6px;left:6px}.kyC.tr{top:6px;right:6px;transform:scaleX(-1)}.kyC.bl{bottom:6px;left:6px;transform:scaleY(-1)}.kyC.br{bottom:6px;right:6px;transform:scale(-1,-1)}
+.kyHead{text-align:center;margin-bottom:6px}
+.kyHead h3{margin:2px 0 2px;font:italic 30px/1.1 FellLi,"IM Fell English",Georgia,serif;color:#5a3510;letter-spacing:.3px}
+.kySub{font:15px/1.35 FellL,Georgia,serif;color:#6b4a24}
+.kyOrn{font:22px/1 FellL,Georgia,serif;color:#9a6b2c;text-align:center}
+.kyBot{margin-top:12px;letter-spacing:8px}
+.kyLbl{display:block;margin:14px 2px 6px;font:600 12px/1 var(--uiFont,system-ui);letter-spacing:.8px;text-transform:uppercase;color:#7a5326}
+.kyNow{text-transform:none;letter-spacing:0;font-weight:700;color:#5a3510}
+.kyTopic{position:relative}
+.kyTopic textarea,.kyDedR input{width:100%;box-sizing:border-box;border:1px solid #c9a46a;border-radius:10px;padding:10px 46px 10px 12px;background:rgba(255,252,243,.85);
+  color:#3d2a14;font:16px/1.4 FellL,Georgia,serif;resize:vertical;outline:none}
+.kyTopic textarea:focus,.kyDedR input:focus{border-color:#8a5a22;box-shadow:0 0 0 3px rgba(184,135,59,.25)}
+.kyDice{position:absolute;right:6px;top:6px;width:36px;height:36px;border-radius:9px;border:1px solid #c9a46a;background:#fff7e3;font-size:18px}
+.kyRow{display:flex;flex-wrap:wrap;gap:6px}
+.kyChip{border:1px solid #c9a46a;background:rgba(255,250,238,.9);color:#5a3510;border-radius:999px;padding:7px 12px;font:600 13px/1.1 var(--uiFont,system-ui)}
+.kyChip b{font-weight:800;margin-right:2px}.kyChip small{opacity:.6;font-weight:500}
+.kyChip.on{background:linear-gradient(180deg,#b8873b,#8a5a22);color:#fff9ea;border-color:#7a4d1a;box-shadow:0 2px 6px rgba(122,77,26,.35)}
+.kyChip:disabled{opacity:.5}
+.kyGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+@media (max-width:380px){.kyGrid{grid-template-columns:repeat(3,1fr)}}
+.kyType{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;border-radius:10px;border:1px solid #d6b88a;background:rgba(255,250,238,.85);color:#4a2f12;font:600 11.5px/1.15 var(--uiFont,system-ui);text-align:center}
+.kyType span{font-size:20px}
+.kyType.on{background:linear-gradient(180deg,#fff2cf,#f0d58f);border-color:#8a5a22;box-shadow:inset 0 0 0 1.5px #8a5a22}
+.kyDed{margin-top:12px;color:#6b4a24;font:14px FellL,Georgia,serif}
+.kyDed summary{cursor:pointer;font-weight:700}
+.kyDedR{display:flex;gap:8px;margin-top:8px}.kyDedR input{padding:9px 10px}
+.kyGo{display:block;width:100%;margin-top:16px;padding:14px;border-radius:12px;border:1px solid #6b4310;color:#fff8e4;font:700 17px/1 var(--uiFont,system-ui);letter-spacing:.3px;
+  background:linear-gradient(180deg,#c99a45,#8a5a22);box-shadow:0 4px 0 #6b4310,0 8px 16px rgba(107,67,16,.3)}
+.kyGo:active{transform:translateY(2px);box-shadow:0 2px 0 #6b4310}
+.kyGo:disabled{opacity:.8}
+.kyQuill{display:inline-block;animation:kyQ 1s ease-in-out infinite}
+@keyframes kyQ{0%,100%{transform:rotate(-10deg) translateX(-2px)}50%{transform:rotate(12deg) translateX(3px)}}
+.kyErr{margin-top:10px;padding:10px;border-radius:10px;background:#fbe3dc;color:#7a2414;font:14px/1.35 var(--uiFont,system-ui)}
+/* result */
+.kyOut{margin:6px 0 14px;scroll-margin-top:60px}
+.kyTabs{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
+.kyMeta{margin-left:auto;font:600 12px var(--uiFont,system-ui);opacity:.75}
+.kyPaper{position:relative;border-radius:6px;padding:34px 22px 26px;min-height:200px;box-shadow:0 10px 26px rgba(0,0,0,.22);overflow:hidden}
+.kyPaper.busy{opacity:.55}
+.kyPaper h2{margin:0 0 4px;text-align:center;font-size:27px;line-height:1.2}
+.kyDiv{text-align:center;font:22px FellL,serif;margin-bottom:12px}
+.kyText p{margin:0 0 14px;text-align:center;font-size:18px;line-height:1.65}
+.kyText.prose p{text-align:justify;text-indent:1.4em}
+.kyText[dir=rtl] p{font-family:AmiriL,"Amiri",serif;font-size:21px;line-height:1.9}
+.kyText.prose[dir=rtl] p{text-align:right}
+.kySec{display:block;font-style:italic;font-size:.82em;opacity:.75;letter-spacing:.5px}
+.kyDedT{margin-top:10px;text-align:center;font:italic 16px FellLi,Georgia,serif;opacity:.85}
+.kyPaper[dir=rtl] h2{font-family:AmiriL,serif}
+/* page styles (screen version of the export) */
+.ky-klasik{background:radial-gradient(ellipse at center,#f8efd8 40%,#e4cf9e 100%);color:#3d2a14;border:5px double #8a5a22}
+.ky-klasik h2{font-family:FellLi,Georgia,serif;font-style:italic;color:#5a3510}.ky-klasik .kyText p{font-family:FellL,Georgia,serif}.ky-klasik .kyDiv{color:#8a5a22}
+.ky-qurani{background:#fbf7ea;color:#1c3a2c;border:14px solid #0f3d2e;outline:2px solid #b8902f;outline-offset:-20px}
+.ky-qurani h2{font-family:AmiriL,Georgia,serif;color:#0f5137}.ky-qurani .kyText p{font-family:MarcellusT,Georgia,serif}.ky-qurani .kyDiv{color:#b8902f}
+.ky-kursif{background:linear-gradient(180deg,#fffdf6,#f8efdc);color:#3a2f22;border:2px solid #c9a24a}
+.ky-kursif h2{font:40px/1.1 PinyonL,cursive;color:#a6781e}.ky-kursif .kyText p{font-family:PinyonL,cursive;font-size:25px;line-height:1.55}.ky-kursif .kyDiv{color:#c9a24a}
+.ky-kursif .kyText[dir=rtl] p{font-family:AmiriL,serif;font-size:21px}
+.ky-moden{background:#fff;color:#22262c;border-left:8px solid #2f7d6b}
+.ky-moden h2{font-family:FrauncesW,Georgia,serif;font-weight:600;color:#111418}.ky-moden .kyText p{font-family:FigtreeT,system-ui,sans-serif}.ky-moden .kyDiv{color:#2f7d6b}
+.ky-malam{background:radial-gradient(ellipse at 80% 0%,#2a3f74 0%,#0b1736 70%);color:#eef1fb;border:1px solid rgba(242,207,107,.5)}
+.ky-malam h2{font-family:MarcellusT,Georgia,serif;color:#f2cf6b}.ky-malam .kyText p{font-family:MarcellusT,Georgia,serif}.ky-malam .kyDiv{color:#f2cf6b}
+.ky-malam::before{content:"☾";position:absolute;right:16px;top:8px;font-size:34px;color:#f2cf6b;opacity:.8}
+.ky-songket{background:#fff8ec;color:#3b1a14;border:14px solid #6b1020;outline:2px dashed #c9a24a;outline-offset:-22px}
+.ky-songket h2{font-family:FrauncesW,Georgia,serif;font-weight:600;color:#7a1426}.ky-songket .kyText p{font-family:FellL,Georgia,serif}.ky-songket .kyDiv{color:#c9a24a}
+.kyWrite{padding:10px 4px;font:italic 18px FellLi,Georgia,serif;text-align:center}
+.kyWrite i{display:block;height:10px;margin:14px auto 0;border-radius:6px;background:linear-gradient(90deg,rgba(138,90,34,.12),rgba(138,90,34,.35),rgba(138,90,34,.12));background-size:200% 100%;animation:kySh 1.4s linear infinite;width:86%}
+.kyWrite i:nth-child(3){width:70%}.kyWrite i:nth-child(4){width:78%}.kyWrite i:nth-child(5){width:56%}
+@keyframes kySh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.kyTools{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+.kyTool{padding:10px 6px;border-radius:10px;border:1px solid var(--line,#ccd);background:var(--card,#fff);color:inherit;font:600 13px/1.1 var(--uiFont,system-ui)}
+.kyTool.gold{background:linear-gradient(180deg,#c99a45,#8a5a22);color:#fff8e4;border-color:#6b4310}
+.kyTool:disabled{opacity:.5}
+.kySect{margin-top:14px}
+.kySect>b{display:block;margin-bottom:6px;font:700 13px var(--uiFont,system-ui)}
+.kyStyles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.kySty{height:62px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font:600 11.5px/1.1 var(--uiFont,system-ui);border:2px solid transparent}
+.kySty span{font-size:18px}
+.kySty.on{box-shadow:0 0 0 3px #c9a24a}
+.kySty.s-klasik{background:radial-gradient(#f3e4bf 55%,#c9a46a);color:#5a2a10;border-color:#3a2410;box-shadow:inset 0 0 0 3px #f3e4bf,inset 0 0 0 4px #5a3a18}
+.kySty.s-qurani{background:linear-gradient(#fbf6e6,#fbf6e6) padding-box,linear-gradient(135deg,#b8862e,#fff1c2,#c99a3a,#17357a) border-box;color:#17357a;border:4px solid transparent}
+.kySty.s-kursif{background:linear-gradient(135deg,rgba(201,154,58,.35),transparent 30%,transparent 70%,rgba(201,154,58,.35)),#fffaf0;color:#9a6e1c;border-color:#d9b35a;font-family:PinyonL,cursive;font-size:15px}
+.kySty.s-moden{background:radial-gradient(ellipse 70% 90% at 50% 100%,#fdfdfb 60%,transparent 61%),#cfdcd3;color:#1f5e50;border-color:#1f5e50}
+.kySty.s-malam{background:radial-gradient(circle at 80% 22%,#f2cf6b 0 5px,transparent 6px),radial-gradient(circle at 25% 30%,rgba(255,190,90,.6),transparent 14px),linear-gradient(#0b1940,#3c3f7c);color:#f2cf6b;border-color:#f2cf6b}
+.kySty.s-songket{background:linear-gradient(#fff7e8,#fff7e8) padding-box,repeating-linear-gradient(45deg,#7a1426 0 6px,#c99a3a 6px 9px) border-box;color:#7a1426;border:5px solid transparent}
+.kyExp{margin-top:8px}.kyExp .kyTool{flex:1}
+.kyEdT{width:100%;box-sizing:border-box;font:700 20px var(--uiFont,system-ui);padding:8px;border-radius:8px;border:1px solid #c9a46a;margin-bottom:8px}
+.kyEdB{width:100%;box-sizing:border-box;font:16px/1.5 FellL,Georgia,serif;padding:10px;border-radius:8px;border:1px solid #c9a46a;margin-bottom:8px}
+.kySaved summary{cursor:pointer;font-weight:700}
+.kySv{display:flex;gap:6px;margin-top:8px}
+.kySvO{flex:1;text-align:left;padding:8px 10px;border-radius:10px;border:1px solid var(--line,#ccd);background:transparent;color:inherit}
+.kySvO b{display:block}.kySvO span{font-size:12px;opacity:.7}
+.kySvX{width:42px;border-radius:10px;border:1px solid var(--line,#ccd);background:transparent}
+.kyPrevOv{position:fixed;inset:0;z-index:9999;background:rgba(10,14,12,.88);display:flex;flex-direction:column}
+.kyPrevS{flex:1;overflow:auto;padding:54px 12px 20px;-webkit-overflow-scrolling:touch}
+.kyPrevS img{display:block;width:100%;max-width:820px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.kyPrevX{position:absolute;top:10px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:18px;z-index:1}
+
+/* 0.6.20: live AI status */
+.kyStat{margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(255,250,236,.92);border:1px solid #c9a46a;color:#4a2f12;font:14px/1.35 var(--uiFont,system-ui)}
+.kyOut .kyStat{margin:0 0 10px}
+.kyStatT{display:flex;align-items:center;gap:8px}
+.kyMsg{flex:1}
+.kyStat .kyS{font-variant-numeric:tabular-nums;font-style:normal;opacity:.8;letter-spacing:0;font-size:13px;display:inline}
+.kyDot{width:10px;height:10px;border-radius:50%;background:#3fa36b;flex:none;box-shadow:0 0 0 0 rgba(63,163,107,.6)}
+.kyStat .kyDot{background:#d79b2b;animation:kyPulse 1.2s infinite}
+.kyStat.slow .kyDot{background:#e07a2b}
+.kyStat.stuck{background:#fbe8de;border-color:#d98b6a}.kyStat.stuck .kyDot{background:#c8442b}
+@keyframes kyPulse{0%{box-shadow:0 0 0 0 rgba(215,155,43,.6)}70%{box-shadow:0 0 0 9px rgba(215,155,43,0)}100%{box-shadow:0 0 0 0 rgba(215,155,43,0)}}
+.kyBar{height:6px;border-radius:4px;background:rgba(138,90,34,.15);margin:8px 0;overflow:hidden}
+.kyBar i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#c99a45,#8a5a22);transition:width .9s linear}
+.kyStatB{display:flex;gap:6px}.kyStatB .kyTool{flex:1;padding:7px 6px;background:#fff;color:#4a2f12;border-color:#c9a46a}
+.kyAi .kyDot{width:8px;height:8px}
+.kyAi.work{border-color:#f3d98a;box-shadow:0 0 0 2px rgba(243,217,138,.35),0 4px 14px rgba(0,0,0,.25)}
+.kyAi.work .kyDot{background:#f3c44a;animation:kyPulse 1.2s infinite}
+.kyAi.err .kyDot{background:#e0533b}
+.kyTip{margin-top:10px;padding:9px 11px;border-radius:10px;background:rgba(255,248,226,.9);border:1px dashed #c9a46a;color:#5a3a14;font:13.5px/1.4 var(--uiFont,system-ui)}
+.kyAi.kyAiW{background:none;border:0;box-shadow:none;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none}

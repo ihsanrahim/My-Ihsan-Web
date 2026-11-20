@@ -9,11 +9,13 @@
      (https://ihsanrahim.github.io/My-Ihsan-Web/split/), each passing a small adapter U.
    SharedSplit.open(el, U, opt) ; SharedSplit.link(el, U, url) ; SharedSplit.parse(url)
    U = {L(ms,en), esc, toast, sheet(title, html) -> element, close(), load(k, def), save(k, v), share(text), copy(text), en(), app: bool,
-        names(): [] (optional, e.g. family tree), toDebts([{dir, who, amt, desc}]) (optional), legacy() / legacyDone() (optional)} */
+        toDebts([{dir, who, amt, desc}]) (optional), legacy() / legacyDone() (optional)} */
 (function(){ "use strict";
+// the web page (My-Ihsan-Web/split) has no i18n.js: fall back to plain locales so this file stays byte-identical in both
+var ibLoc = window.ibLoc || function(en){ return en ? "en-GB" : "ms-MY"; };
 var K = window.NostrKit, KIND = 1778, RELAYS = window.SPLIT_RELAYS || ["wss://relay.damus.io", "wss://nos.lol", "wss://relay.primal.net"];
 var LINK = "https://ihsanrahim.github.io/My-Ihsan-Web/split/#";
-var CURS = ["RM","SAR","USD","SGD","IDR","THB","BND","EUR","GBP","AUD","JPY","KRW","TRY","EGP","AED","QAR","CNY","INR"];
+var CURS = ["RM","SAR","USD","SGD","IDR","THB","BND","EUR","GBP","AUD","JPY","KRW","TRY","EGP","AED","QAR","CNY","INR","PKR"];
 var CATS = [["food","🍽️","Makan","Food"],["taxi","🚕","Pengangkutan","Transport"],["hotel","🏨","Penginapan","Stay"],["shop","🛒","Barang","Shopping"],["fuel","⛽","Minyak / tol","Fuel / toll"],["ticket","🎟️","Tiket","Tickets"],["gift","🎁","Hadiah","Gift"],["other","🧾","Lain-lain","Other"]];
 var U = null, host = null, cur = null, live = null, opt = {};
 function L(a, b){ return U.L(a, b); }
@@ -130,15 +132,18 @@ function home(){ stopLive(); var s = db();
   host.querySelector("#ssJoin").onclick = function(){ var ov = U.sheet("🔗 " + L("Sertai trip", "Join a trip"), '<div class="mut small">' + L("Tampal pautan jemputan yang dihantar kawan anda.", "Paste the invite link your friend sent you.") + '</div><textarea id="ssJL" class="ilq" rows="3"></textarea><button class="btn gold full g3d" id="ssJOk" style="margin-top:8px">' + L("Sertai", "Join") + '</button>');
     ov.querySelector("#ssJOk").onclick = function(){ var v = ov.querySelector("#ssJL").value; if(!parse(v)){ U.toast(L("Pautan tidak sah", "That link is not valid")); return; } U.close(); join(v); }; };
   host.querySelectorAll("[data-st]").forEach(function(b){ b.onclick = function(){ cur = b.getAttribute("data-st"); draw(); }; }); }
-function newTrip(){ var nm = (opt.myName || ""), fam = U.names ? U.names() : [];
+function newTrip(){ var nm = (opt.myName || "");
   var ov = U.sheet("＋ " + L("Trip baharu", "New trip"), '<label class="small">' + L("Nama trip", "Trip name") + '</label><input id="ssN" class="ilq" maxlength="60" placeholder="' + L("cth. Umrah Disember", "e.g. Umrah December") + '">' +
     '<label class="small">' + L("Nama anda", "Your name") + '</label><input id="ssMe" class="ilq" maxlength="30" value="' + E(nm) + '">' +
-    '<label class="small">' + L("Orang lain (satu setiap baris, boleh tambah kemudian)", "Other people (one per line, you can add more later)") + '</label><textarea id="ssP" class="ilq" rows="4"></textarea>' +
-    (fam.length ? '<div class="ssChips">' + fam.slice(0, 40).map(function(n){ return '<button class="chip" data-fn="' + E(n) + '">＋ ' + E(n) + '</button>'; }).join("") + '</div>' : '') +
+    '<label class="small">' + L("Orang lain", "Other people") + '</label><div id="ssRows"></div><button class="chip" id="ssRowA" type="button">＋ ' + L("Tambah orang", "Add a person") + '</button>' +
     '<label class="small">' + L("Mata wang", "Currency") + '</label><select id="ssC" class="ilq">' + CURS.map(function(c){ return '<option>' + c + '</option>'; }).join("") + '</select>' +
     '<button class="btn gold full g3d" id="ssOk" style="margin-top:10px">✓ ' + L("Buat dan jemput", "Create and invite") + '</button>');
-  ov.querySelectorAll("[data-fn]").forEach(function(b){ b.onclick = function(){ var ta = ov.querySelector("#ssP"); ta.value = (ta.value.trim() ? ta.value.trim() + "\n" : "") + b.getAttribute("data-fn"); b.disabled = true; }; });
-  ov.querySelector("#ssOk").onclick = function(){ var me = ov.querySelector("#ssMe").value.trim(), pp = ov.querySelector("#ssP").value.split("\n").map(function(x){ return x.trim().slice(0, 30); }).filter(Boolean);
+  // one name per row; ＋ adds a row, ✕ removes one, Enter jumps to the next row
+  var rows = ov.querySelector("#ssRows"), addRow = function(v, focus){ var d = document.createElement("div"); d.className = "ssRow"; d.innerHTML = '<span>' + (rows.children.length + 2) + '</span><input class="ilq" maxlength="30" placeholder="' + L("Nama", "Name") + '"><button class="ssRowX" type="button" aria-label="✕">✕</button>'; rows.appendChild(d);
+    var i = d.querySelector("input"); i.value = v || ""; i.onkeydown = function(e){ if(e.key === "Enter"){ e.preventDefault(); var nx = d.nextElementSibling; if(nx) nx.querySelector("input").focus(); else addRow("", true); } };
+    d.querySelector(".ssRowX").onclick = function(){ d.remove(); [].forEach.call(rows.children, function(r, k){ r.querySelector("span").textContent = k + 2; }); }; if(focus) i.focus(); };
+  addRow(); addRow(); ov.querySelector("#ssRowA").onclick = function(){ addRow("", true); };
+  ov.querySelector("#ssOk").onclick = function(){ var me = ov.querySelector("#ssMe").value.trim(), pp = [].map.call(rows.querySelectorAll("input"), function(x){ return x.value.trim().slice(0, 30); }).filter(Boolean);
     if(!me){ U.toast(L("Tulis nama anda", "Type your name")); return; }
     var t = create(ov.querySelector("#ssN").value.trim() || L("Bil bersama", "Shared bills"), ov.querySelector("#ssC").value, me, pp);
     U.close(); cur = t.id; draw(); invite(t); }; }
@@ -180,7 +185,7 @@ function tripView(t){ goLive(t); var st = state(t), bal = balances(st), pays = s
     '<div class="mut tiny">' + L("+ akan menerima, − perlu membayar", "+ gets money back, − needs to pay") + '</div></div>';
   h += '<div class="card"><h3>📋 ' + L("Bil", "Bills") + ' (' + bills.length + ')</h3>' + (bills.length ? bills.map(function(b){ var cat = CATS.filter(function(x){ return x[0] === b.d.cat; })[0] || CATS[7], s = shares(st, b), mine = me && s[me] ? s[me] : 0;
       return '<button class="ssBill" data-sb="' + b.bid + '"><span class="ssIc">' + cat[1] + '</span><span style="flex:1;min-width:0"><b>' + E(b.d.what || L(cat[2], cat[3])) + '</b><small class="mut"> · ' + nm(b.d.by) + ' ' + L("bayar", "paid") + (b.ed ? ' · ' + L("disunting", "edited") : '') + (mine ? ' · ' + L("bahagian saya ", "my share ") + money(c, mine) : '') + '</small></span><b>' + money(c, b.d.amt) + '</b></button>'; }).join("") : '<div class="mut small">' + L("Belum ada bil. Tekan \"Saya bayar…\".", "No bills yet. Tap \"I paid…\".") + '</div>') + '</div>';
-  h += '<details class="card"><summary>🕘 ' + L("Sejarah", "History") + ' (' + st.hist.length + ')</summary>' + st.hist.slice().reverse().slice(0, 80).map(function(x){ return '<div class="mut small">' + new Date(x.at * 1000).toLocaleString(U.en() ? "en-GB" : "ms-MY", {day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"}) + ' · ' + E(x.x) + '</div>'; }).join("") + '</details>';
+  h += '<details class="card"><summary>🕘 ' + L("Sejarah", "History") + ' (' + st.hist.length + ')</summary>' + st.hist.slice().reverse().slice(0, 80).map(function(x){ return '<div class="mut small">' + new Date(x.at * 1000).toLocaleString(ibLoc(U.en()), {day: "numeric", month: "short", hour: "2-digit", minute: "2-digit"}) + ' · ' + E(x.x) + '</div>'; }).join("") + '</details>';
   host.innerHTML = h;
   var q = function(s, f){ var e = host.querySelector(s); if(e) e.onclick = f; };
   q("#ssBack", function(){ cur = null; draw(); });
@@ -266,10 +271,31 @@ window.FinMore.bahagi = function(el, A){ var H = A.H;
     sheet: function(t, h){ return H.showSheet(t, h); }, close: H.closeOverlay,
     share: function(text, pkg){ var N = H.N; if(window.Native && N.shareTo) N.shareTo(pkg || "", "", text); else if(N.shareText) N.shareText(text); else if(navigator.share) navigator.share({text: text}).catch(function(){}); },
     copy: function(x){ try{ if(H.N.copyText) H.N.copyText(x); else navigator.clipboard.writeText(x); }catch(e){} },
-    names: function(){ var F = H.load("ihsan_family", null) || {}; return (F.p || []).filter(function(p){ return p && p.n && !p.dd; }).map(function(p){ return p.n; }); },
     toDebts: function(list){ list.forEach(function(x){ A.D.debts.push({id: A.uid(), dir: x.dir, who: x.who, desc: x.desc, amt: x.amt, date: A.ymd(new Date()), due: "", tel: "", rem: true, pays: [], done: false}); }); A.sv(); },
     legacy: function(){ return A.D.splitMig ? [] : (A.D.split || []); }, legacyDone: function(){ A.D.splitMig = true; A.sv(); } };
   if(!K){ el.innerHTML = '<div class="card mut">…</div>'; return; }
   var pend = window.__splitLink, myName = (H.S && H.S.uname) || ((H.load("ihsan_settings", {}) || {}).uname) || ""; window.__splitLink = null;
-  if(pend) window.SharedSplit.link(el, u, pend, {myName: myName}); else window.SharedSplit.open(el, u, {myName: myName}); };
+  // 0.5.83 (owner): Split bill has two parts, each behind its own banner:
+  //  🧾 Split a receipt (finance/receipt.js) with a gallery of saved receipts under it, and
+  //  ✈️ Trips (the shared, linked trips: list, bills, history, settle up) on a page of their own with ‹ back.
+  var RH = {esc: H.esc, load: H.load, save: function(k, v){ if(v === null){ try{ localStorage.removeItem(k); }catch(e){} return; } H.save(k, v); }, en: H.en, toast: H.toast, close: H.closeOverlay, share: u.share, N: H.N, on: H.on, off: H.off,
+    onClose: function(){ if(document.body.contains(el)) home(); } };
+  var needRc = function(cb){ if(window.ReceiptSplit) cb(); else { var sc = document.createElement("script"); sc.src = "finance/receipt.js"; sc.onload = cb; document.head.appendChild(sc); } };
+  var money = function(c, cur){ return (cur || "RM") + " " + ((+c || 0)/100).toFixed(2); };
+  var ago = function(t){ var d = new Date(t); return d.toLocaleDateString(ibLoc(H.en()), {day: "numeric", month: "short", year: "numeric"}); };
+  var trips = function(){ el.innerHTML = '<div class="row" style="margin:4px 2px 8px"><button class="chip g3d" id="ssBack">‹ ' + H.L2x("Bahagi bil", "Split bill") + '</button><b>✈️ ' + H.L2x("Trip bersama", "Shared trips") + '</b><span></span></div><div id="ssHost"></div>';
+    window.__splitPg = "trips"; el.querySelector("#ssBack").onclick = function(){ window.__splitPg = ""; try{ window.SharedSplit.close(); }catch(e){} home(); };
+    var hostEl = el.querySelector("#ssHost"); if(pend){ var pl = pend; pend = null; window.SharedSplit.link(hostEl, u, pl, {myName: myName}); } else window.SharedSplit.open(hostEl, u, {myName: myName}); };
+  var home = function(){ window.__splitPg = ""; var nT = 0; try{ nT = window.SharedSplit._t.db().trips.length; }catch(e){}
+    var gal = []; try{ gal = JSON.parse(localStorage.getItem("ihsan_receipts") || "[]") || []; }catch(e){}
+    el.innerHTML = '<button class="bnHero bn-rcpt ssRcHero" id="ssRcpt"><span class="bnSc"></span><span class="bnI">🧾</span><span class="shTxt"><b>' + H.L2x("Bahagi satu resit dengan kamera AI", "Split one receipt with the AI camera") + '</b><small>' +
+      H.L2x("Ambil gambar resit: AI senaraikan item, harga dan cukai. Tanda siapa makan apa, setiap orang nampak jumlah sendiri", "Photograph the receipt: the AI lists the items, prices and tax. Tick who had what and everyone sees their own total") + '</small></span><span class="shGo">›</span></button>' +
+      '<button class="bnHero bn-trip ssRcHero" id="ssTrips"><span class="bnSc"></span><span class="bnI">✈️</span><span class="shTxt"><b>' + H.L2x("Trip bersama", "Shared trips") + '</b><small>' +
+      H.L2x("Kongsi satu pautan: semua orang tambah apa yang dibayar dari telefon sendiri. Sejarah, baki dan siapa bayar siapa", "Share one link: everyone adds what they paid from their own phone. History, balances and who pays whom") + (nT ? ' · ' + nT + ' ' + H.L2x("trip", nT === 1 ? "trip" : "trips") : '') + '</small></span><span class="shGo">›</span></button>' +
+      (gal.length ? '<div class="snl" style="margin:6px 2px">🗂️ ' + H.L2x("Galeri resit", "Receipt gallery") + ' · ' + gal.length + '</div><div class="rcGal">' + gal.map(function(r){
+        return '<button class="rcG g3d" data-rc="' + H.esc(r.id) + '">' + (r.thumb ? '<img src="' + r.thumb + '" alt="">' : '<span class="rcGI">🧾</span>') + '<b>' + H.esc(r.shop || H.L2x("Resit", "Receipt")) + '</b><small>' + ago(r.u || r.t) + '</small><span class="rcGT">' + money(r.sum, r.cur) + ' · 👥 ' + (r.ppl || []).length + '</span></button>'; }).join("") + '</div>' : '');
+    el.querySelector("#ssRcpt").onclick = function(){ needRc(function(){ window.ReceiptSplit.open(RH, "new"); }); };
+    el.querySelectorAll("[data-rc]").forEach(function(b){ b.onclick = function(){ var id = b.getAttribute("data-rc"); needRc(function(){ window.ReceiptSplit.open(RH, id); }); }; });
+    el.querySelector("#ssTrips").onclick = trips; };
+  if(pend || window.__splitPg === "trips") trips(); else home(); };
 })();

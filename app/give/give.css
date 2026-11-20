@@ -1,0 +1,68 @@
+/* 0.5.14 Derma & Hadiah */
+.gvhero .gvh{display:flex;gap:12px;align-items:flex-start;margin-bottom:8px}
+.gvic{font-size:34px;line-height:1}
+.gvcats{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none;position:sticky;top:-8px;z-index:3;background:var(--bg)}
+.gvcats::-webkit-scrollbar{display:none}
+.gvcats .chip{flex:none;white-space:nowrap}
+.gvcats .chip small{opacity:.7}
+.gvorg .gvot{display:flex;gap:10px;align-items:flex-start}
+.gvoic{font-size:24px;width:30px;text-align:center;flex:none}
+.gvon{flex:1;min-width:0}
+.gvok{font-size:11px;color:#3fb27f;white-space:nowrap}
+.gvpend{font-size:11px;color:var(--mut);white-space:nowrap}
+.gvod{margin:6px 0 4px;line-height:1.45}
+.gvbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.gvbtns .btn{padding:6px 14px}
+.gvrep{background:none;border:0;color:var(--mut);font-size:11px;padding:6px 0 0;cursor:pointer}
+.gvaff{font-size:11.5px;color:var(--mut);background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;line-height:1.4}
+.gvgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gvit{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px;text-align:left;color:var(--fg);font:inherit;display:flex;flex-direction:column;gap:3px}
+.gvimg{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:30px}
+.gvimg img{width:100%;height:100%;object-fit:cover}
+.gvmall{position:absolute;left:4px;top:4px;background:#d0011b;color:#fff;font-style:normal;font-size:10px;padding:1px 5px;border-radius:4px}
+.gvin{font-size:12.5px;line-height:1.3;max-height:2.6em;overflow:hidden}
+.gvip b{color:#e56b2e}
+.gvip span{font-size:11px;color:var(--mut)}
+.gvform .hfld{display:block;margin:6px 0}
+.gvform .hfld input,.gvform .hfld textarea{width:100%;margin-top:3px}
+/* 0.5.87 Donate to My Ihsan: sticky header + panel */
+.gvMe{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:12px;width:100%;margin:0 0 10px;padding:12px 14px;border:0;border-radius:16px;color:#fff;text-align:left;font:inherit;
+  background:radial-gradient(circle at 88% 20%,rgba(255,236,170,.45),transparent 45%),linear-gradient(120deg,#0f6b4f,#1a8f6a 55%,#c9a227);box-shadow:0 6px 16px rgba(0,0,0,.3)}
+.gvMeI{font-size:28px}.gvMeT{flex:1}.gvMeT b{display:block;font-size:16px}.gvMeT small{opacity:.92}.gvMeG{font-size:22px;opacity:.9}
+#overlay.gvSupOv{display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;background:var(--bg);color:var(--fg);padding:0;user-select:auto}
+.gvSup{display:flex;flex-direction:column;height:100%}
+.gvSupTop{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--line)}
+.gvSupB{flex:1;overflow:auto;padding:12px 14px}
+.gvSupMsg{position:relative;border-radius:18px;padding:16px 16px 6px;margin-bottom:14px;color:#fff;
+  background:radial-gradient(circle at 85% 15%,rgba(255,236,170,.4),transparent 40%),linear-gradient(150deg,#0f5a44,#137a5a 60%,#8a6d1c);border:2px solid #d4af37;box-shadow:inset 0 0 0 4px rgba(212,175,55,.25)}
+.gvSupArt{position:absolute;right:14px;top:8px;font-size:30px;opacity:.85}
+.gvSupMsg p{margin:0 0 10px;line-height:1.5}.gvSupDua{font-style:italic;opacity:.95}
+.gvQrs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gvQr{display:flex;flex-direction:column;align-items:center;gap:4px;border:0;background:none;color:inherit;font:inherit;padding:0}
+.gvQrF{display:block;width:100%;padding:8px;border-radius:16px;background:linear-gradient(135deg,#d4af37,#f3e3a1 40%,#b8862b);box-shadow:0 4px 12px rgba(0,0,0,.25)}
+.gvQrF img{display:block;width:100%;border-radius:10px;background:#fff}
+.gvQr b{font-size:13.5px}.gvQr small{color:var(--gold);font-size:12px}
+.gvRows{display:flex;flex-direction:column;gap:8px}
+.gvRow{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:inherit;font:inherit;text-align:left}
+.gvRow small{display:block;opacity:.7;font-size:12px}.gvRow b{font-size:16px;letter-spacing:.3px;word-break:break-all}.gvRow i{font-style:normal;font-size:18px}
+.gvRow.ok{border-color:#2e9d6b;box-shadow:0 0 0 1px #2e9d6b inset}
+.gvSupMsg p:first-of-type{padding-right:36px}
+/* 0.5.88: highlighted donate button, enlarge QR, copy labels */
+.gvMeW{position:sticky;top:0;z-index:6;padding:2px 0 10px;background:linear-gradient(var(--bg) 70%,transparent)}
+.gvMeW .gvMe{position:relative;margin:0;overflow:hidden;background:linear-gradient(120deg,#b8862b,#f1d27a 45%,#d4a73a);color:#2a1b00;border:2px solid #fff3c4;
+  box-shadow:0 0 0 3px rgba(212,175,55,.35),0 8px 22px rgba(212,175,55,.35);animation:gvGlow 2.4s ease-in-out infinite}
+.gvMeW .gvMe::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:gvShine 3.2s ease-in-out infinite}
+.gvMeW .gvMeT small{opacity:.85}
+.gvMeW .gvMeG{background:#1a5c43;color:#fff;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700;opacity:1}
+@keyframes gvGlow{50%{box-shadow:0 0 0 5px rgba(212,175,55,.2),0 8px 28px rgba(212,175,55,.55)}}
+@keyframes gvShine{0%,60%{left:-60%}100%{left:120%}}
+.gvQr{gap:6px}
+.gvQrF{position:relative;border:0;cursor:zoom-in}
+.gvQrZ{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;border-radius:999px;padding:3px 8px;font-size:14px}
+.gvQrS{font-size:13px}
+.gvZoom{position:fixed;inset:0;z-index:80;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.gvZoom img{max-width:100%;max-height:82vh;object-fit:contain}
+.gvZoomB{display:flex;gap:10px;margin-top:12px}
+.gvZoomB .chip{background:#1a5c43;color:#fff;border-color:#1a5c43}
+.gvCp{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--gold)}
+.gvCp em{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.3px}
