@@ -1,6 +1,8 @@
 # My-Ihsan-Web
 
-- `/` (index.html): privacy policy for the Play Console. `delete.html`: how to delete your data.
+Live at **https://myihsan.app** (GitHub Pages, custom domain in `CNAME`; DNS at Cloudflare).
+
+- `/` (index.html): the My Ihsan home page (BM/EN). `privacy.html`: privacy policy (the Play Console URL). `delete.html`: how to delete your data.
 - `/app/`: **the complete My Ihsan app in the browser** (same files as the Android app, built by `tools/web/build-webapp.sh` in the app repo).
   Sign in with Google (⟳ at the top) to sync with the phone through your own Google Drive (hidden app folder, scope `drive.appdata`).
   Everything a browser can do works (Quran, School, Business with bookings and Google Sheet sync, Finance, Family, Move with the Letters
