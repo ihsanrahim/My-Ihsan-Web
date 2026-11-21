@@ -1,0 +1,107 @@
+/* My Ihsan 0.6.59 · Kaca (glass) theme, owner spec "kaca-theme.md". Frosted dark-glass panels over the sky outside the masjid; the sky
+   follows the current prayer (html[data-wk=subuh|zohor|asar|maghrib|isyak], set by applyWaktu() like Waktu) and is drawn once by kacaSky()
+   in app.js as #kacaSky (fixed, behind #app). One level of glass only; the mushaf stays paper; html.lowfx / no backdrop-filter → solid. */
+@font-face{font-family:"FrauncesW";src:url(fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+
+html[data-th=kaca]{
+  --bg:#1A2238; --card:rgba(14,18,30,.34); --card2:rgba(255,255,255,.12); --well:rgba(14,18,30,.22);
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.26);
+  --fg:#FFFFFF; --mut:rgba(255,255,255,.80); --mut2:rgba(255,255,255,.72);
+  --gold:#F1D58A; --green:#F1D58A; --deep:#F1D58A; --red:#F5A897; --blue:#B9C6FF; --ok:#B2E6C0; --warn:#F5CB94;
+  --nav:rgba(14,18,30,.42); --hdr:transparent;
+  --glass-blur:blur(28px) saturate(1.5); --glass-edge:inset 0 1px 0 rgba(255,255,255,.16); --glass-drop:0 8px 24px -12px rgba(0,0,0,.35);
+  --kz:cubic-bezier(.22,1,.36,1);
+  color-scheme:dark; background:var(--bg)}
+/* bright skies: the panel tint per prayer, measured so white, 80 % and 72 % text keep 4.5 : 1 even over the bright horizon (tests/themes.js) */
+html[data-th=kaca][data-wk=subuh]{--card:rgba(14,18,30,.62);--nav:rgba(14,18,30,.66);--well:rgba(14,18,30,.3)}
+html[data-th=kaca][data-wk=zohor]{--card:rgba(14,18,30,.66);--nav:rgba(14,18,30,.7);--well:rgba(14,18,30,.32)}
+html[data-th=kaca][data-wk=asar]{--card:rgba(14,18,30,.61);--nav:rgba(14,18,30,.65);--well:rgba(14,18,30,.3)}
+html[data-th=kaca][data-wk=maghrib]{--card:rgba(14,18,30,.55);--nav:rgba(14,18,30,.6);--well:rgba(14,18,30,.28)}
+
+/* ---- the sky ---- */
+#kacaSky{display:none}
+html[data-th=kaca] #kacaSky{display:block;position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--ks1,#1A2238)}
+html[data-th=kaca] #kacaSky svg{width:100%;height:100%;display:block}
+#kacaSky .ks1{stop-color:var(--ks1)} #kacaSky .ks2{stop-color:var(--ks2)} #kacaSky .ks3{stop-color:var(--ks3)} #kacaSky .ks4{stop-color:var(--ks4)}
+#kacaSky .ksl{stop-color:var(--ksl)} #kacaSky .ksDisc{fill:var(--ksl)} #kacaSky .ksBite{fill:var(--ks2);opacity:0}
+#kacaSky.night .ksBite{opacity:1} #kacaSky.night .ksHalo{transform:scale(.24)}
+#kacaSky .ksStars{fill:#fff;opacity:0} #kacaSky.night .ksStars{opacity:.55}
+#kacaSky .ksMasjid{fill:rgba(20,16,30,.55)} #kacaSky.night .ksMasjid{fill:#070B1A}
+#kacaSky stop,#kacaSky .ksDisc,#kacaSky .ksMasjid,#kacaSky .ksStars,#kacaSky .ksBite{transition:stop-color .6s var(--kz,ease),fill .6s var(--kz,ease),opacity .6s var(--kz,ease)}
+#kacaSky .ksSun{transition:transform .6s cubic-bezier(.22,1,.36,1)}
+
+/* ---- page: everything sits on the sky ---- */
+html[data-th=kaca] body{background:transparent;color:var(--fg);font-weight:400}
+html[data-th=kaca] #app,html[data-th=kaca] #view{background:transparent}
+html[data-th=kaca] header,html[data-th=kaca] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=kaca] #topTitle{font-family:"FrauncesW","Fraunces",Georgia,serif;font-size:28px;font-weight:400;color:var(--fg);letter-spacing:-.01em}
+html[data-th=kaca] #hBar{background:var(--gold)}
+html[data-th=kaca] .mut,html[data-th=kaca] small.mut,html[data-th=kaca] .small.mut{color:var(--mut)}
+html[data-th=kaca] .tiny.mut{color:var(--mut2)}
+html[data-th=kaca] h1,html[data-th=kaca] h2,html[data-th=kaca] h3{font-weight:500}
+html[data-th=kaca] b,html[data-th=kaca] strong{font-weight:600}
+
+/* ---- glass: one level only ---- */
+html[data-th=kaca] .card,html[data-th=kaca] .mSec,html[data-th=kaca] nav#nav,html[data-th=kaca] #subnav,html[data-th=kaca] .dock,html[data-th=kaca] #overlay>div,html[data-th=kaca] .wg{
+  background:var(--card);border:1px solid var(--line);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:var(--glass-edge),var(--glass-drop)}
+html[data-th=kaca] .card,html[data-th=kaca] .mSec,html[data-th=kaca] .wg{border-radius:16px}
+/* a panel inside a panel is a flat step, never blurred again */
+html[data-th=kaca] .card .card,html[data-th=kaca] .mSec .card,html[data-th=kaca] #overlay .card,html[data-th=kaca] .card .wg,html[data-th=kaca] .dock .card{background:var(--card2);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:var(--glass-edge)}
+
+/* ---- bottom bars: full width, no gaps at the sides or the bottom (owner 0.6.62); glass, the top one rounded ---- */
+html[data-th=kaca] nav#nav{margin:0;border-radius:0;border-left:0;border-right:0;border-bottom:0;background:var(--nav);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=kaca] nav#nav button{padding-top:6px;padding-bottom:6px}
+html[data-th=kaca] nav#nav button,html[data-th=kaca] #subnav button,html[data-th=kaca] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut2)}
+html[data-th=kaca] nav#nav button.on,html[data-th=kaca] #subnav button.on,html[data-th=kaca] .dock button.on:not(.btn){background:rgba(255,255,255,.18);color:var(--fg);border-radius:12px}
+html[data-th=kaca] #subnav{margin:0;border-radius:16px 16px 0 0;border-left:0;border-right:0;border-bottom:0}
+html[data-th=kaca] .dock{margin:0;border-radius:16px 16px 0 0;border-left:0;border-right:0;border-bottom:0}
+/* third-level tabs keep the normal small size */
+html[data-th=kaca] .dock .chip.chip,html[data-th=kaca] .dock .grp3 .chip.chip,html[data-th=kaca] .dock .grp2 .chip.chip{min-height:0;border-radius:12px;border:0;background-color:transparent}
+html[data-th=kaca] .dock .chip.on.on{background-color:rgba(255,255,255,.18);color:var(--fg)}
+
+/* ---- header icon buttons ---- */
+html[data-th=kaca] #hBtns button,html[data-th=kaca] #hMenu{width:40px;height:40px;border-radius:10px;background:var(--well);background-image:none;border:1px solid var(--line);box-shadow:none;color:var(--fg)}
+
+/* ---- buttons: gold once, the rest outline ---- */
+html[data-th=kaca] .g3d,html[data-th=kaca] .btn.btn,html[data-th=kaca] .chip.chip,html[data-th=kaca] .qt.qt{background-image:none;box-shadow:none;text-shadow:none}
+html[data-th=kaca] .btn.btn{background-color:var(--well);color:var(--fg);border:1px solid var(--line2);border-radius:10px;font-weight:500}
+html[data-th=kaca] .btn.gold.gold{background-color:var(--gold);color:#1D1608;border-color:var(--gold);font-weight:600}
+html[data-th=kaca] .btn.delb{background-color:rgba(245,168,151,.16);color:#FFD5CB;border-color:rgba(245,168,151,.5)}
+html[data-th=kaca] .btn:active,html[data-th=kaca] .chip:active,html[data-th=kaca] .g3d:active{transform:none;opacity:.75}
+
+/* ---- chips: 40 px, radius 20; on = near-white with dark text ---- */
+html[data-th=kaca] .chip.chip{min-height:40px;border-radius:20px;background-color:var(--well);border:1px solid var(--line2);color:var(--fg)}
+html[data-th=kaca] .chip.on.on{background-color:rgba(255,255,255,.92);color:#151A24;border-color:transparent;font-weight:500}
+
+/* ---- inputs ---- */
+html[data-th=kaca] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=kaca] select,html[data-th=kaca] textarea,html[data-th=kaca] .ibsel,html[data-th=kaca] .ibdtT{background:var(--well);color:var(--fg);border:1px solid var(--line2);border-radius:10px}
+html[data-th=kaca] ::placeholder{color:var(--mut2)}
+html[data-th=kaca] input[type=range],html[data-th=kaca] input[type=checkbox],html[data-th=kaca] input[type=radio]{accent-color:var(--gold)}
+
+/* ---- prayer row: the next prayer is a raised step with a gold label ---- */
+html[data-th=kaca] .ptRow .on,html[data-th=kaca] .wpt .on,html[data-th=kaca] .pt.next{background:var(--card2);box-shadow:var(--glass-edge);border-radius:10px}
+html[data-th=kaca] .nxCount,html[data-th=kaca] .bigc{color:var(--fg)}
+
+/* ---- the sheet (bottom overlay) ---- */
+html[data-th=kaca] #overlay{background:rgba(6,10,20,.35)}
+html[data-th=kaca] .ibddl,html[data-th=kaca] .ibdt.open .ibdtX{background:rgba(20,26,42,.92);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border-color:var(--line2)}
+
+/* ---- content that never sits on glass ---- */
+html[data-th=kaca] .qpage{background:#FBF7EC;color:#1d1a12;-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-th=kaca] .qpage *{text-shadow:none}
+html[data-th=kaca] .ar,html[data-th=kaca] .doaAr,html[data-th=kaca] .dAr{letter-spacing:0;text-shadow:none}
+/* 3D views, the Display page and shared surfaces: no glass */
+html[data-th=kaca] canvas,html[data-th=kaca] .three,html[data-th=kaca] #disp,html[data-th=kaca] .dispWrap{-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ---- small parts ---- */
+html[data-th=kaca] .ths.on{outline:2px solid var(--gold);outline-offset:2px}
+html[data-th=kaca] .warnbox{background:rgba(245,203,148,.14);color:var(--fg);border-color:rgba(245,203,148,.45)}
+html[data-th=kaca] hr,html[data-th=kaca] .sep{border-color:var(--line)}
+html[data-th=kaca] a{color:var(--gold)}
+
+/* ---- low-fx: solid panels, same layout and contrast ---- */
+html.lowfx[data-th=kaca]{--card:#1E2638;--nav:#1A2132;--well:#242C40;--card2:#2A3348}
+html.lowfx[data-th=kaca] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){html[data-th=kaca]{--card:#1E2638;--nav:#1A2132;--well:#242C40;--card2:#2A3348}}
+@media (prefers-reduced-transparency:reduce){html[data-th=kaca]{--card:#1E2638;--nav:#1A2132;--well:#242C40;--card2:#2A3348}html[data-th=kaca] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media (prefers-reduced-motion:reduce){html[data-th=kaca] *,#kacaSky *{transition:none!important}html[data-th=kaca]{--glass-blur:none}html[data-th=kaca] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}html[data-th=kaca]{--card:#1E2638;--nav:#1A2132;--well:#242C40;--card2:#2A3348}}

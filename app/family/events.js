@@ -9,7 +9,7 @@
 (function(){
 "use strict";
 var H, L2, E, U, D, cur=null, page="info", fil="up", gF="all";
-var PAGES=[["info","📋","Butiran","Details"],["guest","👥","Tetamu","Guests"],["food","🍛","Makanan","Food"],["vend","🧑‍🍳","Vendor","Vendors"],["bud","💰","Bajet","Budget"],["iti","🗓","Atur cara","Itinerary"],["task","✅","Semakan","Checklist"],["rsvp","💌","RSVP","RSVP"]];
+var PAGES=[["info","📋","Butiran","Details"],["guest","👥","Tetamu","Guests"],["seat","🪑","Susun meja","Seating"],["food","🍛","Makanan","Food"],["vend","🧑‍🍳","Vendor","Vendors"],["bud","💰","Bajet","Budget"],["iti","🗓","Atur cara","Itinerary"],["task","✅","Semakan","Checklist"],["rsvp","💌","RSVP","RSVP"]];
 // vendor categories
 var VC=[["cater","🍛","Katering","Catering"],["cendol","🍧","Cendol","Cendol"],["air","🥤","Air balang","Drinks"],["ais","🍦","Aiskrim","Ice cream"],["satay","🍢","Satay","Satay"],["golek","🐑","Kambing golek","Roast lamb"],
   ["kek","🎂","Kek & pencuci mulut","Cake & desserts"],["khemah","⛺","Khemah & kanopi","Tents & canopy"],["meja","🪑","Kerusi & meja","Tables & chairs"],["dewan","🏛","Dewan / tempat","Hall / venue"],["pelamin","💐","Pelamin & hiasan","Dais & decor"],
@@ -434,7 +434,8 @@ function printPlan(e){
   else { var w=window.open(""); if(w){ w.document.write(html); w.document.close(); w.print(); } } }
 
 // ---------- hub ----------
-function fn(k){ return {info:pInfo, guest:pGuest, food:pFood, vend:pVend, bud:pBud, iti:pIti, task:pTask, rsvp:pRsvp}[k]||pInfo; }
+function pSeat(el, e){ if(!window.EvSeat){ el.innerHTML='<div class="card mut">…</div>'; return; } EvSeat.page(el, e, {H:H, L2:L2, E:E, sv:sv, draw:draw}); }   // 0.6.71 (owner): table arrangement for a hall / space
+function fn(k){ return {info:pInfo, guest:pGuest, seat:pSeat, food:pFood, vend:pVend, bud:pBud, iti:pIti, task:pTask, rsvp:pRsvp}[k]||pInfo; }
 function head(e){ var ty=T(e.ty), d=evDate(e), n=d?U.days(U.today(),d):null;
   return '<div class="card evhd"><div class="row"><button class="chip g3d" id="evBk">‹ '+L2("Semua majlis","All events")+'</button>'+(n!=null&&n>=0?'<span class="evcd"><b>'+(n===0?"🎉":n)+'</b><small>'+(n===0?L2("hari ini","today"):L2("hari lagi","days to go"))+'</small></span>':'')+'</div>'+
     '<div class="evht"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+'</b><small>'+dRange(e)+(e.t?' · '+tm(e.t):'')+(e.loc?' · '+E(e.loc):'')+'</small></span></div></div>'+

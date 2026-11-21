@@ -473,6 +473,8 @@ window.IbMedia={
   navSet:function(o){ M.page.show=o.show; M.page.sp=o.sp; if(o.tab) M.page.tab=o.tab; },
   back:function(){ if(H.learnPg()==="podcast"){ if(M.page.show){ M.page.show=null; H.render(); return true; } if(M.page.sp){ M.page.sp=null; H.render(); return true; } } return false; },
   openPlayer:openPlayer, widget:widget, tickWidget:tickWidget, state:function(){ return M.st; },
+  // 0.6.61 World News: play a country's news station; open a news podcast show
+  playRadio:function(s){ playRadio(s); }, openShow:function(sh){ M.page.show={feed:sh.feed, t:sh.t, img:sh.img, a:sh.a}; M.page.tab="subs"; M.page.epn=40; H.setLearn("podcast"); H.go("learn"); },
   filter:function(f){ M.page.rf=f; M.page.rn=60; M.page.rq=""; }
 };
 tick();

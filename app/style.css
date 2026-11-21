@@ -2391,3 +2391,123 @@ html[dir=rtl] .exDaysL,html[dir=rtl] .exYr3{direction:ltr}
 /* 0.6.54: plain text boxes (.rin) without a container style get the app look instead of a white browser box */
 :where(input.rin:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]), textarea.rin){background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:14px;width:100%;box-sizing:border-box;font-family:inherit}
 .ibdtT{min-height:40px}
+/* 0.6.61 World News hub tile: a newsprint sky with a globe */
+.bn-news .bnSc{background:linear-gradient(160deg,#16324a 0%,#25577a 55%,#c9a646 140%)}
+.bn-news .bnSc::before{right:34px;bottom:12px;width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#7fc3e8,#1f5f8f 70%);box-shadow:inset -8px -6px 0 rgba(0,0,0,.18)}
+.dock .grp3.grp5{grid-template-columns:repeat(5,minmax(0,1fr))}.dock .grp5 .chip{font-size:11.5px;padding-left:2px;padding-right:2px}
+/* 0.6.65 Tekap word of the day (home widget) */
+@font-face{font-family:"TkOld";src:url("tekap/fonts/unifrakturmaguntia-latin-400-normal.woff") format("woff");font-display:swap}
+@font-face{font-family:"TkNaskh";src:url("tekap/fonts/amiri-arabic-400-normal.woff") format("woff");font-display:swap}
+.tkWodH{cursor:pointer}.tkWodW{font-family:"TkOld",serif;font-size:40px;line-height:1.25;text-align:center;margin:4px 0}.tkWodW.ar{font-family:"TkNaskh","AmiriL",serif;font-size:42px;line-height:1.6;direction:rtl}
+.tkWodH .mut,.tkWod .mut{text-align:center}
+/* 0.6.67 (owner): the date wheel is the box's width, attached under it, half as tall; typing is dd/mm/yyyy */
+.ibdt.open .ibdtX{padding:6px 6px 8px;border-radius:0 0 12px 12px;border-color:var(--gold);border-top-color:transparent;box-shadow:0 10px 24px rgba(0,0,0,.4)}
+.ibdt.open.up .ibdtX{border-radius:12px 12px 0 0;border-top-color:var(--gold);border-bottom-color:transparent}
+.ibdt.open .ibdtT{border-radius:12px 12px 0 0}.ibdt.open.up .ibdtT{border-radius:0 0 12px 12px}
+.ibdt:not(.both) .ibdtH{display:none}
+.ibdt.open .ibdtW{height:90px}.ibdt.open .ibwpad{height:30px}.ibdt.open .ibwband{top:30px}
+.ibdt.open .ibwi{font-size:13px}.ibdt.open .ibwi.on{font-size:15px}
+.ibdtF{flex-wrap:nowrap;gap:4px;margin-top:6px}.ibdtF .chip{padding:4px 8px;font-size:12px;min-height:0;white-space:nowrap}
+.wakind{margin:0 0 8px}.wakind .chip{flex:1}
+/* 0.6.67 note line numbers */
+.ntLnW{position:relative;display:flex;align-items:stretch}.ntLnW .ntBdy{flex:1;min-width:0}
+.ntGut{flex:none;width:30px;overflow:hidden;text-align:right;padding-right:6px;color:var(--mut);opacity:.75;font-size:calc(var(--ntfs,14px) * .8);font-variant-numeric:tabular-nums;border-right:1px solid var(--line);margin-right:4px}
+.ntGut>div>div{display:flex;align-items:flex-start;justify-content:flex-end;line-height:inherit}
+.ntNo{font-style:normal;color:var(--mut);margin-right:6px;font-variant-numeric:tabular-nums;min-width:1.4em;display:inline-block;text-align:right}
+.ntBn>div{display:flex;white-space:pre-wrap}.ntBn .ntNo{flex:none}
+/* 0.6.67 picture viewer */
+.ibView{position:fixed;inset:0;z-index:12000;background:rgba(0,0,0,.94);display:flex;align-items:center;justify-content:center;overflow:hidden;touch-action:none;animation:ibdtIn .15s ease-out}
+.ibView img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:50% 50%;user-select:none;-webkit-user-select:none}
+.ibVx{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:12px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(20,20,20,.7);color:#fff;font-size:20px;z-index:2;cursor:pointer}
+.ibVd{position:absolute;left:12px;top:calc(18px + env(safe-area-inset-top,0px));color:#fff;background:rgba(20,20,20,.7);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:6px 12px;font-size:13px;text-decoration:none;z-index:2}
+.ibVh{position:absolute;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:rgba(255,255,255,.6);font-size:12px;pointer-events:none}
+.ngImgP img,#exPh img,.ngSigP img,.psRimg img,.fphs img,img[data-zoom]{cursor:zoom-in}
+/* 0.6.68 Ramadan in the calendar */
+.cal .d.ram,.d.ram{background:linear-gradient(180deg,rgba(212,175,55,.16),rgba(212,175,55,.06));box-shadow:inset 0 0 0 1px rgba(212,175,55,.35)}
+.d.ram.l10{background:linear-gradient(180deg,rgba(212,175,55,.32),rgba(120,80,200,.18))}
+.d.ram.odd{position:relative}.d.ram.odd::after{content:"✦";position:absolute;top:1px;right:3px;font-size:9px;color:var(--gold)}
+/* 0.6.69 (owner): no Android default look: number boxes without spinners, sliders and colour pickers in the app theme */
+input[type=number]{-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=range]{-webkit-appearance:none;appearance:none;height:28px;background:transparent;accent-color:var(--gold);cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--line))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;margin-top:-8px;border-radius:50%;background:var(--gold);border:3px solid var(--card,#16261d);box-shadow:0 1px 4px rgba(0,0,0,.45)}
+input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--line)}input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--gold)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--card,#16261d)}
+input[type=color]{-webkit-appearance:none;appearance:none;width:44px;height:34px;padding:2px;border:1px solid var(--line);border-radius:10px;background:var(--card2);cursor:pointer}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:0;border-radius:7px}
+input[type=checkbox]:not(.switch input),input[type=radio]{accent-color:var(--gold)}
+select{accent-color:var(--gold)}
+/* 0.6.70 Expense › 🧾 Tax (LHDN) */
+.txHead h3{margin:0 0 4px}.txBig{display:flex;flex-direction:column;align-items:center;margin:10px 0;padding:10px;border-radius:14px;background:var(--card2)}
+.txBig small{color:var(--mut)}.txBig b{font-size:26px}.txBig.pay b{color:#e0705f}.txBig.ref b{color:#5fc08a}
+.txRows>div{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-bottom:1px dashed var(--line);font-size:13.5px}.txRows>div b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.txCats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:6px 0}
+.txCat{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--fg);text-align:left;cursor:pointer;min-width:0}
+.txCat span{font-size:18px}.txCat b{font-size:12.5px;line-height:1.2}.txCat small{font-size:11px;color:var(--mut)}.txCat.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.txCats.sm{grid-template-columns:repeat(3,minmax(0,1fr))}.txCat.sm{padding:6px}.txCat.sm b{font-size:11px}
+.txBar{display:block;width:100%;height:5px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:3px}.txBar i{display:block;height:100%;background:var(--gold)}
+.txCl{display:flex;align-items:center;gap:8px;width:100%;padding:8px 4px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--fg);text-align:left;cursor:pointer}
+.txCl>span:first-child{font-size:18px}.txClT{flex:1;min-width:0;display:flex;flex-direction:column}.txClT b{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.txClT small{font-size:11px;color:var(--mut)}
+.txClR{font-style:normal}.txClR.none{opacity:.7}
+.txPh img{max-width:100%;max-height:160px;border-radius:10px;margin:6px 0}
+.txKid{display:flex;align-items:center;gap:6px;margin:4px 0}.txKid span{width:64px}.txKid select{flex:1}
+.txPick{margin:6px 0}.exRc{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0}.exRc .exPv{max-height:120px;border-radius:10px}
+/* 0.6.71 Majlis › 🪑 Seating */
+.stWrap{background:var(--card2);border-radius:14px;padding:6px;margin:8px 0;touch-action:none}.stPlan{display:block;width:100%;height:auto;user-select:none;-webkit-user-select:none}
+.stPlan .stIt{cursor:grab}.stRoom{margin-top:8px;font-size:13px}.stRoom input{width:64px;display:inline-block;text-align:center;padding:4px 6px}
+.stSel b{display:block;margin-bottom:6px}.stG{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:8px 4px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--fg);text-align:left;cursor:pointer}.stG .chip{padding:3px 9px;min-height:0}
+/* 0.6.71 update prompt */
+.updOv{position:fixed;inset:0;z-index:15000;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.updC{max-width:380px;width:100%;text-align:center}.updI{font-size:44px}.updC h3{margin:6px 0 2px}
+/* 0.6.72 (owner): the date wheel hangs right under its box and scrolls with it */
+.ibdt.open{z-index:60}
+.ibdt.open .ibdtX{position:absolute;left:0;right:0;top:calc(100% - 1px);width:auto;box-sizing:border-box;animation:none}
+.ibdt.open.up .ibdtX{top:auto;bottom:calc(100% - 1px)}
+.ibdt.both.open .ibdtX{min-width:280px}
+.ibdtF{display:grid;grid-template-columns:auto auto auto 1fr;gap:4px}.ibdtF .chip{min-width:0;padding:4px 6px;justify-content:center}.ibdtF [data-ibf="ok"]{margin-left:0}
+/* 0.6.73 (owner) planner add row: the time box just fits its time; ＋ as tall as it, wider */
+.plAdd{align-items:stretch}.plAdd .ibdt{flex:none;margin:0;width:calc(9ch + 46px)}.plAdd .ibdt .ibdtT{width:100%;min-height:44px}
+.plAdd #plIn{min-height:44px}.plAdd #plGo{flex:none;min-width:64px;min-height:44px;height:auto;padding:0 18px;font-size:20px;align-self:stretch}
+/* a time wheel opens wider (up to half the screen) with bigger numbers */
+.ibdt.tonly.open .ibdtX{min-width:min(50vw,100vw - 24px);right:auto}
+.ibdt.tonly.open .ibwi{font-size:18px}.ibdt.tonly.open .ibwi.on{font-size:22px;font-weight:700}
+/* 0.6.73 rail tools (2nd row pop-out ⤵ / bottom bar ▼) and the way back from the bottom (⇥) */
+.railTl{display:none}
+#app.rail nav#nav .railTl{display:flex;flex-direction:column;gap:6px;position:absolute;bottom:calc(60px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%)}
+#app.rail nav#nav .railTl button{width:52px;height:36px!important;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--card2);color:var(--gold);font-size:16px}
+#app.rail nav#nav .railTl button.on{background:var(--gold);color:#1a1405}
+.railBk{display:none}
+#app:not(.rail) nav#nav .railBk{display:flex;align-items:center;justify-content:center;flex:none;width:40px!important;min-width:40px;border:1px solid var(--line);border-radius:12px;background:var(--card2);color:var(--gold);font-size:16px;margin:4px}
+@media (max-width:839px){ #app nav#nav .railBk{display:none!important} }
+/* 0.6.73b: the 2nd row drops down inside the side bar under its 1st-row button; every button stretches to share the height */
+#app.rail.railDrop nav#nav{justify-content:space-between;gap:4px;overflow-y:auto;padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+#app.rail.railDrop nav#nav>button:not(.railSw){flex:1 0 auto;height:auto!important;min-height:50px;max-height:78px}
+#app.rail.railDrop nav#nav #subnav.snDrop{position:static;display:flex;flex-direction:column;gap:3px;flex:none;width:100%;box-sizing:border-box;padding:5px 4px;margin:-2px 0 2px;border:0;border-left:3px solid var(--gold);border-radius:0 0 12px 12px;background:rgba(201,166,70,.12);box-shadow:none;z-index:auto}
+#app.rail.railDrop nav#nav #subnav.snDrop button{flex:1 0 auto;height:auto!important;min-height:42px;max-height:58px;padding:3px 2px;font-size:10.5px;line-height:1.15;overflow:visible;flex-direction:column;justify-content:center;border-radius:9px}
+#app.rail.railDrop nav#nav #subnav.snDrop button span{font-size:14px}
+#app.rail.railDrop nav#nav>button.on{border-radius:14px 14px 4px 4px}
+/* 1st and 2nd row look different: the 2nd row is a lighter tinted strip with smaller pill buttons */
+#subnav{background:linear-gradient(0deg,rgba(201,166,70,.10),rgba(201,166,70,.04)),var(--bg)}
+#subnav button{border-radius:12px;font-size:.92em}
+#subnav button.on{box-shadow:inset 0 -2px 0 var(--gold)}
+/* 0.6.73b: the rail tools stay at the bottom of the bar while the buttons scroll */
+#app.rail nav#nav .railSw,#app.rail nav#nav .railTl{position:fixed;transform:none;left:18px;right:auto;z-index:8}
+#app.rail.railR nav#nav .railSw,#app.rail.railR nav#nav .railTl{left:auto;right:18px}
+#app.rail nav#nav .railTl{bottom:calc(10px + env(safe-area-inset-bottom))}
+#app.rail nav#nav::after{content:"";flex:0 0 1px}
+/* 0.6.75 seating: plan tools, full screen, the list by table */
+.stBar{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}.stBar .chip{padding:4px 10px;min-height:0}.stBar .stFs{margin-left:auto}
+.stWrap.full{position:fixed;inset:0;z-index:40;border-radius:0;margin:0;padding:calc(8px + env(safe-area-inset-top)) 8px calc(8px + env(safe-area-inset-bottom));display:flex;flex-direction:column;background:var(--bg,#0d1a14)}
+.stWrap.full .stPlan{flex:1;min-height:0;width:100%;height:100%}
+.stList h3{margin:0 0 6px}.stLh{display:flex;justify-content:space-between;align-items:center;margin:10px 0 4px;padding:6px 8px;border-radius:10px;background:var(--card2)}.stLh.over{background:rgba(192,57,43,.35)}.stLh.un{background:rgba(201,166,70,.18)}
+.stLr{display:flex;align-items:center;gap:6px;padding:4px 2px;border-bottom:1px solid var(--line)}.stLr b{flex:1;min-width:0;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stLr .chip{padding:2px 8px;min-height:0;font-size:12px}.stLo{display:flex;gap:2px}.stLp{display:flex;align-items:center;gap:3px}.stLp i{font-style:normal;min-width:18px;text-align:center;font-weight:700}
+.stLr select{max-width:96px;font-size:12px;padding:3px 4px}
+
+/* 0.6.91 seating: Rows, Columns and full screen sit in the Space row; the hall sits right under it; the exit button shows only in full screen */
+.stFsX{display:none}.stWrap.full .stFsX{display:inline-flex;position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:14px;z-index:2}
+.stRoom .chip{margin-top:4px}
+/* 0.6.91: the plan's card must not trap the full-screen plan (glass blur/transform make it the fixed-position box) */
+.card:has(> .stWrap.full){backdrop-filter:none!important;-webkit-backdrop-filter:none!important;filter:none!important;transform:none!important;contain:none!important}
+.stBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.stBtns .chip{padding:6px 12px;min-height:0}

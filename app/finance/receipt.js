@@ -80,7 +80,7 @@ function keepBig(url){ return new Promise(function(res){ var im = new Image(); i
   try{ for(var i = localStorage.length - 1; i >= 0; i--){ var kk = localStorage.key(i); if(kk && kk.indexOf("ihsan_rcimg_") === 0 && keep.indexOf(kk.slice(12)) < 0) localStorage.removeItem(kk); } localStorage.setItem(bigKey(R.id), d); }catch(e){}
   res(); }; im.onerror = function(){ res(); }; im.src = url; }); }
 function bigOf(){ try{ return localStorage.getItem(bigKey(R.id)) || img || R.thumb || ""; }catch(e){ return img || R.thumb || ""; } }
-function zoom(){ var src = bigOf(); if(!src) return; var z = document.createElement("div"); z.className = "rcZoom"; z.innerHTML = '<img src="' + src + '" alt=""><button class="chip g3d">✕</button>'; z.onclick = function(){ z.remove(); }; ov.appendChild(z); }
+function zoom(){ var src = bigOf(); if(!src) return; if(window.IbView){ IbView(src); return; } var z = document.createElement("div"); z.className = "rcZoom"; z.innerHTML = '<img src="' + src + '" alt=""><button class="chip g3d">✕</button>'; z.onclick = function(){ z.remove(); }; ov.appendChild(z); }
 // 0.5.86 (owner): no AI key yet: three easy steps to get a free Google Gemini key and paste it here
 function aiKey(){ try{ var c = JSON.parse(localStorage.getItem("ihsan_halal_ai") || "{}") || {}; return !!(c.keys && Object.keys(c.keys).some(function(k){ return c.keys[k]; })); }catch(e){ return false; } }
 function keyHtml(){ return '<div class="rcKey"><b>🔑 ' + L("Hidupkan kamera AI dalam 3 langkah (percuma)", "Turn on the AI camera in 3 steps (free)") + '</b><ol>' +

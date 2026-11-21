@@ -10,7 +10,7 @@ var PROV = {
     ms:"Perkhidmatan komuniti percuma tanpa akaun. Boleh perlahan atau sibuk; jangan hantar maklumat peribadi.", en:"A free community service, no account. Can be slow or busy; do not send personal information."},
   openrouter: {g:"login", name:"OpenRouter (log masuk / sign in · semua model / all models)", url:"https://openrouter.ai/api/v1/chat/completions", model:"google/gemini-2.5-flash", keyUrl:"https://openrouter.ai/keys", login:true,
     ms:"Log masuk dengan akaun OpenRouter anda dan pilih mana-mana model: GPT, Claude, Gemini, Grok, Llama, Qwen, Mistral. Model bertanda PERCUMA tidak perlu bayar.", en:"Sign in with your OpenRouter account and choose any model: GPT, Claude, Gemini, Grok, Llama, Qwen, Mistral. Models marked FREE cost nothing."},
-  gemini: {g:"key", name:"Google Gemini", url:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-4-hydrogen", keyUrl:"https://aistudio.google.com/apikey",
+  gemini: {g:"key", name:"Google Gemini", url:"https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", model:"gemini-2.5-flash", keyUrl:"https://aistudio.google.com/apikey",
     ms:"Tepat membaca label pelbagai bahasa. Kunci percuma (akaun Google).", en:"Accurate on labels in many languages. Free key (Google account)."},
   groq: {g:"key", name:"Groq · Meta Llama 4", url:"https://api.groq.com/openai/v1/chat/completions", model:"meta-llama/llama-4-scout-17b-16e-instruct", keyUrl:"https://console.groq.com/keys",
     ms:"Model terbuka Meta Llama, sangat pantas. Kunci percuma.", en:"Meta's open Llama model, very fast. Free key."},
@@ -32,9 +32,11 @@ var PROV = {
 var APPS = [["ChatGPT","com.openai.chatgpt","https://chatgpt.com"],["Gemini","com.google.android.apps.bard","https://gemini.google.com"],["Claude","com.anthropic.claude","https://claude.ai"],
   ["Copilot","com.microsoft.copilot","https://copilot.microsoft.com"],["Grok","ai.x.grok","https://grok.com"],["DeepSeek","com.deepseek.chat","https://chat.deepseek.com"],
   ["Perplexity","ai.perplexity.app.android","https://www.perplexity.ai"],["Le Chat","ai.mistral.chat","https://chat.mistral.ai"]];
-// 0.5.71 (owner): the default AI is Google Gemini 4 Hydrogen (gemini-4-hydrogen); without a Gemini key the free no-key service is still used (chatCfg)
+// 0.5.71 → 0.6.68 (owner): the default AI is Google Gemini 2.5 Flash; without a Gemini key the free no-key service is still used (chatCfg)
 function cfg(){ var c; try{ c=JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ c={}; } if(!PROV[c.prov]) c.prov="gemini"; c.keys=c.keys||{}; c.models=c.models||{};
-  if(!c.m571){ c.m571=1; if(!c.models.gemini || /^gemini-(3\.8|2\.)/.test(c.models.gemini)) c.models.gemini="gemini-4-hydrogen"; if(c.prov==="pollinations" && c.keys.gemini) c.prov="gemini"; try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
+  if(!c.m571){ c.m571=1; if(c.prov==="pollinations" && c.keys.gemini) c.prov="gemini"; try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
+  // 0.6.68 (owner): the default is Gemini 2.5 Flash (⭐); the 0.5.71 default (gemini-4-hydrogen) is moved over
+  if(!c.m668){ c.m668=1; if(!c.models.gemini || c.models.gemini==="gemini-4-hydrogen") c.models.gemini="gemini-2.5-flash"; Object.keys(c.feat||{}).forEach(function(k){ var x=c.feat[k]; if(x && x.prov==="gemini" && x.model==="gemini-4-hydrogen") x.model="gemini-2.5-flash"; }); try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
   return c; }
 function saveCfg(c){ try{ localStorage.setItem(KEY, JSON.stringify(c)); }catch(e){} }
 function ready(){ var c=cfg(); return !!c.on; }   // 0.6.24: on/off only; each feature finds its own AI (featCfg), the free one at worst
@@ -49,7 +51,7 @@ function cleanModel(prov, m){
 }
 // Models offered in the dropdown before the live list is loaded (the live list comes from the provider's own /models).
 var MODELS = {
-  gemini:["gemini-4-hydrogen","gemini-3.8-flash","gemini-2.5-flash","gemini-2.5-flash-lite","gemini-2.5-pro"],
+  gemini:["gemini-2.5-flash","gemini-2.5-flash-lite","gemini-2.5-pro","gemini-4-hydrogen","gemini-3.8-flash"],
   groq:["meta-llama/llama-4-scout-17b-16e-instruct","meta-llama/llama-4-maverick-17b-128e-instruct","llama-3.3-70b-versatile"],
   openai:["gpt-4.1-mini","gpt-4.1","gpt-4o-mini","gpt-4o"],
   anthropic:["claude-haiku-5-5","claude-sonnet-5-5","claude-opus-5-5"],
@@ -107,7 +109,7 @@ function parse(txt){
 }
 // 0.2.13: models of the same provider to fall back to, in order (free-tier friendly ones first).
 var FALLBACK = {
-  gemini:["gemini-4-hydrogen","gemini-3.8-flash","gemini-2.5-flash","gemini-2.5-flash-lite"],
+  gemini:["gemini-2.5-flash","gemini-2.5-flash-lite","gemini-4-hydrogen","gemini-3.8-flash"],
   groq:["meta-llama/llama-4-scout-17b-16e-instruct","meta-llama/llama-4-maverick-17b-128e-instruct"],
   openrouter:["google/gemini-2.5-flash","meta-llama/llama-4-scout:free","google/gemma-3-27b-it:free"],
   openai:["gpt-4.1-mini","gpt-4o-mini"], mistral:["mistral-small-latest","pixtral-12b-2409"], xai:["grok-4","grok-3-mini"],
@@ -271,7 +273,8 @@ var FEATS = [   // id, icon, BM, EN, reads photos, private (no free fallback), v
   ["khat","✍️","Jurulatih khat","Khat coach",1,0,"menyemak tulisan","checking the writing"],
   ["bookocr","📚","Halaman buku ke teks","Book page to text",1,1,"membaca halaman","reading the page"],
   ["translate","🌐","Terjemah hantaran","Translate posts",0,0,"menterjemah","translating"],
-  ["niaga","📑","Niaga: isi dari chat","Business: fill from chat",0,1,"membaca chat","reading the chat"]];   // 0.6.29: WhatsApp order chat → document lines (private: customer data)
+  ["niaga","📑","Niaga: isi dari chat","Business: fill from chat",0,1,"membaca chat","reading the chat"],
+  ["dokumen","📄","Dokumen","Documents",1,0,"menyusun dokumen","drafting the document"]];   // 0.6.60 (owner: free AI allowed; private types warn first)   // 0.6.29: WhatsApp order chat → document lines (private: customer data)
 var FEAT = {}; FEATS.forEach(function(f){ FEAT[f[0]] = {id:f[0], ic:f[1], ms:f[2], en:f[3], photo:!!f[4], priv:!!f[5], vms:f[6], ven:f[7]}; });
 var ORDER = ["openrouter","gemini","groq","mistral","qwen","deepseek","openai","anthropic","xai","custom"];
 var VISION_MODEL = {groq:"meta-llama/llama-4-scout-17b-16e-instruct", qwen:"qwen-vl-max", mistral:"mistral-small-latest", pollinations:"openai", openrouter:"google/gemini-2.5-flash"};
@@ -282,7 +285,9 @@ function modelFor(c, p, photo){ var m = c.models[p] ? cleanModel(p, c.models[p])
   if(p==="groq"){ if(photo) return m && /llama-4|scout|maverick|vision/i.test(m) ? m : VISION_MODEL.groq; return m && !/llama-4|scout|maverick|vision/i.test(m) ? m : TEXT_MODEL.groq; }
   return m || (photo && VISION_MODEL[p]) || PROV[p].model; }
 // the feature's own choice; without one: the service chosen before 0.6.24 (with its model), else the first with a key, else free
+// 0.6.68 (owner): "Same AI for every feature" (c.one) wins over each feature's own choice; id "__all" is that one setting
 function featCfg(id){ var c=cfg(), f=FEAT[id]||{}, x=c.feat && c.feat[id];
+  if(id==="__all") x=c.one; else if(c.one && c.one.on && usable(c, c.one.prov) && !(f.photo && PROV[c.one.prov].vision===false)) x=c.one;
   if(x && usable(c, x.prov) && !(f.photo && PROV[x.prov].vision===false)) return {prov:x.prov, model:x.model ? cleanModel(x.prov, x.model) : modelFor(c, x.prov, f.photo), set:true};
   if(usable(c, c.prov) && !(f.photo && PROV[c.prov].vision===false)) return {prov:c.prov, model:modelFor(c, c.prov, f.photo)};
   for(var i=0;i<ORDER.length;i++){ var p=ORDER[i]; if(usable(c, p) && !(f.photo && PROV[p].vision===false)) return {prov:p, model:modelFor(c, p, f.photo)}; }

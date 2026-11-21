@@ -1,0 +1,45 @@
+/* My Ihsan 0.6.60 · Dokumen (AI document studio). Uses the app theme tokens; the pages themselves are white paper. */
+.dkHero h3{margin:0 0 4px}
+.dkHero .rin{margin-top:10px}
+.dkBar{display:flex;gap:8px;align-items:center;margin:0 0 8px}
+.dkTi{flex:1;min-width:0;font-weight:600}
+.dkGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:6px 0 12px}
+.dkType{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-width:0}
+.dkType b{font-size:14px;line-height:1.25}
+.dkType small{font-size:11.5px;color:var(--mut);line-height:1.3}
+.dkIc{font-size:22px;line-height:1}
+.dkLock{position:absolute;top:8px;right:9px;font-style:normal;font-size:12px;opacity:.7}
+.dkCats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dkCat{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;padding:11px 12px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--fg);text-align:left;cursor:pointer}
+.dkCat span{font-size:20px}.dkCat b{font-size:13.5px;min-width:0}.dkCat small{color:var(--mut);font-size:12px}
+.dkCatRow{margin:8px 0;overflow-x:auto;flex-wrap:nowrap}
+.dkCatRow .chip{white-space:nowrap}
+.dkRow{display:flex;gap:10px;align-items:center;width:100%;text-align:left;color:var(--fg)}
+.dkRow b{display:block}.dkRow small{display:block;font-size:12px}
+.dkReq{color:var(--red,#c0392b)}
+.dkWho{display:flex;align-items:center;gap:8px;margin:10px 0 4px;font-size:13.5px}.dkWho select{flex:1;min-width:0}
+.dkInfo{margin:8px 0;padding:8px 10px;border-radius:10px;background:var(--card2);font-size:13.5px}
+.dkNote{margin:8px 0;padding:8px 10px;border-radius:10px;border:1px dashed var(--line);font-size:13px}
+.dkWarn{margin:8px 0;padding:8px 10px;border-radius:10px;background:rgba(214,158,46,.16);border:1px solid rgba(214,158,46,.45);font-size:13px}
+.dkAg{display:block;text-align:left;margin:4px 0;white-space:normal}
+.dkMic{display:flex;gap:6px;align-items:flex-start}.dkMic textarea{flex:1}
+.dkGaps{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.dkGap{background:rgba(255,214,0,.22)!important;border-color:rgba(214,170,0,.6)!important}
+.dkPages{display:flex;flex-direction:column;gap:12px;margin:8px 0 12px}
+.dkPage{width:100%;height:auto;border-radius:4px;box-shadow:0 2px 14px rgba(0,0,0,.28);background:#fff;cursor:text}
+.dkTools{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px;margin:6px 0;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.dkTools .btn{margin-left:auto}
+.dkVar{display:block;width:100%;text-align:left;color:var(--fg)}
+.dkVar small{display:block}
+.dkUl{margin:0;padding-left:20px;line-height:1.5}
+.dkThs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dkTh{display:flex;flex-direction:column;gap:3px;align-items:flex-start;text-align:left;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-width:0}
+.dkTh.on{outline:2px solid var(--gold);outline-offset:1px}
+.dkTh canvas{width:100%;height:auto;border-radius:3px;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.25)}
+.dkTh small{font-size:11px;color:var(--mut)}
+.dkSw{display:flex;flex-wrap:wrap;gap:8px}
+.dkSwc{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+.dkSwc.on{outline:3px solid var(--gold);outline-offset:2px}
+.dkExp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.dkExp .card{margin:0;text-align:left;color:var(--fg);cursor:pointer}
+@media (min-width:700px){.dkGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.dkCats{grid-template-columns:repeat(3,minmax(0,1fr))}.dkPages{max-width:640px}}

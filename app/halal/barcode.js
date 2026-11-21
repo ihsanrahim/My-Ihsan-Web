@@ -37,7 +37,7 @@ function scan(helpers, done){
   var cv=document.createElement("canvas"), ctx=cv.getContext("2d", {willReadFrequently:true});
   ov.className="bcov";
   ov.innerHTML='<video id="bcV" autoplay muted playsinline></video>'+
-    '<div class="bcTop"><button class="qcX" id="bcX" aria-label="'+L2("Tutup","Close")+'">✕</button><b>'+L2("Imbas kod bar","Scan barcode")+'</b><button class="qcX" id="bcT" aria-label="'+L2("Lampu suluh","Torch")+'" style="visibility:hidden">🔦</button></div>'+
+    '<div class="bcTop"><button class="qcX" id="bcX" aria-label="'+L2("Tutup","Close")+'">✕</button><b>'+L2("Imbas kod bar","Scan barcode")+'</b><button class="qcX" id="bcG" aria-label="'+L2("Dari galeri","From gallery")+'">🖼</button><button class="qcX" id="bcT" aria-label="'+L2("Lampu suluh","Torch")+'" style="visibility:hidden">🔦</button></div>'+
     '<div class="bcBox"><i></i></div>'+
     '<div class="bcBot"><div class="bcStat" id="bcS">'+L2("Menyediakan kamera…","Starting the camera…")+'</div>'+
     '<div class="bcTip">'+L2("Letakkan kod bar dalam kotak, mendatar. Jauhkan sedikit jika kabur.","Fit the barcode inside the box, lying flat. Move back a little if it is blurry.")+'</div>'+
@@ -71,6 +71,7 @@ function scan(helpers, done){
   var fail=function(){ ov.classList.add("nocam"); ST.textContent=L2("Kamera tidak dapat dibuka. Taip nombor di bawah kod bar.","The camera could not open. Type the number under the barcode."); };
   var onP=function(){ stop(); }, onR=function(){ if(!closed) start(); };
   ov.querySelector("#bcX").onclick=close; ov._close=close;
+  ov.querySelector("#bcG").onclick=function(){ if(!window.IbScanImg) return; IbScanImg("bar", function(c, cancel){ if(cancel) return; c=String(c||"").trim(); if(c && validCode(c)) got(c); else H.toast("🖼 "+L2("Tiada kod bar dijumpai dalam gambar","No barcode found in that picture")); }); };
   TB.onclick=function(){ if(!track) return; torch=!torch; try{ track.applyConstraints({advanced:[{torch:torch}]}).catch(function(){}); }catch(e){} TB.classList.toggle("on",torch); };
   var IN=ov.querySelector("#bcN");
   ov.querySelector("#bcM").onclick=function(){ this.style.display="none"; ov.querySelector("#bcI").style.display=""; IN.focus(); };

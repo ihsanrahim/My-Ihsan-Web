@@ -35,6 +35,36 @@ function pickImg(mode, cb){ var got = function(d){ if(d) shrink(d, 1400, "image/
   var inp = document.createElement("input"); inp.type = "file"; inp.accept = "image/*"; inp.onchange = function(){ var f = inp.files[0]; if(!f) return; var r = new FileReader(); r.onload = function(){ got(r.result); }; r.readAsDataURL(f); }; inp.click(); }
 function openText(accept, cb){ if(window.Native && H.N.openFile){ window.IbOpenOnce = cb; H.N.openFile(); return; }
   var inp = document.createElement("input"); inp.type = "file"; inp.accept = accept || "*/*"; inp.onchange = function(){ var f = inp.files[0]; if(!f) return; var r = new FileReader(); r.onload = function(){ cb(r.result); }; r.readAsText(f); }; inp.click(); }
+// 0.6.70 (owner): an export can also become a link (saved in the business's Google Drive folder, anyone with the link can view)
+function linkable(){ var l = NS() && NS().link(prof().id); return !!(l && l.url && !l.off && !l.gone); }
+function giveLink(name, b64, mime){ if(!linkable()){ H.toast("🔗 " + L("Sambung Google Sheet dahulu (Profil › Google Sheet) untuk dapat pautan", "Connect a Google Sheet first (Profile › Google Sheet) to get links")); return; }
+  H.toast("🔗 " + L("Memuat naik…", "Uploading…"));
+  NS().shareFile(prof().id, name, b64, mime).then(function(r){ var ov = H.showSheet("🔗 " + L("Pautan sedia", "Link ready"), '<div class="mut small">' + L("Sesiapa yang ada pautan ini boleh melihat dan memuat turun fail ini. Fail disimpan dalam folder Drive perniagaan anda › Kongsi.", "Anyone with this link can view and download the file. It is kept in your business Drive folder › Kongsi.") + '</div>' +
+      '<input class="rin" id="lkU" readonly value="' + E(r.url) + '" style="width:100%;margin:8px 0"><div class="btns"><button class="btn gold g3d" id="lkS">↗ ' + L("Kongsi pautan", "Share the link") + '</button><button class="btn alt g3d" id="lkC">📋 ' + L("Salin", "Copy") + '</button><button class="btn alt g3d" id="lkO">🌐</button></div>');
+    ov.querySelector("#lkS").onclick = function(){ if(window.Native && H.N.shareText) H.N.shareText(name + "\n" + r.url); else if(navigator.share) navigator.share({text:r.url}).catch(function(){}); };
+    ov.querySelector("#lkC").onclick = function(){ try{ navigator.clipboard.writeText(r.url); }catch(e){} if(window.Native && H.N.copyText) H.N.copyText(r.url); H.toast(L("Disalin", "Copied")); };
+    ov.querySelector("#lkO").onclick = function(){ if(window.Native && H.N.openUrl) H.N.openUrl(r.url); else window.open(r.url, "_blank"); }; },
+    function(e){ H.toast("⚠️ " + (String(e && e.message) === "op" ? L("Kemas kini skrip Google Sheet (v7) untuk pautan", "Update the Google Sheet script (v7) for links") : L("Gagal memuat naik", "Upload failed"))); }); }
+function b64Text(t){ return btoa(unescape(encodeURIComponent(t))); }
+// a CSV or an Excel (.xlsx, first sheet) as rows; cb(rows)
+function openTable(cb){ var got = function(u8){ if(u8[0] === 0x50 && u8[1] === 0x4B){ xlsxRows(u8).then(cb, function(){ H.toast(L("Fail Excel tidak dapat dibaca", "The Excel file could not be read")); }); return; } cb(N.csvParse(new TextDecoder().decode(u8))); };
+  if(window.Native && (H.N.pickAny || H.N.pickBin)){ var h = function(r){ H.off("binfile", h); if(!r || !r.b64) return; var bin = atob(r.b64), u8 = new Uint8Array(bin.length); for(var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i); got(u8); }; H.on("binfile", h); if(H.N.pickAny) H.N.pickAny(); else H.N.pickBin(); return; }
+  var inp = document.createElement("input"); inp.type = "file"; inp.accept = ".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; inp.onchange = function(){ var f = inp.files[0]; if(!f) return; f.arrayBuffer().then(function(b){ got(new Uint8Array(b)); }); }; inp.click(); }
+function xlsxRows(u8){ var dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength), eocd = -1; for(var i = u8.length - 22; i >= Math.max(0, u8.length - 66000); i--) if(dv.getUint32(i, true) === 0x06054b50){ eocd = i; break; }
+  if(eocd < 0) return Promise.reject(new Error("zip")); var n = dv.getUint16(eocd + 10, true), off = dv.getUint32(eocd + 16, true), files = {};
+  for(var k = 0; k < n; k++){ var meth = dv.getUint16(off + 10, true), cs = dv.getUint32(off + 20, true), nl = dv.getUint16(off + 28, true), el = dv.getUint16(off + 30, true), cl = dv.getUint16(off + 32, true), lo = dv.getUint32(off + 42, true), nm = new TextDecoder().decode(u8.subarray(off + 46, off + 46 + nl));
+    files[nm] = {m:meth, s:cs, lo:lo}; off += 46 + nl + el + cl; }
+  var read = function(nm){ var f = files[nm]; if(!f) return Promise.resolve(""); var lh = f.lo, dat = u8.subarray(lh + 30 + dv.getUint16(lh + 26, true) + dv.getUint16(lh + 28, true)).subarray(0, f.s);
+    if(f.m === 0) return Promise.resolve(new TextDecoder().decode(dat)); var ds = new DecompressionStream("deflate-raw"); return new Response(new Blob([dat]).stream().pipeThrough(ds)).text(); };
+  var first = Object.keys(files).filter(function(x){ return /^xl\/worksheets\/sheet\d+\.xml$/.test(x); }).sort()[0];
+  return Promise.all([read("xl/sharedStrings.xml"), read(first)]).then(function(r){ var P = new DOMParser(), ss = [], sx = P.parseFromString(r[0] || "<sst/>", "application/xml");
+    [].forEach.call(sx.getElementsByTagName("si"), function(si){ ss.push([].map.call(si.getElementsByTagName("t"), function(t){ return t.textContent; }).join("")); });
+    var sh = P.parseFromString(r[1], "application/xml"), rows = [], colN = function(ref){ var m = /^([A-Z]+)/.exec(ref || "") || ["", "A"], c = 0; for(var i = 0; i < m[1].length; i++) c = c * 26 + m[1].charCodeAt(i) - 64; return c - 1; };
+    [].forEach.call(sh.getElementsByTagName("row"), function(rw){ var row = []; [].forEach.call(rw.getElementsByTagName("c"), function(c){ var t = c.getAttribute("t"), v = c.getElementsByTagName("v")[0], val = v ? v.textContent : "";
+        if(t === "s") val = ss[+val] || ""; else if(t === "inlineStr"){ var is = c.getElementsByTagName("t")[0]; val = is ? is.textContent : ""; } row[colN(c.getAttribute("r"))] = val; }); for(var j = 0; j < row.length; j++) if(row[j] == null) row[j] = ""; rows.push(row); });
+    // Excel dates are day numbers: turn them into dd/mm/yyyy under a date heading
+    var head = rows[0] || []; head.forEach(function(h, j){ if(!/tarikh|date|due|akhir/i.test(h)) return; for(var i2 = 1; i2 < rows.length; i2++){ var x = rows[i2][j]; if(/^\d{4,5}(\.\d+)?$/.test(x)){ var d = new Date(Date.UTC(1899, 11, 30) + Math.floor(+x) * 864e5); rows[i2][j] = ("0" + d.getUTCDate()).slice(-2) + "/" + ("0" + (d.getUTCMonth() + 1)).slice(-2) + "/" + d.getUTCFullYear(); } } });
+    return rows; }); }
 function saveText(name, text, mime){ if(window.Native && H.N.saveFile) H.N.saveFile(name, text);
   else { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type:mime || "application/json"})); a.download = name; document.body.appendChild(a); a.click(); a.remove(); } }
 
@@ -70,7 +100,7 @@ function render(){ ld(); var p = prof(); if(window.__niagaPg){ ST.pg = window.__
 // 0.6.35: 🛒 Jual (finance/niaga_pos.js): a quick till for stalls and small shops
 function vPos(el){ if(window.NiagaPos) NiagaPos.view(el, expX()); else el.innerHTML = '<div class="card mut">…</div>'; }
 // 0.6.28: 💸 Belanja (finance/niaga_exp.js): petty cash, recurring, receipts, tax summary
-function expX(){ return {qr:function(t){ return qr(t); }, H:H, D:function(){ return D; }, save:function(){ H.save(N.KEY, D); }, sv:sv, prof:prof, money:function(c){ return money(c); }, draw:function(){ draw(); }, staff:staff, imgGet:imgGet, imgPut:imgPut, pickImg:pickImg,
+function expX(){ return {driveOf:function(id){ var lk = D.link || {}, f = ""; Object.keys(lk).forEach(function(k){ if(lk[k] && lk[k].imgFid && lk[k].imgFid[id]) f = lk[k].imgFid[id]; }); return f; }, qr:function(t){ return qr(t); }, H:H, D:function(){ return D; }, save:function(){ H.save(N.KEY, D); }, sv:sv, prof:prof, money:function(c){ return money(c); }, draw:function(){ draw(); }, staff:staff, imgGet:imgGet, imgPut:imgPut, pickImg:pickImg,
   shrinkJ:function(d, mx, cb){ shrink(d, mx, "image/jpeg", cb); }, fld:fld, area:area, sel:sel, tog:tog, gv:gv, calcBind:calcBind, TP:TP, saveText:saveText}; }
 // 0.6.50: 📅 Tempahan (finance/niaga_book.js): rooms, halls, cars, photo sessions, service slots
 function vBook(el){ if(window.NiagaBook){ var x = expX(); x.newDocFrom = docFromBooking; x.openDoc = function(id){ ST.vw = id; ST.cust = null; goTop(); draw(); }; NiagaBook.view(el, x); } else el.innerHTML = '<div class="card mut">…</div>'; }
@@ -306,13 +336,14 @@ function vDocs(el){ var p = prof(), q = ST.q.toLowerCase(), t = N.ymd();
     if(N.TYPES[ST.seg] && d.type !== ST.seg) return false; if(ST.seg === "note" && d.type !== "CN" && d.type !== "DN") return false; if(ST.seg === "buy" && d.type !== "PO" && d.type !== "PV") return false;
     if(q){ var hay = [d.no, (d.cust || {}).name, (d.cust || {}).co, (d.cust || {}).phone, d.ref, (d.lines || []).map(function(l){ return l.desc; }).join(" "), (d.totals || {}).total].join(" ").toLowerCase(); if(hay.indexOf(q) < 0) return false; } return true; })
     .sort(function(a, b){ return (b.date + (b.no || "")).localeCompare(a.date + (a.no || "")); });
-  var h = '<div class="ngSearch"><input id="ngQ" type="search" placeholder="🔍 ' + L("Cari nombor, pelanggan, barang, amaun", "Search number, customer, item, amount") + '" value="' + E(ST.q) + '"></div><div class="chips ngSeg">' + SEGS.map(function(s){ return '<button class="chip' + (ST.seg === s[0] ? " on" : "") + '" data-sg="' + s[0] + '">' + L(s[1], s[2]) + '</button>'; }).join("") + '</div>';
+  var h = '<div class="ngSearch"><input id="ngQ" type="search" placeholder="🔍 ' + L("Cari nombor, pelanggan, barang, amaun", "Search number, customer, item, amount") + '" value="' + E(ST.q) + '"></div><div class="ngSegW' + (ST.segAll ? " all" : "") + '"><button class="chip ngSegX" id="ngSegX" aria-label="' + L("Semua penapis", "All filters") + '">' + (ST.segAll ? "▴" : "▸") + '</button><div class="chips ngSeg">' + SEGS.map(function(s){ return '<button class="chip' + (ST.seg === s[0] ? " on" : "") + '" data-sg="' + s[0] + '">' + L(s[1], s[2]) + '</button>'; }).join("") + '</div></div>';
   var last = ""; if(!list.length) h += '<div class="card mut center">' + L("Tiada dokumen di sini.", "No documents here.") + '</div>';
   list.forEach(function(d){ var m = d.date.slice(0, 7); if(m !== last){ last = m; var sum = list.filter(function(x){ return x.date.slice(0, 7) === m && x.type !== "DO" && x.type !== "QT" && x.status !== "void" && x.status !== "draft" && x.type !== "OR"; }).reduce(function(s, x){ return s + N.totals(D, x, p).total; }, 0);
       h += '<div class="ngMon"><b>' + TP.dateStr(m + "-01", H.en() ? "en" : "bm").replace(/^1 /, "") + '</b>' + (sum ? '<span>' + money(sum, p) + '</span>' : '') + '</div>'; } h += docRow(d); });
   h += '<div class="btns" style="margin-top:12px"><button class="btn alt g3d" id="ngCsvD">⬇️ CSV</button><button class="btn alt g3d" id="ngXls">📊 Excel</button><button class="btn alt g3d" id="ngMyi">🧾 MyInvois</button></div>';
   el.innerHTML = h; bindRows(el);
   var qi = el.querySelector("#ngQ"); qi.oninput = function(){ ST.q = qi.value; clearTimeout(vDocs.t); vDocs.t = setTimeout(function(){ draw(); var i = root.querySelector("#ngQ"); if(i){ i.focus(); i.setSelectionRange(i.value.length, i.value.length); } }, 250); };
+  var sx = el.querySelector("#ngSegX"); if(sx) sx.onclick = function(){ ST.segAll = !ST.segAll; draw(); };   // 0.6.67 (owner): ▸ shows every filter at once, no sideways scrolling
   el.querySelectorAll("[data-sg]").forEach(function(b){ b.onclick = function(){ ST.seg = b.getAttribute("data-sg"); draw(); }; });
   el.querySelector("#ngCsvD").onclick = function(){ exportCsv(list, p); };
   el.querySelector("#ngXls").onclick = function(){ exportXlsx(p); }; el.querySelector("#ngMyi").onclick = function(){ myInvois(p); }; }
@@ -330,7 +361,10 @@ function exportXlsx(p){ var docs = N.live(D.docs).filter(function(d){ return d.p
   N.live(D.customers).forEach(function(c){ if(c.pid === p.id) S4.push([c.name, c.co || "", c.phone || "", c.email || "", c.addr || ""]); });
   N.live(D.items).forEach(function(x){ if(x.pid === p.id) S5.push([x.name, x.unit || "", N.num(x.price), x.sku || "", x.cat || ""]); });
   var b64 = window.NiagaXlsx([["Dokumen", S1], ["Butiran", S2], ["Bayaran", S3], ["Pelanggan", S4], ["Barang", S5], ["Belanja", S6]]), name = "niaga-" + (p.name || "biz").replace(/[^A-Za-z0-9]+/g, "-") + "-" + N.ymd() + ".xlsx", mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-  if(window.Native && H.N.shareBinary) H.N.shareBinary(name, b64, mime, ""); else { var a = document.createElement("a"); a.href = "data:" + mime + ";base64," + b64; a.download = name; document.body.appendChild(a); a.click(); a.remove(); } }
+  var send = function(){ if(window.Native && H.N.shareBinary) H.N.shareBinary(name, b64, mime, ""); else { var a = document.createElement("a"); a.href = "data:" + mime + ";base64," + b64; a.download = name; document.body.appendChild(a); a.click(); a.remove(); } };
+  if(!linkable()){ send(); return; }
+  var ov = H.showSheet("📊 " + E(name), '<button class="ngRow card" id="xsF"><i>📤</i><span><b>' + L("Kongsi fail", "Share the file") + '</b></span>›</button><button class="ngRow card" id="xsL"><i>🔗</i><span><b>' + L("Dapatkan pautan", "Get a link") + '</b><small>' + L("Disimpan di Drive anda; sesiapa dengan pautan boleh melihat", "Saved in your Drive; anyone with the link can view") + '</small></span>›</button>');
+  ov.querySelector("#xsF").onclick = function(){ H.closeOverlay(); send(); }; ov.querySelector("#xsL").onclick = function(){ H.closeOverlay(); giveLink(name, b64, mime); }; }
 function xd(s){ return s ? {d:s} : ""; }
 function exportCsv(list, p){ var rows = [[L("Jenis", "Type"), L("No.", "No."), L("Tarikh", "Date"), L("Tarikh akhir", "Due"), L("Pelanggan", "Customer"), L("Jumlah kecil", "Subtotal"), L("Diskaun", "Discount"), L("Cukai", "Tax"), L("Jumlah", "Total"), L("Dibayar", "Paid"), L("Baki", "Balance"), "Status", L("Kaedah", "Method")]];
   list.forEach(function(d){ var T = N.totals(D, d, p); rows.push([tname(d.type), d.no || "", d.date, d.due || "", (d.cust || {}).name || "", N.rm(T.sub), N.rm(T.disc), N.rm(T.taxSum), N.rm(T.total), N.rm(T.paid), N.rm(T.bal), N.status(D, d), d.method || ""]); });
@@ -345,7 +379,7 @@ function discPct(d, p){ var g = 0; (d.lines || []).forEach(function(l){ if(l.t !
 function preview(el, d, p, opt){ el.innerHTML = '<div class="ngLoad">⏳</div>';
   return TP.render(D, d, rp(p), imgGet, opt).then(function(pages){ if(!document.body.contains(el)) return pages; el.innerHTML = ""; pages.forEach(function(cv){ var im = document.createElement("img"); im.src = cv.toDataURL("image/jpeg", .85); im.className = pages.thermal ? "ngPg th" : "ngPg"; im.onclick = function(){ zoom(im.src); }; el.appendChild(im); }); return pages; })
     .catch(function(e){ console.error(e); el.innerHTML = '<div class="mut">' + L("Pratonton gagal", "Preview failed") + '</div>'; }); }
-function zoom(src){ var z = document.createElement("div"); z.className = "ngZoom"; z.innerHTML = '<img src="' + src + '" alt=""><button class="chip">✕</button>'; z.onclick = function(){ z.remove(); }; document.body.appendChild(z); }
+function zoom(src, drive){ if(window.IbView){ IbView(src, {drive:drive || ""}); return; } var z = document.createElement("div"); z.className = "ngZoom"; z.innerHTML = '<img src="' + src + '" alt=""><button class="chip">✕</button>'; z.onclick = function(){ z.remove(); }; document.body.appendChild(z); }
 function vDoc(el){ var d = N.byId(D.docs, ST.vw); if(!d || d.del){ ST.vw = null; vDocs(el); return; } var p = N.profOf(D, d) || prof(), st = N.status(D, d), T = N.totals(D, d, p), ty = N.TYPES[d.type];
   var act = []; var A = function(k, ic, a, b, cls){ act.push('<button class="btn ' + (cls || "alt") + ' g3d" data-da="' + k + '">' + ic + ' ' + L(a, b) + '</button>'); };
   if(st === "draft"){ A("edit", "✎", "Sambung", "Continue", "gold"); if(d.discReq && !staff() && !(d.discOk >= d.discReq.pct)) A("dok", "✅", L("Luluskan diskaun ", "Approve discount ") + d.discReq.pct + "%", L("Luluskan diskaun ", "Approve discount ") + d.discReq.pct + "%"); A("del", "🗑", "Padam draf", "Delete draft"); }
@@ -804,12 +838,13 @@ function packOf(pids){ var data = {profiles:[], customers:[], items:[], docs:[],
 function exportBiz(){ var a = profs(), p = prof();
   var ov = H.showSheet("📤 " + L("Eksport fail Niaga", "Export a Niaga file"), (a.length > 1 ? '<div class="chips">' + [["one", E(p.name)], ["all", L("Semua perniagaan", "All businesses")]].map(function(o, i){ return '<button class="chip' + (i ? "" : " on") + '" data-ew="' + o[0] + '">' + o[1] + '</button>'; }).join("") + '</div>' : '') +
     (canCrypt() ? fld("exPw", L("Kata laluan (disyorkan, fail ada tandatangan & cop)", "Password (recommended: the file holds signatures & the stamp)"), "", "password", ' autocomplete="new-password"') : '') +
-    '<div class="mut small">' + L("Simpan ke Drive / Muat turun, atau hantar kepada diri sendiri. Di telefon baharu: Niaga › Import.", "Save to Drive / Downloads, or send it to yourself. On the new phone: Niaga › Import.") + '</div><button class="btn gold full g3d" id="exOk" style="margin-top:10px">📤 ' + L("Eksport", "Export") + '</button>');
-  var which = "one"; ov.querySelectorAll("[data-ew]").forEach(function(b){ b.onclick = function(){ which = b.getAttribute("data-ew"); ov.querySelectorAll("[data-ew]").forEach(function(x){ x.classList.toggle("on", x === b); }); }; });
+    '<div class="mut small">' + L("Simpan ke Drive / Muat turun, atau hantar kepada diri sendiri. Di telefon baharu: Niaga › Import.", "Save to Drive / Downloads, or send it to yourself. On the new phone: Niaga › Import.") + '</div><button class="btn gold full g3d" id="exOk" style="margin-top:10px">📤 ' + L("Eksport", "Export") + '</button>' + (linkable() ? '<button class="btn alt full g3d" id="exLk" style="margin-top:8px">🔗 ' + L("Eksport sebagai pautan Drive", "Export as a Drive link") + '</button>' : ''));
+  ov._link = false; var which = "one"; ov.querySelectorAll("[data-ew]").forEach(function(b){ b.onclick = function(){ which = b.getAttribute("data-ew"); ov.querySelectorAll("[data-ew]").forEach(function(x){ x.classList.toggle("on", x === b); }); }; });
+  var lk = ov.querySelector("#exLk"); if(lk) lk.onclick = function(){ ov._link = true; ov.querySelector("#exOk").onclick(); };   // 0.6.70 a link instead of a file
   ov.querySelector("#exOk").onclick = function(){ var pids = which === "all" ? a.map(function(x){ return x.id; }) : [p.id], pack = packOf(pids), pw = gv(ov, "exPw");
     var man = {app:"My Ihsan", kind:"niaga", v:1, at:N.iso(), counts:{profiles:pack.data.profiles.length, customers:pack.data.customers.length, items:pack.data.items.length, docs:pack.data.docs.length, images:Object.keys(pack.img).length}};
     var name = "MyIhsan-Niaga-" + (which === "all" ? "semua" : (p.name || "biz")).replace(/[^A-Za-z0-9]+/g, "-") + "-" + N.ymd() + ".ihsanbiz", body = JSON.stringify(pack);
-    var out = function(o){ saveText(name, JSON.stringify(o)); H.closeOverlay(); H.toast("✅ " + L("Fail disediakan", "File ready")); };
+    var out = function(o){ if(ov._link){ ov._link = false; H.closeOverlay(); giveLink(name, b64Text(JSON.stringify(o)), "application/json"); return; } saveText(name, JSON.stringify(o)); H.closeOverlay(); H.toast("✅ " + L("Fail disediakan", "File ready")); };
     if(pw) encrypt(body, pw).then(function(enc){ man.enc = enc; out(man); }, function(){ H.toast(L("Penyulitan gagal", "Encryption failed")); }); else { man.pack = pack; out(man); } }; }
 function importBiz(){ openText(".ihsanbiz,.json,application/json", function(body){ var j = null; try{ j = JSON.parse(body); }catch(e){}
   if(!j || j.app !== "My Ihsan" || j.kind !== "niaga"){ H.toast(L("Ini bukan fail Niaga", "This is not a Niaga file")); return; }
@@ -879,7 +914,7 @@ function csvImport(kind, src){ var lk = NS() && NS().link(prof().id);
     '<button class="btn alt full g3d" id="ckT">⬇️ ' + L("Muat turun templat CSV", "Download CSV templates") + '</button>');
     ov.querySelectorAll("[data-ck]").forEach(function(b){ b.onclick = function(){ H.closeOverlay(); csvImport(b.getAttribute("data-ck")); }; });
     ov.querySelector("#ckT").onclick = function(){ var rows = [["No. Invois","Tarikh","Pelanggan","Jumlah","Dibayar","Tarikh akhir","Jenis"],["INV-2025-0101","31/12/2025","Puan Aisyah","1250.50","500","14/01/2026","INV"]]; saveText("niaga-templat-dokumen.csv", N.csvMake(rows), "text/csv"); }; return; }
-  openText(".csv,text/csv,text/plain", function(txt){ if(/^PK/.test(txt)){ H.toast(L("Fail Excel (.xlsx): simpan sebagai CSV dahulu", "Excel file (.xlsx): save it as CSV first")); return; } var rows = N.csvParse(txt); if(rows.length < 2){ H.toast(L("Tiada baris data", "No data rows")); return; } csvMap(kind, rows); }); }
+  openTable(function(rows){ rows = (rows || []).filter(function(r){ return r.some(function(v){ return String(v).trim(); }); }); if(rows.length < 2){ H.toast(L("Tiada baris data", "No data rows")); return; } csvMap(kind, rows); }); }   // 0.6.70: CSV or Excel .xlsx
 function csvMap(kind, rows){ var F = CSVF[kind], head = rows[0], sav = (D.csvMap || {})[kind] || {}, mp = {};
   F.forEach(function(f){ var g = sav[f[0]] != null && head[sav[f[0]]] != null ? sav[f[0]] : head.findIndex(function(h){ return f[3].test(h); }); mp[f[0]] = g; });
   var ov = H.showSheet("📊 " + L("Padankan lajur", "Match the columns"), '<div class="mut small">' + (rows.length - 1) + L(" baris. Semak tekaan aplikasi.", " rows. Check the app's guesses.") + '</div>' +
@@ -915,5 +950,5 @@ window.FinMore.niaga = function(el, A){ H = A.H; root = el; css(); render.rc = 0
     afterJoin:function(pid){ ld(); D.cur = pid; ST.wiz = 0; ST.pg = "papan"; ST.vw = null; ST.ed = null; H.save(N.KEY, D); draw(); }});
     var p0 = prof(); if(p0 && NS().link(p0.id)) setTimeout(function(){ NS().sync(p0.id); }, 600); }
   render(); };
-window.NiagaView = {state:ST, data:function(){ return D; }, imgGet:function(id){ return imgGet(id); }, reload:function(){ ld(); draw(); }};
+window.NiagaView = {_t:{openTable:function(cb){ openTable(cb); }, xlsxRows:function(u){ return xlsxRows(u); }, giveLink:function(n, b, m){ giveLink(n, b, m); }}, state:ST, data:function(){ return D; }, imgGet:function(id){ return imgGet(id); }, reload:function(){ ld(); draw(); }};
 })();

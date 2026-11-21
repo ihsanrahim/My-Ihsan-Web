@@ -50,7 +50,9 @@ function html(){ var a = A(), c = a.cfg();
     '<details' + (st.more ? ' open' : '') + ' id="aiMoreK"><summary class="mut small">' + L2("Lagi", "More") + ' (Mistral, Qwen, DeepSeek, OpenAI, Claude, Grok, ' + L2("lain", "custom") + ')</summary>' + MORE.map(keyRow).join("") + '</details>' +
     '<div class="aiKey"><b>' + L2("AI percuma", "Free AI") + '</b><span class="mut tiny">' + L2("tanpa kunci", "no key") + '</span><span></span><div class="st">' + dot("pollinations") + '</div></div>' +
     '<button class="btn gold full" id="aiKeys">' + L2("Simpan & uji kunci", "Save & test keys") + '</button>' +
-    '<h4>🎯 ' + L2("AI untuk setiap ciri", "Which AI for what") + '</h4>' + a.FEATS.map(function(f){ return featRow(a.FEAT[f[0]]); }).join("") + sttRow() +
+    '<h4>🎯 ' + L2("AI untuk setiap ciri", "Which AI for what") + '</h4>' +
+    '<label class="hrow"><span>' + L2("Satu tetapan untuk semua ciri", "One setting for every feature") + '</span><input type="checkbox" id="aiOne"' + (c.one && c.one.on ? ' checked' : '') + '></label>' +
+    (c.one && c.one.on ? featRow({id:"__all", ic:"✨", ms:"Semua ciri", en:"Every feature", photo:false}) + '<div class="mut tiny">' + L2("Ciri yang membaca gambar memakai AI lain jika yang ini tidak boleh membaca gambar.", "Features that read photos use another AI if this one cannot read photos.") + '</div>' : a.FEATS.map(function(f){ return featRow(a.FEAT[f[0]]); }).join("")) + sttRow() +
     '<div class="mut tiny">📷 ' + L2("membaca gambar", "reads photos") + ' · 🔒 ' + L2("peribadi: AI percuma tidak dipakai sebagai sandaran", "private: the free AI is never used as backup") + ' · 🆓 ' + L2("model percuma", "free model") + '</div>' +
     '<h4>🔁 ' + L2("Sandaran", "Backup") + '</h4><label class="hrow"><span>' + L2("Jika gagal atau lambat, cuba AI lain", "If it fails or is slow, try another AI") + '</span><input type="checkbox" id="aiBk"' + (c.backup !== false ? ' checked' : '') + '></label>' +
     '<div class="mut tiny" style="margin-top:8px;line-height:1.45">🔒 ' + L2("Kunci disimpan dalam telefon ini sahaja. Gambar dan teks dihantar hanya kepada AI yang dipakai.", "Keys stay on this phone. Photos and text go only to the AI in use.") + '</div></div>'; }
@@ -67,8 +69,9 @@ function bind(el){ var a = A();
     if(Object.keys(c.keys).some(function(k){ return c.keys[k]; })) c.on = true;
     a.saveCfg(c); H.toast(L2("Kunci disimpan", "Keys saved")); testKeys(Object.keys(c.keys).filter(function(k){ return c.keys[k]; })); rerender(); };
   el.querySelectorAll("[data-login]").forEach(function(b){ b.onclick = function(){ a.login(L2).then(function(key){ var c = a.cfg(); c.keys.openrouter = key; c.on = true; a.saveCfg(c); H.toast(L2("Log masuk berjaya", "Signed in")); testKeys(["openrouter"]); rerender(); }, function(e){ H.toast(String(e && e.message || e)); }); }; });
-  var save = function(id, prov, model){ var c = a.cfg(); c.feat = c.feat || {}; c.feat[id] = {prov: prov, model: model || ""}; a.saveCfg(c); H.toast(L2("Disimpan", "Saved")); rerender(); };
-  el.querySelectorAll("[data-fp]").forEach(function(s){ s.onchange = function(){ var id = s.getAttribute("data-fp"), f = a.FEAT[id]; st.other[id] = false; save(id, s.value, s.value === "pollinations" ? "openai" : a.modelFor(a.cfg(), s.value, f.photo));
+  var one = el.querySelector("#aiOne"); if(one) one.onchange = function(){ var c = a.cfg(), d = a.featCfg("ask"); c.one = c.one || {prov:d.prov, model:d.model}; c.one.on = one.checked; a.saveCfg(c); rerender(); };
+  var save = function(id, prov, model){ var c = a.cfg(); if(id === "__all"){ c.one = {on:true, prov:prov, model:model || ""}; a.saveCfg(c); H.toast(L2("Disimpan untuk semua ciri", "Saved for every feature")); rerender(); return; } c.feat = c.feat || {}; c.feat[id] = {prov: prov, model: model || ""}; a.saveCfg(c); H.toast(L2("Disimpan", "Saved")); rerender(); };
+  el.querySelectorAll("[data-fp]").forEach(function(s){ s.onchange = function(){ var id = s.getAttribute("data-fp"), f = a.FEAT[id] || {photo:false}; st.other[id] = false; save(id, s.value, s.value === "pollinations" ? "openai" : a.modelFor(a.cfg(), s.value, f.photo));
     if(!st.mlist[s.value] && a.cfg().keys[s.value] && s.value !== "custom") testKeys([s.value]); }; });
   el.querySelectorAll("[data-fm]").forEach(function(s){ s.onchange = function(){ var id = s.getAttribute("data-fm"); if(s.value === "__other"){ st.other[id] = true; rerender(); var i = el.querySelector('[data-fmo="' + id + '"]'); if(i) i.focus(); return; }
     st.other[id] = false; save(id, a.featCfg(id).prov, s.value); }; });

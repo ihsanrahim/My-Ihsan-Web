@@ -62,10 +62,11 @@ function sync(pid, opt){ opt = opt || {}; var D0 = C.D(), l0 = link(D0, pid); if
         else { l2.block = l2.block || {}; l2.block[b.id] = b.rev; D2.sync.conflicts.push({id:b.id, kind:b.kind, pid:b.pid, why:x.why, at:N.iso(), mine:JSON.parse(b.json)}); changed++; } });
       C.save(); if(list.length > 200) return push(); }); };
   var imgs = function(){ var D = C.D(), l = link(D, pid), pr = N.byId(D.profiles, pid); if(!pr || !pr.driveImg || !C.imgGet) return;
-    var ids = [pr.logo, pr.stamp, pr.qr].concat((pr.sigs || []).map(function(g){ return g.img; })).filter(Boolean); l.imgUp = l.imgUp || {};
+    // 0.6.67: expense receipt photos go to Drive too (as image files), so each one can be opened there
+    var ids = [pr.logo, pr.stamp, pr.qr].concat((pr.sigs || []).map(function(g){ return g.img; })).concat((D.expenses || []).filter(function(e){ return e.pid === pid && e.photo; }).map(function(e){ return e.photo; })).filter(Boolean); l.imgUp = l.imgUp || {}; l.imgFid = l.imgFid || {};
     var chain = Promise.resolve(); ids.forEach(function(id){ chain = chain.then(function(){ var have = C.imgGet(id), l2 = link(C.D(), pid);
-      if(have && !l2.imgUp[id]) return call(l2, "imgput", {id:id, data:have}).then(function(){ l2.imgUp[id] = 1; C.save(); });
-      if(!have) return call(l2, "imgget", {id:id}).then(function(r){ if(r.data){ C.imgPut(id, r.data); l2.imgUp[id] = 1; changed++; C.save(); } }, function(){}); }); });
+      if(have && !l2.imgUp[id]) return call(l2, "imgput", {id:id, data:have}).then(function(r){ l2.imgUp[id] = 1; if(r && r.fid){ l2.imgFid = l2.imgFid || {}; l2.imgFid[id] = r.fid; } C.save(); });
+      if(!have) return call(l2, "imgget", {id:id}).then(function(r){ if(r.data){ C.imgPut(id, r.data); l2.imgUp[id] = 1; if(r.fid){ l2.imgFid = l2.imgFid || {}; l2.imgFid[id] = r.fid; } changed++; C.save(); } }, function(){}); }); });
     return chain.catch(function(e){ var l3 = link(C.D(), pid); if(String(e && e.message) === "op") l3.err = L("Kemas kini skrip untuk simpan gambar di Drive", "Update the script to keep images in Drive"); }); };
   var p = pull().then(push).then(imgs).then(function(){ var D = C.D(), l = link(D, pid); l.last = N.iso(); l.err = ""; })
     .catch(function(e){ var D = C.D(), l = link(D, pid); if(l){ l.err = msg(e); if(String(e && e.message) === "auth") l.gone = true; } })
@@ -197,13 +198,14 @@ function join(){ var ov = H().showSheet("🔗 " + L("Sambung ke Sheet sedia ada"
 function scan(done, ok2, title){ var Hh = H(), Nn = Hh.N, valid = ok2 || function(t){ return !!parseCode(t); };
   var go = function(){ if(window.Native && Nn.hasPerm && !Nn.hasPerm("camera")){ var ph = function(r){ if(r.which !== "camera") return; Hh.off("perm", ph); if(r.granted) go(); }; Hh.on("perm", ph); Nn.requestPerm("camera"); return; }
     var ov = document.getElementById("overlay"), stream = null, t = null, closed = false;
-    ov.className = "bcov"; ov.innerHTML = '<video id="gqV" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div class="bcTop"><button class="qcX" id="gqX">✕</button><b>' + (title || L("Imbas QR telefon pemilik", "Scan the owner's QR")) + '</b><span></span></div>';
+    ov.className = "bcov"; ov.innerHTML = '<video id="gqV" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div class="bcTop"><button class="qcX" id="gqX">✕</button><b>' + (title || L("Imbas QR telefon pemilik", "Scan the owner's QR")) + '</b><button class="qcX" id="gqG">🖼</button></div>';
     var stop = function(){ closed = true; clearTimeout(t); if(stream) stream.getTracks().forEach(function(x){ x.stop(); }); Hh.closeOverlay(); };
     ov.querySelector("#gqX").onclick = stop; ov._close = stop;
     var v = ov.querySelector("#gqV"), cv = document.createElement("canvas"), cx = cv.getContext("2d", {willReadFrequently:true}), det = ("BarcodeDetector" in window) ? new window.BarcodeDetector({formats:["qr_code"]}) : null, zx = null;
     var hit = function(txt){ if(closed || !valid(txt)) return false; stop(); done(txt); return true; };
+    ov.querySelector("#gqG").onclick = function(){ if(!window.IbScanImg) return; IbScanImg("qr", function(x, cancel){ if(cancel) return; if(!x){ Hh.toast("🖼 " + L("Tiada kod QR dijumpai dalam gambar", "No QR code found in that picture")); return; } if(!hit(x)) Hh.toast(L("Kod QR ini bukan untuk di sini", "This QR code is not for here")); }); };
     var tk = function(){ if(closed) return; if(v.videoWidth){ if(det){ det.detect(v).then(function(r){ if(!(r && r[0] && hit(r[0].rawValue))) t = setTimeout(tk, 250); }).catch(function(){ t = setTimeout(tk, 400); }); return; }
-        if(zx){ cv.width = v.videoWidth; cv.height = v.videoHeight; cx.drawImage(v, 0, 0); try{ var Z = window.ZXing, img = cx.getImageData(0, 0, cv.width, cv.height), lum = new Z.RGBLuminanceSource(img.data, cv.width, cv.height), r2 = zx.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(lum))); if(hit(r2.getText())) return; }catch(e){} } }
+        if(zx){ cv.width = v.videoWidth; cv.height = v.videoHeight; cx.drawImage(v, 0, 0); try{ var Z = window.ZXing, lum = new Z.HTMLCanvasElementLuminanceSource(cv), r2 = zx.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(lum))); if(hit(r2.getText())) return; }catch(e){} } }
       t = setTimeout(tk, 300); };
     var cam = function(){ navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(function(s){ stream = s; v.srcObject = s; tk(); }).catch(function(){ stop(); Hh.toast(L("Kamera tidak tersedia", "Camera not available")); }); };
     if(det) cam(); else { var sc = document.createElement("script"); sc.src = "halal/zxing.min.js"; sc.onload = function(){ var Z = window.ZXing; zx = new Z.MultiFormatReader(); var hm = new Map(); hm.set(Z.DecodeHintType.POSSIBLE_FORMATS, [Z.BarcodeFormat.QR_CODE]); zx.setHints(hm); cam(); }; sc.onerror = cam; if(window.ZXing) sc.onload(); else document.body.appendChild(sc); } };
@@ -214,6 +216,8 @@ window.NiagaSheet = {init:function(ctx){ C = ctx; start(); }, sync:sync, kick:ki
   scan:scan,
   // 0.6.29: a PDF copy in the person's Drive (owner switch "Save PDFs to Drive"); returns the file link
   pdf:function(pid, name, b64, year){ var l = link(C.D(), pid); if(!l || !l.url || l.off || l.gone) return Promise.reject(new Error("off")); return call(l, "pdfput", {name:name, b64:b64, year:year}); },
+  // 0.6.70: any exported file as a Drive link anyone can open (script v7)
+  shareFile:function(pid, name, b64, mime){ var l = link(C.D(), pid); if(!l || !l.url || l.off || l.gone) return Promise.reject(new Error("off")); return call(l, "fileput", {name:name, b64:b64, mime:mime}); },
   tabs:function(pid){ var l = link(C.D(), pid); return call(l, "tabs"); }, readtab:function(pid, name){ var l = link(C.D(), pid); return call(l, "readtab", {name:name}); },
   role:function(pid){ var l = link(C.D(), pid); return l && l.url ? l.role || "owner" : "owner"; }, parseCode:parseCode, rowOf:rowOf, apply:apply};
 })();

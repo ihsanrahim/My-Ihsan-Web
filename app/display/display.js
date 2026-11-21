@@ -131,6 +131,8 @@ var CLK_TPL = [
 function merge(a, b){ Object.keys(b||{}).forEach(function(k){ if(b[k] && typeof b[k]==="object" && !Array.isArray(b[k]) && a[k] && typeof a[k]==="object") merge(a[k], b[k]); else a[k] = clone(b[k]); }); return a; }
 
 // ---------------- storage ----------------
+function quickCfg(){ var q = H.load("ihsan_ds_quick", null); return q && q.lines ? merge(bbDefault(), q) : bbDefault(); }
+function quickSave(fn){ var c = quickCfg(); fn(c); H.save("ihsan_ds_quick", c); }
 function presets(){ return H.load("ihsan_displays", null) || []; }
 function savePresets(p){ p.forEach(function(x){ if(!x.id) x.id = Date.now()+Math.floor(Math.random()*1000); }); H.save("ihsan_displays", p);
   try{ if(H.N.setDisplayShortcuts) H.N.setDisplayShortcuts(JSON.stringify(p.slice(0, 4).map(function(x){ return {id: String(x.id), name: x.name}; }))); }catch(e){} }
@@ -388,8 +390,14 @@ function bigScreen(){ try{ return Math.min(screen.width, screen.height) >= 600; 
 // ---------------- page: home ----------------
 function open(el, helpers){ H = helpers; UI.el = el; if(UI.editing) editor(); else home(); }
 function home(){ stopPrev(); UI.editing = null; var el = UI.el, ps = presets(); el.classList.remove("dsEdit");
-  var h = '<div class="dsModes"><button class="card dsMode" id="dsNewBB"><span>🪧</span><b>'+L("Papan tanda","Billboard")+'</b><small>'+L("Teks bergerak, LED, 20 animasi","Moving text, LED, 20 animations")+'</small></button>'+
-    '<button class="card dsMode" id="dsNewClk"><span>🕰️</span><b>'+L("Jam paparan","Display clock")+'</b><small>'+L("Jam, Hijri, waktu solat, iqamah, 10 tema","Clock, Hijri, prayer times, iqamah, 10 themes")+'</small></button></div>';
+  // 0.6.68 (owner): the billboard sits right on the Display page: live preview, the text, a few quick choices and ▶ Start
+  var Q = quickCfg(), qs = Q.an.cont ? "scroll" : Q.an.show === "neon" ? "flash" : "still";
+  var h = '<div class="card dsQuick"><h3>🪧 '+L("Papan tanda","Billboard")+'</h3><div class="dsQPv" id="dsQPv"></div>'+
+    '<textarea id="dsQT" class="rin" rows="2" dir="auto" placeholder="'+L("Tulis teks (satu baris setiap paparan)","Type the text (one line per screen)")+'">'+esc(Q.lines.map(function(l){ return l.t; }).join("\n"))+'</textarea>'+
+    '<div class="dsChips">'+[["scroll","➡ "+L("Bergerak","Scrolling")],["still","▣ "+L("Tetap","Still")],["flash","✨ "+L("Bercahaya","Glowing")]].map(function(o){ return '<button class="chip'+(qs===o[0]?' on':'')+'" data-qs="'+o[0]+'">'+o[1]+'</button>'; }).join("")+'</div>'+
+    '<div class="dsChips">'+[["#ffd400","#000000"],["#ffffff","#0b5d3b"],["#00e5ff","#0b1230"],["#ff2bd6","#120408"],["#39ff14","#000000"],["#000000","#ffd400"]].map(function(p){ return '<button class="dsQc'+(Q.st.color.a===p[0]&&Q.bg.a===p[1]?' on':'')+'" data-qc="'+p.join("|")+'" style="background:'+p[1]+';color:'+p[0]+'">Aa</button>'; }).join("")+'</div>'+
+    '<div class="dsGoBar"><button class="btn gold g3d" id="dsQGo">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsNewBB">⚙ '+L("Lagi tetapan","More settings")+'</button></div></div>'+
+    '<div class="dsModes"><button class="card dsMode" id="dsNewClk"><span>🕰️</span><b>'+L("Jam paparan","Display clock")+'</b><small>'+L("Jam, Hijri, waktu solat, iqamah, 10 tema","Clock, Hijri, prayer times, iqamah, 10 themes")+'</small></button></div>';
   if(ps.length) h += '<div class="card"><h3>💾 '+L("Paparan tersimpan","Saved displays")+'</h3>'+ps.map(function(p, i){ return '<div class="dsPre"><div class="dsMini" data-mini="'+i+'"></div><span>'+(p.cfg.mode==="clk"?"🕰️":"🪧")+' <b>'+esc(p.name)+'</b></span><button class="chip gold" data-pp="'+i+'">▶</button><button class="chip" data-pe="'+i+'">✏️</button><button class="chip" data-pm="'+i+'">⋯</button></div>'; }).join("")+
     '<div class="btns" style="margin-top:6px"><button class="chip" id="dsPlay">🗓 '+L("Jadual (playlist)","Schedule (playlist)")+'</button><button class="chip" id="dsImp">📥 '+L("Import kod","Import code")+'</button></div></div>';
   else h += '<div class="btns"><button class="chip" id="dsImp">📥 '+L("Import kod paparan","Import a display code")+'</button></div>';
@@ -401,7 +409,14 @@ function home(){ stopPrev(); UI.editing = null; var el = UI.el, ps = presets(); 
   el.innerHTML = h;
   // 0.6.31 (owner): each saved display plays live in a small preview, so moving text is seen moving
   UI.minis = []; el.querySelectorAll("[data-mini]").forEach(function(b){ var c = ps[+b.getAttribute("data-mini")].cfg; b.style.aspectRatio = c.orient==="portrait" ? "9 / 14" : "16 / 9"; try{ if(c.st) loadFont(c.st.font); UI.minis.push(c.mode==="clk" ? renderClock(b, c, {}) : render(b, c, {})); }catch(e){} b.onclick = function(){ fullscreen(c, home); }; });
-  el.querySelector("#dsNewBB").onclick = function(){ edit(bbDefault(), -1); };
+  el.querySelector("#dsNewBB").onclick = function(){ var c = quickCfg(); c.name = L("Papan saya","My board"); edit(c, -1); };
+  var qpv = el.querySelector("#dsQPv"), qDraw = function(){ try{ if(UI.qm) UI.qm.stop(); }catch(e){} var c = quickCfg(); loadFont(c.st.font); qpv.style.aspectRatio = "16 / 9"; UI.qm = render(qpv, c, {}); UI.minis = (UI.minis || []).concat([UI.qm]); };
+  qDraw(); var qt = el.querySelector("#dsQT"), qT = null;
+  qt.oninput = function(){ var v = qt.value; clearTimeout(qT); qT = setTimeout(function(){ quickSave(function(c){ c.lines = v.split("\n").filter(function(x){ return x.trim(); }).map(function(x){ return {t:x}; }); if(!c.lines.length) c.lines = [{t:" "}]; c.an.play = c.lines.length > 1 && !c.an.cont ? "slides" : "all"; }); qDraw(); }, 250); };
+  el.querySelectorAll("[data-qs]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-qs"); quickSave(function(c){ c.an.cont = k === "scroll" ? "scrollL" : ""; c.an.show = k === "flash" ? "neon" : k === "still" ? "breathe" : ""; c.st.glow = k === "flash"; c.an.enter = k === "scroll" ? "" : "fade"; });
+    el.querySelectorAll("[data-qs]").forEach(function(z){ z.classList.toggle("on", z === b); }); qDraw(); }; });
+  el.querySelectorAll("[data-qc]").forEach(function(b){ b.onclick = function(){ var p = b.getAttribute("data-qc").split("|"); quickSave(function(c){ c.st.color = {k:"solid", a:p[0]}; c.bg = merge(c.bg, {k:"solid", a:p[1]}); }); el.querySelectorAll("[data-qc]").forEach(function(z){ z.classList.toggle("on", z === b); }); qDraw(); }; });
+  el.querySelector("#dsQGo").onclick = function(){ fullscreen(quickCfg(), home); };
   el.querySelector("#dsNewClk").onclick = function(){ edit(clkDefault(), -1); };
   el.querySelectorAll("[data-tb]").forEach(function(b){ b.onclick = function(){ var t = BB_TPL[+b.getAttribute("data-tb")], c = merge(bbDefault(), t[4]); c.name = L(t[2], t[3]); edit(c, -1); }; });
   el.querySelectorAll("[data-tc]").forEach(function(b){ b.onclick = function(){ var t = CLK_TPL[+b.getAttribute("data-tc")], c = clkDefault(); Object.keys(c.show).forEach(function(k){ c.show[k] = false; }); merge(c, t[4]); c.name = L(t[2], t[3]); edit(c, -1); }; });
@@ -474,7 +489,7 @@ function preview(){ clearTimeout(pvT); pvT = setTimeout(function(){ var b = UI.e
   if(c.mode==="bb") b.querySelectorAll(".dsLine").forEach(function(ln){ ln.onclick = function(e){ e.stopPropagation(); var i = +ln.getAttribute("data-li"); UI.sel = UI.sel===i ? -1 : i; preview(); pages(true); }; }); }, 120); }
 var resBound = false;
 function editor(){ var el = UI.el, c = UI.cfg; el.classList.add("dsEdit");
-  if(!resBound){ resBound = true; window.addEventListener("resize", function(){ if(UI.editing && UI.el && document.body.contains(UI.el) && UI.el.querySelector("#dsPv")){ clearTimeout(editor.rt); editor.rt = setTimeout(function(){ preview(); pages(true); }, 250); } }); }
+  if(!resBound){ resBound = true; window.addEventListener("resize", function(){ if(UI.editing && UI.el && document.body.contains(UI.el) && UI.el.querySelector("#dsPv")){ clearTimeout(editor.rt); editor.rt = setTimeout(function(){ var a = document.activeElement; preview(); if(!(a && /INPUT|TEXTAREA/.test(a.tagName) && UI.el.contains(a))) pages(true); }, 250); } /* 0.6.68 (owner): the keyboard opening resizes the window; redrawing the pages here closed the keyboard */ }); }
   el.innerHTML = '<div class="dsEdTop"><button class="chip" id="dsBack">‹</button><input id="dsName" class="rin" value="'+esc(c.name)+'"><button class="chip" id="dsUndo" title="Undo">↶</button><button class="chip" id="dsRedo" title="Redo">↷</button><button class="chip" id="dsRnd" title="🔀">🔀</button></div>'+
     '<div class="dsPvWrap"><div id="dsPv" class="dsBox"></div><div class="dsPvHint mut tiny">'+(c.mode==="bb"?L("Ketik satu baris untuk mengubahnya sahaja. Ketik pratonton dua kali untuk skrin penuh.","Tap one line to edit only that line. Double-tap the preview for full screen."):L("Ketik pratonton dua kali untuk skrin penuh.","Double-tap the preview for full screen."))+'</div></div>'+
     '<div class="dsGoBar"><button class="btn gold g3d" id="dsStart">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsSave">💾 '+L("Simpan","Save")+'</button><button class="chip" id="dsReset">'+L("Set semula","Reset")+'</button></div>'+
@@ -520,8 +535,8 @@ function pageHtml(id, c){ var s = c.st ? S() : null, an = c.an || {}, sh = c.sho
   switch(id){
   case "text": return '<div class="dsLines">'+c.lines.map(function(l, i){ return '<div class="dsLn'+(UI.sel===i?' on':'')+'"><textarea class="rin" rows="1" data-ln="'+i+'" dir="auto">'+esc(l.t)+'</textarea><button class="chip" data-lsel="'+i+'">🎨</button><button class="chip" data-ldel="'+i+'">✕</button></div>'; }).join("")+'</div>'+
     '<div class="btns"><button class="chip" data-act="addline">＋ '+L("Baris","Line")+'</button><button class="chip" data-act="paste">📋 '+L("Tampal","Paste")+'</button><button class="chip" data-act="speak">🔊 '+L("Sebut","Speak")+'</button></div>'+
-    '<div class="mut tiny">'+L("Sisip cepat:","Quick insert:")+'</div><div class="dsChips">'+["Assalamualaikum","Selamat Hari Raya","Selamat Pengantin Baru","Ahlan wa sahlan","Selamat datang jemaah","Mohon senyap, solat sedang berlangsung","سُبْحَانَ اللّٰهِ","اَلْحَمْدُ لِلّٰهِ","اَللّٰهُ أَكْبَرُ","{jam}","{tarikh}","{hijri}","{solat seterusnya}","{baki masa}","{kiraan}"].map(function(q){ return '<button class="chip" data-ins="'+esc(q)+'">'+esc(q)+'</button>'; }).join("")+'</div>'+
-    '<div class="mut tiny">'+L("Asma ul-Husna:","Names of Allah:")+'</div><div class="dsChips">'+(window.ASMAUL_HUSNA||[]).slice(0, 12).map(function(a){ return '<button class="chip ar" data-ins="'+esc(a[0])+'">'+esc(a[0])+'</button>'; }).join("")+'</div>';
+    '<details class="dsQi"><summary class="chip">＋ '+L("Sisip cepat","Quick insert")+'</summary><div class="dsChips">'+["Assalamualaikum","Selamat Hari Raya","Selamat Pengantin Baru","Ahlan wa sahlan","Selamat datang jemaah","Mohon senyap, solat sedang berlangsung","سُبْحَانَ اللّٰهِ","اَلْحَمْدُ لِلّٰهِ","اَللّٰهُ أَكْبَرُ","{jam}","{tarikh}","{hijri}","{solat seterusnya}","{baki masa}","{kiraan}"].map(function(q){ return '<button class="chip" data-ins="'+esc(q)+'">'+esc(q)+'</button>'; }).join("")+'</div>'+
+    '</details>';
   case "font": return allBtn+'<div class="dsFonts">'+FONTS.map(function(f){ loadFontLater(f[0]); return '<button class="dsFt'+(s.font===f[0]?' on':'')+'" data-font="'+f[0]+'" style="font-family:'+(f[0]==="led"?"monospace":f[2])+'">'+esc(f[1])+'</button>'; }).join("")+'</div>'+
     sl("size", s.size, 5, 100, L("Saiz (% tinggi)","Size (% of height)"))+sl("lh", s.lh, 0.7, 2, L("Jarak baris","Line spacing"), 0.05)+sl("ls", s.ls, -2, 10, L("Jarak huruf","Letter spacing"))+
     '<div class="dsSws">'+sw("bold", s.bold, "<b>B</b> "+L("Tebal","Bold"))+sw("italic", s.italic, "<i>I</i> "+L("Condong","Italic"))+sw("upper", s.upper, "AA "+L("Huruf besar","Uppercase"))+sw("under", s.under, "<u>U</u> "+L("Garis bawah","Underline"))+'</div>'+
@@ -576,7 +591,8 @@ function bindPages(wrap, c){
   var q = function(sel, fn, ev){ wrap.querySelectorAll(sel).forEach(function(e){ e[ev||"onclick"] = function(x){ fn(e, x); }; }); };
   var colorAttr = function(attr, fn){ q("[data-"+attr+"]", function(e){ var v = e.getAttribute("data-"+attr); recent(v); fn(v); }); q("[data-"+attr+"-pick]", function(e){ recent(e.value); fn(e.value); }, "onchange"); };
   // text
-  q("[data-ln]", function(e){ var i = +e.getAttribute("data-ln"), v = e.value; change(function(x){ x.lines[i].t = v; }); }, "onchange");
+  q("[data-ln]", function(e){ var i = +e.getAttribute("data-ln"), v = e.value; UI.hist.push(JSON.stringify(UI.cfg)); UI.cfg.lines[i].t = v; preview(); }, "onchange");
+  q("[data-ln]", function(e){ var i = +e.getAttribute("data-ln"); UI.cfg.lines[i].t = e.value; preview(); }, "oninput");
   q("[data-lsel]", function(e){ var i = +e.getAttribute("data-lsel"); UI.sel = UI.sel===i ? -1 : i; preview(); pages(true); });
   q("[data-ldel]", function(e){ var i = +e.getAttribute("data-ldel"); if(c.lines.length < 2) return; change(function(x){ x.lines.splice(i, 1); }); UI.sel = -1; });
   q("[data-ins]", function(e){ var v = e.getAttribute("data-ins"); change(function(x){ var i = UI.sel>=0 ? UI.sel : x.lines.length-1; x.lines[i].t = (x.lines[i].t ? x.lines[i].t+" " : "")+v; }); });

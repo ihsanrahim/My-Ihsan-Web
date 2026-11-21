@@ -40,8 +40,9 @@ function recurring(){ var d = db(), now = ymd().slice(0, 7), add = 0;
 // ---------- view ----------
 function sums(list){ var i = 0, o = 0; list.forEach(function(t){ if(t.t === "in") i += t.amt; else o += t.amt; }); return {i:i, o:o, n:i - o}; }
 function draw(){ if(!root) return; C3 = []; var d = db(), ym = ST.ym, inM = d.tx.filter(function(t){ return t.date.slice(0, 7) === ym; }), s = sums(inM);
+  if(MODE === "tax"){ drawTax(); return; }
   var tabs = [["📋", L("Transaksi", "Transactions")], ["📊", L("Bulan", "Month")], ["📅", L("Tahun", "Year")]];
-  var h = '<div class="card exHead"><div class="exNav"><button class="chip g3d" data-ym="-1" aria-label="‹">‹</button><b>' + (ST.page === 2 ? ym.slice(0, 4) : ymName(ym)) + '</b><button class="chip g3d" data-ym="1" aria-label="›">›</button></div>';
+  var h = '<div class="card exHead"><div class="exNav"><button class="chip g3d" data-ym="-1" aria-label="‹">‹</button><b>' + (ST.page >= 2 ? ym.slice(0, 4) : ymName(ym)) + '</b><button class="chip g3d" data-ym="1" aria-label="›">›</button></div>';
   var S = ST.page === 2 ? sums(d.tx.filter(function(t){ return t.date.slice(0, 4) === ym.slice(0, 4); })) : s;
   h += '<div class="exSum"><div><small>' + L("Masuk", "In") + '</small><b class="exIn">' + money(S.i, d.cur) + '</b></div><div><small>' + L("Keluar", "Out") + '</small><b class="exOut">' + money(S.o, d.cur) + '</b></div><div><small>' + L("Baki", "Balance") + '</small><b class="' + (S.n < 0 ? 'exOut' : 'exIn') + '">' + money(S.n, d.cur) + '</b></div></div>';
   h += '<div class="exAct"><button class="btn g3d exBO" data-add="out">➖ ' + L("Wang keluar", "Money out") + '</button><button class="btn g3d exBI" data-add="in">➕ ' + L("Wang masuk", "Money in") + '</button>' +
@@ -52,8 +53,13 @@ function draw(){ if(!root) return; C3 = []; var d = db(), ym = ST.ym, inM = d.tx
     '<div class="exDots">' + tabs.map(function(_, i){ return '<i class="' + (ST.page === i ? 'on' : '') + '"></i>'; }).join("") + '<small>' + L("Leret untuk halaman seterusnya", "Swipe for the next page") + '</small></div>';
   h += ST.page === 0 ? pageList(d, inM) : ST.page === 1 ? pageMonth(d, inM, s) : pageYear(d);
   h += '<div class="exFoot"><button class="chip g3d" id="exCsv">📤 ' + L("Eksport CSV", "Export CSV") + '</button><button class="chip g3d" id="exCur">' + E(d.cur) + ' ' + L("mata wang", "currency") + '</button></div>' +
-    '<div class="mut tiny" style="padding:4px 4px 20px">' + L("Semua data disimpan di telefon ini sahaja. Gambar resit atau penyata dihantar hanya kepada AI yang dipilih dalam Tetapan › AI dalam talian, dan tidak disimpan.", "Everything stays on this phone. Receipt and statement pictures go only to the AI chosen in Settings › Online AI, and are not stored.") + '</div>';
+    '<div class="mut tiny" style="padding:4px 4px 20px">' + L("Semua data dan gambar resit yang disimpan kekal di telefon ini. Gambar yang diimbas dihantar hanya kepada AI yang dipilih dalam Tetapan › AI dalam talian.", "Everything, including the receipt photos you keep, stays on this phone. Scanned pictures go only to the AI chosen in Settings › Online AI.") + '</div>';
   root.innerHTML = h; bind(); paintAll(); }
+// 0.6.72 (owner): Finance › 🧾 Cukai is its own tab (the same data: claims from expenses + claims added there)
+var MODE = "exp";
+function drawTax(){ if(!window.ExpTax) return; var y = ST.ym.slice(0, 4);
+  root.innerHTML = '<div class="card exHead"><div class="exNav"><button class="chip g3d" data-ty="-1" aria-label="‹">‹</button><b>YA ' + y + '</b><button class="chip g3d" data-ty="1" aria-label="›">›</button></div></div>' + ExpTax.page(api());
+  root.querySelectorAll("[data-ty]").forEach(function(b){ b.onclick = function(){ ST.ym = shiftYm(ST.ym, 12 * +b.getAttribute("data-ty")); drawTax(); }; }); ExpTax.bind(root, api()); }
 function row(t, cur){ var c = catOf(t.cat), p = PAY.filter(function(x){ return x[0] === t.pay; })[0];
   return '<button class="exRow" data-tx="' + t.id + '"><span class="exI">' + c[1] + '</span><span class="exT"><b>' + E(t.note || cname(c)) + '</b><small>' + E(cname(c)) + (p ? ' · ' + p[1] + ' ' + E(L(p[2], p[3])) : '') + (t.rep ? ' · 🔁' : '') + (t.src === "receipt" ? ' · 📷' : t.src === "statement" ? ' · 🏦' : '') + '</small></span><b class="' + (t.t === "in" ? 'exIn' : 'exOut') + '">' + (t.t === "in" ? '+' : '−') + money(t.amt, cur).replace(/^−/, "") + '</b></button>'; }
 function pageList(d, inM){ var q = ST.q.toLowerCase(), L2 = inM.filter(function(t){ return (ST.f === "all" || t.t === ST.f) && (!q || (t.note + " " + cname(catOf(t.cat))).toLowerCase().indexOf(q) >= 0); });
@@ -129,21 +135,27 @@ function pageYear(d){ var y = ST.ym.slice(0, 4), m = []; for(var i = 0; i < 12; 
 function form(tx, pre){ var d = db(), isNew = !tx, t = tx || Object.assign({id:rid(), t:"out", amt:0, cat:"food", note:"", pay:"card", date:ymd(), src:"manual"}, pre || {});
   var catsHtml = function(){ return (t.t === "in" ? IN : OUT).map(function(c){ return '<button class="exCc' + (t.cat === c[0] ? ' on' : '') + '" data-c="' + c[0] + '"><span>' + c[1] + '</span><small>' + E(cname(c)) + '</small></button>'; }).join(""); };
   var ov = H.showSheet((isNew ? "＋ " : "✏️ ") + (t.t === "in" ? L("Wang masuk", "Money in") : L("Wang keluar", "Money out")),
-    (t.img ? '<img class="exPv" src="' + t.img + '" alt="">' : '') +
+    '<div class="exRc" id="exRc"></div>' +
     '<div class="exTT"><button class="chip g3d" data-tt="out">➖ ' + L("Keluar", "Out") + '</button><button class="chip g3d" data-tt="in">➕ ' + L("Masuk", "In") + '</button></div>' +
     '<div class="exAmt"><span>' + E(d.cur) + '</span><input id="exA" inputmode="decimal" placeholder="0.00" value="' + (t.amt ? (t.amt / 100).toFixed(2) : '') + '"></div>' +
     '<input id="exN" class="rin" placeholder="' + L("Nota (cth. Nasi lemak, Tesco)", "Note (e.g. Nasi lemak, Tesco)") + '" value="' + E(t.note) + '">' +
     '<div class="exCg" id="exCg">' + catsHtml() + '</div>' +
     '<div class="exPay">' + PAY.map(function(p){ return '<button class="chip g3d' + (t.pay === p[0] ? ' on' : '') + '" data-p="' + p[0] + '">' + p[1] + ' ' + E(L(p[2], p[3])) + '</button>'; }).join("") + '</div>' +
+    (t.t === "out" && window.ExpTax ? ExpTax.pick(t, api()) : '') +
     '<div class="exDR"><input type="date" id="exD" class="rin" value="' + t.date + '"><label class="exRep"><input type="checkbox" id="exR"' + (t.rep ? ' checked' : '') + '> 🔁 ' + L("Ulang setiap bulan", "Repeat monthly") + '</label></div>' +
     '<div class="btns"><button class="btn gold g3d" id="exSave" style="flex:1">' + L("Simpan", "Save") + '</button>' + (isNew ? '' : '<button class="btn alt g3d" id="exDel">🗑️</button>') + '</div>');
   var q = function(s){ return ov.querySelector(s); }, mark = function(){ ov.querySelectorAll("[data-tt]").forEach(function(b){ b.classList.toggle("on", b.getAttribute("data-tt") === t.t); }); };
   var bindC = function(){ ov.querySelectorAll("[data-c]").forEach(function(b){ b.onclick = function(){ t.cat = b.getAttribute("data-c"); ov.querySelectorAll("[data-c]").forEach(function(x){ x.classList.toggle("on", x === b); }); }; }); };
-  mark(); bindC();
+  mark(); bindC(); if(window.ExpTax) ExpTax.bindPick(ov, t, api());
+  var rcpt = t.img || (t.rcpt ? imgGet(t.rcpt) : ""), showRc = function(){ q("#exRc").innerHTML = (rcpt ? '<img class="exPv" src="' + rcpt + '" data-zoom="1" alt=""><button class="chip" id="exRcX">✕</button>' : '') + '<button class="chip" id="exRcC">📷 ' + (rcpt ? L("Tukar resit", "Change receipt") : L("Simpan resit", "Keep the receipt")) + '</button><button class="chip" id="exRcG">🖼</button>';
+    var x = q("#exRcX"); if(x) x.onclick = function(){ rcpt = ""; delete t.img; showRc(); };
+    var pk = function(m){ pickImg(m, function(du){ shrink(du, 1600, 0.82).then(function(sm){ rcpt = sm; showRc(); }); }); }; q("#exRcC").onclick = function(){ pk("camera"); }; q("#exRcG").onclick = function(){ pk("gallery"); }; }; showRc();
   ov.querySelectorAll("[data-tt]").forEach(function(b){ b.onclick = function(){ t.t = b.getAttribute("data-tt"); if((t.t === "in") !== IN.some(function(c){ return c[0] === t.cat; })) t.cat = t.t === "in" ? "salary" : "food"; q("#exCg").innerHTML = catsHtml(); bindC(); mark(); }; });
   ov.querySelectorAll("[data-p]").forEach(function(b){ b.onclick = function(){ t.pay = b.getAttribute("data-p"); ov.querySelectorAll("[data-p]").forEach(function(x){ x.classList.toggle("on", x === b); }); }; });
   q("#exSave").onclick = function(){ var a = c2(q("#exA").value); if(!a){ H.toast(L("Masukkan jumlah", "Enter an amount")); q("#exA").focus(); return; }
     t.amt = Math.abs(a); t.note = q("#exN").value.trim(); t.date = q("#exD").value || ymd(); t.rep = q("#exR").checked; if(t.rep && !t.repLast) t.repLast = t.date.slice(0, 7); delete t.img;
+    if(rcpt && rcpt !== (t.rcpt ? imgGet(t.rcpt) : "")){ var rid0 = t.rcpt || ("r" + rid()); imgPut(rid0, rcpt); t.rcpt = rid0; } else if(!rcpt && t.rcpt){ t.rcpt = ""; }
+    if(t.t === "in") delete t.tax;
     var dd = db(), i = dd.tx.map(function(x){ return x.id; }).indexOf(t.id); if(i >= 0) dd.tx[i] = t; else dd.tx.push(t); save(dd); H.closeOverlay();
     ST.ym = t.date.slice(0, 7); H.toast("✓ " + L("Disimpan", "Saved")); draw(); };
   if(q("#exDel")) q("#exDel").onclick = function(){ var b = q("#exDel"); if(!b.classList.contains("sure")){ b.classList.add("sure"); b.textContent = L("Ketik lagi untuk padam", "Tap again to delete"); return; }
@@ -212,8 +224,15 @@ function budget(cat){ var d = db(), cats = cat ? [catOf(cat)] : OUT;
 function csv(){ var d = db(), rows = [["date","type","amount","category","payment","note"]].concat(d.tx.slice().sort(function(a, b){ return a.date.localeCompare(b.date); }).map(function(t){ return [t.date, t.t, (t.amt / 100).toFixed(2), cname(catOf(t.cat)), t.pay || "", (t.note || "").replace(/"/g, "'")]; }));
   var text = rows.map(function(r){ return r.map(function(x){ return /[",\n]/.test(x) ? '"' + x + '"' : x; }).join(","); }).join("\n");
   if(window.Native && H.N.shareFile) H.N.shareFile("my-ihsan-expenses.csv", text, "text/csv", ""); else { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type:"text/csv"})); a.download = "my-ihsan-expenses.csv"; a.click(); } }
+// 0.6.70: receipt photos kept with each expense (app files exp/<id>.txt; localStorage on the web) and the LHDN tax page (finance/tax.js)
+function imgPut(id, du){ try{ if(window.Native && H.N.qWrite) H.N.qWrite("exp/" + id + ".txt", du); else localStorage.setItem("ihsan_expimg_" + id, du); }catch(e){} }
+function imgGet(id){ if(!id) return ""; var v = ""; try{ if(window.Native && H.N.qRead) v = H.N.qRead("exp/" + id + ".txt") || ""; if(!v) v = localStorage.getItem("ihsan_expimg_" + id) || ""; }catch(e){} return v; }
+function csvOut(name, rows){ var text = rows.map(function(r){ return r.map(function(x){ x = String(x == null ? "" : x); return /[",\n]/.test(x) ? '"' + x.replace(/"/g, "'") + '"' : x; }).join(","); }).join("\n");
+  if(window.Native && H.N.shareFile) H.N.shareFile(name, text, "text/csv", ""); else { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type:"text/csv"})); a.download = name; a.click(); } }
+function api(){ return {L:L, E:E, H:H, ST:ST, db:db, save:save, rid:rid, ymd:ymd, draw:draw, imgGet:imgGet, imgPut:imgPut, pickImg:pickImg, shrink:shrink, csvOut:csvOut, openTx:function(t){ form(JSON.parse(JSON.stringify(t))); },
+  pdfOf:function(pages){ return H.canvasPdf(pages, 210, 297, 0.86); }}; }
 function bind(){ var q = function(s){ return root.querySelector(s); };
-  root.querySelectorAll("[data-ym]").forEach(function(b){ b.onclick = function(){ ST.ym = shiftYm(ST.ym, (ST.page === 2 ? 12 : 1) * +b.getAttribute("data-ym")); draw(); }; });
+  root.querySelectorAll("[data-ym]").forEach(function(b){ b.onclick = function(){ ST.ym = shiftYm(ST.ym, (ST.page >= 2 ? 12 : 1) * +b.getAttribute("data-ym")); draw(); }; });
   root.querySelectorAll("[data-pg]").forEach(function(b){ b.onclick = function(){ ST.page = +b.getAttribute("data-pg"); draw(); }; });
   root.querySelectorAll("[data-add]").forEach(function(b){ b.onclick = function(){ var t = b.getAttribute("data-add"); form(null, {t:t, cat:t === "in" ? "salary" : "food", date:ST.ym === ymd().slice(0, 7) ? ymd() : ST.ym + "-01"}); }; });
   root.querySelectorAll("[data-tx]").forEach(function(b){ b.onclick = function(){ var t = db().tx.filter(function(x){ return x.id === b.getAttribute("data-tx"); })[0]; if(t) form(JSON.parse(JSON.stringify(t))); }; });
@@ -225,8 +244,9 @@ function bind(){ var q = function(s){ return root.querySelector(s); };
   q("#exScan").onclick = scanReceipt; q("#exStmt").onclick = statement; q("#exCsv").onclick = csv;
   q("#exCur").onclick = function(){ var d = db(), ov = H.showSheet("💱 " + L("Mata wang", "Currency"), '<div class="exPay">' + ["RM","SAR","AED","QAR","KWD","BHD","OMR","JOD","EGP","MAD","TRY","SGD","USD","IDR","BND","EUR","GBP"].map(function(c){ return '<button class="chip g3d' + (d.cur === c ? ' on' : '') + '" data-cu="' + c + '">' + c + '</button>'; }).join("") + '</div>');
     ov.querySelectorAll("[data-cu]").forEach(function(b){ b.onclick = function(){ var dd = db(); dd.cur = b.getAttribute("data-cu"); save(dd); H.closeOverlay(); draw(); }; }); }; }
-window.ExpenseView = {canPage:function(sd){ return root && document.body.contains(root) ? (sd < 0 ? ST.page < 2 : ST.page > 0) : false; }, turn:function(sd){ ST.page = Math.max(0, Math.min(2, ST.page + (sd < 0 ? 1 : -1))); draw(); },
+window.ExpenseView = {canPage:function(sd){ return MODE === "exp" && root && document.body.contains(root) ? (sd < 0 ? ST.page < 2 : ST.page > 0) : false; }, turn:function(sd){ ST.page = Math.max(0, Math.min(2, ST.page + (sd < 0 ? 1 : -1))); draw(); },
   _st:function(){ return ST; }, _review:review, _read:readPages, _db:function(){ return db(); }};
 window.FinMore = window.FinMore || {};
-window.FinMore.belanja = function(el, A){ H = A.H; root = el; if(!ST.ym) ST.ym = ymd().slice(0, 7); recurring(); draw(); };
+window.FinMore.cukai = function(el, A){ H = A.H; root = el; MODE = "tax"; if(!ST.ym) ST.ym = ymd().slice(0, 7); drawTax(); };
+window.FinMore.belanja = function(el, A){ H = A.H; root = el; MODE = "exp"; if(ST.page > 2) ST.page = 0; if(!ST.ym) ST.ym = ymd().slice(0, 7); recurring(); draw(); };
 })();

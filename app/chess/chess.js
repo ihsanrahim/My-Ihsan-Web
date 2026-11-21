@@ -24,6 +24,7 @@ function setupHtml(c){ var s = c.set, seg = function(k, list){ return '<div clas
     '<div class="chL">⏱ '+L("Masa (minit + saat setiap langkah)","Clock (minutes + seconds per move)")+'</div>'+seg("time", [["none",L("Tiada","None")],["3+2","3+2"],["5+0","5+0"],["10+0","10+0"],["15+10","15+10"],["30+0","30+0"]])+
     '<div class="chL">🎨 '+L("Tema","Theme")+'</div>'+seg("theme", [["classic","📚 "+L("Klasik: perpustakaan","Classic: library")],["malay","👑 "+L("Istana Melayu: kampung","Malay court: kampung")]])+
     '<div class="mut tiny" style="margin:6px 0">'+(s.theme==="malay" ? L("Sultan (raja), Permaisuri (menteri), Bendahara (gajah), Hulubalang (kuda), Laksamana (tir) dan Pesilat (bidak). Setiap buah ada gerakan penamat apabila menangkap.","Sultan (king), Permaisuri (queen), Bendahara (bishop), Hulubalang (knight), Laksamana (rook) and Pesilat (pawns). Each piece has a finishing move when it captures.") : L("Papan kayu, buah gading dan kayu hitam berkilat di atas meja oak dalam perpustakaan.","A wooden board with glossy ivory and ebony pieces on an oak table in a library."))+'</div>'+
+    '<button class="btn alt full g3d" id="chGuide" style="margin-bottom:8px">📖 '+L("Panduan catur: perangkap, pembukaan, strategi, pelan latihan","Chess guide: traps, openings, strategy, training plan")+'</button>'+
     '<button class="btn gold full g3d" id="chStart">▶ '+L("Mula permainan baharu","Start a new game")+'</button>'+(c.saved ? '<button class="btn alt full g3d" id="chResume" style="margin-top:8px">↩ '+L("Sambung permainan tersimpan","Resume the saved game")+'</button>' : '')+
     '</div><div class="card mut small">'+L("Peraturan penuh: istana (castling), en passant, kenaikan pangkat, sah/mat, buntu, peraturan 50 langkah, ulangan tiga kali dan bahan tidak cukup. Seret untuk pusing, cubit untuk zum, dua jari untuk anjak, ⟲ untuk asal, ⛶ untuk skrin penuh.","Full rules: castling, en passant, promotion, check and mate, stalemate, the 50-move rule, threefold repetition and insufficient material. Drag to turn, pinch to zoom, two fingers to pan, ⟲ to reset, ⛶ for full screen.")+'</div>'; }
 function render(el, helpers){ H = helpers; T = window.THREE; en = !!H.en(); E = window.ChessEngine; stop(); root = el; var c = cfg();
@@ -31,7 +32,13 @@ function render(el, helpers){ H = helpers; T = window.THREE; en = !!H.en(); E = 
   el.querySelectorAll("[data-cs]").forEach(function(b){ b.onclick = function(){ var p = b.getAttribute("data-cs").split("|"), c2 = cfg(); c2.set[p[0]] = p[0]==="level" ? +p[1] : p[1]; saveCfg(c2); render(el, H); }; });
   el.querySelector("#chStart").onclick = function(){ var c2 = cfg(); c2.saved = null; saveCfg(c2); start(c2.set, null); };
   var rs = el.querySelector("#chResume"); if(rs) rs.onclick = function(){ var c2 = cfg(); start(c2.saved.set, c2.saved); };
+  el.querySelector("#chGuide").onclick = guide;
 }
+// 0.6.66: 📖 the chess guide; a line from it can carry on here (2 players, or the robot playing the other side)
+var inGuide = false;
+function guide(){ if(!window.ChessGuide) return; if(G && st && !over) try{ persist(); }catch(e){} stop(); G = null; st = null; inGuide = true;
+  ChessGuide.open(root, H, {back:function(){ inGuide = false; render(root, H); }, play:function(moves, mode, turn){ inGuide = false; var s = Object.assign({}, cfg().set, {mode:mode, time:"none"}); if(mode === "ai") s.side = turn; else s.view2p = s.view2p || "default";
+    start(s, {side:mode === "ai" ? turn : "w", moves:moves}); }}); }
 
 // ---------------- game ----------------
 function tc(t){ if(t==="none") return null; var p = t.split("+"); return {base:+p[0]*60000, inc:+p[1]*1000}; }
@@ -46,7 +53,7 @@ function ask(t, yes){ var ov = H.showSheet("♟️", '<div style="margin:4px 0 1
 function fmtT(ms){ ms = Math.max(0, ms); var s = Math.ceil(ms/1000), m = Math.floor(s/60); return m+":"+("0"+(s%60)).slice(-2); }
 function nmOf(p){ var t = p.toLowerCase(); return L(NM[st.set.theme][t][0], NM[st.set.theme][t][1]); }
 function draw(){ var el = root; if(!el) return; var s = st.set, flipTxt = L("Pusing papan","Flip board");
-  el.innerHTML = '<div class="chTop"><button class="chip" id="chBack">‹ '+L("Tetapan","Setup")+'</button><b>♟️ '+(s.mode==="ai" ? "🤖 "+L("Robot tahap ","Robot level ")+s.level : "👥 "+L("2 pemain","2 players"))+'</b><span class="chip" id="chTurn"></span></div>'+
+  el.innerHTML = '<div class="chTop"><button class="chip" id="chBack">‹ '+L("Tetapan","Setup")+'</button><b>♟️ '+(s.mode==="ai" ? "🤖 "+L("Robot tahap ","Robot level ")+s.level : "👥 "+L("2 pemain","2 players"))+'</b><button class="chip" id="chGd">📖</button><span class="chip" id="chTurn"></span></div>'+
     '<div class="ch3d" id="ch3d"><div class="chClk chClkT" id="chCT"></div><div class="chClk chClkB" id="chCB"></div><div class="chMsg hidden" id="chMsg"></div></div>'+
     '<div class="chCap" id="chCap"></div>'+
     '<div class="chBtns"><button class="btn alt g3d" id="chUndo">↶ '+L("Undur","Undo")+'</button><button class="btn alt g3d" id="chDraw">🤝 '+L("Seri?","Draw?")+'</button><button class="btn alt g3d" id="chResign">🏳 '+L("Menyerah","Resign")+'</button><button class="btn alt g3d" id="chFlip">🔄 '+flipTxt+'</button></div>'+
@@ -54,6 +61,7 @@ function draw(){ var el = root; if(!el) return; var s = st.set, flipTxt = L("Pus
     '<button class="btn gold full g3d" id="chNew" style="margin-bottom:12px">＋ '+L("Permainan baharu","New game")+'</button>';
   var q = function(x){ return el.querySelector(x); };
   q("#chBack").onclick = function(){ persist(); render(root, H); };
+  q("#chGd").onclick = guide;
   q("#chNew").onclick = function(){ var c = cfg(); c.saved = null; saveCfg(c); start(st.set, null); };
   q("#chUndo").onclick = function(){ if(busy || anims.length) return; if(st.set.mode==="2p" && (st.set.view2p==="rotate" || st.set.view2p==="tilt")) setTimeout(function(){ camHome(true); }, 60); var n = st.set.mode==="ai" ? (G.turn===st.side ? 2 : 1) : 1; if(over){ over = null; }
     for(var i=0; i<n; i++){ var m = G.undo(); if(!m) break; if(m.cap || m.flag==="ep"){ st.caps[E.col(m.p)].pop(); } } sel = -1; persist(); sync3d(); ui(); };
@@ -287,5 +295,5 @@ function animMove(mv, done){ var pm = S3.pieces[mv.from], victim = mv.flag==="ep
   if(anims.length && !anims[0].t0) anims[0].t0 = performance.now(); }
 function stop(){ cancelAnimationFrame(raf); raf = 0; if(S3){ try{ S3.r.dispose(); S3.r.forceContextLoss(); }catch(e){} } S3 = null; anims = []; }
 function leave(){ if(G && st && !over) try{ persist(); }catch(e){} stop(); }
-return {render:render, stop:leave, _g:function(){ return G; }, _click:function(s){ click(s); }, _st:function(){ return st; }, _cam:function(){ return S3 && S3.cam; }};
+return {back:function(){ if(inGuide && root){ inGuide = false; render(root, H); return true; } return false; }, guide:function(){ guide(); }, render:render, stop:leave, _g:function(){ return G; }, _click:function(s){ click(s); }, _st:function(){ return st; }, _cam:function(){ return S3 && S3.cam; }};
 })();

@@ -293,7 +293,7 @@ function zOpen(id){
   ov.querySelector("#fzE").onclick=function(){ zEdit(id); };
   ov.querySelector("#fzX").onclick=function(){ if(!confirm(L2("Padam rekod zakat ini dan resitnya?","Delete this zakat record and its receipts?"))) return; (z.ph||[]).forEach(imgDel); D.zakat=D.zakat.filter(function(y){ return y.id!==id; }); sv(); H.closeOverlay(); draw(); };
 }
-function zFull(src){ var d=document.createElement("div"); d.className="fzfull"; d.innerHTML='<img src="'+src+'" alt=""><button>✕</button>'; d.onclick=function(){ d.remove(); }; document.body.appendChild(d); }
+function zFull(src){ if(window.IbView){ IbView(src); return; } var d=document.createElement("div"); d.className="fzfull"; d.innerHTML='<img src="'+src+'" alt=""><button>✕</button>'; d.onclick=function(){ d.remove(); }; document.body.appendChild(d); }
 
 // ================= view =================
 var host=null;

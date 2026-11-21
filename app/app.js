@@ -1,4 +1,4 @@
-/* My Ihsan app - prototype 0.6.58 */
+/* My Ihsan app - prototype 0.6.92 */
 (function(){
 "use strict";
 // ---------- native bridge ----------
@@ -118,7 +118,7 @@ function load(k, d){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):
 function save(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 var DEF = {lang:"ms", zone:"WLY01", state:"KUL", zoneAuto:true, lat:null, lon:null, notif:{subuh:true,zohor:true,asar:true,maghrib:true,isyak:true},
   countdown:true, preMin:0, hijriOffset:0, arSize:26, theme:"black", rmode:"camera", tapStep:0.5, vib:false, showStat:false,
-  sujud:{threshold:0.45, face:true, light:true, prox:true}, onboard:false, appTheme:"green", rdisp:"lines", rop:0.6, rQibla:false, rnum:"latin", rdir:"up", arFont:"scheherazade", srcLinks:true, showTr:true,
+  sujud:{threshold:0.45, face:true, light:true, prox:true}, onboard:false, appTheme:"kaca", rdisp:"lines", rop:0.6, rQibla:false, rnum:"latin", rdir:"up", arFont:"scheherazade", srcLinks:true, showTr:true,
   homeCards:null, quietPray:false, alertStyle:"sound", softSubuh:false, lockShow:false, pauseMode:null, pauseUntil:0, endMin:0,
   imsakOn:false, imsakRamadan:true, syurukOn:false, tahajjud:false, mathAlarm:false, fastRem:false, fastRemT:{mk:true,bidh:true,special:true},
   adj:{subuh:0,zohor:0,asar:0,maghrib:0,isyak:0}, locMode:"auto", calcMethod:"MWL", overseas:false, home:null, musafirAuto:true, musafirOn:false,
@@ -130,7 +130,7 @@ if(S.alertStyle==="azan") S.alertStyle="sound";
 if(!S.mig527){ S.mig527=1; S.srcLinks=true; try{ localStorage.setItem("ihsan_settings", JSON.stringify(S)); }catch(e){} }
 // 0.5.69 (owner): the rakaat counter shows lines at 60% brightness with no Qibla arrow; level-3 options sit at the bottom
 if(!S.mig569){ S.mig569=1; S.rdisp="lines"; S.rop=0.6; S.rQibla=false; S.dockTop=false; try{ localStorage.setItem("ihsan_settings", JSON.stringify(S)); }catch(e){} }
-var APP_THEMES=[["green","Hijau (asal)","#07130d","#c9a646","Green (original)","#07130d",false],["white","Putih cerah","#ffffff","#0b5d3b","Light white","#f6f7f5",true],["lightgy","Hijau muda & kuning","#eaf3dc","#e0b020","Light green & yellow","#f3f8ec",true],["blue","Biru gelap & indigo","#0b1020","#5b6cff","Dark blue & indigo","#0b1020",false],["blackgold","Hitam & emas","#000000","#d8b452","Black & gold","#000000",false],["night","Malam (merah malap)","#000000","#9c3a2e","Night (dim red)","#000000",false],["teman","Teman (cerah)","#F1FAEF","#CBFA1E","Teman (light)","#F1FAEF",true],["temannight","Teman (gelap)","#06261C","#CBFA1E","Teman (dark)","#06261C",false],["waktu","Waktu (cerah, ikut waktu solat)","#F6EEDF","#985A0C","Waktu (light, follows the prayer)","#F5F4EE",true],["waktunight","Waktu (gelap)","#0E1424","#8FA6FF","Waktu (dark)","#0E1424",false],["taman","Taman (cerah)","#EAEFE9","#14533D","Taman (light)","#14533D",false],["tamannight","Taman (gelap)","#0B1D16","#D4AE62","Taman (dark)","#0F3B2C",false]];
+var APP_THEMES=[["green","Hijau (asal)","#07130d","#c9a646","Green (original)","#07130d",false],["white","Putih cerah","#ffffff","#0b5d3b","Light white","#f6f7f5",true],["lightgy","Hijau muda & kuning","#eaf3dc","#e0b020","Light green & yellow","#f3f8ec",true],["blue","Biru gelap & indigo","#0b1020","#5b6cff","Dark blue & indigo","#0b1020",false],["blackgold","Hitam & emas","#000000","#d8b452","Black & gold","#000000",false],["night","Malam (merah malap)","#000000","#9c3a2e","Night (dim red)","#000000",false],["teman","Teman (cerah)","#F1FAEF","#CBFA1E","Teman (light)","#F1FAEF",true],["temannight","Teman (gelap)","#06261C","#CBFA1E","Teman (dark)","#06261C",false],["waktu","Waktu (cerah, ikut waktu solat)","#F6EEDF","#985A0C","Waktu (light, follows the prayer)","#F5F4EE",true],["waktunight","Waktu (gelap)","#0E1424","#8FA6FF","Waktu (dark)","#0E1424",false],["taman","Taman (cerah)","#EAEFE9","#14533D","Taman (light)","#14533D",false],["tamannight","Taman (gelap)","#0B1D16","#D4AE62","Taman (dark)","#0F3B2C",false],["kaca","Kaca (ikut waktu solat)","#1A2238","#F1D58A","Glass (follows the prayer)","#1A2238",false]];
 var AR_FONTS=[["system","Naskh (sistem)","Naskh (system)",'"Noto Naskh Arabic","Droid Arabic Naskh",serif'],["amiri","Amiri","Amiri",'"AmiriL","Noto Naskh Arabic",serif'],["scheherazade","Scheherazade","Scheherazade",'"ScheherazadeL","Noto Naskh Arabic",serif']];
 // 0.6.31 (owner): Scheherazade is the default Arabic font (also for people who never picked one)
 if(!S.arF631){ if(!S.arFont || S.arFont==="system") S.arFont="scheherazade"; S.arF631=1; try{ save("ihsan_settings", S); }catch(e){} }
@@ -139,8 +139,29 @@ function nightNow(){ if(!S.autoNight) return false; var h=new Date().getHours();
 var themeNow=null;
 // 0.5.46: the Waktu theme's light palette follows the current prayer (subuh, zohor, asar, maghrib, isyak); Dhuha uses the Zohor sky
 function waktuKey(){ try{ if(inDhuha()) return "zohor"; var k=currentPrayer(); return k==="syuruk"||k==="jumaat"?"zohor":k; }catch(e){ return "zohor"; } }
-function applyWaktu(){ var de=document.documentElement; if(de.getAttribute("data-th")!=="waktu"){ if(de.hasAttribute("data-wk")) de.removeAttribute("data-wk"); return; } var k=waktuKey(); if(de.getAttribute("data-wk")!==k) de.setAttribute("data-wk", k); }
-function applyTheme(){ var want=nightNow()?"night":S.appTheme; themeNow=want; var th=APP_THEMES.filter(function(t){return t[0]===want;})[0]||APP_THEMES[0]; document.documentElement.setAttribute("data-th", th[0]); applyWaktu(); try{ if(N.setBars) N.setBars(th[5], th[6]); }catch(e){} }
+// 0.6.59 Kaca (glass): the same prayer palette (data-wk) + a sky layer behind the app; the system bar follows the sky top
+var KACA_SKY={subuh:["#1A2650","#4D5A8A","#B98AA3","#F0C4A0","#FFD2A8",250,760,46],zohor:["#2D6FA6","#5E93BF","#A9C7DC","#DCE7EC","#FFF4D6",330,300,46],asar:["#2F5F86","#6F8FA6","#D9A878","#F0C08A","#FFE2A8",300,560,46],maghrib:["#1D1838","#5A3561","#C45F62","#F2A066","#FFB27A",330,800,46],isyak:["#060B1E","#0E1838","#1E2A58","#3B3A6E","#E9ECFF",372,534,11]};
+function kacaSky(k){ var el=document.getElementById("kacaSky");
+  if(!el){ el=document.createElement("div"); el.id="kacaSky"; el.setAttribute("aria-hidden","true");
+    var st=""; for(var i=0;i<70;i++){ var x=(i*137.5)%412, y=(i*61.3)%520, r=i%7===0?1.3:.7; st+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r+'"/>'; }
+    el.innerHTML='<svg viewBox="0 0 412 915" preserveAspectRatio="xMidYMax slice"><defs><linearGradient id="ksG" x1="0" y1="0" x2="0" y2="1"><stop class="ks1" offset="0"/><stop class="ks2" offset=".42"/><stop class="ks3" offset=".78"/><stop class="ks4" offset="1"/></linearGradient>'+
+      '<radialGradient id="ksH"><stop offset="0" class="ksl" stop-opacity=".55"/><stop offset="1" class="ksl" stop-opacity="0"/></radialGradient></defs>'+
+      '<rect width="412" height="915" fill="url(#ksG)"/><g class="ksStars">'+st+'</g><g class="ksSun"><circle class="ksHalo" r="138" fill="url(#ksH)"/><circle class="ksDisc" r="46"/><circle class="ksBite" r="10" cx="5" cy="-4"/></g>'+
+      // one dome, two minarets, a low wall and the ground band (about 80 px)
+      '<path class="ksMasjid" d="M0 870h412v45H0zM96 870v-56h10v-6h2v-8h2v8h2v6h10v56zM290 870v-56h10v-6h2v-8h2v8h2v6h10v56zM132 870v-38h148v38zM160 832a46 40 0 0 1 92 0zM204 792v-14h4v14z"/></svg>';
+    document.body.insertBefore(el, document.body.firstChild); }
+  var c=KACA_SKY[k]||KACA_SKY.zohor; ["ks1","ks2","ks3","ks4"].forEach(function(n,i){ el.style.setProperty("--"+n, c[i]); }); el.style.setProperty("--ksl", c[4]);
+  var g=el.querySelector(".ksSun"); g.setAttribute("transform","translate("+c[5]+" "+c[6]+") scale("+(c[7]/46)+")"); el.classList.toggle("night", k==="isyak");
+  try{ if(N.setBars) N.setBars(c[0], false); }catch(e){} }
+function applyWaktu(){ var de=document.documentElement, th=de.getAttribute("data-th"); if(!/^(waktu|kaca)$/.test(th||"")){ if(de.hasAttribute("data-wk")) de.removeAttribute("data-wk"); return; } var k=waktuKey(); if(de.getAttribute("data-wk")!==k) de.setAttribute("data-wk", k); if(th==="kaca") kacaSky(k); }
+window.__kacaSky=kacaSky;   // tests
+// low-RAM phones (native info.lowRam) get Kaca without blur
+try{ if(JSON.parse(N.info()||"{}").lowRam) document.documentElement.classList.add("lowfx"); }catch(e){}
+// 0.6.69 (owner): confirm / prompt boxes are drawn by the app in the current theme's colours (MainActivity.themedDialog)
+function dialogTheme(){ if(!(window.Native && N.dialogTheme)) return; setTimeout(function(){ try{ var cs=getComputedStyle(document.documentElement), v=function(k){ return (cs.getPropertyValue(k)||"").trim(); }, card=v("--card");
+  if(!card || /rgba?\([^)]*,\s*0?\.\d+\)/.test(card)) card=getComputedStyle(document.body).backgroundColor||v("--bg");
+  N.dialogTheme(JSON.stringify({card:card, fg:v("--fg"), mut:v("--mut"), gold:v("--gold"), line:v("--line"), ongold:"#1a1405", red:"#c0392b", lang:S.lang==="en"?"en":"ms"})); }catch(e){} }, 60); }
+function applyTheme(){ dialogTheme(); var want=nightNow()?"night":S.appTheme; themeNow=want; var th=APP_THEMES.filter(function(t){return t[0]===want;})[0]||APP_THEMES[0]; document.documentElement.setAttribute("data-th", th[0]); try{ if(N.setBars) N.setBars(th[5], th[6]); }catch(e){} applyWaktu(); }
 function saveS(){ save("ihsan_settings", S); pushSchedule(); }
 document.documentElement.style.setProperty('--arsize', S.arSize+'px');
 
@@ -473,6 +494,7 @@ window.onBack = function(){
   if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); return true; }
   if(view==="learn" && (learnPg==="radio"||learnPg==="podcast") && window.IbMedia && IbMedia.back()) return true;
   if(view==="learn" && ILMU_PG[learnPg] && window.IlmuView && IlmuView.back()) return true;
+  if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
   if(view==="learn" && learnPg){ learnBack(); return true; }
   if(view==="learn" && basicsPg){ var fr0=basicsFrom; basicsPg=null; basicsFrom=null; if(fr0==="rakaat"){ SUB2.solat="rakaat"; go("solat"); } else { render(); document.getElementById("view").scrollTop=0; } return true; }   // 0.5.71: Back leaves Purification / Solat / Hajj guides
   if(S.kidLock) return true; // 0.31.0: Back does nothing while kids mode is locked (Home and Recents are blocked by screen pinning)
@@ -481,7 +503,7 @@ window.onBack = function(){
 };
 function closeOverlay(){ var ov=document.getElementById("overlay"); ov.classList.add("hidden"); ov.innerHTML=""; ov._close=null; ov.className="hidden"; }
 function render(){
-  clearTimers(); hjMemo={}; SAY=[]; SHR=[]; var _sn=document.getElementById("subnav"); if(_sn && view!=="sunat") _sn.remove(); document.getElementById("view").classList.remove("hasSub"); if(N.setVolumeKeys) N.setVolumeKeys(false);
+  clearTimers(); if(render._lang!==S.lang){ render._lang=S.lang; dialogTheme(); } hjMemo={}; SAY=[]; SHR=[]; var _sn=document.getElementById("subnav"); if(_sn && view!=="sunat") _sn.remove(); else if(_sn && _sn.parentNode && _sn.parentNode.id==="nav") document.getElementById("app").appendChild(_sn); document.getElementById("view").classList.remove("hasSub"); if(N.setVolumeKeys) N.setVolumeKeys(false);
   var nav=document.getElementById("nav");
   var appEl=document.getElementById("app"); appEl.classList.toggle("kidlock", !!S.kidLock); appEl.classList.toggle("senior", !!S.senior && !S.kidLock);
   nav.innerHTML = S.senior && !S.kidLock ? (view==="home"?'':'<button data-v="home" class="snHome">🏠 '+L2x("Kembali ke Utama","Back to Home")+'</button>') : NAV.map(function(n){ return '<button data-v="'+n[0]+'" class="'+(view===n[0]?"on":"")+'"><span class="ic">'+n[1]+'</span>'+T(n[0]==="home"?"utama":n[0])+'</button>'; }).join("");
@@ -519,12 +541,26 @@ function qtRemove(id){ var lb=sideLb[id]||["⭐",""]; var ov=showSheet("⭐ "+es
 // Shortcut chips live in a .dock bar fixed above the bottom nav (and the Sunat sub-bar)
 // 0.5.20 (review 17): on a wide screen (unfolded, tablet) the tab bar is a side rail on the left, so it takes no height at the bottom
 function railOn(){ return S.rail!==false && !S.senior && !S.kidLock && window.innerWidth>=840; }
+function railWide(){ return !S.senior && !S.kidLock && window.innerWidth>=840; }
 function navH(){ var n=document.getElementById("nav"); return railOn()||!n?0:n.offsetHeight; }
-function railApply(){ var a=document.getElementById("app"), on=railOn(); a.classList.toggle("rail", on); a.classList.toggle("railR", on && S.railSide==="right");
+// 0.6.73 (owner): the rail sits on the right by default; ▼ puts the bar back at the bottom (⇥ brings it to the side again);
+// ⤵ shows the 2nd row as a pop-out beside its 1st-row button (on by default) or as the bottom bar
+function railApply(){ var a=document.getElementById("app"), on=railOn(); a.classList.toggle("rail", on); a.classList.toggle("railR", on && S.railSide!=="left"); a.classList.toggle("railDrop", on && S.railDrop!==false);
+  var nv0=document.getElementById("nav"), bk=document.getElementById("railBk");
+  if(nv0 && railWide() && !on){ if(!bk){ bk=document.createElement("button"); bk.id="railBk"; bk.className="railBk"; bk.textContent="⇥"; bk.onclick=function(e){ e.stopPropagation(); S.rail=true; saveS(); railApply(); dockFix(); }; } bk.setAttribute("aria-label", L2x("Bar ke tepi","Bar to the side")); if(bk.parentNode!==nv0) nv0.appendChild(bk); } else if(bk && bk.parentNode) bk.parentNode.removeChild(bk);
+  // one ⋯ button at the foot of the rail opens the bar options (side, 2nd row in the bar or at the bottom, bar to the bottom)
+  var tl=document.getElementById("railTl");
+  if(nv0 && on){ if(!tl){ tl=document.createElement("div"); tl.id="railTl"; tl.className="railTl"; tl.innerHTML='<button data-rt="menu">⋯</button>';
+      tl.querySelector('[data-rt="menu"]').onclick=function(e){ e.stopPropagation(); var ov=showSheet("▦ "+L2x("Bar tepi","Side bar"),
+        '<button class="ngRow card" data-rm="side"><i>'+(S.railSide!=="left"?"◀":"▶")+'</i><span><b>'+(S.railSide!=="left"?L2x("Pindah ke kiri","Move to the left"):L2x("Pindah ke kanan","Move to the right"))+'</b></span></button>'+
+        '<button class="ngRow card" data-rm="drop"><i>⤵</i><span><b>'+(S.railDrop!==false?L2x("Baris kedua di bawah skrin","2nd row at the bottom of the screen"):L2x("Baris kedua dalam bar, bawah butangnya","2nd row inside the bar, under its button"))+'</b></span></button>'+
+        '<button class="ngRow card" data-rm="down"><i>▼</i><span><b>'+L2x("Bar ke bawah skrin","Bar to the bottom of the screen")+'</b><small class="mut">'+L2x("Tekan ⇥ pada bar untuk kembali ke tepi","Tap ⇥ on the bar to bring it back to the side")+'</small></span></button>');
+        ov.querySelectorAll("[data-rm]").forEach(function(b2){ b2.onclick=function(){ var k=b2.getAttribute("data-rm"); if(k==="side") S.railSide=S.railSide!=="left"?"left":"right"; else if(k==="drop") S.railDrop=S.railDrop===false; else S.rail=false; saveS(); closeOverlay(); railApply(); render(); }; }); }; }
+    tl.querySelector('[data-rt="menu"]').setAttribute("aria-label", L2x("Pilihan bar","Bar options")); if(tl.parentNode!==nv0) nv0.appendChild(tl); } else if(tl && tl.parentNode) tl.parentNode.removeChild(tl);
   // 0.5.28: on a foldable / tablet the side rail has an arrow at the bottom to move it to the other side of the screen
   var nav=document.getElementById("nav"), b=document.getElementById("railSw"); if(!nav) return;
-  if(on && !b){ b=document.createElement("button"); b.id="railSw"; b.className="railSw"; b.onclick=function(e){ e.stopPropagation(); S.railSide=S.railSide==="right"?"left":"right"; saveS(); railApply(); dockFix(); }; }
-  if(b){ if(on){ b.textContent=S.railSide==="right"?"◀":"▶"; b.setAttribute("aria-label", S.railSide==="right"?L2x("Pindah ke kiri","Move to the left"):L2x("Pindah ke kanan","Move to the right")); if(b.parentNode!==nav) nav.appendChild(b); } else if(b.parentNode) b.parentNode.removeChild(b); } }
+  if(false && on && !b){ b=document.createElement("button"); b.id="railSw"; b.className="railSw"; b.onclick=function(e){ e.stopPropagation(); S.railSide=S.railSide!=="left"?"left":"right"; saveS(); railApply(); dockFix(); }; }
+  if(b){ if(on){ b.textContent=S.railSide!=="left"?"◀":"▶"; b.setAttribute("aria-label", S.railSide!=="left"?L2x("Pindah ke kiri","Move to the left"):L2x("Pindah ke kanan","Move to the right")); if(b.parentNode!==nav) nav.appendChild(b); } else if(b.parentNode) b.parentNode.removeChild(b); } }
 window.addEventListener("resize", function(){ railApply(); dockFix(); });
 // 0.5.20 round 2, request 3: tab labels are one word (two at most): "Toilet & Wudhu" shows as "Toilet" in a bar (full name kept as its label)
 var TAB_SHORT={"Life & needs":"Needs","Keperluan hidup":"Keperluan","Occasional & circumstantial":"Occasional","Bersebab & keadaan":"Bersebab"};
@@ -536,7 +572,12 @@ function dockFix(){
   railApply(); tabShort(document.getElementById("app"));
   var el=document.getElementById("view"), d=el.querySelector(".dock"), nav={offsetHeight:navH()}, sn=document.getElementById("subnav");
   var stk=/\bbs[23]\b/.test(document.getElementById("app").className)?6:0;   // card stack: each level overlaps the one below by 6 px
-  if(sn) sn.style.bottom=Math.max(0,nav.offsetHeight-stk)+"px"; var snH=sn?sn.offsetHeight-stk:0, qb=document.getElementById("qtBar"); if(qb){ qb.style.bottom=(nav.offsetHeight+snH)+"px"; snH+=qb.offsetHeight; } var mini=document.getElementById("mini"), mH=mini&&!mini.classList.contains("hidden")?mini.offsetHeight:0;
+  // 0.6.73b (owner): in the side bar the 2nd row opens inside the bar, right under its 1st-row button (a dropdown); the buttons stretch to fill
+  var drop=sn && railOn() && S.railDrop!==false, nvE=document.getElementById("nav"), appE=document.getElementById("app");
+  if(sn){ sn.classList.toggle("snDrop", !!drop);
+    if(drop && nvE){ var ab=nvE.querySelector("button.on"); if(ab && ab.nextSibling!==sn) nvE.insertBefore(sn, ab.nextSibling); sn.style.top=sn.style.bottom=""; }
+    else if(sn.parentNode!==appE){ appE.appendChild(sn); } }
+  if(sn && !drop) sn.style.bottom=Math.max(0,nav.offsetHeight-stk)+"px"; var snH=sn&&!drop?sn.offsetHeight-stk:0, qb=document.getElementById("qtBar"); if(qb){ qb.style.bottom=(nav.offsetHeight+snH)+"px"; snH+=qb.offsetHeight; } var mini=document.getElementById("mini"), mH=mini&&!mini.classList.contains("hidden")?mini.offsetHeight:0;
   if(mini) mini.style.bottom=(nav.offsetHeight+snH)+"px";
   if(!d){ el.style.paddingTop=""; el.style.paddingBottom=(90+snH+mH+48)+"px"; notchFix(nav.offsetHeight+snH+mH); return; }
   // 0.34.0: more than one dock (Alat › Kewangan pages under a page's own dock) stack upwards
@@ -713,10 +754,10 @@ function ibDate(inp){ if(inp._ibd || inp.hasAttribute("data-native")) return; in
   var D=[], Mo=[], Y=[], Hh=[], Mi=[], AP=[["am","am"],["pm","pm"]]; for(var i=1;i<=31;i++) D.push([i,i]); for(var m=1;m<=12;m++) Mo.push([m,MS[m-1]]);
   var ylo=+(inp.min||"").slice(0,4)||y0-100, yhi=+(inp.max||"").slice(0,4)||y0+15; for(var yy=ylo;yy<=yhi;yy++) Y.push([yy,yy]);
   for(var h=1;h<=12;h++) Hh.push([h,h]); for(var mi=0;mi<60;mi++) Mi.push([mi,("0"+mi).slice(-2)]);
-  w.className="ibdt noswipe"+(hasD&&hasT?" both":"");
+  w.className="ibdt noswipe"+(hasD&&hasT?" both":"")+(ty==="time"?" tonly":"");
   // 0.6.54 (owner): a compact text box; the wheels open only when it is tapped (tap again to type)
   w.innerHTML='<div class="ibdtB"><input type="text" class="rin ibdtT" readonly autocomplete="off" spellcheck="false"><span class="ibdtI">'+(hasD?"📅":"⏰")+'</span></div><div class="ibdtX"><div class="ibdtH">'+(hasD?'<label class="ibdtK"><input type="checkbox" data-ibk="d"> 📅 '+L2x("Tarikh","Date")+'</label>':'')+(hasT?'<label class="ibdtK"><input type="checkbox" data-ibk="t"> ⏰ '+L2x("Masa","Time")+'</label>':'')+'<span class="ibdtS"></span></div>'+
-    '<div class="ibdtW">'+(hasD?'<div class="ibdtP" data-p="d">'+ibCol("d",D)+ibCol("m",Mo)+ibCol("y",Y)+'</div>':'')+(hasT?'<div class="ibdtP" data-p="t">'+ibCol("h",Hh)+ibCol("i",Mi)+ibCol("a",AP)+'</div>':'')+'<div class="ibwband"></div></div><div class="ibdtF"><button type="button" class="chip" data-ibf="now">'+(hasD?L2x("Hari ini","Today"):L2x("Sekarang","Now"))+'</button><button type="button" class="chip" data-ibf="kb">⌨ '+L2x("Taip","Type")+'</button><button type="button" class="chip" data-ibf="clr">✕ '+L2x("Kosongkan","Clear")+'</button><button type="button" class="chip on" data-ibf="ok">✓ '+L2x("Siap","Done")+'</button></div></div>';
+    '<div class="ibdtW">'+(hasD?'<div class="ibdtP" data-p="d">'+ibCol("d",D)+ibCol("m",Mo)+ibCol("y",Y)+'</div>':'')+(hasT?'<div class="ibdtP" data-p="t">'+ibCol("h",Hh)+ibCol("i",Mi)+ibCol("a",AP)+'</div>':'')+'<div class="ibwband"></div></div><div class="ibdtF"><button type="button" class="chip" data-ibf="now">'+(hasD?L2x("Hari ini","Today"):L2x("Sekarang","Now"))+'</button><button type="button" class="chip" data-ibf="kb" title="'+L2x("Taip","Type")+'">⌨</button><button type="button" class="chip" data-ibf="clr" title="'+L2x("Kosongkan","Clear")+'">✕</button><button type="button" class="chip on" data-ibf="ok">✓ '+L2x("Siap","Done")+'</button></div></div>';
   ibHide(inp); inp.parentNode.insertBefore(w, inp.nextSibling);
   var T=w.querySelector(".ibdtT"), kd=w.querySelector('[data-ibk="d"]'), kt=w.querySelector('[data-ibk="t"]'), S=w.querySelector(".ibdtS"), cols=w.querySelectorAll(".ibwc"), tm=null, busy=false;
   var at=function(c){ return Math.round(c.scrollTop/IBW_H); };
@@ -750,8 +791,9 @@ function ibDate(inp){ if(inp._ibd || inp.hasAttribute("data-native")) return; in
     c.querySelectorAll(".ibwi").forEach(function(x, j){ x.onclick=function(){ c._u=Date.now(); c.scrollTo({top:j*IBW_H, behavior:"smooth"}); }; }); });
   var X=w.querySelector(".ibdtX"),
     // 0.6.54: the panel floats over the page under the box (above it when there is no room), like the app's dropdowns
-    place=function(){ if(!w.classList.contains("open")) return; var r=T.getBoundingClientRect(), h=X.offsetHeight||260, vw=window.innerWidth, wd=Math.min(Math.max(r.width, 310), vw-16), lf=Math.max(8, Math.min(r.left, vw-wd-8));
-      var below=window.innerHeight-r.bottom-8; X.style.left=lf+"px"; X.style.width=wd+"px"; X.style.top=(below>=h || below>=r.top ? r.bottom+6 : Math.max(8, r.top-h-6))+"px";
+    // 0.6.67 (owner): exactly the box's width, attached right under it (above when there is no room)
+    // 0.6.72 (owner): the wheel is part of the box (it scrolls with it, never floats); above the box only when there is no room below
+    place=function(){ if(!w.classList.contains("open")) return; var r=T.getBoundingClientRect(), h=X.offsetHeight||170, below=window.innerHeight-r.bottom-8, up=below<h && r.top>h+60; w.classList.toggle("up", up); X.style.left=X.style.top=X.style.width="";
       if(r.bottom<0 || r.top>window.innerHeight) shut(); },
     onScr=function(e){ if(e.target && e.target.classList && e.target.classList.contains("ibwc")) return; place(); },
     shut=function(){ if(!w.classList.contains("open")) return; w.classList.remove("open"); T.readOnly=true; document.removeEventListener("click", outside, true); window.removeEventListener("scroll", onScr, true); window.removeEventListener("resize", place); typed(); },
@@ -762,12 +804,16 @@ function ibDate(inp){ if(inp._ibd || inp.hasAttribute("data-native")) return; in
       if(!t){ ibSetVal(inp, ""); return; } var v=ibDtParse(t, ty); if(v==null){ toast("⚠ "+L2x("Tarikh/masa tidak difahami","Could not read that date/time")); read(); return; } ibSetVal(inp, v); },
     sumTxt=function(){ return S.textContent==="—"?"":S.textContent; };
   w._shut=shut;
-  T.addEventListener("click", function(){ if(!w.classList.contains("open")) show(); else if(T.readOnly){ T.readOnly=false; T._ed=1; T.focus(); try{ T.select(); }catch(e){} } });
-  T.addEventListener("input", function(){ T._ed=1; });
+  // 0.6.67: typing uses dd/mm/yyyy (hh:mm); the slashes come in by themselves
+  var dmy=function(){ var v=inp.value||"", o=[], md=v.match(/^(\d{4})-(\d{2})-(\d{2})/), mt=v.match(/(?:T|^)(\d{2}):(\d{2})/); if(hasD && md) o.push(md[3]+"/"+md[2]+"/"+md[1]); if(hasT && mt && !(ty==="datetime-local" && mt[1]==="00" && mt[2]==="00")) o.push(mt[1]+":"+mt[2]); return o.join(" "); };
+  var edit=function(){ T.readOnly=false; T._ed=1; T.value=dmy(); T.placeholder=hasD?(hasT?"dd/mm/yyyy hh:mm":"dd/mm/yyyy"):"hh:mm"; T.inputMode=hasD&&!hasT?"numeric":"text"; T.focus(); try{ T.setSelectionRange(T.value.length, T.value.length); }catch(e){} };
+  T.addEventListener("click", function(){ if(!w.classList.contains("open")) show(); else if(T.readOnly) edit(); });
+  T.addEventListener("input", function(e){ T._ed=1; if(hasD && !hasT && /^[\d\/]*$/.test(T.value) && !(e && e.inputType && /delete/.test(e.inputType))){ var dg=T.value.replace(/\D/g, "").slice(0, 8);
+    T.value=dg.length>4 ? dg.slice(0,2)+"/"+dg.slice(2,4)+"/"+dg.slice(4) : dg.length>2 ? dg.slice(0,2)+"/"+dg.slice(2) : dg; if(dg.length===8){ typed(); T._ed=1; } } });
   T.addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); typed(); T.readOnly=true; T.blur(); } });
   T.addEventListener("blur", function(){ if(!T.readOnly){ typed(); T.readOnly=true; } });
   w.querySelector('[data-ibf="ok"]').onclick=shut;
-  w.querySelector('[data-ibf="kb"]').onclick=function(){ T.readOnly=false; T._ed=1; T.focus(); try{ T.select(); }catch(e){} };
+  w.querySelector('[data-ibf="kb"]').onclick=edit;
   w.querySelector('[data-ibf="clr"]').onclick=function(){ if(kd) kd.checked=false; if(kt) kt.checked=false; write(); shut(); };
   w.querySelector('[data-ibf="now"]').onclick=function(){ var n=new Date(); busy=true; if(hasD){ put("d", n.getDate()); put("m", n.getMonth()+1); put("y", n.getFullYear()); if(kd) kd.checked=true; }
     if(hasT && (!hasD || (kt && kt.checked))){ put("h", n.getHours()%12||12); put("i", n.getMinutes()); put("a", n.getHours()>=12?"pm":"am"); if(kt) kt.checked=true; } busy=false; write(); };
@@ -837,7 +883,7 @@ function hdrTick(){
   e("hLeft").innerHTML='<bdi>'+prN(np.next.k,np.next.t)+'</bdi> <span class="hl">−'+(hh?hh+":"+pad(mm):mm)+":"+pad(ss)+'</span>';
   var pt=np.prev?np.prev.t:np.next.t-3*36e5; e("hBar").style.width=Math.max(0,Math.min(100,(now-pt)*100/(np.next.t-pt))).toFixed(1)+"%";
   if(S.autoNight && (nightNow()?"night":S.appTheme)!==themeNow) applyTheme();
-  if(themeNow==="waktu" && !(hdrTick._w>0 && Date.now()-hdrTick._w<30000)){ hdrTick._w=Date.now(); applyWaktu(); }
+  if((themeNow==="waktu"||themeNow==="kaca") && !(hdrTick._w>0 && Date.now()-hdrTick._w<30000)){ hdrTick._w=Date.now(); applyWaktu(); }
   if(left<1000 && !hdrTick._r){ hdrTick._r=true; setTimeout(function(){ hdrTick._r=false; render(); },1500); }
 }
 setInterval(hdrTick,1000);
@@ -1480,7 +1526,7 @@ function ramadanMonth(){
   ramadanMonth.st={done:done, n:n, y:y};
   clearTimeout(ramadanMonth._t); var nx=null;
   for(var k=1;k<=n;k++){ var dk=addDays(st,k-1), tk=null; try{ tk=getDay(dk); }catch(e){} if(!tk||!tk.maghrib) continue; var mk=at(ymd(dk),tk.maghrib).getTime(); if(mk>now){ nx=mk; break; } }
-  if(nx && nx-now<864e5) ramadanMonth._t=setTimeout(function(){ if(view==="cal" && SUB2.cal==="puasa") render(); }, nx-now+1000);
+  if(nx && nx-now<864e5) ramadanMonth._t=setTimeout(function(){ if(view==="cal" && SUB2.cal==="bulan" && cal.mode==="h") render(); }, nx-now+1000);
   return h.replace('<span class="small gold" id="rmCount"></span>','<span class="small gold" id="rmCount">'+done+' / '+n+'</span>');
 }
 function ymdNice(d){ return d.getDate()+" "+(en_()?ME:MS)[d.getMonth()]+" "+d.getFullYear(); }
@@ -1525,7 +1571,8 @@ var JNd=null;
 function calCell(dt, big, small, smallIsHijri, tds){
   var ds=ymd(dt), ph=cal.lay.ph?holidaysOn(ds,cal.all):[], sc=cal.lay.sc?schoolOn(ds,cal.all):[], is=cal.lay.is?islamicOn(dt):[];
   var mineph=ph.some(function(x){return x.mine;}), minesc=sc.some(function(x){return x.mine;});
-  var cls="d"+(ds<tds?" past":"")+(ds===tds?" today":"")+(ds===cal.sel?" sel":"")+(mineph?" ph":"")+(minesc?" sch":"")+(dt.getDay()===5?" fri":"")+(JNd&&JNd[ds]?" jn":"");
+  var rh=hijriOf(dt), ram=rh && rh.m===9;   // 0.6.68 (owner): Ramadan stands out in the calendar (last 10 nights, odd nights ✦)
+  var cls="d"+(ram?" ram"+(rh.d>=21?" l10"+(rh.d%2===1?" odd":""):""):"")+(ds<tds?" past":"")+(ds===tds?" today":"")+(ds===cal.sel?" sel":"")+(mineph?" ph":"")+(minesc?" sch":"")+(dt.getDay()===5?" fri":"")+(JNd&&JNd[ds]?" jn":"");
   var gdays=grpDays()[ds]||[];
   return '<div class="'+cls+'" data-d="'+ds+'"><span class="g">'+big+'</span><span class="hj'+(smallIsHijri?'':' gs')+'">'+small+'</span><span class="dots">'+gdays.slice(0,2).map(function(e){ return '<i class="gp" style="--gpc:'+esc(e.color||"#c9a646")+'"></i>'; }).join("")+(ph.length?'<i class="ph"></i>':'')+(sc.length?'<i class="sc"></i>':'')+(is.length?'<i class="is"></i>':'')+'</span>'+(cal.uMax&&useSec(ds)>0?'<span class="ub" style="width:'+Math.max(8,Math.round(useSec(ds)*100/cal.uMax))+'%"></span>':'')+'</div>';
 }
@@ -1609,6 +1656,8 @@ function vCal0(el){
   html+='<div class="card"><h3>'+esc(dl)+'</h3><div style="color:var(--gold)">'+hijriStr(sh)+(sh&&sh.src!=="jakim"?' <span class="badge warn">'+(S.lang==="en"?"estimate":"anggaran")+'</span>':'')+'</div>'+(list.length?list.join(""):'<div class="mut small" style="margin-top:6px">'+(S.lang==="en"?"No holidays or Islamic days.":"Tiada cuti atau hari kebesaran.")+'</div>')+'</div>';
   var kOcc=sh?(sh.m===10&&sh.d<=7?"fitri":sh.m===12&&sh.d>=9&&sh.d<=13?"adha":sh.m===9?"ramadan":sh.m===1&&sh.d<=10?"hijrah":""):"";
   if(kOcc) html+='<div class="kadRow"><button class="chip" data-kad="'+kOcc+'">🎴 '+L2x("Buat kad ","Make a card: ")+L2x(KAD_OCC.filter(function(o){ return o[0]===kOcc; })[0][1],KAD_OCC.filter(function(o){ return o[0]===kOcc; })[0][2])+'</button></div>';
+  // 0.6.68 (owner): the Ramadan tracker lives in the Hijri calendar (Ramadan shown, or the month before it with the countdown)
+  if(cal.mode==="h" && (cal.hm===9 || cal.hm===8 || S.ramadanForce)) html+=(cal.hm===8?countdownBoxes():"")+ramadanMonth();
   html+=jnCard(cal.sel);
   html+=usageCard(cal.sel);
   html+='<div class="mut small" style="padding:0 4px 10px">'+(S.lang==="en"?"Holiday data: 2026 federal & state gazette and KPM academic calendar. Islamic-calendar holidays depend on the official moon-sighting announcement.":"Data cuti: warta persekutuan & negeri 2026 dan Kalendar Akademik KPM. Cuti berasaskan kalendar Islam tertakluk kepada pengisytiharan rasmi.")+'</div>';
@@ -1633,6 +1682,7 @@ function vCal0(el){
   el.querySelectorAll("[data-l]").forEach(function(c){ c.onclick=function(){ var l=c.getAttribute("data-l"); cal.lay[l]=!cal.lay[l]; render(); }; });
   el.querySelector("#cAll").onclick=function(){ cal.all=!cal.all; render(); };
   el.querySelector("#cExp").onclick=function(){ calExportSheet(); };
+  if(el.querySelector("[data-rmd]")) bindRamadan(el);
 }
 
 // MORE / SETTINGS
@@ -1679,7 +1729,7 @@ function vMore0(el){
    '<div class="set"><span>'+(S.lang==="en"?"Face threshold":"Ambang wajah")+'</span><b>'+S.sujud.threshold.toFixed(2)+'</b></div>'+
    '<button class="btn alt full" id="sCalib" style="margin-top:8px">🎯 '+T("calib")+'</button></div>';
   html+=mqCard();
-  html+='<div class="card" id="aboutCard"><h3>ℹ️ '+T("about")+'</h3><div class="small" style="line-height:1.55"><img src="logo.svg" alt="" width="56" height="56" style="border-radius:14px;float:right;margin:0 0 6px 10px">My Ihsan 0.6.58 ('+L2x("prototaip","prototype")+').<br>'+(S.lang==="en"?"Prayer times: JAKIM e-Solat (estimate shown until data loads). All Arabic text, translations and hadith references are pending review by a qualified ustaz. Please report errors. Camera frames are processed on the phone only and never saved or sent. Halal checker: the ingredient database and list work on the phone; label photos are read by the online AI you choose; its verdicts are a guide only, not a fatwa. Recipe builder: recipes are read from the shared page or post (or by the online AI you choose for posts, photos and videos); halal swaps come from the swap table in the app and are a guide only, not a fatwa. Hajj & Umrah 3D uses Three.js (MIT licence), bundled in the app; the scene is stylised and not to scale. Umrah DIY maps use MapLibre GL (BSD licence) with map data © OpenStreetMap contributors via OpenFreeMap; prices and distances are estimates. Al-Quran: KFGQPC Uthmani Hafs text and font (King Fahd Complex) via quran.ws (CC BY 4.0); tajwid text and word meanings from Quran.com; English by Saheeh International; Malay by Abdullah Muhammad Basmeih (downloaded from AlQuran Cloud); recitation by Mishary Rashid Alafasy (EveryAyah); tafsir, surah introductions and Indonesian word meanings from Quran.com; word roots from the Quranic Arabic Corpus, University of Leeds (GPL). Shafi'i Fiqh mind map: chapter tree, ayat references and hadith from Fiqh Syafii by H. Idris Ahmad (Pustaka Antara), read from a scan and pending ustaz review. Books: PDFs are shown with pdf.js (Mozilla, Apache-2.0) and written with pdf-lib (MIT), both inside the app.":"Waktu solat: JAKIM e-Solat (anggaran dipaparkan sehingga data dimuatkan). Semua teks Arab, terjemahan dan rujukan hadis sedang menunggu semakan ustaz bertauliah. Sila laporkan kesilapan. Imej kamera diproses dalam telefon sahaja dan tidak disimpan atau dihantar. Penyemak halal: pangkalan data dan senarai ramuan berjalan di dalam telefon; gambar label dibaca oleh AI dalam talian yang anda pilih; keputusannya panduan sahaja, bukan fatwa. Pembina resepi: resepi dibaca daripada laman atau hantaran yang dikongsi (atau oleh AI dalam talian pilihan anda untuk hantaran, gambar dan video); tukaran halal daripada jadual tukaran dalam aplikasi, panduan sahaja dan bukan fatwa. Haji & Umrah 3D menggunakan Three.js (lesen MIT) yang disertakan dalam aplikasi; paparannya ilustrasi dan tidak mengikut skala. Peta Umrah DIY menggunakan MapLibre GL (lesen BSD) dengan data peta © penyumbang OpenStreetMap melalui OpenFreeMap; harga dan jarak ialah anggaran. Al-Quran: teks dan fon KFGQPC Uthmani Hafs (Kompleks Raja Fahd) melalui quran.ws (CC BY 4.0); teks tajwid dan maksud perkataan daripada Quran.com; terjemahan Inggeris Saheeh International; terjemahan Melayu Abdullah Muhammad Basmeih (dimuat turun daripada AlQuran Cloud); bacaan Mishary Rashid Alafasy (EveryAyah); tafsir, pengenalan surah dan maksud perkataan Bahasa Indonesia daripada Quran.com; akar kata daripada Quranic Arabic Corpus, Universiti Leeds (GPL). Peta minda Fiqh Syafi'i: susunan bab, rujukan ayat dan hadis daripada Fiqh Syafii oleh H. Idris Ahmad (Pustaka Antara), dibaca daripada imbasan dan menunggu semakan ustaz. Buku: PDF dipaparkan dengan pdf.js (Mozilla, Apache-2.0) dan ditulis dengan pdf-lib (MIT), kedua-duanya dalam aplikasi.")+'</div></div>';
+  html+='<div class="card" id="aboutCard"><h3>ℹ️ '+T("about")+'</h3><div class="small" style="line-height:1.55"><img src="logo.svg" alt="" width="56" height="56" style="border-radius:14px;float:right;margin:0 0 6px 10px">My Ihsan 0.6.92 ('+L2x("prototaip","prototype")+').<br>'+(S.lang==="en"?"Prayer times: JAKIM e-Solat (estimate shown until data loads). All Arabic text, translations and hadith references are pending review by a qualified ustaz. Please report errors. Camera frames are processed on the phone only and never saved or sent. Halal checker: the ingredient database and list work on the phone; label photos are read by the online AI you choose; its verdicts are a guide only, not a fatwa. Recipe builder: recipes are read from the shared page or post (or by the online AI you choose for posts, photos and videos); halal swaps come from the swap table in the app and are a guide only, not a fatwa. Hajj & Umrah 3D uses Three.js (MIT licence), bundled in the app; the scene is stylised and not to scale. Umrah DIY maps use MapLibre GL (BSD licence) with map data © OpenStreetMap contributors via OpenFreeMap; prices and distances are estimates. Al-Quran: KFGQPC Uthmani Hafs text and font (King Fahd Complex) via quran.ws (CC BY 4.0); tajwid text and word meanings from Quran.com; English by Saheeh International; Malay by Abdullah Muhammad Basmeih (downloaded from AlQuran Cloud); recitation by Mishary Rashid Alafasy (EveryAyah); tafsir, surah introductions and Indonesian word meanings from Quran.com; word roots from the Quranic Arabic Corpus, University of Leeds (GPL). Shafi'i Fiqh mind map: chapter tree, ayat references and hadith from Fiqh Syafii by H. Idris Ahmad (Pustaka Antara), read from a scan and pending ustaz review. Books: PDFs are shown with pdf.js (Mozilla, Apache-2.0) and written with pdf-lib (MIT), both inside the app.":"Waktu solat: JAKIM e-Solat (anggaran dipaparkan sehingga data dimuatkan). Semua teks Arab, terjemahan dan rujukan hadis sedang menunggu semakan ustaz bertauliah. Sila laporkan kesilapan. Imej kamera diproses dalam telefon sahaja dan tidak disimpan atau dihantar. Penyemak halal: pangkalan data dan senarai ramuan berjalan di dalam telefon; gambar label dibaca oleh AI dalam talian yang anda pilih; keputusannya panduan sahaja, bukan fatwa. Pembina resepi: resepi dibaca daripada laman atau hantaran yang dikongsi (atau oleh AI dalam talian pilihan anda untuk hantaran, gambar dan video); tukaran halal daripada jadual tukaran dalam aplikasi, panduan sahaja dan bukan fatwa. Haji & Umrah 3D menggunakan Three.js (lesen MIT) yang disertakan dalam aplikasi; paparannya ilustrasi dan tidak mengikut skala. Peta Umrah DIY menggunakan MapLibre GL (lesen BSD) dengan data peta © penyumbang OpenStreetMap melalui OpenFreeMap; harga dan jarak ialah anggaran. Al-Quran: teks dan fon KFGQPC Uthmani Hafs (Kompleks Raja Fahd) melalui quran.ws (CC BY 4.0); teks tajwid dan maksud perkataan daripada Quran.com; terjemahan Inggeris Saheeh International; terjemahan Melayu Abdullah Muhammad Basmeih (dimuat turun daripada AlQuran Cloud); bacaan Mishary Rashid Alafasy (EveryAyah); tafsir, pengenalan surah dan maksud perkataan Bahasa Indonesia daripada Quran.com; akar kata daripada Quranic Arabic Corpus, Universiti Leeds (GPL). Peta minda Fiqh Syafi'i: susunan bab, rujukan ayat dan hadis daripada Fiqh Syafii oleh H. Idris Ahmad (Pustaka Antara), dibaca daripada imbasan dan menunggu semakan ustaz. Buku: PDF dipaparkan dengan pdf.js (Mozilla, Apache-2.0) dan ditulis dengan pdf-lib (MIT), kedua-duanya dalam aplikasi.")+'</div></div>';
   el.innerHTML=html;
   el.querySelectorAll("[data-maps]").forEach(function(b){ b.onclick=function(){ openFinder(b.getAttribute("data-maps")); }; });
   bindMoreNew(el); bindMq(el); bindRkSet(el.querySelector("#rkSetC"));
@@ -2165,6 +2215,8 @@ var WG={
   events: cardW("kal","✨","Hari kebesaran Islam","Islamic days",function(){ return HC.events(); },[4,3],[2,2]),
   fast: cardW("kal","🍽","Puasa sunat","Sunnah fasts",function(){ return HC.fast(); },[4,2],[2,2]),
   ganti: cardW("kal","🗓","Puasa ganti","Make-up fasts",function(){ return HC.ganti(); },[4,3],[2,2]),
+  tekapwod: cardW("tools","✍️","Latihan tekap hari ini","Today's tracing practice",function(){ return tkWodW(); },[4,2],[2,2]),   // 0.6.65
+  news: cardW("media","📰","Tajuk berita","Headlines",function(){ if(S.kidLock) return ''; if(!window.IbNews){ loadJs(["news/news_data.js","news/news.js"], function(){ if(view===homeV()) render(); }, function(){}); return '<div class="card mut">📰 …</div>'; } return '<div class="card" data-act="learn:news">'+IbNews.widget()+'</div>'; },[4,2],[2,2]),
   nowplay: cardW("media","🎧","Sedang dimainkan","Now playing",function(w,h){ return window.IbMedia?IbMedia.widget(w,h):'<div class="card"><h3>🎧 '+L2x("Radio & podcast","Radio & podcast")+'</h3></div>'; },[4,1],[2,1]),
   usage: cardW("stats","⏱","Masa penggunaan hari ini","Time spent today",function(w,h){ return wUsage(w,h); },[2,2],[2,1]),
   usageweek: cardW("stats","📊","Masa penggunaan minggu ini","Time spent this week",function(w,h){ return wUsageWeek(w,h); },[4,2],[2,2]),
@@ -2198,6 +2250,7 @@ var WG={
   "sc-learn": scW("learn","📚","Belajar","Learn","go:learn"),
   "sc-kids": scW("learn","🧒","Mod kanak-kanak","Kids mode","q-kids"),
   "sc-radio": scW("media","📻","Radio Islam","Islamic radio","learn:radio"),
+  "sc-news": scW("media","📰","Berita Dunia","World news","learn:news"),
   "sc-podcast": scW("media","🎙","Podcast","Podcasts","learn:podcast"),
   "sc-live": scW("media","📺","Siaran langsung Makkah & Madinah","Live Makkah & Madinah","learn:live"),
   "sc-player": scW("media","🎧","Pemain muzik (sedang main)","Player (now playing)","player"),
@@ -2313,7 +2366,7 @@ function wPages(){ if(wPagesDone) return; wPagesDone=true;
   S.lang=keep;
   Object.keys(tree).forEach(function(id){ var t=tree[id]; if(t.ms) WG["sc-n-"+id]=scW("page", t.ic, t.ms, t.en||t.ms, "side:"+id); });
 }
-function sideFind(id){ if(id==="alat/cari" || id==="alat/senyap") return {id:id, f:openFind}; id={"fin/niaga":"alat/niaga","alat/buku":"learn/buku","alat/nota/buku":"learn/buku","alat/karya":"alat/nota/karya","fin/saham":"fin/tukaran","alat/saham":"fin/tukaran"}[id]||id; var f=null, walk=function(arr){ arr.forEach(function(x){ if(f) return; if(x.id===id) f=x; else if(x.k) walk(x.k); }); }; walk(sideTree()); return f; }
+function sideFind(id){ if(id==="alat/cari" || id==="alat/senyap") return {id:id, f:openFind}; if(id==="cal/puasa") return {id:id, f:function(){ SUB2.cal="bulan"; cal.mode="h"; go("cal"); }};   /* 0.6.68: Fasting moved to the Hijri calendar + Deeds */ id={"fin/niaga":"alat/niaga","alat/buku":"learn/buku","alat/nota/buku":"learn/buku","alat/karya":"alat/nota/karya","fin/saham":"fin/tukaran","alat/saham":"fin/tukaran"}[id]||id; var f=null, walk=function(arr){ arr.forEach(function(x){ if(f) return; if(x.id===id) f=x; else if(x.k) walk(x.k); }); }; walk(sideTree()); return f; }
 // half transparency for home widgets and phone widgets
 function wAlphaCls(){ var a=S.wAlpha||100; return a<100?" wa"+a:""; }
 // phone home-screen widgets: data for the native widgets (prayer times come from the schedule)
@@ -2442,7 +2495,7 @@ function homeAct0(a){
     else if(a==="q-tasbih"){ sub.zikir="tasbih"; go("zikir"); }
     else if(a==="q-mathurat"){ go("mathurat"); }
     else if(a==="q-wirid"){ go("wirid"); }
-    else if(a==="q-ramadanm"){ SUB2.cal="puasa"; go("cal"); }
+    else if(a==="q-ramadanm"){ SUB2.cal="bulan"; cal.mode="h"; var ev0=nextHijriEvent(9,1,10,1); if(ev0){ cal.hy=ev0.y; cal.hm=9; } go("cal"); }
     else if(a==="q-doa"){ go("doa"); }
     else if(a==="q-amal"){ go("amal"); }
     else if(a==="q-kids"){ go("kids"); }
@@ -2571,11 +2624,12 @@ function wDrag(grid){
   });
 }
 function wAddSheet(){
-  var en=en_(), qy="";
+  var en=en_(), qy="", kf=S.wKind||"all";   // 0.6.67 (owner): show widgets only, shortcuts only, or both
   function body(){
     var have={}; S.widgets.forEach(function(x){ have[x.id]=1; });
-    var ids=Object.keys(WG).filter(function(id){ return !qy || wName(id).toLowerCase().indexOf(qy)>=0; });
+    var ids=Object.keys(WG).filter(function(id){ return (!qy || wName(id).toLowerCase().indexOf(qy)>=0) && (kf==="all" || (kf==="sc")===!!WG[id].sc); });
     return '<input type="search" id="waQ" placeholder="🔍 '+L2x("Cari widget","Search widgets")+'" value="'+esc(qy)+'" style="width:100%;margin-bottom:6px">'+
+      '<div class="rseg wakind">'+[["wg","🧩 Widget"],["sc","⚡ "+L2x("Pintasan","Shortcut")],["all","✦ "+L2x("Kedua-dua","Both")]].map(function(k){ return '<button class="chip'+(kf===k[0]?' on':'')+'" data-wkind="'+k[0]+'">'+k[1]+'</button>'; }).join("")+'</div>'+
       '<div class="chips wacats">'+WCAT.map(function(c){ return '<button class="chip" data-wcat="'+c[0]+'">'+c[1]+' '+esc(en?c[3]:c[2])+'</button>'; }).join("")+'</div>'+
       WCAT.map(function(c){ var l=ids.filter(function(id){ return WG[id].cat===c[0]; }); if(!l.length) return '';
         return '<div class="snl wahd" id="wac_'+c[0]+'">'+c[1]+' '+esc(en?c[3]:c[2])+' <span class="mut tiny">'+l.length+'</span></div>'+l.map(function(id){ var d=WG[id];
@@ -2585,6 +2639,7 @@ function wAddSheet(){
   var ov=showSheet("＋ "+L2x("Tambah widget","Add widget"), body(), function(){ render(); });
   function bind(){ var b=ov.querySelector(".shb");
     b.querySelectorAll("[data-wadd]").forEach(function(x){ x.onclick=function(){ var id=x.getAttribute("data-wadd"), d=WG[id]; S.widgets.push({id:id,w:d.def[0]*2,h:d.def[1]*2}); saveS(); N.vibrate(20); toast("＋ "+wName(id)); var st=b.scrollTop; b.innerHTML=body(); bind(); b.scrollTop=st; }; });
+    b.querySelectorAll("[data-wkind]").forEach(function(x){ x.onclick=function(){ kf=x.getAttribute("data-wkind"); S.wKind=kf; saveS(); b.innerHTML=body(); bind(); }; });
     b.querySelectorAll("[data-wcat]").forEach(function(x){ x.onclick=function(){ var h=b.querySelector("#wac_"+x.getAttribute("data-wcat")); if(h) b.scrollTop=h.offsetTop-b.offsetTop-6; }; });
     var qi=b.querySelector("#waQ"); qi.oninput=function(){ qy=qi.value.trim().toLowerCase(); b.innerHTML=body(); bind(); var n=b.querySelector("#waQ"); n.focus(); n.setSelectionRange(n.value.length,n.value.length); };
   }
@@ -2769,6 +2824,11 @@ function kidsHero(){ return '<button class="bnHero bn-kids" data-go="kids"><span
 function iqraHero(){ return '<button class="bnHero bn-iqra" data-learn="iqra"><span class="bnSc"></span><span class="bnI">📗</span><span class="shTxt"><b>'+L2x("Asas Membaca al-Quran (Tahap 1–6)","Learn to Read the Quran (Levels 1–6)")+'</b><small>'+L2x("Seperti Iqra\': dari huruf pertama hingga membaca ayat","Like Iqra\': from the first letters to reading ayat")+'</small></span><span class="shGo">›</span></button>'; }
 function radioHero(){ return '<button class="bnHero bn-radio" data-learn="radio"><span class="bnSc"></span><span class="bnI">📻</span><span class="shTxt"><b>'+L2x("Radio Islam","Islamic radio")+'</b><small>'+L2x("Stesen Al-Quran, kuliah & nasyid dari seluruh dunia","Quran, talks & nasheed stations worldwide")+'</small></span><span class="shGo">›</span></button>'; }
 function podHero(){ return '<button class="bnHero bn-pod" data-learn="podcast"><span class="bnSc"></span><span class="bnI">🎙</span><span class="shTxt"><b>'+L2x("Podcast","Podcast")+'</b><small>'+L2x("82 penceramah lelaki & wanita, ikut topik. Langgan & dengar","82 speakers, men & women, by topic. Subscribe & listen")+'</small></span><span class="shGo">›</span></button>'; }
+// 0.6.61 (owner spec global-news-listen.md): World News in Listen (news/*.js); hidden in kids lock
+function newsHero(){ return S.kidLock ? '' : '<button class="bnHero bn-news" data-learn="news"><span class="bnSc"></span><span class="bnI">📰</span><span class="shTxt"><b>'+L2x("Berita Dunia","World News")+'</b><small>'+L2x("Tajuk berita, radio berita dan podcast ikut negara. Dengar buletin berita.","Headlines, news radio and podcasts by country. Listen to a news bulletin.")+'</small></span></button>'; }
+function vNews(el){ if(S.kidLock){ learnPg=null; render(); return; } if(!document.getElementById("nwCss")){ var l=document.createElement("link"); l.id="nwCss"; l.rel="stylesheet"; l.href="news/news.css"; document.head.appendChild(l); }
+  var go_=function(){ if(document.body.contains(el)) try{ el.innerHTML='<div class="nwTop"><button class="chip" id="lBack">‹ '+L2x("Dengar","Listen")+'</button><div id="nwTkSlot" class="nwTkSlot"></div></div><div id="nwBox"></div>'; el.querySelector("#lBack").onclick=function(){ learnBack(); }; IbNews.render(el.querySelector("#nwBox")); }catch(err){ console.error(err); } };
+  if(window.IbNews) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["news/news_data.js","news/news.js"], go_); } }
 function liveHero(){ return '<button class="bnHero bn-live" data-learn="live"><span class="bnSc"></span><span class="bnI">📺</span><span class="shTxt"><b>'+L2x("Siaran langsung Makkah & Madinah","Live from Makkah & Madinah")+'</b><small>'+L2x("Masjidil Haram dan Masjid Nabawi, 24 jam","Masjid al-Haram and the Prophet\'s Mosque, 24 hours")+'</small></span><span class="shGo">›</span></button>'; }
 // PKSK (Pentaksiran Kemasukan Sekolah Khusus) notes and practice exam: a free, offline page bundled in pksk/pksk.html, opened in a full-screen frame
 function tajwidHero(){ return '<button class="bnHero bn-tajwid" data-learn="tajwid"><span class="bnSc"></span><span class="bnI">🎨</span><span class="shTxt"><b>'+L2x("Tajwid","Tajweed")+'</b><small>'+L2x("Hukum nun mati, mim mati, mad dan lain-lain, berwarna dan boleh didengar","Rules of nun and mim sakinah, madd and more, colour-coded with audio")+'</small></span><span class="shGo">›</span></button>'; }
@@ -2820,13 +2880,14 @@ function vLearn0(el){
   }
   if(learnPg==="radio"||learnPg==="podcast"){ if(window.IbMedia) IbMedia.render(el, learnPg); else el.innerHTML='<div class="card mut">…</div>'; return; }
   if(learnPg==="live"){ vLive(el); return; }
+  if(learnPg==="news"){ vNews(el); return; }
   if(learnPg==="iqg"){ iqCss(); el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>🧠 '+L2x("Teka-teki IQ","IQ puzzles")+'</b><span></span></div><div id="iqBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
     el.querySelector("#lBack").onclick=function(){ if(window.IQView) IQView.stop(); learnBack(); };
     loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["iq/core.js"]), function(){ var bx=el.querySelector("#iqBox"); if(bx && document.body.contains(bx)) IQView.render(bx, {esc:esc, L2x:L2x, loadJs:loadJs, toast:toast}); }, function(){}); return; }
   if(learnPg==="chess"){ if(!document.querySelector('link[href="chess/chess.css"]')){ var lc2=document.createElement("link"); lc2.rel="stylesheet"; lc2.href="chess/chess.css"; document.head.appendChild(lc2); }
     el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>♟️ '+L2x("Catur 3D","3D chess")+'</b><span></span></div><div id="chBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
     el.querySelector("#lBack").onclick=function(){ if(window.ChessView) ChessView.stop(); learnBack(); };
-    loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["chess/chess_engine.js","chess/chess.js"]), function(){ var bx=el.querySelector("#chBox"); if(bx && document.body.contains(bx)) ChessView.render(bx, {esc:esc, load:load, save:save, en:en_, toast:toast, showSheet:showSheet, closeOverlay:closeOverlay}); }, function(){}); return; }
+    loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["chess/chess_engine.js","chess/chess.js","chess/chess_guide_md.js","chess/chess_guide.js"]), function(){ var bx=el.querySelector("#chBox"); if(bx && document.body.contains(bx)) ChessView.render(bx, {esc:esc, load:load, save:save, en:en_, toast:toast, showSheet:showSheet, closeOverlay:closeOverlay}); }, function(){}); return; }
   if(learnPg==="sport"){ el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>🏅 '+L2x("Sukan","Sports")+'</b><span></span></div><div id="sprtBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
     el.querySelector("#lBack").onclick=learnBack;
     loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["sport/sport_list.js","sport/sport_engine.js"].filter(function(f){ return !(f==="sport/sport_list.js" && window.SportList) && !(f==="sport/sport_engine.js" && window.SportView); })), function(){ var bx=el.querySelector("#sprtBox"); if(bx && document.body.contains(bx)) try{ SportView.view(bx, fitH()); }catch(err){ console.error(err); bx.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } }, function(){}); return; }
@@ -3296,18 +3357,36 @@ function csCard(){
     '<div class="rseg" style="margin:10px 0 6px;display:flex;flex-wrap:wrap;gap:6px">'+chip("is","☪️","Hari Islam","Islamic days")+chip("ph","🇲🇾","Cuti umum","Public holidays")+chip("fast","🌙","Puasa sunat","Sunnah fasts")+chip("rem","🔔","Peringatan","Reminders")+chip("meal","🍽️","Menu dirancang","Planned meals")+chip("pray","🕌","Waktu solat (7 hari)","Prayer times (7 days)")+(periodHidden()?'':chip("period","🌸","Haid (jangkaan)","Period (expected)")+(ty.period?chip("priv","🔒","Tajuk peribadi","Private titles"):''))+'</div>'+
     (ty.rem?'<div class="mut tiny" style="margin:-2px 0 6px">🔔 '+L2x("Peringatan: bil & hutang, hari lahir, majlis & tugasan, vaksin bayi, senaman (10 hari ke depan).","Reminders: bills & debts, birthdays, events & tasks, baby vaccines, workouts (next 10 days).")+'</div>':'')+
     (ty.period&&!ty.priv?'<div class="mut tiny" style="margin-bottom:6px">⚠ '+L2x("Tajuk haid akan kelihatan kepada sesiapa yang berkongsi kalendar ini.","Period titles will be visible to anyone this calendar is shared with.")+'</div>':'')+
-    '<div class="btns">'+(c.on&&c.cal?'<button class="btn gold" id="csNow">🔄 '+L2x("Segerak sekarang","Sync now")+'</button><button class="btn alt" id="csPick">'+L2x("Tukar kalendar","Change calendar")+'</button><button class="btn alt" id="csOff">'+L2x("Tutup & buang acara","Turn off & remove events")+'</button>':'<button class="btn gold" id="csOn">📅 '+L2x("Pilih kalendar & hidupkan","Choose a calendar & turn on")+'</button>')+'</div>'+
+    '<div class="btns">'+(c.on&&c.cal?'<button class="btn gold" id="csNow">🔄 '+L2x("Segerak sekarang","Sync now")+'</button><button class="btn alt" id="csPick">'+L2x("Tukar kalendar","Change calendar")+'</button><button class="btn delb" id="csOff">🗑 '+L2x("Buang dari kalendar","Remove from calendar")+'</button>':'<button class="btn gold" id="csOn">📅 '+L2x("Pilih kalendar & hidupkan","Choose a calendar & turn on")+'</button>')+'</div>'+
     '<details class="small" style="margin-top:8px"><summary class="mut">'+L2x("Google, Outlook & cara ia berfungsi","Google, Outlook & how it works")+'</summary><div class="mut" style="line-height:1.45;margin-top:6px">'+
     L2x("Google: akaun Google mesti ada pada telefon (Tetapan › Akaun). Outlook: dalam aplikasi Outlook, buka Tetapan › akaun anda › hidupkan \"Segerak kalendar\", kemudian pilih kalendar Outlook di sini. Aplikasi menyegerak secara automatik apabila dibuka (paling kerap setiap 6 jam) dan hanya mengubah acara yang dibuatnya sendiri.","Google: the Google account must be on the phone (Settings › Accounts). Outlook: in the Outlook app open Settings › your account › turn on \"Sync calendars\", then choose the Outlook calendar here. The app syncs by itself when opened (at most every 6 hours) and only changes events it made itself.")+'</div></details></div>';
 }
 function bindCs(el){
-  el.querySelectorAll("[data-cst]").forEach(function(b){ b.onclick=function(){ var c=csCfg(), k=b.getAttribute("data-cst"); c.ty[k]=!c.ty[k]; S.cs=c; saveS(); render(); }; });
+  el.querySelectorAll("[data-cst]").forEach(function(b){ b.onclick=function(){ var c=csCfg(), k=b.getAttribute("data-cst"); c.ty[k]=!c.ty[k]; S.cs=c; saveS(); render();
+    if(c.on && c.cal && window.Native && N.calSync) csRun(false, function(r){ if(!c.ty[k] && r && r.removed) toast("🗑 "+L2x("Dibuang dari kalendar: ","Removed from the calendar: ")+r.removed); }); }; });   // 0.6.73: switching a type off removes it from the calendar at once
   var on_=el.querySelector("#csOn"); if(on_) on_.onclick=function(){ csRun(true); };
   var nw=el.querySelector("#csNow"); if(nw) nw.onclick=function(){ csRun(true, function(){ render(); }); };
   var pk=el.querySelector("#csPick"); if(pk) pk.onclick=function(){ csPick(); };
-  var of=el.querySelector("#csOff"); if(of) of.onclick=function(){ var c=csCfg(); if(!c.cal || !(window.Native && N.calSync)) return; var id="cs"+Date.now(), h=function(r){ if(r.id!==id) return; off("calsync",h); toast(L2x("Acara My Ihsan dibuang: ","My Ihsan events removed: ")+(r.removed||0)); }; on("calsync",h); N.calSync(id, String(c.cal), "[]"); c.on=false; S.cs=c; saveS(); render(); };
+  var of=el.querySelector("#csOff"); if(of) of.onclick=function(){ var c=csCfg(); if(!c.cal || !(window.Native && N.calSync)) return; if(!confirm(L2x("Buang semua acara My Ihsan daripada kalendar ","Remove all My Ihsan events from the calendar ")+(c.calName||"")+L2x(" dan hentikan penyegerakan?","and stop syncing?"))) return; var id="cs"+Date.now(), h=function(r){ if(r.id!==id) return; off("calsync",h); toast(L2x("Acara My Ihsan dibuang: ","My Ihsan events removed: ")+(r.removed||0)); }; on("calsync",h); N.calSync(id, String(c.cal), "[]"); c.on=false; S.cs=c; saveS(); render(); };
 }
 on("resume", function(){ var c=csCfg(); if(c.on && c.cal && Date.now()-(c.last||0) > 6*36e5) csRun(false); });
+// 0.6.71 (owner): when a newer version is out on Google Play and there is internet, the app asks to update. Only for copies installed from
+// Play (dev APKs are never blocked). https://myihsan.app/version.json = {vc, v, min, ms, en}; below "min" the update must be done.
+var UPD_URL="https://myihsan.app/version.json", PLAY_ID="com.myihsan.myapp", updBlock=false;
+function updCheck(force){ if(!(window.Native && N.info)) return; var i={}; try{ i=JSON.parse(N.info()); }catch(e){} if(!i.vc || (i.installer!=="com.android.vending" && !window.__UPD_ANY)) return;
+  var last=+(load("ihsan_updchk",0)||0); if(!force && Date.now()-last<6*36e5) return; save("ihsan_updchk", Date.now());
+  nFetch(UPD_URL+"?t="+Date.now(), function(st, body){ if(st!==200) return; var j=null; try{ j=JSON.parse(body); }catch(e){} if(!j || !(+j.vc>i.vc)) return; updShow(j, i.vc < +(j.min||j.vc)); }); }
+function updShow(j, must){ if(document.getElementById("updOv")) return; if(!must && load("ihsan_updlater","")===String(j.vc)+":"+ymd(new Date())) return;
+  updBlock=must; var o=document.createElement("div"); o.id="updOv"; o.className="updOv";
+  o.innerHTML='<div class="card updC"><div class="updI">⬆️</div><h3>'+(must?L2x("Kemas kini diperlukan","Update needed"):L2x("Versi baharu tersedia","A new version is ready"))+'</h3><div class="mut">My Ihsan '+esc(j.v||"")+'</div>'+
+    (j.ms||j.en?'<div class="small" style="margin:8px 0;text-align:left;white-space:pre-line">'+esc(L2x(j.ms||j.en||"", j.en||j.ms||""))+'</div>':'')+
+    '<div class="mut tiny">'+(must?L2x("Versi ini perlu dikemas kini untuk terus digunakan.","This version needs updating to keep using the app."):L2x("Kemas kini untuk ciri dan pembetulan terbaru.","Update for the latest features and fixes."))+'</div>'+
+    '<button class="btn gold full g3d" id="updGo" style="margin-top:12px">⬆️ '+L2x("Kemas kini di Play Store","Update on the Play Store")+'</button>'+(must?'':'<button class="btn alt full" id="updLt" style="margin-top:8px">'+L2x("Nanti","Later")+'</button>')+'</div>';
+  document.body.appendChild(o);
+  o.querySelector("#updGo").onclick=function(){ var u="market://details?id="+PLAY_ID; try{ N.openUrl(u); }catch(e){ window.open("https://play.google.com/store/apps/details?id="+PLAY_ID); } };
+  var lt=o.querySelector("#updLt"); if(lt) lt.onclick=function(){ save("ihsan_updlater", String(j.vc)+":"+ymd(new Date())); o.remove(); updBlock=false; }; }
+setTimeout(function(){ updCheck(false); }, 8000);
+on("resume", function(){ var o=document.getElementById("updOv"); if(o && !updBlock) return; if(o){ o.remove(); } updCheck(true); });
 setTimeout(function(){ var c=csCfg(); if(c.on && c.cal && Date.now()-(c.last||0) > 6*36e5) csRun(false); }, 4000);
 
 // ---------- CALENDAR EXPORT + MONTHLY TIMETABLE (idea 74) ----------
@@ -3878,7 +3957,7 @@ function nFetch(url, cb){ var id="m"+(++fSeq)+"_"+Date.now(); var h=function(r){
   if(window.Native && N.fetchText) N.fetchText(id,url); else if(window.Native) N.fetchUrl(id,url);
   else fetch(url).then(function(r){ return r.text().then(function(t){ window.onNative("fetch",{id:id,status:r.status,body:t}); }); }).catch(function(e){ window.onNative("fetch",{id:id,status:0,body:String(e)}); }); }
 window.IBH={reviewShare:function(){ reviewShare(); }, curNow:function(){ return curNow(); }, ctryOf:function(a,o){ return ctryOf(a,o); }, askLocation:function(z){ askLocation(z); }, pushSchedule:function(){ pushSchedule(); }, S:function(){ return S; }, saveS:function(){ saveS(); }, N:N, on:on, off:off, load:load, save:save, esc:esc, L2x:L2x, en:en_, toast:toast, showSheet:showSheet, closeOverlay:closeOverlay, render:render, go:go,
-  fetch:nFetch, dockFix:dockFix, view:function(){ return view; }, learnPg:function(){ return learnPg; }, setLearn:function(p){ learnPg=p; }, durEn:durEn, cdStr:cdStr, locTag:locTag, t523:{xrem:xrem, upcoming:function(){ return upcoming(10); }, card:function(o){ openCardMaker(o); }, pdf:canvasPdf, dspH:function(){ return dspH(); }, note:function(n){ ntEdit(n, false, null); }}};
+  fetch:nFetch, loadJs:loadJs, prayNow:function(){ try{ var t=getDay(new Date()), n=new Date(), m=n.getHours()*60+n.getMinutes(); return PR.some(function(k){ var p=String(t[k]||'').split(':'); if(p.length<2) return false; var x=(+p[0])*60+(+p[1]); return m>=x && m<x+2; }); }catch(e){ return false; } }, dockFix:dockFix, view:function(){ return view; }, learnPg:function(){ return learnPg; }, setLearn:function(p){ learnPg=p; }, durEn:durEn, cdStr:cdStr, locTag:locTag, t523:{xrem:xrem, upcoming:function(){ return upcoming(10); }, card:function(o){ openCardMaker(o); }, pdf:canvasPdf, dspH:function(){ return dspH(); }, note:function(n){ ntEdit(n, false, null); }}};
 // ---------- 0.5.17-dev: review notices ----------
 // Notes such as "pending ustaz review" are folded into a small "ⓘ Review note" dropdown wherever they appear,
 // and every item still waiting for review is listed in Settings › Backup & about › About.
@@ -3904,7 +3983,9 @@ var REVIEW_LIST=[
   ["👥","Kumpulan: doa untuk berita kematian","Groups: the doa in death notices"],
   ["🧰","Teks Arab dalam Alat tambahan","Arabic text in the extra tools"],
   ["🎒","Sekolah: Pendidikan Islam, Jawi, Bahasa Arab dan huruf hijaiyah (Sedia–Tahun 6)","School: Islamic Education, Jawi, Arabic and hijaiyah letters (Pre-Year 1 to Year 6)"],
-  ["🎒","Sekolah: semua subjek lain perlu disemak guru","School: every other subject needs a teacher's review"]
+  ["🎒","Sekolah: semua subjek lain perlu disemak guru","School: every other subject needs a teacher's review"],
+  ["🧾","Cukai LHDN: senarai pelepasan, had dan kadar cukai (YA 2025) perlu disemak setiap tahun; bukan nasihat cukai","LHDN tax: the relief list, limits and tax rates (YA 2025) need checking every year; not tax advice"],
+  ["✍️","Tekap: ukuran Old English (mata pena) dan Naskh (titik), istilah anatomi Naskh, perkataan hari ini (Arab) dan helaian latihan ayat","Trace: Old English (nib) and Naskh (dot) proportions, Naskh anatomy terms, the word of the day (Arabic) and the ayat practice sheets"]
 ];
 function reviewListHtml(){ return '<details class="rvList"><summary>📋 '+L2x("Kandungan yang menunggu semakan ustaz","Content waiting for an ustaz's review")+' ('+REVIEW_LIST.length+')</summary><div class="mut tiny" style="margin:4px 0">'+L2x("Ditulis dengan teliti tetapi belum disemak oleh ustaz bertauliah. Sila laporkan kesilapan melalui Tetapan › Lapor kesilapan.","Written with care but not yet checked by a qualified ustaz. Please report mistakes through Settings › Report a mistake.")+'</div><ul>'+REVIEW_LIST.map(function(x){ return '<li>'+x[0]+' '+esc(L2x(x[1],x[2]))+'</li>'; }).join("")+'</ul><button class="btn alt g3d" type="button" onclick="IBH.reviewShare()">↗ '+L2x("Kongsi senarai untuk pusingan semakan","Share the list for a review round")+'</button></details>'; }
 // 0.5.20 (review 21): one tap sends the whole list (both languages, with the app version and the Sekolah packs) to a reviewer
@@ -3992,8 +4073,8 @@ var SUBS={
   solat:[["waktu","🕰","Waktu","Times"],["rakaat","🧎","Rakaat","Rakaat"],["zikir","📿","Zikir","Zikir"],["kiblat","🧭","Kiblat","Qibla"],["ssunat","🌅","Sunat","Sunnah"]],
   sunat:[["quran","📖","Al-Quran","Quran"],["doa","🤲","Doa","Doa"],["wirid","🌄","Wirid","Wirid"],["mathurat","📖","Ma'thurat","Ma'thurat"],["amal","🌱","Amal","Deeds"],["tanya","💬","Tanya","Ask"]],   // 0.6.23 (owner): Ask moved here, far right
   learn:[["sekolah","🎒","Sekolah","School"],["buku","📚","Buku","Books"],["bahasa","📖","Asas","Basics"],["panduan","🧭","Teroka","Explore"],["kisah","🐪","Kisah","Stories"],["dengar","🎧","Dengar","Listen"]],   // 0.6.23 (owner): Books moved here, right of School
-  cal:[["bulan","📝","Perancang","Planner"],["mesyuarat","📋","Mesyuarat","Meeting"],["puasa","🍽","Puasa","Fasting"],["haid","🌸","Haid","Period"],["senaman","🏃","Gerak","Move"],["fokus","🎯","Fokus","Focus"],["statistik","📊","Statistik","Stats"]],
-  fin:[["hutang","🤝","Hutang","Debts"],["komitmen","📆","Komitmen","Commitments"],["bahagi","🧾","Bahagi bil","Split bill"],["zakat","💰","Zakat","Zakat"],["wasiat","📜","Wasiat","Will"],["tukaran","💱","Tukaran","Currency"],["belanja","💸","Belanja","Expense"]],
+  cal:[["bulan","📝","Perancang","Planner"],["mesyuarat","📋","Mesyuarat","Meeting"],["haid","🌸","Haid","Period"],["senaman","🏃","Gerak","Move"],["fokus","🎯","Fokus","Focus"],["statistik","📊","Statistik","Stats"]],
+  fin:[["hutang","🤝","Hutang","Debts"],["komitmen","📆","Komitmen","Commit"],["bahagi","🧾","Bahagi bil","Split bill"],["zakat","💰","Zakat","Zakat"],["wasiat","📜","Wasiat","Will"],["cukai","🧾","Cukai","Tax"],["belanja","💸","Belanja","Expense"],["tukaran","💱","Tukaran","Currency"]],
   alat:[["keluarga","👨‍👩‍👧","Sosial","Social"],["kumpulan","👥","Kumpulan","Groups"],["halal","🏷️","Halal","Halal"],["nota","✍️","Tulis","Write"],["majlis","🎉","Majlis","Events"],["paparan","📺","Paparan","Display"],["niaga","📑","Niaga","Business"],["kewangan","💰","Kewangan","Finance"]]
 };
 // 0.3.0: the Haid (period) tab can be hidden (men who do not track a spouse): Kalendar sub-tabs read through this getter
@@ -4003,6 +4084,9 @@ function periodHidden(){ var p=load("ihsan_period",{}); return !!(p && p.who==="
 (function(){ var so=S.subOrder; if(!so) return; var ch=false;
   if(Array.isArray(so.learn)){ var l=so.learn.filter(function(k){ return k!=="tanya" && k!=="buku"; }), i=l.indexOf("sekolah"); l.splice(i<0?0:i+1, 0, "buku"); if(l.join()!==so.learn.join()){ so.learn=l; ch=true; } }
   if(Array.isArray(so.sunat) && so.sunat.indexOf("tanya")<0){ so.sunat=so.sunat.concat(["tanya"]); ch=true; }
+  if(Array.isArray(so.fin) && so.fin.indexOf("cukai")<0){ var bi=so.fin.indexOf("belanja"); so.fin.splice(bi<0?so.fin.length:bi+1, 0, "cukai"); ch=true; }   // 0.6.72: Finance › Tax
+  if(Array.isArray(so.fin) && !S.fin675){ var ti=so.fin.indexOf("tukaran"), ci=so.fin.indexOf("cukai"); if(ti>=0 && ci>=0){ so.fin[ti]="cukai"; so.fin[ci]="tukaran"; } S.fin675=1; ch=true; }   // 0.6.75 (owner): Tax and Currency swap places
+  if(Array.isArray(so.cal) && so.cal.indexOf("puasa")>=0){ so.cal.splice(so.cal.indexOf("puasa"), 1); ch=true; }   // 0.6.68 (owner): no Fasting tab
   if(Array.isArray(so.cal) && so.cal.indexOf("mesyuarat")<0){ var ci=so.cal.indexOf("bulan"); so.cal.splice(ci<0?0:ci+1, 0, "mesyuarat"); ch=true; }   // 0.6.44: Meeting after Planner
   if(ch) saveS(); })();
 var SUBS_FULL={};
@@ -4029,7 +4113,7 @@ function go(v){
   if(v==="alat" && SUB2.alat==="buku"){ SUB2.alat="nota"; SUB2.learn="buku"; v="learn"; }   // 0.6.23: Books live in Learn
   if(v==="buku"){ SUB2.learn="buku"; v="learn"; }
   if(v==="tanya"){ sunPage="tanya"; v="sunat"; }
-  if(["hutang","komitmen","bahagi","zakat","tukaran","wasiat","belanja"].indexOf(v)>=0){ SUB2.fin=v; v="fin"; }
+  if(["hutang","komitmen","bahagi","zakat","tukaran","wasiat","belanja","cukai"].indexOf(v)>=0){ SUB2.fin=v; v="fin"; }
   if(v==="fin"){ SUB2.alat="kewangan"; v="alat"; }
   if(["doa","mathurat","amal","wirid"].indexOf(v)>=0){ sunPage=v; save("ihsan_sunpage",v); v="sunat"; }
   if(v==="halal"){ SUB2.alat="halal"; v="alat"; }
@@ -4055,6 +4139,7 @@ window.onBack = function(){
   if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); return true; }
   if(view==="learn" && (learnPg==="radio"||learnPg==="podcast") && window.IbMedia && IbMedia.back()) return true;
   if(view==="learn" && ILMU_PG[learnPg] && window.IlmuView && IlmuView.back()) return true;
+  if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
  if(view==="learn" && learnPg==="jamma" && window.QuranView && QuranView.kidsBack()) return true;
   if(view==="learn" && (learnPg==="iqra" || learnPg==="tajwid") && window.BacaanView && BacaanView.back()) return true;
   if(view==="learn" && learnPg){ learnBack(); return true; }
@@ -4265,7 +4350,10 @@ function vSunatMode(el, mode){
   var dock=document.createElement("div"); dock.className="dock amdock"; dock.appendChild(hdr); el.appendChild(dock);
   // 0.5.27: the three shortcut chips (Sunnah prayers, Purification, Hajj & Umrah) under Deeds were removed; those pages have their own tabs
   if(mode==="amal"||mode==="ssunat") sunSwipe(el, mode);
-  if(mode==="amal"){ var dc=document.createElement("div"); dc.className="card dgCard"; el.insertBefore(dc, el.firstChild); deedsInto(dc); }
+  if(mode==="amal"){ var dc=document.createElement("div"); dc.className="card dgCard"; var am=el.querySelector(".amdock"); if(am) el.insertBefore(dc, am); else el.appendChild(dc); deedsInto(dc);   // 0.6.68 (owner): goals at the bottom
+    var top=document.createElement("div"); top.className="amFast"; top.innerHTML=sunTop==="puasa"?(HC.ganti()||'')+(HC.ramadan()||'')+(HC.fast()||''):''; el.insertBefore(top, el.firstChild);   // 0.6.73 (owner): make-up fasts on top, only under Fasting
+    top.addEventListener("click", function(e){ var b=e.target.closest("[data-act]"); if(b){ e.stopPropagation(); homeAct(b.getAttribute("data-act")); } });
+    var fr=top.querySelector("#hFastRem"); if(fr) fr.onchange=function(){ S.fastRem=this.checked; saveS(); }; }
 }
 // 0.5.23 (Muslim Habit style): my own deed goals (e.g. 2 pages of Quran a day) with an optional daily reminder, ticked or counted
 // each day, and a weekly report: a bar per day, the best day, and a share to WhatsApp. Storage ihsan_deeds {goals, log:{date:{id:n}}}.
@@ -4406,7 +4494,7 @@ function vLearn(el){
   } else if(s==="bahasa"){
     h+=guideHero("haji")+guideHero("bersuci")+iqraHero()+tajwidHero()+qmeanHero()+hadithHero()+fiqhHero()+fiqhCard();   // 0.5.71: Hajj & Umrah at the top; 0.5.98: 40 Hadith here
   } else if(s==="dengar"){
-    h+=radioHero()+podHero()+liveHero();
+    h+=radioHero()+podHero()+liveHero()+newsHero();
   } else if(s==="tanya"){
     h+='<div id="ilmuBox"></div>';
   }
@@ -4540,13 +4628,45 @@ function mvEnc(txt, pw){ var salt=crypto.getRandomValues(new Uint8Array(16)), iv
 function mvDec(e, pw){ return mvKey(pw, unb64u(e.salt)).then(function(k){ return crypto.subtle.decrypt({name:"AES-GCM", iv:unb64u(e.iv)}, k, unb64u(e.ct)); }).then(function(b){ return new TextDecoder().decode(b); }); }
 function qrSvgApp(text){ var q=window.NostrKit.qrcode(0,"M"); q.addData(text); q.make(); var n=q.getModuleCount(), s2=4, d=""; for(var r=0;r<n;r++) for(var c=0;c<n;c++) if(q.isDark(r,c)) d+="M"+(c*s2+s2*2)+" "+(r*s2+s2*2)+"h"+s2+"v"+s2+"h-"+s2+"z";
   var w=n*s2+s2*4; return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+w+' '+w+'" style="width:100%;height:auto;display:block"><rect width="'+w+'" height="'+w+'" fill="#fff"/><path d="'+d+'" fill="#000"/></svg>'; }
+// 0.6.67 (owner): every scanner can read a QR / barcode from a photo in the gallery. kind "qr" or "bar"; cb(text) or cb(null)
+function ibScanImg(kind, cb){ var h=function(r){ off("image", h); if(!r || !r.data){ cb(null, true); return; } var im=new Image(); im.onload=function(){ ibDecodeImg(im, kind).then(cb, function(){ cb(null); }); }; im.onerror=function(){ cb(null); }; im.src=r.data; };
+  on("image", h); N.pickImage("gallery"); }
+function ibDecodeImg(im, kind){ var W0=im.naturalWidth||im.width, H0=im.naturalHeight||im.height, tries=[1400, 900, 2000], fm=kind==="qr"?["qr_code"]:["ean_13","ean_8","upc_a","upc_e","code_128","qr_code"];
+  var cvAt=function(mx, rot){ var k=Math.min(1, mx/Math.max(W0, H0)), w=Math.max(1, Math.round(W0*k)), h=Math.max(1, Math.round(H0*k)), c=document.createElement("canvas"), x=c.getContext("2d",{willReadFrequently:true}); if(rot){ c.width=h; c.height=w; x.translate(h, 0); x.rotate(Math.PI/2); } else { c.width=w; c.height=h; } x.drawImage(im, 0, 0, w, h); return c; };
+  var viaZx=function(){ return new Promise(function(ok){ var go=function(){ var Z=window.ZXing; if(!Z){ ok(null); return; } var rd=new Z.MultiFormatReader(), hm=new Map(); hm.set(Z.DecodeHintType.POSSIBLE_FORMATS, kind==="qr"?[Z.BarcodeFormat.QR_CODE]:[Z.BarcodeFormat.EAN_13,Z.BarcodeFormat.EAN_8,Z.BarcodeFormat.UPC_A,Z.BarcodeFormat.UPC_E,Z.BarcodeFormat.CODE_128,Z.BarcodeFormat.QR_CODE]); hm.set(Z.DecodeHintType.TRY_HARDER, true); rd.setHints(hm);
+      for(var i=0;i<tries.length;i++) for(var rot=0;rot<2;rot++){ var c=cvAt(tries[i], rot); [Z.HybridBinarizer, Z.GlobalHistogramBinarizer].forEach(function(B){ if(ok._d) return; try{ var r=rd.decode(new Z.BinaryBitmap(new B(new Z.HTMLCanvasElementLuminanceSource(c)))); ok._d=1; ok(r.getText()); }catch(e){} }); if(ok._d) return; }
+      ok(null); }; if(window.ZXing) go(); else loadJs(["halal/zxing.min.js"], go, function(){ ok(null); }); }); };
+  if("BarcodeDetector" in window){ var det; try{ det=new window.BarcodeDetector({formats:fm}); }catch(e){ det=null; }
+    if(det) return det.detect(cvAt(1600)).then(function(r){ return r && r[0] ? String(r[0].rawValue) : viaZx(); }, viaZx); }
+  return viaZx(); }
+window.IbScanImg=ibScanImg;
+// 0.6.67 (owner): one full-screen picture viewer for every photo / receipt: pinch or double-tap to zoom, drag to move, ✕ top right;
+// "📁 Open in Drive" when the picture was saved to Google Drive (opt.drive = a Drive URL or file id)
+function ibView(src, opt){ if(!src) return; opt=opt||{}; var o=document.createElement("div"); o.className="ibView"; o.innerHTML='<img alt="" draggable="false"><button class="ibVx" aria-label="'+L2x("Tutup","Close")+'">✕</button>'+(opt.drive?'<a class="ibVd" href="#">📁 '+L2x("Buka dalam Drive","Open in Drive")+'</a>':'')+'<div class="ibVh">'+L2x("Cubit untuk zum · ketik dua kali","Pinch to zoom · double tap")+'</div>';
+  var im=o.querySelector("img"), s=1, tx=0, ty=0, pts={}, g=null, lt=0, set=function(){ im.style.transform="translate("+tx+"px,"+ty+"px) scale("+s+")"; };
+  im.src=src; document.body.appendChild(o); var close=function(){ o.remove(); window.removeEventListener("keydown", kd); IBVIEW=null; }, kd=function(e){ if(e.key==="Escape") close(); }; window.addEventListener("keydown", kd); IBVIEW=close;
+  o.querySelector(".ibVx").onclick=close;
+  var dl=o.querySelector(".ibVd"); if(dl) dl.onclick=function(e){ e.preventDefault(); var u=/^https?:/.test(opt.drive)?opt.drive:"https://drive.google.com/file/d/"+opt.drive+"/view"; if(window.Native && N.openUrl) N.openUrl(u); else window.open(u, "_blank"); };
+  var snap=function(){ var ids=Object.keys(pts); return {n:ids.length, c:ids.map(function(i){ return pts[i].slice(); }), s:s, tx:tx, ty:ty}; };
+  o.addEventListener("pointerdown", function(e){ if(e.target.closest(".ibVx,.ibVd")) return; pts[e.pointerId]=[e.clientX, e.clientY]; try{ o.setPointerCapture(e.pointerId); }catch(er){} g=snap();
+    if(g.n===1){ var t=Date.now(); if(t-lt<300){ if(s>1.05){ s=1; tx=ty=0; } else { s=2.5; var r=o.getBoundingClientRect(); tx=-(e.clientX-r.width/2)*1.5; ty=-(e.clientY-r.height/2)*1.5; } im.style.transition="transform .2s"; set(); setTimeout(function(){ im.style.transition=""; }, 220); } lt=t; } });
+  o.addEventListener("pointermove", function(e){ if(!pts[e.pointerId]) return; pts[e.pointerId]=[e.clientX, e.clientY]; var ids=Object.keys(pts);
+    if(ids.length>=2 && g.n>=2){ var a=pts[ids[0]], b=pts[ids[1]], d1=Math.hypot(b[0]-a[0], b[1]-a[1]), d0=Math.hypot(g.c[1][0]-g.c[0][0], g.c[1][1]-g.c[0][1])||1; s=Math.max(1, Math.min(8, g.s*d1/d0)); tx=g.tx+((a[0]+b[0])-(g.c[0][0]+g.c[1][0]))/2; ty=g.ty+((a[1]+b[1])-(g.c[0][1]+g.c[1][1]))/2; set(); }
+    else if(ids.length===1 && g.n===1 && s>1){ tx=g.tx+e.clientX-g.c[0][0]; ty=g.ty+e.clientY-g.c[0][1]; set(); } });
+  var up=function(e){ delete pts[e.pointerId]; g=snap(); if(s<=1.01){ s=1; tx=ty=0; set(); } }; o.addEventListener("pointerup", up); o.addEventListener("pointercancel", up);
+  o.addEventListener("wheel", function(e){ e.preventDefault(); s=Math.max(1, Math.min(8, s*(e.deltaY<0?1.15:0.87))); if(s===1){ tx=ty=0; } set(); }, {passive:false});
+  return o; }
+var IBVIEW=null; window.IbView=ibView;
+// thumbnails of photos and receipts open in the viewer (data-zoom on any picture, plus the known photo slots)
+document.addEventListener("click", function(e){ var im=e.target && e.target.closest && e.target.closest("img[data-zoom], .ngImgP img, #exPh img, .ngSigP img, .psRimg img, .fphs img, .psQrSet img"); if(!im || im.closest(".ibView")) return; e.preventDefault(); e.stopPropagation(); ibView(im.currentSrc || im.src, {drive:im.getAttribute("data-drive")||""}); }, true);
 function qrScanApp(valid, done, title){ var go2=function(){ if(window.Native && N.hasPerm && !N.hasPerm("camera")){ var ph=function(r){ if(r.which!=="camera") return; off("perm",ph); if(r.granted) go2(); }; on("perm",ph); N.requestPerm("camera"); return; }
-    var ov=document.getElementById("overlay"), stream=null, t=null, closed=false; ov.className="bcov"; ov.innerHTML='<video id="mvV" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div class="bcTop"><button class="qcX" id="mvX">✕</button><b>'+esc(title)+'</b><span></span></div>';
+    var ov=document.getElementById("overlay"), stream=null, t=null, closed=false; ov.className="bcov"; ov.innerHTML='<video id="mvV" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div class="bcTop"><button class="qcX" id="mvX">✕</button><b>'+esc(title)+'</b><button class="qcX" id="mvG" title="'+L2x("Dari galeri","From gallery")+'">🖼</button></div>';
     var stop=function(){ closed=true; clearTimeout(t); if(stream) stream.getTracks().forEach(function(x){ x.stop(); }); closeOverlay(); }; ov.querySelector("#mvX").onclick=stop; ov._close=stop;
     var v=ov.querySelector("#mvV"), cv=document.createElement("canvas"), cx=cv.getContext("2d",{willReadFrequently:true}), det=("BarcodeDetector" in window)?new window.BarcodeDetector({formats:["qr_code"]}):null, zx=null;
     var hit=function(x){ if(closed || !valid(x)) return false; stop(); done(x); return true; };
+    ov.querySelector("#mvG").onclick=function(){ ibScanImg("qr", function(x, cancel){ if(cancel) return; if(!x){ toast("🖼 "+L2x("Tiada kod QR dijumpai dalam gambar","No QR code found in that picture")); return; } if(!hit(x)) toast(L2x("Kod QR ini bukan untuk di sini","This QR code is not for here")); }); };
     var tk=function(){ if(closed) return; if(v.videoWidth){ if(det){ det.detect(v).then(function(r){ if(!(r && r[0] && hit(r[0].rawValue))) t=setTimeout(tk,250); }).catch(function(){ t=setTimeout(tk,400); }); return; }
-        if(zx){ cv.width=v.videoWidth; cv.height=v.videoHeight; cx.drawImage(v,0,0); try{ var Z=window.ZXing, img=cx.getImageData(0,0,cv.width,cv.height), r2=zx.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(new Z.RGBLuminanceSource(img.data,cv.width,cv.height)))); if(hit(r2.getText())) return; }catch(e){} } }
+        if(zx){ cv.width=v.videoWidth; cv.height=v.videoHeight; cx.drawImage(v,0,0); try{ var Z=window.ZXing, r2=zx.decode(new Z.BinaryBitmap(new Z.HybridBinarizer(new Z.HTMLCanvasElementLuminanceSource(cv)))); if(hit(r2.getText())) return; }catch(e){} } }
       t=setTimeout(tk,300); };
     var cam=function(){ navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(function(st){ stream=st; v.srcObject=st; tk(); }).catch(function(){ stop(); toast(L2x("Kamera tidak tersedia","Camera not available")); }); };
     if(det) cam(); else loadJs(["halal/zxing.min.js"], function(){ var Z=window.ZXing; zx=new Z.MultiFormatReader(); var hm=new Map(); hm.set(Z.DecodeHintType.POSSIBLE_FORMATS,[Z.BarcodeFormat.QR_CODE]); zx.setHints(hm); cam(); }, cam); };
@@ -4879,7 +4999,8 @@ function vCal(el){
     el.insertAdjacentHTML("beforeend", csCard()); bindCs(el);
     return;
   }
-  if(s==="puasa"){
+  if(s==="puasa"){ SUB2.cal="bulan"; cal.mode="h"; vCal(el); return; }   // 0.6.68: old links land on the Hijri calendar
+  if(s==="puasa_old"){
     var h=countdownBoxes()+ramadanMonth();   // 0.5.22: the day countdowns first
     h+=(HC.ramadan()||'')+(HC.fast()||'')+(HC.ganti()||'');
     h+='<div class="card"><div class="small">'+L2x("Niat, cara dan kelebihan setiap puasa sunat:","Intention, how-to and virtues of each sunnah fast:")+'</div><button class="btn alt full g3d" id="pzAmal" style="margin-top:8px">🌱 '+L2x("Amal sunat › Puasa","Sunnah deeds › Fasting")+' ›</button></div>';
@@ -4899,7 +5020,7 @@ function vCal(el){
 }
 // ---------- 0.37.0 SENAMAN (fit/fit.js): 3D figure, 50 moves, routines with timers, plan, tracker, health ----------
 var FITJS=["fit/fit_data.js","fit/fit3d.js","fit/fit.js"];
-function fitH(){ var h=finH(); h.S=S; h.loadJs=loadJs; h.findView=findInto; h.locTag=locTag; h.steps=function(){ try{ return !S.stepsOn?null:((stepMap()[ymd(new Date())]||{}).s||0); }catch(e){ return null; } }; return h; }
+function fitH(){ var h=finH(); h.S=S; h.fetch=nFetch; h.N=N; h.canvasPdf=canvasPdf; h.sharePdf=sharePdf; h.loadJs=loadJs; h.loadJs=loadJs; h.findView=findInto; h.locTag=locTag; h.steps=function(){ try{ return !S.stepsOn?null:((stepMap()[ymd(new Date())]||{}).s||0); }catch(e){ return null; } }; return h; }
 function vFit(el){ var go_=function(){ if(document.body.contains(el)) try{ FitView.view(el, fitH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
   if(window.FitView && window.THREE) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(FITJS), go_, function(){ el.innerHTML='<div class="card">'+L2x("Kecergasan gagal dimuatkan","Fitness could not load")+'</div>'; }); } }
 // ---------- 0.5.1 FOKUS (focus/focus.js): focus sessions, Pomodoro, Do Not Disturb, focus plans, focus screen lock, Time Nudge.
@@ -5183,7 +5304,16 @@ function vNiaga(el){ var start=function(){ if(!document.body.contains(el)) retur
 var fxPair=null;
 function finH2(){ var h=finH(); h.fetch=nFetch; h.S=S; return h; }
 // 0.5.23 one-page PDF made from a canvas (JPEG inside), page size in mm; returns base64 of the PDF file
-function canvasPdf(cv, mmW, mmH, q){ var du=cv.toDataURL("image/jpeg", q||0.92), jb=atob(du.split(",")[1]), W=(mmW*72/25.4).toFixed(2), Hh=(mmH*72/25.4).toFixed(2);
+// 0.6.70: an array of canvases makes a multi-page PDF (one page each, same paper size)
+function canvasPdf(cv, mmW, mmH, q){ if(Array.isArray(cv)){ var pW=(mmW*72/25.4).toFixed(2), pH=(mmH*72/25.4).toFixed(2), n=cv.length, ob=["<< /Type /Catalog /Pages 2 0 R >>", ""], kids=[];
+    cv.forEach(function(c, i){ var d=atob(c.toDataURL("image/jpeg", q||0.88).split(",")[1]), pg=3+i*3, cs="q "+pW+" 0 0 "+pH+" 0 0 cm /Im0 Do Q"; kids.push(pg+" 0 R");
+      ob.push("<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+pW+" "+pH+"] /Resources << /XObject << /Im0 "+(pg+1)+" 0 R >> >> /Contents "+(pg+2)+" 0 R >>");
+      ob.push("<< /Type /XObject /Subtype /Image /Width "+c.width+" /Height "+c.height+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+d.length+" >>\nstream\n"+d+"\nendstream");
+      ob.push("<< /Length "+cs.length+" >>\nstream\n"+cs+"\nendstream"); });
+    ob[1]="<< /Type /Pages /Kids ["+kids.join(" ")+"] /Count "+n+" >>";
+    var o2="%PDF-1.4\n%\xE2\xE3\xCF\xD3\n", of2=[]; ob.forEach(function(o, i){ of2.push(o2.length); o2+=(i+1)+" 0 obj\n"+o+"\nendobj\n"; });
+    var x2=o2.length; o2+="xref\n0 "+(ob.length+1)+"\n0000000000 65535 f \n"+of2.map(function(o){ return ("0000000000"+o).slice(-10)+" 00000 n \n"; }).join("")+"trailer\n<< /Size "+(ob.length+1)+" /Root 1 0 R >>\nstartxref\n"+x2+"\n%%EOF"; return btoa(o2); }
+  var du=cv.toDataURL("image/jpeg", q||0.92), jb=atob(du.split(",")[1]), W=(mmW*72/25.4).toFixed(2), Hh=(mmH*72/25.4).toFixed(2);
   var cs="q "+W+" 0 0 "+Hh+" 0 0 cm /Im0 Do Q", objs=["<< /Type /Catalog /Pages 2 0 R >>", "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
     "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+W+" "+Hh+"] /Resources << /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>",
     "<< /Type /XObject /Subtype /Image /Width "+cv.width+" /Height "+cv.height+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+jb.length+" >>\nstream\n"+jb+"\nendstream",
@@ -5210,7 +5340,7 @@ function vFin(el){
     var go2=function(){ if(document.body.contains(fx)) try{ FxView.view(fx, finH2(), pr); }catch(err){ console.error(err); fx.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
     if(window.FxView) go2(); else { fx.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["finance/fx.js"], go2); } return; }
   var start=function(){ if(!document.body.contains(el)) return; try{ FinView(el, s, finH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
-  var more={wasiat:["finance/wasiat.js"], bahagi:["groups/nostrkit.js","finance/split.js"], belanja:["finance/expense.js"]}[s];
+  var more={wasiat:["finance/wasiat.js"], bahagi:["groups/nostrkit.js","finance/split.js"], belanja:["finance/expense.js","finance/tax.js"], cukai:["finance/expense.js","finance/tax.js"]}[s];
   if(window.FinView && (!more || (window.FinMore && window.FinMore[s]))) start(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs([window.FinView?null:"finance/finance.js"].concat(more||[]).filter(function(f){ return f && !(f==="groups/nostrkit.js" && window.NostrKit); }), start); }
 }
 
@@ -5261,7 +5391,7 @@ function phoneCC(){ if(!overseasNow() || S.lat==null) return S.ulang==="id"?"62"
   if(in_(1.15,1.48,103.6,104.1)) return "65"; if(in_(4,5.1,114,115.4)) return "673"; if(in_(-11,6,95,141.1)) return "62"; if(in_(5.6,20.5,97,106)) return "66"; if(in_(16,32.2,34.5,55.7)) return "966"; if(in_(22.5,26.1,51.5,56.4)) return "971";
   if(in_(49.9,60.9,-8.2,1.8)) return "44"; if(in_(-44,-10,112,154)) return "61"; if(in_(24,72,-170,-52)) return "1"; return "60"; }
 function vFam(el){ var go_=function(){ if(document.body.contains(el)) FamView(el, famH()); };
-  if(window.FamView && window.BABY_NAMES && window.BabyView && window.EventView && window.CareView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/care.js"], go_); } }
+  if(window.FamView && window.BABY_NAMES && window.BabyView && window.EventView && window.CareView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/seating.js","family/care.js"], go_); } }
 // 0.35.0: open Keluarga at a section ("baby", "events") from a widget
 function famOpen(sec){ if(sec==="events"||sec==="nikah"){ SUB2.alat="majlis"; go("alat"); return; } window.FamOpenSec=sec; SUB2.alat="keluarga"; go("alat"); }
 // 0.5.16: Kumpulan (groups/groups.js): private, invite-only, end-to-end encrypted notice boards over free Nostr relays
@@ -5315,14 +5445,39 @@ function vMajlis(el){
   var go_=function(){ if(!document.body.contains(el)) return; var h=famH(); try{ FamView.data(h); }catch(e){}
     EventView._draw=function(){ if(!document.body.contains(el)){ EventView._draw=null; return; } var v=document.getElementById("view"), y=v.scrollTop; EventView.view(el, famH(), ''); v.scrollTop=y; };
     EventView.view(el, h, ''); };
-  if(window.FamView && window.EventView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/care.js"], go_); } }
+  if(window.FamView && window.EventView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/seating.js","family/care.js"], go_); } }
 // 0.36.0: Tulis (Write) = Notes + Greeting cards, switched in the bottom bar
 var wrTab="nota";   // 0.6.23 (owner): Baca became Tulis (Write) again; Books moved to Learn, right of School
-var WRT=[["nota","📝","Nota","Notes"],["kad","🎴","Kad ucapan","Greeting cards"],["karya","✒️","Karya","Create"]];   // 0.6.18: Karya = AI writing studio
+var WRT=[["nota","📝","Nota","Notes"],["kad","🎴","Kad ucapan","Greeting cards"],["karya","✒️","Karya","Create"],["dokumen","📄","Dokumen","Documents"],["tekap","✍️","Tekap","Trace"]];   // 0.6.63: Tekap = AR typography + sketch tracer   // 0.6.60: Dokumen = AI document studio   // 0.6.18: Karya = AI writing studio
 // 0.6.18: Baca › Karya (karya/karya.js): AI literature studio; exports through canvasPdf/sharePdf and can drop the PDF into Books › Karya
 function kyH(){ return {N:N, S:S, L2x:L2x, esc:esc, toast:toast, load:load, save:save, openSettings:function(g){ window.openSettings(g); }, canvasPdf:canvasPdf, sharePdf:sharePdf,
   toBooks:function(u8, name){ var s=load("ihsan_books_set",{})||{}; s.folders=s.folders||[]; if(!s.folders.some(function(f){ return f.id==="fkarya"; })) s.folders.push({id:"fkarya", n:L2x("Karya","My writing"), ic:"✒️"}); save("ihsan_books_set", s);
     withBooks(function(){ BooksView.addBytes(bkH(), u8, name, {col:["fkarya"]}).then(function(){ toast("📚 "+L2x("Disimpan dalam Buku › Karya","Saved in Books › My writing")); }); }); }}; }
+// 0.6.60 (owner spec dokumen-plan.md): Tulis › Dokumen (dokumen/*.js): 50 document types, 10 page themes, PDF / DOCX / PNG / text
+function dkH(){ var h=kyH(); h.showSheet=showSheet; h.closeOverlay=closeOverlay; h.loadJs=loadJs; h.on=on; h.off=off; h.hol=function(k){ return window.ihsanHol ? window.ihsanHol(k) : {ph:[], sc:[]}; };
+  h.toBooks=function(u8, name){ var s=load("ihsan_books_set",{})||{}; s.folders=s.folders||[]; if(!s.folders.some(function(f){ return f.id==="fdok"; })) s.folders.push({id:"fdok", n:L2x("Dokumen","Documents"), ic:"📄"}); save("ihsan_books_set", s);
+    withBooks(function(){ BooksView.addBytes(bkH(), u8, name, {col:["fdok"]}).then(function(){ toast("📚 "+L2x("Disimpan dalam Buku › Dokumen","Saved in Books › Documents")); }); }); };
+  // the business letterhead comes from Business (Niaga): the current profile's name, registration, address, phone, email
+  h.biz=function(){ try{ var D=load("ihsan_biz",null); if(!D || !D.profiles || !D.profiles.length) return null; var p=D.profiles.filter(function(x){ return x.id===D.cur; })[0]||D.profiles[0];
+    return {id:"biz", label:p.name, name:p.name||"", co:p.name||"", reg:p.regNo||"", addr:p.addr||"", phone:p.phone||"", email:p.email||"", biz:[p.name, p.regNo, p.addr].filter(Boolean).join(", ")}; }catch(e){ return null; } };
+  return h; }
+function vDokumen(el){ if(!document.getElementById("dkCss")){ var l=document.createElement("link"); l.id="dkCss"; l.rel="stylesheet"; l.href="dokumen/dokumen.css"; document.head.appendChild(l); }
+  var go_=function(){ if(document.body.contains(el)) try{ DokumenView.view(el, dkH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
+  if(window.DokumenView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["halal/halal_ai.js","dokumen/types.js","dokumen/themes.js","dokumen/dokumen.js"], go_); } }
+// 0.6.63 (owner spec tekap-ar-trace-spec.md): Tulis › ✍️ Tekap (tekap/*.js): text + picture layers over the camera view of real paper
+function tkH(){ var h=dkH(); h.N=N; return h; }
+// word of the day for tracing (home widget "Latihan tekap hari ini"): [Rumi, Arabic/Jawi, English]; even days Old English, odd days Naskh
+var TK_WOD=window.TK_WOD=[["Ihsan","احسان","excellence"],["Sabar","صبر","patience"],["Syukur","شكر","gratitude"],["Ikhlas","اخلاص","sincerity"],["Amanah","امانة","trust"],["Rahmah","رحمة","mercy"],["Taqwa","تقوى","God-consciousness"],["Adab","ادب","good manners"],
+  ["Ilmu","علم","knowledge"],["Iman","ايمان","faith"],["Tawakal","توكل","reliance on Allah"],["Istiqamah","استقامة","steadfastness"],["Salam","سلام","peace"],["Hikmah","حكمة","wisdom"],["Redha","رضا","contentment"],["Zikir","ذكر","remembrance"],
+  ["Doa","دعاء","supplication"],["Berkat","بركة","blessing"],["Nur","نور","light"],["Jannah","جنة","paradise"],["Ukhuwah","اخوة","brotherhood"],["Amal","عمل","good deeds"],["Qalam","قلم","the pen"],["Kitab","كتاب","book"],["Hidayah","هداية","guidance"],["Insaf","انصاف","fairness"],["Taubat","توبة","repentance"],["Halal","حلال","lawful"]];
+function tkWodW(){ var n=Math.floor((Date.now()-new Date().getTimezoneOffset()*60000)/86400000), w=TK_WOD[n%TK_WOD.length], ar=n%2===1;
+  return '<div class="card tkWodH" data-act="q-tekap-wod"><div class="mut small">✍️ '+L2x("Latihan tekap hari ini","Today's tracing practice")+'</div><div class="tkWodW'+(ar?' ar':'')+'">'+esc(ar?w[1]:w[0])+'</div><div class="mut small">'+esc(ar?w[0]:w[1])+' · '+esc(L2x(w[0],w[2]))+'</div></div>'; }
+// a font or a .tekap.json project opened with My Ihsan: open Trace and hand it over
+function tkOpenWith(o){ window.__tkIn=o; wrTab="tekap"; SUB2.alat="nota"; go("alat"); }
+on("tekapfont", function(d){ if(S.kidLock || !d || !d.b64) return; tkOpenWith({font:d.b64, name:d.name||""}); });
+function vTekap(el){ if(!document.getElementById("tkCss")){ var l=document.createElement("link"); l.id="tkCss"; l.rel="stylesheet"; l.href="tekap/tekap.css"; document.head.appendChild(l); }
+  var go_=function(){ if(document.body.contains(el)) try{ Tekap.view(el, tkH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
+  if(window.Tekap) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["tekap/lib/opentype.min.js","huruf/huruf_data.js","tekap/tekap.js","tekap/tekap_img.js","tekap/tekap_track.js","tekap/tekap_learn.js"], go_); } }
 function vKarya(el){ if(!document.getElementById("kyCss")){ var l=document.createElement("link"); l.id="kyCss"; l.rel="stylesheet"; l.href="karya/karya.css"; document.head.appendChild(l); }
   var go_=function(){ if(document.body.contains(el)) try{ KaryaView.view(el, kyH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
   if(window.KaryaView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["halal/halal_ai.js","karya/frames2.js","karya/karya.js"], go_); } }
@@ -5339,15 +5494,15 @@ function kadThumbs(box){ var go=function(){ var list=Array.prototype.slice.call(
   if(window.KadArt) go(); else loadJs(["kad/kad2.js"], go); }
 function vWrite(el){
   if(!WRT.some(function(x){ return x[0]===wrTab; })) wrTab="nota";
-  el.innerHTML='<div class="dock"><div class="grp3'+(WRT.length>3?' grp4':'')+'">'+WRT.map(function(x){ return '<button class="chip g3d'+(wrTab===x[0]?" on":"")+'" data-wr="'+x[0]+'">'+x[1]+' '+L2x(x[2],x[3])+'</button>'; }).join("")+'</div></div><div id="wrBody"></div>';
+  el.innerHTML='<div class="dock"><div class="grp3'+(WRT.length>3?' grp4':'')+(WRT.length>4?' grp5':'')+'">'+WRT.map(function(x){ return '<button class="chip g3d'+(wrTab===x[0]?" on":"")+'" data-wr="'+x[0]+'">'+x[1]+' '+L2x(x[2],x[3])+'</button>'; }).join("")+'</div></div><div id="wrBody"></div>';
   el.querySelectorAll("[data-wr]").forEach(function(b){ b.onclick=function(){ wrTab=b.getAttribute("data-wr"); render(); document.getElementById("view").scrollTop=0; }; });
-  var body=el.querySelector("#wrBody"), draw=function(t, box){ if(t==="kad"){ box.innerHTML=kadHtml(); kadThumbs(box); } else if(t==="buku") vBooks(box); else if(t==="karya") vKarya(box); else vNotes(box); }, wi=function(){ var i=0; WRT.forEach(function(x, k){ if(x[0]===wrTab) i=k; }); return i; };
+  var body=el.querySelector("#wrBody"), draw=function(t, box){ if(t==="kad"){ box.innerHTML=kadHtml(); kadThumbs(box); } else if(t==="buku") vBooks(box); else if(t==="karya") vKarya(box); else if(t==="dokumen") vDokumen(box); else if(t==="tekap") vTekap(box); else vNotes(box); }, wi=function(){ var i=0; WRT.forEach(function(x, k){ if(x[0]===wrTab) i=k; }); return i; };
   draw(wrTab, body);
   // swipe between Notes and Cards, the other one riding in beside the finger
   IbSwipe(body, {can:function(s){ var i=wi(); return s<0 ? i<WRT.length-1 : i>0; }, go:function(s){ wrTab=WRT[wi()+(s<0?1:-1)][0]; render(); },
     find:function(){ return document.querySelector("#view #wrBody"); },
     skip:function(){ var a=document.activeElement; return a && /INPUT|TEXTAREA/.test(a.tagName); },
-    peek:function(s){ var w=WRT[wi()+(s<0?1:-1)]; if(!w) return null; if(w[0]==="buku") return '<div class="card mut">📚 '+L2x("Buku","Books")+'</div>'; if(w[0]==="karya") return '<div class="card mut">✒️ '+L2x("Karya","Write")+'</div>'; var b=document.createElement("div"); draw(w[0], b); return b.innerHTML; }});
+    peek:function(s){ var w=WRT[wi()+(s<0?1:-1)]; if(!w) return null; if(w[0]==="buku") return '<div class="card mut">📚 '+L2x("Buku","Books")+'</div>'; if(w[0]==="karya") return '<div class="card mut">✒️ '+L2x("Karya","Write")+'</div>'; if(w[0]==="dokumen") return '<div class="card mut">📄 '+L2x("Dokumen","Documents")+'</div>'; if(w[0]==="tekap") return '<div class="card mut">✍️ '+L2x("Tekap","Trace")+'</div>'; var b=document.createElement("div"); draw(w[0], b); return b.innerHTML; }});
 }
 
 // ---------- TETAPAN: a hub of seven pages ----------
@@ -5469,7 +5624,7 @@ function aiSetMount(bd){ if(!bd) return; bd.innerHTML='<div class="mut small" st
   if(!document.querySelector('link[href="halal/halal.css"]')){ var lk=document.createElement("link"); lk.rel="stylesheet"; lk.href="halal/halal.css"; document.head.appendChild(lk); }
   var go_=function(){ if(document.body.contains(bd)) try{ AISet.render(bd, {N:N, S:S, esc:esc, L2x:L2x, toast:toast, load:load, save:save, on:on, off:off}); }catch(err){ console.error(err); } };
   if(window.AISet && window.HalalAI) go_(); else loadJs((window.HalalAI?[]:["halal/halal_ai.js"]).concat(window.AISet?[]:["ai/aiset.js"]), go_, function(){ bd.innerHTML='<div class="card">'+L2x("Gagal dimuatkan","Could not load")+'</div>'; }); }
-var APP_VER="0.6.58";
+var APP_VER="0.6.92";
 // ---------- 0.4.3 phone home screen (launcher) ----------
 function homeCard(c){
   var st={}; try{ st=JSON.parse(N.homeState?N.homeState():"{}"); }catch(e){}
@@ -5495,8 +5650,10 @@ HC.quick=function(){
   if(WEB){ var WQ=["qibla","finder","halal","barcode","radio","qcam","saham","stat"]; if(!(S.quick8&&S.quick8.length)) sel=["rk","tasbih","mathurat","doa","amal","kids","sirah","hajj"]; sel=sel.filter(function(k){ return WQ.indexOf(k)<0; }); }
   return '<div class="card qgrid">'+sel.map(function(k){ var q=Q8.filter(function(x){ return x[0]===k; })[0]; if(!q) return ''; var a=q[3].indexOf("w:")===0?'data-wsc="'+q[3].slice(2)+'"':'data-act="'+q[3]+'"'; return '<button class="qt g3d" '+a+'><span>'+q[1]+'</span>'+esc(L2x(q[2][0],q[2][1]))+'</button>'; }).join("")+'<button class="qt g3d q8e" data-act="pick8" aria-label="edit"><span>✎</span>'+L2x("Pilih","Pick")+'</button></div>';
 };
-function homeAct(a){ if(a==="pick8"){ pick8(); return; } if(a==="q-books"){ SUB2.learn="buku"; learnPg=null; learnFrom=null; go("learn"); return; } if(a.indexOf("q-book:")===0){ var bid=a.slice(7); SUB2.learn="buku"; learnPg=null; learnFrom=null; go("learn"); withBooks(function(){ BooksView.open(bid, bkH()); }); return; } if(a==="q-period"){ SUB2.cal="haid"; go("cal"); return; } if(a==="q-resepi"||a==="q-rplan"){ halalAuto=a==="q-rplan"?"rplan":"recipes"; if(window.HalalRecipe) HalalRecipe.open(a==="q-rplan"?"plan":"list"); SUB2.alat="halal"; go("alat"); return; } if(a==="q-khutbah"){ khutbahSheet(); return; } if(a==="q-stat"){ SUB2.cal="statistik"; go("cal"); return; } if(a==="q-nota"){ SUB2.alat="nota"; go("alat"); return; } if(a==="q-kiblat"){ SUB2.solat="kiblat"; go("solat"); return; } homeAct0(a); }
+function homeAct(a){ if(a==="pick8"){ pick8(); return; } if(a==="q-dokumen"){ wrTab="dokumen"; SUB2.alat="nota"; go("alat"); return; } if(a==="q-tax"){ SUB2.fin="cukai"; go("fin"); return; } if(a==="q-tekap"){ wrTab="tekap"; SUB2.alat="nota"; go("alat"); return; } if(a==="q-tekap-wod"){ wrTab="tekap"; SUB2.alat="nota"; go("alat"); var n0=0, t0=setInterval(function(){ if(window.TekapLearn && window.Tekap || ++n0>60){ clearInterval(t0); if(window.TekapLearn){ var q=TekapLearn.wodProject(Tekap._t.api()); Tekap._t.api().go("edit",{id:q.id, sel:q.layers[0]&&q.layers[0].id}); } } },120); return; } if(a==="q-books"){ SUB2.learn="buku"; learnPg=null; learnFrom=null; go("learn"); return; } if(a.indexOf("q-book:")===0){ var bid=a.slice(7); SUB2.learn="buku"; learnPg=null; learnFrom=null; go("learn"); withBooks(function(){ BooksView.open(bid, bkH()); }); return; } if(a==="q-period"){ SUB2.cal="haid"; go("cal"); return; } if(a==="q-resepi"||a==="q-rplan"){ halalAuto=a==="q-rplan"?"rplan":"recipes"; if(window.HalalRecipe) HalalRecipe.open(a==="q-rplan"?"plan":"list"); SUB2.alat="halal"; go("alat"); return; } if(a==="q-khutbah"){ khutbahSheet(); return; } if(a==="q-stat"){ SUB2.cal="statistik"; go("cal"); return; } if(a==="q-nota"){ SUB2.alat="nota"; go("alat"); return; } if(a==="q-kiblat"){ SUB2.solat="kiblat"; go("solat"); return; } homeAct0(a); }
 // 0.2.9: recipe builder shortcut + today's menu from the meal plan
+WG["sc-dokumen"]=scW("tools","📄","Tulis surat","Write a letter","q-dokumen","Surat, e-mel, CV dan 50 jenis dokumen","Letters, emails, CVs and 50 document types");   // 0.6.60
+WG["sc-tekap"]=scW("tools","✍️","Tekap huruf","Trace letters","q-tekap","Old English, Naskh dan gambar di atas kertas","Old English, Naskh and pictures on paper");   // 0.6.63
 WG["sc-resepi"]=scW("tools","🍲","Resepi halal","Halal recipes","q-resepi","Simpan & tukar resepi jadi halal","Save recipes & make them halal");
 // Sports (Move › Sports): the same sport for everyone each day; a tap opens it (sport/sport_list.js sets the mode and the sport)
 WG["sport-day"]=cardW("kal","🏅","Sukan hari ini","Sport of the day",function(w){ if(!window.SportList) return ''; var s=SportList.today();
@@ -5525,7 +5682,7 @@ function pick8(){
 function arBlock(ar, ms, en, src){ var o={ar:ar,text:L2x(ms,en),src:src||""}; return '<div class="ar" style="font-size:calc(var(--arsize) - 2px);line-height:1.9">'+ar+'</div>'+rumiDiv(ar)+'<div class="tr">'+esc(L2x(ms,en))+'</div>'+(src?'<div class="src">'+srcHtml(src)+'</div>':'')+'<div class="tools">'+sayBtn(ar)+shareBtn(o)+'<button class="ib" data-rep="'+(SHR.length-1)+'">⚑ '+L2x("Lapor kesilapan","Report a mistake")+'</button></div>'; }
 document.addEventListener("click", function(e){ var b=e.target.closest&&e.target.closest("[data-rep]"); if(!b) return; e.preventDefault(); var o=SHR[+b.getAttribute("data-rep")]||{};
   var pg=view+(learnPg?" › "+learnPg:"");
-  var txt=L2x("Laporan kesilapan · My Ihsan 0.6.58","Mistake report · My Ihsan 0.6.58")+"\n"+L2x("Halaman: ","Page: ")+pg+"\n"+(o.ar?o.ar+"\n":"")+(o.text?o.text+"\n":"")+(o.src?L2x("Sumber: ","Source: ")+o.src+"\n":"")+L2x("Catatan saya: ","My note: ");
+  var txt=L2x("Laporan kesilapan · My Ihsan 0.6.92","Mistake report · My Ihsan 0.6.92")+"\n"+L2x("Halaman: ","Page: ")+pg+"\n"+(o.ar?o.ar+"\n":"")+(o.text?o.text+"\n":"")+(o.src?L2x("Sumber: ","Source: ")+o.src+"\n":"")+L2x("Catatan saya: ","My note: ");
   if(window.Native && N.shareTo) N.shareTo("", "", txt); else if(navigator.share) navigator.share({text:txt}).catch(function(){}); else toast(txt); }, true);
 
 // ---------- global search ----------
@@ -5669,7 +5826,7 @@ function sideTree(){
     "alat/halal":[["list","🍲","Resepi","Recipes"],["plan","📅","Rancang","Plan"],["shop","🛒","Beli","Shop"],["check","🔍","Semak bahan","Check ingredients"]].map(function(x){ return n("alat/halal/"+x[0],x[1],L(x[2],x[3]),function(){ if(window.HalalRecipe) HalalRecipe.open(x[0]); else window.__rcpPg=x[0]; SUB2.alat="halal"; go("alat"); }); }),
     "alat/keluarga":[n("alat/keluarga/fam","👨‍👩‍👧",L("Keluarga","Family"),function(){ famOpen("tree"); },[["tree","🌳","Salasilah","Family tree"],["bday","🎂","Hari lahir","Birthdays"],["baby","👶","Bayi","Baby"],["care","🩺","Jaga","Care"]].map(function(x){ return n("alat/keluarga/fam/"+x[0],x[1],L(x[2],x[3]),function(){ famOpen(x[0]); }); })),
       n("alat/keluarga/grp","👥",L("Kumpulan","Groups"),function(){ SUB2.alat="kumpulan"; go("alat"); }),n("alat/keluarga/ev","🎉",L("Majlis","Events"),function(){ SUB2.alat="majlis"; go("alat"); })],
-    "learn/dengar":lps("learn/dengar/","dengar",[["radio","📻","Radio Islam","Islamic radio"],["podcast","🎙","Podcast","Podcast"],["live","📺","Siaran langsung Makkah & Madinah","Live Makkah & Madinah"]])
+    "learn/dengar":lps("learn/dengar/","dengar",[["radio","📻","Radio Islam","Islamic radio"],["podcast","🎙","Podcast","Podcast"],["live","📺","Siaran langsung Makkah & Madinah","Live Makkah & Madinah"],["news","📰","Berita Dunia","World news"]])
   };
   var out=tabsNow().map(function(t){ var subs=SUBS[t[0]];
     var kids = subs ? subs.map(function(x){ var id=t[0]+"/"+x[0]; return n(id,x[1],subName(x),sub2(t[0],x[0]),L3[id]); })
@@ -5860,7 +6017,7 @@ function ntHit(n){ if(n.arch && ntLab!=="__arch") return false; if(!n.arch && nt
 function ntCardH(n){
   // 0.5.29: crossed-out (done) items are hidden; the card says how many are done
   var unN=n.cl?n.cl.map(function(x,i){ return [x,i]; }).filter(function(q){ return !q[0].d; }):[], dnN=n.cl?n.cl.length-unN.length:0;
-  var body=n.cl? '<div class="ntCl">'+unN.slice(0,60).map(function(q){ return '<div><button class="ntTk" data-ntk="'+n.id+'|'+q[1]+'">☐</button>'+esc(q[0].x)+'</div>'; }).join("")+(unN.length>60?'<div class="mut tiny">+'+(unN.length-60)+'</div>':'')+(dnN?'<div class="mut tiny ntDnN">✓ '+dnN+' '+L2x("siap","done")+'</div>':'')+'</div>' : '<div class="ntB">'+esc((n.b||"").slice(0,4000))+'</div>';   // 0.6.31 (owner): the tile shows the note down to its resizable bottom edge
+  var body=n.cl? '<div class="ntCl">'+unN.slice(0,60).map(function(q){ return '<div><button class="ntTk" data-ntk="'+n.id+'|'+q[1]+'">☐</button>'+(n.ln?'<i class="ntNo">'+(q[1]+1)+'.</i>':'')+esc(q[0].x)+'</div>'; }).join("")+(unN.length>60?'<div class="mut tiny">+'+(unN.length-60)+'</div>':'')+(dnN?'<div class="mut tiny ntDnN">✓ '+dnN+' '+L2x("siap","done")+'</div>':'')+'</div>' : n.ln ? '<div class="ntB ntBn">'+(n.b||"").slice(0,4000).split("\n").map(function(l, i){ return '<div><i class="ntNo">'+(i+1)+'</i>'+esc(l)+'</div>'; }).join("")+'</div>' : '<div class="ntB">'+esc((n.b||"").slice(0,4000))+'</div>';   // 0.6.31 (owner): the tile shows the note down to its resizable bottom edge
   // 0.5.69 (owner): each sticky note has its own text size (A− A+ inside the note) and its own length (drag the bottom edge)
   var fs=n.fs||S.ntFs||14;
   return '<div class="ntCard" data-nt="'+n.id+'" style="--ntfs:'+fs+'px;'+(n.h?'height:'+n.h+'px;':'')+(n.c?'background:'+n.c:'')+'"><div class="ntKind">'+(n.cl?'☑':'📝')+'<span class="ntCf"><button data-ntcf="'+n.id+'|-1" aria-label="A−">A−</button><button data-ntcf="'+n.id+'|1" aria-label="A+">A+</button></span><span>'+new Date(n.u||Date.now()).toLocaleDateString(locTag(),{day:"numeric",month:"short"})+'</span></div>'+(n.p?'<span class="ntPin">📌</span>':'')+'<button class="ntStar'+((SD.fav||[]).indexOf("alat/nota/nota/"+n.id)>=0?' on':'')+'" data-ntf="'+n.id+'" aria-label="☆">'+((SD.fav||[]).indexOf("alat/nota/nota/"+n.id)>=0?'★':'☆')+'</button>'+(n.rem&&n.rem>Date.now()?'<div class="ntRemT">⏰ '+ntWhen(n.rem)+'</div>':'')+(n.t?'<b>'+esc(n.t)+'</b>':'')+body+((n.lb||[]).length?'<div class="ntLb">'+n.lb.map(function(l){ return '<span>'+esc(l)+'</span>'; }).join("")+'</div>':'')+'<div class="ntGrip noswipe" data-ntg="'+n.id+'" aria-label="↕"><i></i></div></div>'; }
@@ -5902,14 +6059,14 @@ function ntEdit(n, asList, el){
       '<input id="ntTit" class="ntTi" placeholder="'+L2x("Tajuk","Title")+'" value="'+esc(n.t)+'">';
     var dnC=n.cl?n.cl.filter(function(x){ return x.d; }).length:0;
     // 0.5.98 (owner): ＋ adds an item, − marks it done; the done items show underneath (struck through, ＋ brings one back)
-    if(n.cl){ var rowH=function(x,i){ return '<div class="ntRow'+(x.d?' dn':'')+'"><button class="ntTk ntPM'+(x.d?' re':'')+'" data-tg="'+i+'" aria-label="'+(x.d?L2x("Buka semula","Undo"):L2x("Siap","Done"))+'">'+(x.d?'＋':'−')+'</button><input data-ci="'+i+'" value="'+esc(x.x)+'" placeholder="'+L2x("Item","Item")+'"><button class="ntX" data-cx="'+i+'">✕</button></div>'; };
+    if(n.cl){ var rowH=function(x,i){ return '<div class="ntRow'+(x.d?' dn':'')+'">'+(n.ln?'<i class="ntNo">'+(i+1)+'.</i>':'')+'<button class="ntTk ntPM'+(x.d?' re':'')+'" data-tg="'+i+'" aria-label="'+(x.d?L2x("Buka semula","Undo"):L2x("Siap","Done"))+'">'+(x.d?'＋':'−')+'</button><input data-ci="'+i+'" value="'+esc(x.x)+'" placeholder="'+L2x("Item","Item")+'"><button class="ntX" data-cx="'+i+'">✕</button></div>'; };
       var openR=n.cl.map(function(x,i){ return x.d?'':rowH(x,i); }).join(""), doneR=n.cl.map(function(x,i){ return x.d?rowH(x,i):''; }).join("");
       h+='<div class="ntEl">'+openR+'<button class="btn gold g3d ntAddBig" id="ntAddI">＋ '+L2x("Tambah item","Add an item")+'</button>'+(doneR?'<div class="ntDoneH">✓ '+L2x("Siap","Done")+' · '+dnC+'</div>'+doneR:'')+'</div>'; }
-    else h+='<textarea id="ntBd" class="ntBdy" placeholder="'+L2x("Tulis nota…","Write a note…")+'">'+esc(n.b)+'</textarea>';
+    else h+=(n.ln?'<div class="ntLnW"><div class="ntGut" id="ntGut"></div>':'')+'<textarea id="ntBd" class="ntBdy" placeholder="'+L2x("Tulis nota…","Write a note…")+'">'+esc(n.b)+'</textarea>'+(n.ln?'</div>':'');
     // 0.5.27: one 🎨 button opens the colours; 📌 Pin and ✓ Done (highlighted) sit at the bottom
     h+='<div class="ntCols'+(ov._pal?'':' hidden')+'" id="ntPal">'+NTC.map(function(c){ return '<button class="ntCo'+(n.c===c[0]?' on':'')+'" data-co="'+c[0]+'" style="background:'+(c[0]||'var(--card2)')+'" aria-label="'+esc(L2x(c[1],c[2]))+'"></button>'; }).join("")+'</div>'+
       '<input id="ntLbl" class="ilq" placeholder="🏷 '+L2x("Label, pisahkan dengan koma","Labels, separated by commas")+'" value="'+esc((n.lb||[]).join(", "))+'">'+
-      '<div class="ntTools"><button class="chip ntColB" id="ntCol"><i style="background:'+(n.c||'var(--card2)')+'"></i>🎨 '+L2x("Warna","Colour")+'</button><button class="chip'+(ntRecOn?' rec':'')+'" id="ntMic">'+(ntRecOn?'⏺ '+L2x("Berhenti","Stop"):'🎙 '+L2x("Rakam suara ke teks","Dictate a voice note"))+'</button><button class="chip'+(n.rem&&n.rem>Date.now()?' on':'')+'" id="ntRem">⏰ '+(n.rem&&n.rem>Date.now()?ntWhen(n.rem):L2x("Peringatan","Reminder"))+'</button></div><div class="mut tiny" id="ntHear"></div>'+
+      '<div class="ntTools"><button class="chip ntColB" id="ntCol"><i style="background:'+(n.c||'var(--card2)')+'"></i>🎨 '+L2x("Warna","Colour")+'</button><button class="chip'+(ntRecOn?' rec':'')+'" id="ntMic">'+(ntRecOn?'⏺ '+L2x("Berhenti","Stop"):'🎙 '+L2x("Rakam suara ke teks","Dictate a voice note"))+'</button><button class="chip'+(n.rem&&n.rem>Date.now()?' on':'')+'" id="ntRem">⏰ '+(n.rem&&n.rem>Date.now()?ntWhen(n.rem):L2x("Peringatan","Reminder"))+'</button><button class="chip'+(n.ln?' on':'')+'" id="ntLn">🔢 '+L2x("Nombor baris","Line numbers")+'</button></div><div class="mut tiny" id="ntHear"></div>'+
       '<div class="btns" style="margin-top:10px"><button class="btn alt g3d" id="ntMode">'+(n.cl?'📝 '+L2x("Jadikan teks","Make text"):'☑ '+L2x("Jadikan senarai","Make checklist"))+'</button>'+(isNew?'':'<button class="btn alt g3d" id="ntArc">🗄 '+(n.arch?L2x("Nyaharkib","Unarchive"):L2x("Arkib","Archive"))+'</button><button class="btn alt g3d" id="ntShare">↗ '+L2x("Kongsi","Share")+'</button><button class="btn alt g3d" id="ntDel">🗑 '+L2x("Padam","Delete")+'</button>')+'</div>'+
       '<div class="ntBot"><button class="btn alt g3d'+(n.p?' on':'')+'" id="ntPin">'+(n.p?'📌 '+L2x("Disemat","Pinned"):'📍 '+L2x("Semat","Pin"))+'</button><button class="btn gold g3d ntDoneB" id="ntDone">✓ '+L2x("Siap","Done")+'</button></div></div>';
     ov.innerHTML=h;
@@ -5945,6 +6102,12 @@ function ntEdit(n, asList, el){
       sh.querySelector("#ntRemOk").onclick=function(){ var t=new Date(sh.querySelector("#ntRemT").value).getTime(); if(!t || t<Date.now()){ toast(L2x("Pilih masa akan datang","Pick a future time")); return; } setR(t); };
       var rx=sh.querySelector("#ntRemX"); if(rx) rx.onclick=function(){ setR(0); }; };
     ov.querySelector("#ntDone").onclick=commit;
+    // 0.6.67 (owner): numbers for each line (a gutter beside the text, numbers before checklist items, in the card and when shared)
+    ov.querySelector("#ntLn").onclick=function(){ grab(); n.ln=!n.ln; draw(); };
+    var gt=ov.querySelector("#ntGut"), bd0=ov.querySelector("#ntBd"); if(gt && bd0){ var gut=function(){ var cs=getComputedStyle(bd0), mir=document.createElement("div"); mir.style.cssText="position:absolute;visibility:hidden;left:-9999px;top:0;white-space:pre-wrap;word-wrap:break-word;overflow-wrap:break-word;box-sizing:border-box;width:"+bd0.clientWidth+"px;font:"+cs.font+";line-height:"+cs.lineHeight+";padding-left:"+cs.paddingLeft+";padding-right:"+cs.paddingRight+";letter-spacing:"+cs.letterSpacing;
+        document.body.appendChild(mir); var hs=bd0.value.split("\n").map(function(l){ mir.textContent=l||" "; return mir.offsetHeight; }); mir.remove();
+        gt.innerHTML='<div style="padding-top:'+cs.paddingTop+'">'+hs.map(function(hh, i){ return '<div style="height:'+hh+'px">'+(i+1)+'</div>'; }).join("")+'</div>'; gt.firstChild.style.transform="translateY("+(-bd0.scrollTop)+"px)"; };
+      bd0.addEventListener("input", gut); bd0.addEventListener("scroll", function(){ if(gt.firstChild) gt.firstChild.style.transform="translateY("+(-bd0.scrollTop)+"px)"; }); setTimeout(gut, 0); window.addEventListener("resize", gut); }
     ov.querySelector("#ntPin").onclick=function(){ grab(); n.p=!n.p; draw(); };
     ov.querySelectorAll("[data-co]").forEach(function(b){ b.onclick=function(){ grab(); n.c=b.getAttribute("data-co"); ov._pal=false; draw(); }; });
     ov.querySelector("#ntCol").onclick=function(){ grab(); ov._pal=!ov._pal; ov.querySelector("#ntPal").classList.toggle("hidden", !ov._pal); };
@@ -5955,7 +6118,7 @@ function ntEdit(n, asList, el){
     var ai=ov.querySelector("#ntAddI"); if(ai) ai.onclick=function(){ grab(); n.cl.push({x:"",d:false}); draw(); var nw=ov.querySelector('[data-ci="'+(n.cl.length-1)+'"]'); if(nw){ nw.focus(); try{ nw.scrollIntoView({block:"center"}); }catch(e){} } };   // 0.6.31: focus the NEW item (not the last box on screen, which can be in Done)
     ov.querySelector("#ntMode").onclick=function(){ grab(); if(n.cl){ n.b=n.cl.map(function(x){ return x.x; }).filter(Boolean).join("\n"); n.cl=null; } else { n.cl=(n.b||"").split("\n").filter(function(x){ return x.trim(); }).map(function(x){ return {x:x,d:false}; }); if(!n.cl.length) n.cl=[{x:"",d:false}]; n.b=""; } draw(); };
     var ar=ov.querySelector("#ntArc"); if(ar) ar.onclick=function(){ grab(); n.arch=!n.arch; commit(); };
-    var sh=ov.querySelector("#ntShare"); if(sh) sh.onclick=function(){ grab(); var t=(n.t?n.t+"\n\n":"")+(n.cl?n.cl.map(function(x){ return (x.d?"☑ ":"☐ ")+x.x; }).join("\n"):n.b); if(window.Native && N.shareText) N.shareText(t); else if(navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ toast(L2x("Disalin","Copied")); }); };
+    var sh=ov.querySelector("#ntShare"); if(sh) sh.onclick=function(){ grab(); var t=(n.t?n.t+"\n\n":"")+(n.cl?n.cl.map(function(x, i){ return (n.ln?(i+1)+". ":"")+(x.d?"☑ ":"☐ ")+x.x; }).join("\n"):(n.ln?(n.b||"").split("\n").map(function(l, i){ return (i+1)+". "+l; }).join("\n"):n.b)); if(window.Native && N.shareText) N.shareText(t); else if(navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ toast(L2x("Disalin","Copied")); }); };
     var dl=ov.querySelector("#ntDel"); if(dl) dl.onclick=function(){ if(!confirm(L2x("Padam nota ini?","Delete this note?"))) return; var i=NOTES.map(function(x){ return x.id; }).indexOf(n.id); if(i>=0) NOTES.splice(i,1); ntSave(); ntMicStop(); xrem("nt"+n.id, 0); closeOverlay(); if(el && document.body.contains(el)) vNotes(el); };
     if(isNew){ var f=n.cl?ov.querySelector('[data-ci="0"]'):ov.querySelector("#ntBd"); if(f && !ov._fx){ ov._fx=1; setTimeout(function(){ f.focus(); },50); } }
   };
@@ -6090,7 +6253,7 @@ on("share", function(d){
   if(view!=="alat") go("alat"); else { render(); document.getElementById("view").scrollTop=0; }
 });
 // 0.5.6: a salasilah .json shared or opened with "My Ihsan Family" goes to Alat › Keluarga, which asks who you are in it
-on("famshare", function(d){ if(S.kidLock) return; var ov=document.getElementById("overlay"); if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); }
+on("famshare", function(d){ if(S.kidLock) return; try{ var tj=JSON.parse(d.body||""); if(tj && tj.tekap){ tkOpenWith({json:d.body}); return; } }catch(e){} var ov=document.getElementById("overlay"); if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); }
   SUB2.alat="keluarga"; go("alat"); var n=0, t=setInterval(function(){ if(window.FamImportText && document.querySelector("#view .finv") || ++n>40){ clearInterval(t); if(window.FamImportText) try{ FamImportText(d.body||""); }catch(e){ console.error(e); } } }, 150); });
 try{ dsInit(); dsPaint(); }catch(e){ console.error(e); }   // 0.6.30 Drive sync
 document.addEventListener("click", function(e){ var w=e.target.closest && e.target.closest(".wsync"); if(!w || (document.getElementById("wGrid")||{classList:{contains:function(){return false;}}}).classList.contains("editing")) return; openSync(); });
@@ -6102,7 +6265,7 @@ document.addEventListener("click", globalClick);
 // Every change of tab, page, sub-page or opened item is remembered (up to 80 steps). The Android back button walks back
 // through exactly what was seen before (previous item, page or tab), never straight to Home or the parent level.
 // Modules (Quran, Ilmu, Bacaan, media, Keluarga) expose navGet()/navSet() so their own inner pages join the same history.
-var NAVH=[], navCur=null, navRest=false, NAVMOD=[["quran","QuranView"],["ilmu","IlmuView"],["bacaan","BacaanView"],["media","IbMedia"],["fam","FamView"],["ev","EventView"],["fit","FitView"],["rcp","HalalRecipe"],["period","PeriodView"],["grp","GroupsView"]];
+var NAVH=[], navCur=null, navRest=false, NAVMOD=[["quran","QuranView"],["ilmu","IlmuView"],["bacaan","BacaanView"],["media","IbMedia"],["fam","FamView"],["ev","EventView"],["fit","FitView"],["rcp","HalalRecipe"],["period","PeriodView"],["grp","GroupsView"],["dok","DokumenView"],["news","IbNews"],["tekap","Tekap"]];
 // 0.6.56: page modules that keep their own tab in a window.__*Pg variable (Business, Meeting, Move, Split, Recipes)
 var PGW=["__niagaPg","__meetPg","__splitPg","__rcpPg"];
 function navPgw(){ var w={}, g=window.__pgNow||{}; PGW.forEach(function(k){ var v=null; try{ v=g[k]?g[k]():window[k]; }catch(e){} if(v!=null && v!=="") w[k]=v; }); return w; }
@@ -6117,7 +6280,7 @@ function navResume(){ var s=null; try{ s=JSON.parse(localStorage.getItem("ihsan_
     var v=document.getElementById("view"); if(y && Math.abs(v.scrollTop-y)>4) v.scrollTop=y; navCur=null; navTick(); }, t); });
   return true; }
 function navState(){
-  var o={v:view, s2:JSON.parse(JSON.stringify(SUB2)), sp:sunPage, lp:learnPg, lf:learnFrom, p3:pandL3, bp:basicsPg, bf:basicsFrom, si:sciId, sk:SUB2.learn==="sekolah" && view==="learn" ? !!sekCfg().skYear+"|"+(sekCfg().tahap||"")+"|"+(sekCfg().anak||"")+"|"+(sekCfg().skUpkk||"") : "", st:sunTop, sc:sunCat, mg:moreGrp, zk:sub.zikir, dc:doaCat, me:mathEvening, w:navPgw(), m:{}}, k=[];
+  var o={v:view, s2:JSON.parse(JSON.stringify(SUB2)), sp:sunPage, lp:learnPg, lf:learnFrom, p3:pandL3, bp:basicsPg, bf:basicsFrom, si:sciId, sk:SUB2.learn==="sekolah" && view==="learn" ? !!sekCfg().skYear+"|"+(sekCfg().tahap||"")+"|"+(sekCfg().anak||"")+"|"+(sekCfg().skUpkk||"") : "", st:sunTop, sc:sunCat, mg:moreGrp, zk:sub.zikir, dc:doaCat, me:mathEvening, w:navPgw(), wr:wrTab, m:{}}, k=[];
   NAVMOD.forEach(function(x){ var M=window[x[1]]; if(M && M.navGet){ try{ var s=M.navGet(); if(s){ o.m[x[0]]=s; k.push(x[0]+":"+s.k); } }catch(e){} } });
   var a={}, mk={}; for(var p in o) if(p!=="m") a[p]=o[p]; for(var q in o.m) mk[q]=o.m[q].k;
   return {o:o, j:JSON.stringify(a)+"#"+k.join("|"), a:JSON.stringify(a), mk:mk};
@@ -6139,7 +6302,7 @@ function navRestore(s){
     if(view==="solat" && !(o.v==="solat" && o.s2.solat==="kiblat")) N.stopCompass();
     if(N.setVolumeKeys) N.setVolumeKeys(false); if(N.stopSpeak) try{N.stopSpeak();}catch(e){}
     if(window.IlmuView && o.lp!==learnPg) try{ IlmuView.stop(); }catch(e){}
-    view=o.v; for(var k in o.s2) SUB2[k]=o.s2[k]; if(o.w) PGW.forEach(function(k2){ window[k2]=o.w[k2]; }); sunPage=o.sp; learnPg=o.lp; learnFrom=o.lf; pandL3=o.p3; basicsPg=o.bp||null; basicsFrom=o.bf||null; if(o.sk){ var skp=o.sk.split("|"), skc=sekCfg(); skc.skYear=skp[0]==="true"; if(skp[1]) skc.tahap=skp[1]; if(skp[2]) skc.anak=skp[2]; skc.skUpkk=skp[3]||""; save("ihsan_silibus", skc); } if(o.si) sciId=o.si; if(window.SciView && o.lp!=="sci") try{ SciView.stop(); }catch(e){} if(window.ChessView && o.lp!=="chess") try{ ChessView.stop(); }catch(e){} sunTop=o.st; sunCat=o.sc; moreGrp=o.mg; sub.zikir=o.zk; doaCat=o.dc; mathEvening=o.me;
+    view=o.v; for(var k in o.s2) SUB2[k]=o.s2[k]; if(o.w) PGW.forEach(function(k2){ window[k2]=o.w[k2]; }); if(o.wr) wrTab=o.wr; sunPage=o.sp; learnPg=o.lp; learnFrom=o.lf; pandL3=o.p3; basicsPg=o.bp||null; basicsFrom=o.bf||null; if(o.sk){ var skp=o.sk.split("|"), skc=sekCfg(); skc.skYear=skp[0]==="true"; if(skp[1]) skc.tahap=skp[1]; if(skp[2]) skc.anak=skp[2]; skc.skUpkk=skp[3]||""; save("ihsan_silibus", skc); } if(o.si) sciId=o.si; if(window.SciView && o.lp!=="sci") try{ SciView.stop(); }catch(e){} if(window.ChessView && o.lp!=="chess") try{ ChessView.stop(); }catch(e){} sunTop=o.st; sunCat=o.sc; moreGrp=o.mg; sub.zikir=o.zk; doaCat=o.dc; mathEvening=o.me;
     save("ihsan_view", view==="more"?"home":view); if(view==="sunat") save("ihsan_sunpage", sunPage);
     NAVMOD.forEach(function(x){ var M=window[x[1]]; if(M && M.navSet && o.m[x[0]]) try{ M.navSet(o.m[x[0]]); }catch(e){} });
     render();
@@ -6159,13 +6322,19 @@ document.getElementById("view").addEventListener("scroll", function(){ if(navCur
 var onBack0=window.onBack;
 window.onBack=function(){
   var ov=document.getElementById("overlay");
+  if(updBlock && document.getElementById("updOv")) return true;   // 0.6.71: a required update stays until done
+  if(IBVIEW){ IBVIEW(); return true; }   // 0.6.67 picture viewer
+  if(window.EvSeatBack && document.querySelector(".stWrap.full") && EvSeatBack()) return true;   // 0.6.75 seating plan full screen
   if(window.IB3D && IB3D.exitFull()) return true;   // 0.5.98 (owner): Back leaves a full-screen 3D view first, like ✕ (it used to leave the bars hidden)
   if(window.IhsanTour && IhsanTour.back()) return true;
   if(sideOpen){ sideShow(false); return true; }
   if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); return true; }
   if(document.getElementById("falak") && window.Falak && Falak.back()) return true;
+  if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
   if(window.SportView && SportView.active && SportView.active() && SportView.back()) return true;   // 0.5.37: Sports pages step back one page at a time
-  if(view==="cal" && SUB2.cal==="mesyuarat" && window.MeetView && MeetView.back()) return true;   // 0.6.44: a running meeting stays; a meeting page goes back to the list
+  if(view==="cal" && SUB2.cal==="mesyuarat" && window.MeetView && MeetView.back()) return true;
+  if(view==="alat" && SUB2.alat==="nota" && wrTab==="dokumen" && window.DokumenView && DokumenView.back()) return true;
+  if(view==="alat" && SUB2.alat==="nota" && wrTab==="tekap" && window.Tekap && Tekap.back()) return true;   // 0.6.63   // 0.6.60   // 0.6.44: a running meeting stays; a meeting page goes back to the list
   if(setOn){ if(moreGrp){ moreGrp=null; setDraw(); } else setShow(false); return true; }
   if(S.kidLock) return onBack0();          // a locked kids mode keeps its own fenced-in back steps
   navTick();
@@ -6307,7 +6476,7 @@ pushSchedule();
 ensureData(false);
 // 0.5.48 Care: open straight into elder mode (big buttons) when the family set it on this phone
 (function(){ var CR=load("ihsan_care",null); if(!CR || !CR.elder || !(CR.ppl||[]).length || S.kidLock) return;
-  loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/care.js"], function(){ try{ if(window.CareView){ FamView.data(famH()); CareView.elder(famH()); } }catch(e){ console.error(e); } }); })();
+  loadJs(["finance/finance.js","family/family.js","family/names.js","family/baby.js","family/events.js","family/seating.js","family/care.js"], function(){ try{ if(window.CareView){ FamView.data(famH()); CareView.elder(famH()); } }catch(e){ console.error(e); } }); })();
 if(S.zoneAuto && N.hasPerm("location")) askLocation(false);
 // 0.5.20 (review 18): finance.js and family.js are no longer loaded at start (about 110 KB). Their pages load them on first
 // open; reminders and Home widgets that need them (commitments, birthdays) load them a moment after start, only when that data exists.
