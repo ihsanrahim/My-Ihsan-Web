@@ -17,7 +17,7 @@
 var META = "ihsan_sync_meta", DAY = 864e5;
 // §7 data map: section → keys (a trailing * is a prefix). Web rights: e = edit, v = view, p = PIN.
 var SECTIONS = [
-  ["notes", "📝", "Nota & perancang", "Notes & planner", "e", ["ihsan_notes","ihsan_planner","ihsan_events","ihsan_icsopt","ihsan_xrem","ihsan_kad","ihsan_meet"]],
+  ["notes", "📝", "Nota & perancang", "Notes & planner", "e", ["ihsan_notes","ihsan_planner","ihsan_events","ihsan_icsopt","ihsan_xrem","ihsan_kad","ihsan_meet","ihsan_dok_set","ihsan_dok_profile","ihsan_dok_docs","ihsan_tekap"]],
   ["karya", "✒️", "Karya", "Karya", "e", ["ihsan_karya"]],
   ["niaga", "📑", "Niaga", "Business", "e", ["ihsan_biz"]],
   ["recipes", "🍲", "Resepi", "Recipes", "e", ["ihsan_recipes","ihsan_rcp_set","ihsan_rcp_plan","ihsan_rcp_shop","ihsan_shop","ihsan_halal_hist"]],
@@ -29,9 +29,9 @@ var SECTIONS = [
   ["hajj", "🕋", "Haji & Umrah", "Hajj & Umrah", "e", ["ihsan_umrahdiy","ihsan_hajj","ihsan_umdocs","ihsan_tawaf","ihsan_umrah_live","ihsan_hjtrace"]],
   ["groups", "👥", "Kumpulan", "Groups", "e", ["ihsan_groups","ihsan_gset","ihsan_gblock","ihsan_gposts_*"]],
   ["care", "🌸", "Haid & Jaga (pilihan)", "Period & Care (opt-in)", "p", ["ihsan_period","ihsan_care"]],
-  ["misc", "🧭", "Lain-lain", "Other", "v", ["ihsan_falak","ihsan_log","ihsan_tour"]]];
+  ["misc", "🧭", "Lain-lain", "Other", "v", ["ihsan_falak","ihsan_log","ihsan_tour","ihsan_news"]]];
 // never synced, whatever the map says (settings, caches, secrets, outboxes, this file's own state)
-var NEVER = /^ihsan_(settings|setlast|wall|side|view|navlast|extra|displays|dsauto|dscol|dsplay|dsqueue|dsremote.*|radio_cache.*|wx|gkey|pin|umdocpin|goutbox|splitout|sync_meta|tb_remote|.*img_.*|phx_.*|podf_.*)$/;
+var NEVER = /^ihsan_(settings|setlast|wall|side|view|navlast|news_head|extra|displays|dsauto|dscol|dsplay|dsqueue|dsremote.*|radio_cache.*|wx|gkey|pin|umdocpin|goutbox|splitout|sync_meta|tb_remote|.*img_.*|phx_.*|podf_.*)$/;
 // written by the app in the background all the time (screen time, counters…): they ride along with the next sync but never start one
 var QUIET = /^ihsan_(usage|screen|insights|log|tour|focus_ex|tasbih|tbtot|counters|umrah_live|hjtrace|run_cfg)$/;
 var S = {opt:null, timer:null, busy:null, fail:0, applying:false, status:{state:"off"}, inited:false};
