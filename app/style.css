@@ -2511,3 +2511,11 @@ select{accent-color:var(--gold)}
 /* 0.6.91: the plan's card must not trap the full-screen plan (glass blur/transform make it the fixed-position box) */
 .card:has(> .stWrap.full){backdrop-filter:none!important;-webkit-backdrop-filter:none!important;filter:none!important;transform:none!important;contain:none!important}
 .stBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.stBtns .chip{padding:6px 12px;min-height:0}
+
+/* 0.6.95 theme picker: one full-width row per theme, painted in its own colours */
+.throw.thRows{display:flex;flex-direction:column;flex-wrap:nowrap;gap:8px}
+.ths.thRow{width:100%;min-height:52px;border-radius:16px;justify-content:space-between;padding:10px 14px;font-size:15px;font-weight:600;border:2px solid rgba(128,128,128,.25);box-shadow:0 2px 6px rgba(0,0,0,.18);text-align:left;background-size:auto}
+.ths.thRow.on{border-color:currentColor;box-shadow:0 0 0 3px rgba(128,128,128,.35),0 2px 6px rgba(0,0,0,.18)}
+.ths.thRow .thD{display:flex;align-items:center;gap:6px}
+.ths.thRow .thD i{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.ths.thRow .thD b{font-size:18px;margin-left:2px}

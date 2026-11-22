@@ -194,3 +194,4 @@
 .vSvg{display:flex;justify-content:center;margin:6px 0}.vSvg svg{max-width:300px;width:100%;height:auto}
 /* 0.6.17: powers in maths text */
 .soal sup, .f1Why sup, .petikan sup, dd sup, li sup, p sup, button sup{font-size:.68em;line-height:0;vertical-align:super}
+.soal{white-space:pre-line}/* 0.7.1: pseudocode lines in Sains Komputer T4/T5 */

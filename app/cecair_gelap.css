@@ -1,0 +1,89 @@
+/* My Ihsan 0.6.94 · Kaca cecair gelap (Liquid glass, dark): deep full colours drifting behind dark glass, Apple-style.
+   body::before = the colour field (violet, magenta, blue, orange, teal, indigo) moving with transform only;
+   body::after = a still dark fade at the top so the white title stays readable. Glass tint .65 keeps every text level ≥ 4.5 : 1
+   over the brightest colour (tools/tests/v0694.js). lowfx / no blur / reduced transparency → solid; reduced motion → still. */
+@font-face{font-family:"JakartaL";src:url(fonts/plus-jakarta-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"JakartaL";src:url(fonts/plus-jakarta-sans-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+
+html[data-th=cecairgelap]{
+  --bg:#05060D; --card:rgba(20,20,31,.65); --card2:rgba(255,255,255,.07); --well:rgba(255,255,255,.08); --nav:rgba(20,20,31,.72); --hdr:transparent;
+  --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.22);
+  --fg:#FFFFFF; --mut:rgba(235,235,245,.80); --mut2:rgba(235,235,245,.72);
+  --gold:#D4B8FF; --green:#D4B8FF; --deep:#FFFFFF; --red:#FF8A80; --blue:#9CC8FF; --ok:#7EE2A8; --warn:#FFD08A;
+  --lq-blur:blur(28px) saturate(1.9);
+  --lq-edge:inset 0 1px 0 rgba(255,255,255,.30),inset 0 -1px 0 rgba(255,255,255,.06),inset 1px 0 0 rgba(255,255,255,.08);
+  --lq-drop:0 14px 34px -16px rgba(0,0,0,.70);
+  --lq-sheen:linear-gradient(135deg,rgba(255,255,255,.12) 0%,rgba(255,255,255,0) 38%);
+  --lq-flow:linear-gradient(120deg,#6E2BD9 0%,#B0166E 34%,#0B5FD6 67%,#6E2BD9 100%);
+  color-scheme:dark; background:var(--bg)}
+html[data-th=cecairgelap] body{background:transparent;color:var(--fg);font-family:"JakartaL","Plus Jakarta Sans",system-ui,sans-serif}
+html[data-th=cecairgelap] body::before{content:"";position:fixed;inset:-30%;z-index:-1;pointer-events:none;
+  background:radial-gradient(34% 30% at 24% 30%,#8B3DFF 0%,rgba(139,61,255,0) 70%),
+    radial-gradient(36% 32% at 78% 26%,#FF2D87 0%,rgba(255,45,135,0) 70%),
+    radial-gradient(40% 36% at 70% 74%,#0A84FF 0%,rgba(10,132,255,0) 70%),
+    radial-gradient(32% 28% at 26% 78%,#FF8A1F 0%,rgba(255,138,31,0) 70%),
+    radial-gradient(28% 24% at 52% 52%,#22C7B8 0%,rgba(34,199,184,0) 70%),
+    radial-gradient(44% 40% at 50% 100%,#5E5CE6 0%,rgba(94,92,230,0) 70%),
+    #05060D;
+  animation:lqgDrift 22s ease-in-out infinite alternate;will-change:transform}
+html[data-th=cecairgelap] body::after{content:"";position:fixed;left:0;right:0;top:0;height:30vh;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,6,13,.86) 0%,rgba(5,6,13,.55) 55%,rgba(5,6,13,0) 100%)}
+@keyframes lqgDrift{0%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}33%{transform:translate3d(5%,-4%,0) rotate(10deg) scale(1.08)}66%{transform:translate3d(-3%,4%,0) rotate(-6deg) scale(1.04)}100%{transform:translate3d(-5%,-2%,0) rotate(4deg) scale(1.1)}}
+@keyframes lqgSheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+html[data-th=cecairgelap] #app,html[data-th=cecairgelap] #view{background:transparent}
+html[data-th=cecairgelap] header,html[data-th=cecairgelap] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=cecairgelap] #topTitle{font-family:"JakartaL","Plus Jakarta Sans",system-ui,sans-serif;font-weight:600;font-size:27px;color:#fff;letter-spacing:-.01em}
+html[data-th=cecairgelap] h1,html[data-th=cecairgelap] h2,html[data-th=cecairgelap] h3{font-weight:600;color:var(--fg)}
+html[data-th=cecairgelap] #hBar{background:var(--lq-flow);background-size:200% 100%;animation:lqgSheen 8s linear infinite}
+html[data-th=cecairgelap] .mut,html[data-th=cecairgelap] small.mut,html[data-th=cecairgelap] .small.mut{color:var(--mut)}
+html[data-th=cecairgelap] .tiny.mut{color:var(--mut2)}
+
+/* ---- dark glass with a lit top edge and a faint lens sheen; one level only ---- */
+html[data-th=cecairgelap] .card,html[data-th=cecairgelap] .mSec,html[data-th=cecairgelap] nav#nav,html[data-th=cecairgelap] #subnav,html[data-th=cecairgelap] .dock,html[data-th=cecairgelap] #overlay>div,html[data-th=cecairgelap] .wg{
+  background-color:var(--card);background-image:var(--lq-sheen);border:1px solid var(--line);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);box-shadow:var(--lq-edge),var(--lq-drop)}
+html[data-th=cecairgelap] .card,html[data-th=cecairgelap] .mSec,html[data-th=cecairgelap] .wg{border-radius:24px}
+html[data-th=cecairgelap] .card .card,html[data-th=cecairgelap] .mSec .card,html[data-th=cecairgelap] #overlay .card,html[data-th=cecairgelap] .card .wg,html[data-th=cecairgelap] .dock .card{background-color:var(--card2);background-image:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:var(--lq-edge)}
+html[data-th=cecairgelap] nav#nav{margin:0;border-radius:26px 26px 0 0;border-left:0;border-right:0;border-bottom:0;background-color:var(--nav);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=cecairgelap] #subnav,html[data-th=cecairgelap] .dock{margin:0;border-radius:24px 24px 0 0;border-left:0;border-right:0;border-bottom:0;background-color:var(--nav)}
+html[data-th=cecairgelap] #overlay{background:rgba(0,0,0,.45)}
+
+/* ---- tabs: the chosen one is a deep colour pill that slowly flows ---- */
+html[data-th=cecairgelap] nav#nav button,html[data-th=cecairgelap] #subnav button,html[data-th=cecairgelap] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut)}
+html[data-th=cecairgelap] nav#nav button.on,html[data-th=cecairgelap] #subnav button.on,html[data-th=cecairgelap] .dock button.on:not(.btn),html[data-th=cecairgelap] .chip.on.on,html[data-th=cecairgelap] .btn.gold.gold{
+  background-image:var(--lq-flow);background-size:200% 100%;animation:lqgSheen 9s linear infinite;color:#fff;border-color:rgba(255,255,255,.18);font-weight:600;box-shadow:var(--lq-edge),0 8px 20px -8px rgba(110,43,217,.65)}
+html[data-th=cecairgelap] nav#nav button.on,html[data-th=cecairgelap] #subnav button.on,html[data-th=cecairgelap] .dock button.on:not(.btn){border-radius:18px}
+html[data-th=cecairgelap] .dock .chip.chip{min-height:0;border-radius:16px;border:0;background-color:transparent}
+
+/* ---- buttons, chips, tiles ---- */
+html[data-th=cecairgelap] .g3d,html[data-th=cecairgelap] .btn.btn,html[data-th=cecairgelap] .chip.chip,html[data-th=cecairgelap] .qt.qt{text-shadow:none}
+html[data-th=cecairgelap] .btn.btn,html[data-th=cecairgelap] .chip.chip,html[data-th=cecairgelap] .qt.qt{background-color:var(--well);background-image:none;color:var(--fg);border:1px solid var(--line2);box-shadow:var(--lq-edge);transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .25s}
+html[data-th=cecairgelap] .btn.btn{border-radius:18px;font-weight:600}
+html[data-th=cecairgelap] .chip.chip{border-radius:999px;min-height:40px}
+html[data-th=cecairgelap] .qt.qt{border-radius:20px}
+html[data-th=cecairgelap] .btn.delb{background-color:rgba(255,69,58,.18);color:#FFB4AE;border-color:rgba(255,69,58,.45)}
+html[data-th=cecairgelap] #hBtns button,html[data-th=cecairgelap] #hMenu{width:42px;height:42px;border-radius:50%;background:var(--well);background-image:none;border:1px solid var(--line2);box-shadow:var(--lq-edge);color:#fff;-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur)}
+html[data-th=cecairgelap] .btn:active,html[data-th=cecairgelap] .chip:active,html[data-th=cecairgelap] .g3d:active,html[data-th=cecairgelap] .qt:active{transform:scale(.96)}
+
+/* ---- inputs ---- */
+html[data-th=cecairgelap] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=cecairgelap] select,html[data-th=cecairgelap] textarea,html[data-th=cecairgelap] .ibsel,html[data-th=cecairgelap] .ibdtT{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line2);border-radius:14px}
+html[data-th=cecairgelap] ::placeholder{color:var(--mut2)}
+html[data-th=cecairgelap] input[type=range],html[data-th=cecairgelap] input[type=checkbox],html[data-th=cecairgelap] input[type=radio]{accent-color:#A88BFF}
+html[data-th=cecairgelap] .ibddl,html[data-th=cecairgelap] .ibdt.open .ibdtX{background:rgba(20,20,31,.92);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);border-color:var(--line2);color:#fff}
+
+/* ---- small parts ---- */
+html[data-th=cecairgelap] .ptRow .on,html[data-th=cecairgelap] .wpt .on,html[data-th=cecairgelap] .pt.next{background:rgba(255,255,255,.14);box-shadow:var(--lq-edge);border-radius:12px}
+html[data-th=cecairgelap] .ths.on{outline:3px solid #A88BFF;outline-offset:3px}
+html[data-th=cecairgelap] .warnbox{background:rgba(255,159,10,.16);color:#FFD9A0;border-color:rgba(255,159,10,.45)}
+html[data-th=cecairgelap] hr,html[data-th=cecairgelap] .sep{border-color:var(--line2)}
+html[data-th=cecairgelap] a{color:var(--gold)}
+html[data-th=cecairgelap] .qpage{background:#FBF7EC;color:#1d1a12;-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-th=cecairgelap] canvas,html[data-th=cecairgelap] .three,html[data-th=cecairgelap] #disp,html[data-th=cecairgelap] .dispWrap{-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ---- fallbacks: solid dark panels, nothing moves ---- */
+html.lowfx[data-th=cecairgelap]{--card:#1A1A26;--card2:#232332;--well:#262636;--nav:#16161F}
+html.lowfx[data-th=cecairgelap] *,html.lowfx[data-th=cecairgelap] body::before{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){html[data-th=cecairgelap]{--card:#1A1A26;--card2:#232332;--well:#262636;--nav:#16161F}}
+@media (prefers-reduced-transparency:reduce){html[data-th=cecairgelap]{--card:#1A1A26;--card2:#232332;--well:#262636;--nav:#16161F}html[data-th=cecairgelap] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media (prefers-reduced-motion:reduce){html[data-th=cecairgelap] *,html[data-th=cecairgelap] body::before{animation:none!important;transition:none!important}}
+/* the sticky "Long-press any widget to edit" bar on Home: frosted, not a solid band */
+html[data-th=cecairgelap] .wbar{background:var(--nav);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);border-bottom-color:var(--line)}

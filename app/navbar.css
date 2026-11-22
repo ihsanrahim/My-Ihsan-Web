@@ -1,0 +1,13 @@
+/* Bottom bars (owner 0.6.96–0.6.98). Loaded after every theme.
+   1st row (Home, Solat, Practice, Learn, Time, Tools): labels 1 px bigger (14.8 vs 13.8) and one step bolder (600 vs 500) than the 2nd row, icons a little bigger,
+   in EVERY bar size (0, 1, 2) and text size except Large: the label keeps its old 11 px line box and the icon is scaled with a
+   transform, so nothing in the layout moves and the bar keeps its exact height. Bar sizes 3–5 (icons only / labels only),
+   Large text and the side rail keep their own layouts.
+   2nd row: a little less bold (500); every icon box is the same height so all the words sit on one line.
+   3rd row (page tabs, e.g. Debts · Commit …): icon and word centred on one line, so no word sits higher than another. */
+html:not([data-dz=l]) #app:not(.rail):not(.bs3):not(.bs4):not(.bs5) nav#nav button .lb{font-size:14.8px;font-weight:600;line-height:11px;height:11px;overflow-x:clip;overflow-y:visible;letter-spacing:-.25px}
+html:not([data-dz=l]) #app:not(.rail):not(.bs3):not(.bs4):not(.bs5) nav#nav button .ic svg,
+html:not([data-dz=l]) #app:not(.rail):not(.bs3):not(.bs4):not(.bs5) nav#nav button .ic .ico>b{transform:scale(1.12);transform-origin:50% 50%}
+html #subnav button>b{font-weight:500}
+html #app:not(.bs5) #subnav button>span{display:flex;align-items:center;justify-content:center;height:18.4px}
+html #view .dock button.chip{display:flex;align-items:center;justify-content:center;gap:5px;line-height:15px}

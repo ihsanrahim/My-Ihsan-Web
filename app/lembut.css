@@ -1,0 +1,80 @@
+/* My Ihsan 0.6.93 · Lembut (Soft · toy land): neumorphism. Every surface is pressed out of the same soft lavender "clay" with a
+   light shadow top-left and a dark one bottom-right; pressed things sink in (inset). Candy colours only for what is chosen or tapped.
+   Fredoka (OFL, fonts/OFL-Fredoka.txt) for titles, tabs and buttons; body text stays the normal font. */
+@font-face{font-family:"FredokaT";src:url(fonts/fredoka-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"FredokaT";src:url(fonts/fredoka-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+
+html[data-th=lembut]{
+  --bg:#ECEBF7; --card:#ECEBF7; --card2:#ECEBF7; --well:#ECEBF7; --nav:#ECEBF7; --hdr:transparent;
+  --line:rgba(150,146,190,.22); --line2:rgba(150,146,190,.38);
+  --fg:#3A3558; --mut:#5E5880; --mut2:#645E86;
+  --gold:#B8325F; --green:#B8325F; --deep:#3A3558; --red:#B8324A; --blue:#3B5DB8; --ok:#1F7A55; --warn:#8A5A00;
+  --sd:rgba(150,146,190,.55); --sl:rgba(255,255,255,.95);
+  --candy:linear-gradient(135deg,#FFB3C9 0%,#FFD9A0 100%); --candy2:linear-gradient(135deg,#B8E8FF 0%,#C9B6FF 100%);
+  --squish:cubic-bezier(.34,1.56,.64,1);
+  --raise:7px 7px 14px var(--sd),-7px -7px 14px var(--sl);
+  --raiseS:4px 4px 9px var(--sd),-4px -4px 9px var(--sl);
+  --press:inset 4px 4px 8px var(--sd),inset -4px -4px 8px var(--sl);
+  color-scheme:light;
+  background-color:var(--bg);
+  /* confetti dots, very faint */
+  background-image:radial-gradient(circle at 14px 16px,rgba(255,158,187,.28) 3px,transparent 4px),
+    radial-gradient(circle at 50px 42px,rgba(142,201,255,.30) 3px,transparent 4px),
+    radial-gradient(circle at 30px 70px,rgba(255,216,107,.34) 3px,transparent 4px),
+    radial-gradient(circle at 62px 82px,rgba(142,227,200,.30) 2.5px,transparent 3.5px);
+  background-size:76px 96px; background-attachment:fixed}
+html[data-th=lembut] body,html[data-th=lembut] #app,html[data-th=lembut] #view{background:transparent;color:var(--fg)}
+html[data-th=lembut] header,html[data-th=lembut] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=lembut] #topTitle,html[data-th=lembut] h1,html[data-th=lembut] h2,html[data-th=lembut] h3{font-family:"FredokaT","Fredoka",system-ui,sans-serif;font-weight:600;color:var(--fg);letter-spacing:.01em}
+html[data-th=lembut] #topTitle{font-size:28px}
+html[data-th=lembut] #hBar{background:var(--candy);border-radius:6px}
+html[data-th=lembut] .mut,html[data-th=lembut] small.mut,html[data-th=lembut] .small.mut{color:var(--mut)}
+html[data-th=lembut] .tiny.mut{color:var(--mut2)}
+
+/* ---- raised clay ---- */
+html[data-th=lembut] .card,html[data-th=lembut] .mSec,html[data-th=lembut] .wg{background:var(--card);border:0;border-radius:24px;box-shadow:var(--raise)}
+html[data-th=lembut] .card .card,html[data-th=lembut] .mSec .card,html[data-th=lembut] #overlay .card,html[data-th=lembut] .card .wg,html[data-th=lembut] .dock .card{box-shadow:var(--press);border-radius:18px}
+html[data-th=lembut] nav#nav,html[data-th=lembut] #subnav,html[data-th=lembut] .dock{background:var(--nav);border:0;box-shadow:0 -6px 16px rgba(150,146,190,.30),0 -1px 0 rgba(255,255,255,.9) inset}
+html[data-th=lembut] nav#nav{margin:0;border-radius:24px 24px 0 0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=lembut] #subnav,html[data-th=lembut] .dock{margin:0;border-radius:24px 24px 0 0}
+html[data-th=lembut] #overlay{background:rgba(58,53,88,.22)}
+html[data-th=lembut] #overlay>div{background:var(--bg);border:0;box-shadow:0 -10px 30px rgba(58,53,88,.25)}
+
+/* ---- tabs: tucked in when chosen, with a candy label ---- */
+html[data-th=lembut] nav#nav button,html[data-th=lembut] #subnav button,html[data-th=lembut] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut);font-family:"FredokaT","Fredoka",system-ui,sans-serif}
+html[data-th=lembut] nav#nav button.on,html[data-th=lembut] #subnav button.on,html[data-th=lembut] .dock button.on:not(.btn){background:var(--bg);box-shadow:var(--press);color:var(--gold);border-radius:16px;font-weight:600}
+html[data-th=lembut] .dock .chip.chip{min-height:0;border-radius:16px;border:0;box-shadow:none;background:transparent}
+html[data-th=lembut] .dock .chip.on.on{background:var(--bg);box-shadow:var(--press);color:var(--gold)}
+
+/* ---- buttons, chips, tiles: soft pillows that squish ---- */
+html[data-th=lembut] .g3d,html[data-th=lembut] .btn.btn,html[data-th=lembut] .chip.chip,html[data-th=lembut] .qt.qt{background-image:none;text-shadow:none}
+html[data-th=lembut] .btn.btn,html[data-th=lembut] .chip.chip,html[data-th=lembut] .qt.qt,html[data-th=lembut] #hBtns button,html[data-th=lembut] #hMenu{
+  background-color:var(--bg);color:var(--fg);border:0;box-shadow:var(--raiseS);font-family:"FredokaT","Fredoka",system-ui,sans-serif;
+  transition:transform .28s var(--squish),box-shadow .2s ease}
+html[data-th=lembut] .btn.btn{border-radius:18px;font-weight:600}
+html[data-th=lembut] .chip.chip{border-radius:999px;min-height:40px}
+html[data-th=lembut] .qt.qt{border-radius:20px}
+html[data-th=lembut] #hBtns button,html[data-th=lembut] #hMenu{width:42px;height:42px;border-radius:50%}
+html[data-th=lembut] .btn.gold.gold,html[data-th=lembut] .chip.on.on{background:var(--candy);color:#3A1530;box-shadow:inset 2px 2px 5px rgba(200,90,130,.30),inset -2px -2px 5px rgba(255,255,255,.55),var(--raiseS);font-weight:600}
+html[data-th=lembut] .btn.delb{background:#F6DDE4;color:#8A1F3A}
+html[data-th=lembut] .btn:active,html[data-th=lembut] .chip:active,html[data-th=lembut] .g3d:active,html[data-th=lembut] .qt:active,html[data-th=lembut] #hBtns button:active{transform:scale(.95);box-shadow:var(--press)}
+
+/* ---- inputs: little wells ---- */
+html[data-th=lembut] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=lembut] select,html[data-th=lembut] textarea,html[data-th=lembut] .ibsel,html[data-th=lembut] .ibdtT{
+  background:var(--bg);color:var(--fg);border:0;box-shadow:var(--press);border-radius:14px}
+html[data-th=lembut] ::placeholder{color:var(--mut2)}
+html[data-th=lembut] input[type=range],html[data-th=lembut] input[type=checkbox],html[data-th=lembut] input[type=radio]{accent-color:#E86A92}
+html[data-th=lembut] .ibddl,html[data-th=lembut] .ibdt.open .ibdtX{background:var(--bg);border:0;box-shadow:var(--raise)}
+
+/* ---- prayer row, small parts ---- */
+html[data-th=lembut] .ptRow .on,html[data-th=lembut] .wpt .on,html[data-th=lembut] .pt.next{background:var(--candy2);color:#262248;border-radius:14px;box-shadow:var(--raiseS)}
+html[data-th=lembut] .ths.on{outline:3px solid #E86A92;outline-offset:3px}
+html[data-th=lembut] .warnbox{background:#FFF1CC;color:#5A4300;border:0;border-radius:16px;box-shadow:var(--press)}
+html[data-th=lembut] hr,html[data-th=lembut] .sep{border-color:var(--line2)}
+html[data-th=lembut] a{color:var(--gold)}
+html[data-th=lembut] .qpage{background:#FBF7EC;color:#1d1a12;box-shadow:var(--raise)}
+html[data-th=lembut] .ar,html[data-th=lembut] .doaAr,html[data-th=lembut] .dAr{text-shadow:none}
+
+/* ---- low-fx and reduced motion: same look, no springs ---- */
+html.lowfx[data-th=lembut]{--raise:4px 4px 8px var(--sd),-4px -4px 8px var(--sl);background-image:none}
+@media (prefers-reduced-motion:reduce){html[data-th=lembut] *{transition:none!important}html[data-th=lembut] .btn:active,html[data-th=lembut] .chip:active,html[data-th=lembut] .qt:active{transform:none}}

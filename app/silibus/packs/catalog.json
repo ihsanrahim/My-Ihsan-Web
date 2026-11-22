@@ -40,6 +40,14 @@
   {
    "id": "F3",
    "nama": "Tingkatan 3"
+  },
+  {
+   "id": "F4",
+   "nama": "Tingkatan 4"
+  },
+  {
+   "id": "F5",
+   "nama": "Tingkatan 5"
   }
  ],
  "pek": [
@@ -8926,6 +8934,3124 @@
     }
    ],
    "soalan": 140
+  },
+  {
+   "id": "f4-bm",
+   "tahap": "F4",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-bm-1",
+     "nama": "1. Tatabahasa: Pembentukan Kata",
+     "n": 22
+    },
+    {
+     "id": "f4-bm-2",
+     "nama": "2. Tatabahasa: Kata Sendi, Ayat dan Wacana",
+     "n": 15
+    },
+    {
+     "id": "f4-bm-3",
+     "nama": "3. Peribahasa",
+     "n": 61
+    },
+    {
+     "id": "f4-bm-4",
+     "nama": "4. Kefahaman Petikan",
+     "n": 12
+    },
+    {
+     "id": "f4-bm-5",
+     "nama": "5. Kesusasteraan: Puisi dan Gaya Bahasa",
+     "n": 9
+    },
+    {
+     "id": "f4-bm-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-11",
+     "nama": "11. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-12",
+     "nama": "12. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-bm-13",
+     "nama": "13. Latihan Lanjutan 8",
+     "n": 43
+    },
+    {
+     "id": "f4-bm-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f4-bi",
+   "tahap": "F4",
+   "nama": "English",
+   "sk": "BI",
+   "ikon": "🗣️",
+   "warna": "#3F8CFF",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-bi-1",
+     "nama": "1. Grammar: Conditionals and Relative Clauses",
+     "n": 12
+    },
+    {
+     "id": "f4-bi-2",
+     "nama": "2. Grammar: Tenses, Passive and Reported Speech",
+     "n": 10
+    },
+    {
+     "id": "f4-bi-3",
+     "nama": "3. Vocabulary: Phrasal Verbs, Idioms and Collocations",
+     "n": 35
+    },
+    {
+     "id": "f4-bi-4",
+     "nama": "4. Reading",
+     "n": 14
+    },
+    {
+     "id": "f4-bi-5",
+     "nama": "5. Writing: Formal Language and Organisation",
+     "n": 14
+    },
+    {
+     "id": "f4-bi-6",
+     "nama": "6. Grammar: Verb Patterns, Modals, Tags and Word Formation",
+     "n": 22
+    },
+    {
+     "id": "f4-bi-7",
+     "nama": "7. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-8",
+     "nama": "8. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-9",
+     "nama": "9. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-10",
+     "nama": "10. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-11",
+     "nama": "11. Advanced Practice 5",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-12",
+     "nama": "12. Advanced Practice 6",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-13",
+     "nama": "13. Advanced Practice 7",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-14",
+     "nama": "14. Advanced Practice 8",
+     "n": 50
+    },
+    {
+     "id": "f4-bi-15",
+     "nama": "15. Advanced Practice 9",
+     "n": 5
+    },
+    {
+     "id": "f4-bi-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 59
+    }
+   ],
+   "soalan": 571
+  },
+  {
+   "id": "f4-mat",
+   "tahap": "F4",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-mat-1",
+     "nama": "1. Fungsi dan Persamaan Kuadratik",
+     "n": 43
+    },
+    {
+     "id": "f4-mat-2",
+     "nama": "2. Asas Nombor",
+     "n": 46
+    },
+    {
+     "id": "f4-mat-3",
+     "nama": "3. Penaakulan Logik",
+     "n": 15
+    },
+    {
+     "id": "f4-mat-4",
+     "nama": "4. Operasi Set",
+     "n": 28
+    },
+    {
+     "id": "f4-mat-5",
+     "nama": "5. Rangkaian dalam Teori Graf",
+     "n": 24
+    },
+    {
+     "id": "f4-mat-6",
+     "nama": "6. Ketaksamaan Linear dalam Dua Pemboleh Ubah",
+     "n": 23
+    },
+    {
+     "id": "f4-mat-7",
+     "nama": "7. Graf Gerakan",
+     "n": 35
+    },
+    {
+     "id": "f4-mat-8",
+     "nama": "8. Sukatan Serakan Data Tak Terkumpul",
+     "n": 39
+    },
+    {
+     "id": "f4-mat-9",
+     "nama": "9. Kebarangkalian Peristiwa Bergabung",
+     "n": 25
+    },
+    {
+     "id": "f4-mat-10",
+     "nama": "10. Matematik Pengguna: Pengurusan Kewangan",
+     "n": 22
+    },
+    {
+     "id": "f4-mat-11",
+     "nama": "11. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-12",
+     "nama": "12. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-13",
+     "nama": "13. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-14",
+     "nama": "14. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-15",
+     "nama": "15. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-mat-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 60
+    }
+   ],
+   "soalan": 572
+  },
+  {
+   "id": "f4-mat-dlp",
+   "tahap": "F4",
+   "nama": "Mathematics (DLP)",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f4-mat",
+   "topik": [
+    {
+     "id": "f4-mat-dlp-1",
+     "nama": "1. Quadratic Functions and Equations",
+     "n": 43
+    },
+    {
+     "id": "f4-mat-dlp-2",
+     "nama": "2. Number Bases",
+     "n": 46
+    },
+    {
+     "id": "f4-mat-dlp-3",
+     "nama": "3. Logical Reasoning",
+     "n": 15
+    },
+    {
+     "id": "f4-mat-dlp-4",
+     "nama": "4. Operations on Sets",
+     "n": 28
+    },
+    {
+     "id": "f4-mat-dlp-5",
+     "nama": "5. Network in Graph Theory",
+     "n": 24
+    },
+    {
+     "id": "f4-mat-dlp-6",
+     "nama": "6. Linear Inequalities in Two Variables",
+     "n": 23
+    },
+    {
+     "id": "f4-mat-dlp-7",
+     "nama": "7. Graphs of Motion",
+     "n": 35
+    },
+    {
+     "id": "f4-mat-dlp-8",
+     "nama": "8. Measures of Dispersion for Ungrouped Data",
+     "n": 39
+    },
+    {
+     "id": "f4-mat-dlp-9",
+     "nama": "9. Probability of Combined Events",
+     "n": 25
+    },
+    {
+     "id": "f4-mat-dlp-10",
+     "nama": "10. Consumer Mathematics: Financial Management",
+     "n": 22
+    },
+    {
+     "id": "f4-mat-dlp-11",
+     "nama": "11. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-dlp-12",
+     "nama": "12. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-dlp-13",
+     "nama": "13. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-dlp-14",
+     "nama": "14. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f4-mat-dlp-15",
+     "nama": "15. Advanced Practice 5",
+     "n": 12
+    },
+    {
+     "id": "f4-mat-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 60
+    }
+   ],
+   "soalan": 572
+  },
+  {
+   "id": "f4-amt",
+   "tahap": "F4",
+   "nama": "Matematik Tambahan",
+   "sk": "MTT",
+   "ikon": "📐",
+   "warna": "#D9822B",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-amt-1",
+     "nama": "1. Fungsi",
+     "n": 47
+    },
+    {
+     "id": "f4-amt-2",
+     "nama": "2. Fungsi Kuadratik",
+     "n": 30
+    },
+    {
+     "id": "f4-amt-3",
+     "nama": "3. Sistem Persamaan",
+     "n": 30
+    },
+    {
+     "id": "f4-amt-4",
+     "nama": "4. Indeks, Surd dan Logaritma",
+     "n": 37
+    },
+    {
+     "id": "f4-amt-5",
+     "nama": "5. Janjang",
+     "n": 42
+    },
+    {
+     "id": "f4-amt-6",
+     "nama": "6. Hukum Linear",
+     "n": 12
+    },
+    {
+     "id": "f4-amt-7",
+     "nama": "7. Geometri Koordinat",
+     "n": 42
+    },
+    {
+     "id": "f4-amt-8",
+     "nama": "8. Vektor",
+     "n": 21
+    },
+    {
+     "id": "f4-amt-9",
+     "nama": "9. Penyelesaian Segi Tiga",
+     "n": 11
+    },
+    {
+     "id": "f4-amt-10",
+     "nama": "10. Nombor Indeks",
+     "n": 28
+    },
+    {
+     "id": "f4-amt-11",
+     "nama": "11. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-amt-12",
+     "nama": "12. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-amt-13",
+     "nama": "13. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-amt-14",
+     "nama": "14. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-amt-15",
+     "nama": "15. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-amt-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 60
+    }
+   ],
+   "soalan": 572
+  },
+  {
+   "id": "f4-sains",
+   "tahap": "F4",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-sains-1",
+     "nama": "1. Keselamatan di dalam Makmal",
+     "n": 13
+    },
+    {
+     "id": "f4-sains-2",
+     "nama": "2. Teknologi dalam Perubatan dan Kesihatan",
+     "n": 13
+    },
+    {
+     "id": "f4-sains-3",
+     "nama": "3. Sains Forensik",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-4",
+     "nama": "4. Genetik",
+     "n": 15
+    },
+    {
+     "id": "f4-sains-5",
+     "nama": "5. Sokongan, Pergerakan dan Pertumbuhan",
+     "n": 14
+    },
+    {
+     "id": "f4-sains-6",
+     "nama": "6. Elektrokimia",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-7",
+     "nama": "7. Kerja, Tenaga dan Kuasa",
+     "n": 66
+    },
+    {
+     "id": "f4-sains-8",
+     "nama": "8. Teknologi Angkasa Lepas",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-9",
+     "nama": "9. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-10",
+     "nama": "10. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-11",
+     "nama": "11. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-12",
+     "nama": "12. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-13",
+     "nama": "13. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-14",
+     "nama": "14. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-15",
+     "nama": "15. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-16",
+     "nama": "16. Latihan Lanjutan 8",
+     "n": 8
+    },
+    {
+     "id": "f4-sains-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 63
+    }
+   ],
+   "soalan": 575
+  },
+  {
+   "id": "f4-sains-dlp",
+   "tahap": "F4",
+   "nama": "Science (DLP)",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f4-sains",
+   "topik": [
+    {
+     "id": "f4-sains-dlp-1",
+     "nama": "1. Safety in the Laboratory",
+     "n": 13
+    },
+    {
+     "id": "f4-sains-dlp-2",
+     "nama": "2. Technology in Medicine and Health",
+     "n": 13
+    },
+    {
+     "id": "f4-sains-dlp-3",
+     "nama": "3. Forensic Science",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-dlp-4",
+     "nama": "4. Genetics",
+     "n": 15
+    },
+    {
+     "id": "f4-sains-dlp-5",
+     "nama": "5. Support, Movement and Growth",
+     "n": 14
+    },
+    {
+     "id": "f4-sains-dlp-6",
+     "nama": "6. Electrochemistry",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-dlp-7",
+     "nama": "7. Work, Energy and Power",
+     "n": 66
+    },
+    {
+     "id": "f4-sains-dlp-8",
+     "nama": "8. Space Technology",
+     "n": 11
+    },
+    {
+     "id": "f4-sains-dlp-9",
+     "nama": "9. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-10",
+     "nama": "10. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-11",
+     "nama": "11. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-12",
+     "nama": "12. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-13",
+     "nama": "13. Advanced Practice 5",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-14",
+     "nama": "14. Advanced Practice 6",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-15",
+     "nama": "15. Advanced Practice 7",
+     "n": 50
+    },
+    {
+     "id": "f4-sains-dlp-16",
+     "nama": "16. Advanced Practice 8",
+     "n": 8
+    },
+    {
+     "id": "f4-sains-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 63
+    }
+   ],
+   "soalan": 575
+  },
+  {
+   "id": "f4-fiz",
+   "tahap": "F4",
+   "nama": "Fizik",
+   "sk": "FZ",
+   "ikon": "🧲",
+   "warna": "#5C6BC0",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-fiz-1",
+     "nama": "1. Pengukuran",
+     "n": 19
+    },
+    {
+     "id": "f4-fiz-2",
+     "nama": "2. Daya dan Gerakan I",
+     "n": 133
+    },
+    {
+     "id": "f4-fiz-3",
+     "nama": "3. Kegravitian",
+     "n": 16
+    },
+    {
+     "id": "f4-fiz-4",
+     "nama": "4. Haba",
+     "n": 62
+    },
+    {
+     "id": "f4-fiz-5",
+     "nama": "5. Gelombang",
+     "n": 44
+    },
+    {
+     "id": "f4-fiz-6",
+     "nama": "6. Cahaya dan Optik",
+     "n": 26
+    },
+    {
+     "id": "f4-fiz-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-fiz-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-fiz-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-fiz-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-fiz-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-fiz-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 44
+    }
+   ],
+   "soalan": 556
+  },
+  {
+   "id": "f4-kim",
+   "tahap": "F4",
+   "nama": "Kimia",
+   "sk": "KM",
+   "ikon": "⚗️",
+   "warna": "#8E24AA",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-kim-1",
+     "nama": "1. Pengenalan kepada Kimia",
+     "n": 7
+    },
+    {
+     "id": "f4-kim-2",
+     "nama": "2. Jirim dan Struktur Atom",
+     "n": 20
+    },
+    {
+     "id": "f4-kim-3",
+     "nama": "3. Konsep Mol, Formula dan Persamaan Kimia",
+     "n": 53
+    },
+    {
+     "id": "f4-kim-4",
+     "nama": "4. Jadual Berkala Unsur",
+     "n": 16
+    },
+    {
+     "id": "f4-kim-5",
+     "nama": "5. Ikatan Kimia",
+     "n": 18
+    },
+    {
+     "id": "f4-kim-6",
+     "nama": "6. Asid, Bes dan Garam",
+     "n": 58
+    },
+    {
+     "id": "f4-kim-7",
+     "nama": "7. Kadar Tindak Balas",
+     "n": 26
+    },
+    {
+     "id": "f4-kim-8",
+     "nama": "8. Bahan Buatan dalam Industri",
+     "n": 18
+    },
+    {
+     "id": "f4-kim-9",
+     "nama": "9. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-kim-10",
+     "nama": "10. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-kim-11",
+     "nama": "11. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-kim-12",
+     "nama": "12. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-kim-13",
+     "nama": "13. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-kim-14",
+     "nama": "14. Latihan Lanjutan 6",
+     "n": 46
+    },
+    {
+     "id": "f4-kim-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 56
+    }
+   ],
+   "soalan": 568
+  },
+  {
+   "id": "f4-bio",
+   "tahap": "F4",
+   "nama": "Biologi",
+   "sk": "BL",
+   "ikon": "🧬",
+   "warna": "#43A047",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-bio-1",
+     "nama": "1. Pengenalan kepada Biologi dan Peraturan Makmal",
+     "n": 5
+    },
+    {
+     "id": "f4-bio-2",
+     "nama": "2. Biologi Sel dan Organisasi Sel",
+     "n": 23
+    },
+    {
+     "id": "f4-bio-3",
+     "nama": "3. Pergerakan Bahan Merentasi Membran Plasma",
+     "n": 10
+    },
+    {
+     "id": "f4-bio-4",
+     "nama": "4. Komposisi Kimia dalam Sel",
+     "n": 14
+    },
+    {
+     "id": "f4-bio-5",
+     "nama": "5. Metabolisme dan Enzim",
+     "n": 10
+    },
+    {
+     "id": "f4-bio-6",
+     "nama": "6. Pembahagian Sel",
+     "n": 10
+    },
+    {
+     "id": "f4-bio-7",
+     "nama": "7. Respirasi Sel",
+     "n": 8
+    },
+    {
+     "id": "f4-bio-8",
+     "nama": "8. Sistem Respirasi dalam Manusia dan Haiwan",
+     "n": 9
+    },
+    {
+     "id": "f4-bio-9",
+     "nama": "9. Nutrisi dan Sistem Pencernaan Manusia",
+     "n": 18
+    },
+    {
+     "id": "f4-bio-10",
+     "nama": "10. Pengangkutan dan Pertahanan Badan",
+     "n": 12
+    },
+    {
+     "id": "f4-bio-11",
+     "nama": "11. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-12",
+     "nama": "12. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-13",
+     "nama": "13. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-14",
+     "nama": "14. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-15",
+     "nama": "15. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-16",
+     "nama": "16. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-17",
+     "nama": "17. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-bio-18",
+     "nama": "18. Latihan Lanjutan 8",
+     "n": 43
+    },
+    {
+     "id": "f4-bio-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 72
+    }
+   ],
+   "soalan": 584
+  },
+  {
+   "id": "f4-sej",
+   "tahap": "F4",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5651D",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-sej-1",
+     "nama": "1. Warisan Negara Bangsa",
+     "n": 12
+    },
+    {
+     "id": "f4-sej-2",
+     "nama": "2. Kebangkitan Nasionalisme",
+     "n": 11
+    },
+    {
+     "id": "f4-sej-3",
+     "nama": "3. Konflik Dunia dan Pendudukan Jepun",
+     "n": 12
+    },
+    {
+     "id": "f4-sej-4",
+     "nama": "4. Era Peralihan Kuasa British",
+     "n": 10
+    },
+    {
+     "id": "f4-sej-5",
+     "nama": "5. Persekutuan Tanah Melayu 1948",
+     "n": 8
+    },
+    {
+     "id": "f4-sej-6",
+     "nama": "6. Ancaman Komunis dan Perisytiharan Darurat",
+     "n": 10
+    },
+    {
+     "id": "f4-sej-7",
+     "nama": "7. Usaha ke Arah Kemerdekaan",
+     "n": 26
+    },
+    {
+     "id": "f4-sej-8",
+     "nama": "8. Pilihan Raya",
+     "n": 7
+    },
+    {
+     "id": "f4-sej-9",
+     "nama": "9. Perlembagaan Persekutuan Tanah Melayu 1957",
+     "n": 12
+    },
+    {
+     "id": "f4-sej-10",
+     "nama": "10. Pemasyhuran Kemerdekaan",
+     "n": 26
+    },
+    {
+     "id": "f4-sej-11",
+     "nama": "11. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-12",
+     "nama": "12. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-13",
+     "nama": "13. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-14",
+     "nama": "14. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-15",
+     "nama": "15. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-16",
+     "nama": "16. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-17",
+     "nama": "17. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-sej-18",
+     "nama": "18. Latihan Lanjutan 8",
+     "n": 28
+    },
+    {
+     "id": "f4-sej-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 72
+    }
+   ],
+   "soalan": 584
+  },
+  {
+   "id": "f4-pi",
+   "tahap": "F4",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕌",
+   "warna": "#1F7A4F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-pi-1",
+     "nama": "1. Tilawah dan Tajwid",
+     "n": 18
+    },
+    {
+     "id": "f4-pi-2",
+     "nama": "2. Akidah",
+     "n": 8
+    },
+    {
+     "id": "f4-pi-3",
+     "nama": "3. Ibadah",
+     "n": 21
+    },
+    {
+     "id": "f4-pi-4",
+     "nama": "4. Sirah Nabawiyah",
+     "n": 9
+    },
+    {
+     "id": "f4-pi-5",
+     "nama": "5. Muamalat",
+     "n": 8
+    },
+    {
+     "id": "f4-pi-6",
+     "nama": "6. Akhlak dan Adab",
+     "n": 10
+    },
+    {
+     "id": "f4-pi-7",
+     "nama": "7. Ulang Kaji: Malaikat, Sirah dan Fiqh Korban",
+     "n": 41
+    },
+    {
+     "id": "f4-pi-8",
+     "nama": "8. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-9",
+     "nama": "9. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-10",
+     "nama": "10. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-11",
+     "nama": "11. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-12",
+     "nama": "12. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-13",
+     "nama": "13. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-14",
+     "nama": "14. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-15",
+     "nama": "15. Latihan Lanjutan 8",
+     "n": 50
+    },
+    {
+     "id": "f4-pi-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 60
+    }
+   ],
+   "soalan": 575
+  },
+  {
+   "id": "f4-moral",
+   "tahap": "F4",
+   "nama": "Pendidikan Moral",
+   "sk": "PM",
+   "ikon": "🤝",
+   "warna": "#E07A5F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-moral-1",
+     "nama": "1. Nilai dalam Diri",
+     "n": 12
+    },
+    {
+     "id": "f4-moral-2",
+     "nama": "2. Nilai dalam Hubungan dengan Rakan dan Sekolah",
+     "n": 12
+    },
+    {
+     "id": "f4-moral-3",
+     "nama": "3. Nilai dalam Keluarga",
+     "n": 12
+    },
+    {
+     "id": "f4-moral-4",
+     "nama": "4. Nilai dalam Masyarakat dan Alam Sekitar",
+     "n": 14
+    },
+    {
+     "id": "f4-moral-5",
+     "nama": "5. Nilai Kenegaraan dan Global",
+     "n": 22
+    },
+    {
+     "id": "f4-moral-6",
+     "nama": "6. Nilai dalam Era Digital",
+     "n": 30
+    },
+    {
+     "id": "f4-moral-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-12",
+     "nama": "12. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-13",
+     "nama": "13. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-14",
+     "nama": "14. Latihan Lanjutan 8",
+     "n": 50
+    },
+    {
+     "id": "f4-moral-15",
+     "nama": "15. Latihan Lanjutan 9",
+     "n": 10
+    },
+    {
+     "id": "f4-moral-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 59
+    }
+   ],
+   "soalan": 571
+  },
+  {
+   "id": "f4-eko",
+   "tahap": "F4",
+   "nama": "Ekonomi",
+   "sk": "EK",
+   "ikon": "📈",
+   "warna": "#00897B",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-eko-1",
+     "nama": "1. Asas Ekonomi",
+     "n": 10
+    },
+    {
+     "id": "f4-eko-2",
+     "nama": "2. Permintaan, Penawaran dan Keseimbangan Pasaran",
+     "n": 120
+    },
+    {
+     "id": "f4-eko-3",
+     "nama": "3. Keanjalan",
+     "n": 67
+    },
+    {
+     "id": "f4-eko-4",
+     "nama": "4. Pengeluaran",
+     "n": 18
+    },
+    {
+     "id": "f4-eko-5",
+     "nama": "5. Kos, Hasil dan Struktur Pasaran",
+     "n": 52
+    },
+    {
+     "id": "f4-eko-6",
+     "nama": "6. Pasaran Faktor dan Peranan Kerajaan",
+     "n": 33
+    },
+    {
+     "id": "f4-eko-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-eko-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-eko-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-eko-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-eko-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-eko-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 44
+    }
+   ],
+   "soalan": 556
+  },
+  {
+   "id": "f4-akaun",
+   "tahap": "F4",
+   "nama": "Prinsip Perakaunan",
+   "sk": "PP",
+   "ikon": "🧾",
+   "warna": "#6D4C41",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-akaun-1",
+     "nama": "1. Asas Perakaunan dan Persamaan Perakaunan",
+     "n": 52
+    },
+    {
+     "id": "f4-akaun-2",
+     "nama": "2. Dokumen, Catatan Beregu dan Buku Catatan Pertama",
+     "n": 19
+    },
+    {
+     "id": "f4-akaun-3",
+     "nama": "3. Penyata Kewangan",
+     "n": 92
+    },
+    {
+     "id": "f4-akaun-4",
+     "nama": "4. Imbangan Duga dan Kawalan Tunai",
+     "n": 10
+    },
+    {
+     "id": "f4-akaun-5",
+     "nama": "5. Analisis Prestasi dan Nisbah Kewangan",
+     "n": 49
+    },
+    {
+     "id": "f4-akaun-6",
+     "nama": "6. Susut Nilai dan Pelarasan",
+     "n": 26
+    },
+    {
+     "id": "f4-akaun-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-akaun-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-akaun-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-akaun-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-akaun-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-akaun-12",
+     "nama": "12. Latihan Lanjutan 6",
+     "n": 14
+    },
+    {
+     "id": "f4-akaun-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 47
+    }
+   ],
+   "soalan": 559
+  },
+  {
+   "id": "f4-niaga",
+   "tahap": "F4",
+   "nama": "Perniagaan",
+   "sk": "PG",
+   "ikon": "💼",
+   "warna": "#3949AB",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-niaga-1",
+     "nama": "1. Bentuk Organisasi Perniagaan dan Keusahawanan",
+     "n": 13
+    },
+    {
+     "id": "f4-niaga-2",
+     "nama": "2. Pengurusan",
+     "n": 10
+    },
+    {
+     "id": "f4-niaga-3",
+     "nama": "3. Pemasaran",
+     "n": 12
+    },
+    {
+     "id": "f4-niaga-4",
+     "nama": "4. Kewangan Perniagaan",
+     "n": 57
+    },
+    {
+     "id": "f4-niaga-5",
+     "nama": "5. Etika, Sumber Manusia dan Tanggungjawab Sosial",
+     "n": 10
+    },
+    {
+     "id": "f4-niaga-6",
+     "nama": "6. Pengurusan Operasi dan Produktiviti",
+     "n": 35
+    },
+    {
+     "id": "f4-niaga-7",
+     "nama": "7. Kewangan Perniagaan dan Titik Pulang Modal",
+     "n": 113
+    },
+    {
+     "id": "f4-niaga-8",
+     "nama": "8. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-niaga-9",
+     "nama": "9. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-niaga-10",
+     "nama": "10. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-niaga-11",
+     "nama": "11. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-niaga-12",
+     "nama": "12. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f4-niaga-13",
+     "nama": "13. Latihan Lanjutan 6",
+     "n": 12
+    },
+    {
+     "id": "f4-niaga-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f4-sk",
+   "tahap": "F4",
+   "nama": "Sains Komputer",
+   "sk": "SK",
+   "ikon": "💻",
+   "warna": "#455A64",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-sk-1",
+     "nama": "1. Sistem Nombor dan Perwakilan Data",
+     "n": 103
+    },
+    {
+     "id": "f4-sk-2",
+     "nama": "2. Algoritma, Pseudokod dan Struktur Kawalan",
+     "n": 73
+    },
+    {
+     "id": "f4-sk-3",
+     "nama": "3. Jenis Data, Tatasusunan, Isihan dan Carian",
+     "n": 80
+    },
+    {
+     "id": "f4-sk-4",
+     "nama": "4. Pangkalan Data dan SQL",
+     "n": 17
+    },
+    {
+     "id": "f4-sk-5",
+     "nama": "5. Rangkaian, Keselamatan dan Etika",
+     "n": 27
+    },
+    {
+     "id": "f4-sk-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-sk-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-sk-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-sk-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-sk-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-sk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
+  },
+  {
+   "id": "f4-pjpk",
+   "tahap": "F4",
+   "nama": "Pendidikan Jasmani dan Kesihatan",
+   "sk": "PJ",
+   "ikon": "⚽",
+   "warna": "#F4511E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f4-pjpk-1",
+     "nama": "1. Prinsip Latihan dan Zon Kadar Nadi",
+     "n": 132
+    },
+    {
+     "id": "f4-pjpk-2",
+     "nama": "2. Pemakanan, Komposisi Badan dan Tenaga",
+     "n": 105
+    },
+    {
+     "id": "f4-pjpk-3",
+     "nama": "3. Pertolongan Cemas dan CPR",
+     "n": 23
+    },
+    {
+     "id": "f4-pjpk-4",
+     "nama": "4. Kecergasan, Ujian dan Sistem Tenaga",
+     "n": 22
+    },
+    {
+     "id": "f4-pjpk-5",
+     "nama": "5. Kesihatan Diri, Mental dan Keselamatan",
+     "n": 18
+    },
+    {
+     "id": "f4-pjpk-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f4-pjpk-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f4-pjpk-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f4-pjpk-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f4-pjpk-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f4-pjpk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
+  },
+  {
+   "id": "f5-bm",
+   "tahap": "F5",
+   "nama": "Bahasa Melayu",
+   "sk": "BM",
+   "ikon": "📖",
+   "warna": "#4F7BFF",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-bm-1",
+     "nama": "1. Peribahasa",
+     "n": 30
+    },
+    {
+     "id": "f5-bm-2",
+     "nama": "2. Tatabahasa, Ejaan dan Wacana",
+     "n": 39
+    },
+    {
+     "id": "f5-bm-3",
+     "nama": "3. Kefahaman Petikan",
+     "n": 14
+    },
+    {
+     "id": "f5-bm-4",
+     "nama": "4. Komsas: Puisi dan Gaya Bahasa",
+     "n": 26
+    },
+    {
+     "id": "f5-bm-5",
+     "nama": "5. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-6",
+     "nama": "6. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-7",
+     "nama": "7. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-8",
+     "nama": "8. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-9",
+     "nama": "9. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-10",
+     "nama": "10. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-11",
+     "nama": "11. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-12",
+     "nama": "12. Latihan Lanjutan 8",
+     "n": 50
+    },
+    {
+     "id": "f5-bm-13",
+     "nama": "13. Latihan Lanjutan 9",
+     "n": 3
+    },
+    {
+     "id": "f5-bm-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 50
+    }
+   ],
+   "soalan": 562
+  },
+  {
+   "id": "f5-bi",
+   "tahap": "F5",
+   "nama": "English",
+   "sk": "BI",
+   "ikon": "🗣️",
+   "warna": "#3F8CFF",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-bi-1",
+     "nama": "1. Grammar in Use",
+     "n": 21
+    },
+    {
+     "id": "f5-bi-2",
+     "nama": "2. Vocabulary: Phrasal Verbs, Collocations and Word Formation",
+     "n": 52
+    },
+    {
+     "id": "f5-bi-3",
+     "nama": "3. Reading",
+     "n": 17
+    },
+    {
+     "id": "f5-bi-4",
+     "nama": "4. Writing Skills",
+     "n": 22
+    },
+    {
+     "id": "f5-bi-5",
+     "nama": "5. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-6",
+     "nama": "6. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-7",
+     "nama": "7. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-8",
+     "nama": "8. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-9",
+     "nama": "9. Advanced Practice 5",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-10",
+     "nama": "10. Advanced Practice 6",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-11",
+     "nama": "11. Advanced Practice 7",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-12",
+     "nama": "12. Advanced Practice 8",
+     "n": 50
+    },
+    {
+     "id": "f5-bi-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 48
+    }
+   ],
+   "soalan": 560
+  },
+  {
+   "id": "f5-mat",
+   "tahap": "F5",
+   "nama": "Matematik",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-mat-1",
+     "nama": "1. Ubahan",
+     "n": 56
+    },
+    {
+     "id": "f5-mat-2",
+     "nama": "2. Matriks",
+     "n": 58
+    },
+    {
+     "id": "f5-mat-3",
+     "nama": "3. Matematik Pengguna: Insurans",
+     "n": 34
+    },
+    {
+     "id": "f5-mat-4",
+     "nama": "4. Matematik Pengguna: Percukaian",
+     "n": 29
+    },
+    {
+     "id": "f5-mat-5",
+     "nama": "5. Kekongruenan, Pembesaran dan Gabungan Transformasi",
+     "n": 31
+    },
+    {
+     "id": "f5-mat-6",
+     "nama": "6. Nisbah dan Graf Fungsi Trigonometri",
+     "n": 36
+    },
+    {
+     "id": "f5-mat-7",
+     "nama": "7. Sukatan Serakan Data Terkumpul",
+     "n": 26
+    },
+    {
+     "id": "f5-mat-8",
+     "nama": "8. Pemodelan Matematik",
+     "n": 30
+    },
+    {
+     "id": "f5-mat-9",
+     "nama": "9. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-10",
+     "nama": "10. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-11",
+     "nama": "11. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-12",
+     "nama": "12. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-13",
+     "nama": "13. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-mat-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f5-mat-dlp",
+   "tahap": "F5",
+   "nama": "Mathematics (DLP)",
+   "sk": "MT",
+   "ikon": "🔢",
+   "warna": "#F0A030",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f5-mat",
+   "topik": [
+    {
+     "id": "f5-mat-dlp-1",
+     "nama": "1. Variation",
+     "n": 56
+    },
+    {
+     "id": "f5-mat-dlp-2",
+     "nama": "2. Matrices",
+     "n": 58
+    },
+    {
+     "id": "f5-mat-dlp-3",
+     "nama": "3. Consumer Mathematics: Insurance",
+     "n": 34
+    },
+    {
+     "id": "f5-mat-dlp-4",
+     "nama": "4. Consumer Mathematics: Taxation",
+     "n": 29
+    },
+    {
+     "id": "f5-mat-dlp-5",
+     "nama": "5. Congruency, Enlargement and Combined Transformations",
+     "n": 31
+    },
+    {
+     "id": "f5-mat-dlp-6",
+     "nama": "6. Ratios and Graphs of Trigonometric Functions",
+     "n": 36
+    },
+    {
+     "id": "f5-mat-dlp-7",
+     "nama": "7. Measures of Dispersion for Grouped Data",
+     "n": 26
+    },
+    {
+     "id": "f5-mat-dlp-8",
+     "nama": "8. Mathematical Modeling",
+     "n": 30
+    },
+    {
+     "id": "f5-mat-dlp-9",
+     "nama": "9. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-dlp-10",
+     "nama": "10. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-dlp-11",
+     "nama": "11. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-dlp-12",
+     "nama": "12. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f5-mat-dlp-13",
+     "nama": "13. Advanced Practice 5",
+     "n": 12
+    },
+    {
+     "id": "f5-mat-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f5-amt",
+   "tahap": "F5",
+   "nama": "Matematik Tambahan",
+   "sk": "MTT",
+   "ikon": "📐",
+   "warna": "#D9822B",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-amt-1",
+     "nama": "1. Sukatan Membulat",
+     "n": 35
+    },
+    {
+     "id": "f5-amt-2",
+     "nama": "2. Pembezaan",
+     "n": 70
+    },
+    {
+     "id": "f5-amt-3",
+     "nama": "3. Pengamiran",
+     "n": 51
+    },
+    {
+     "id": "f5-amt-4",
+     "nama": "4. Pilih Atur dan Gabungan",
+     "n": 25
+    },
+    {
+     "id": "f5-amt-5",
+     "nama": "5. Taburan Kebarangkalian",
+     "n": 37
+    },
+    {
+     "id": "f5-amt-6",
+     "nama": "6. Fungsi Trigonometri",
+     "n": 29
+    },
+    {
+     "id": "f5-amt-7",
+     "nama": "7. Pengaturcaraan Linear",
+     "n": 23
+    },
+    {
+     "id": "f5-amt-8",
+     "nama": "8. Kinematik Gerakan Linear",
+     "n": 30
+    },
+    {
+     "id": "f5-amt-9",
+     "nama": "9. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-amt-10",
+     "nama": "10. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-amt-11",
+     "nama": "11. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-amt-12",
+     "nama": "12. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-amt-13",
+     "nama": "13. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-amt-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f5-sains",
+   "tahap": "F5",
+   "nama": "Sains",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-sains-1",
+     "nama": "1. Mikroorganisma",
+     "n": 27
+    },
+    {
+     "id": "f5-sains-2",
+     "nama": "2. Nutrisi dan Teknologi Makanan",
+     "n": 53
+    },
+    {
+     "id": "f5-sains-3",
+     "nama": "3. Kelestarian Alam Sekitar",
+     "n": 25
+    },
+    {
+     "id": "f5-sains-4",
+     "nama": "4. Kadar Tindak Balas",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-5",
+     "nama": "5. Sebatian Karbon",
+     "n": 28
+    },
+    {
+     "id": "f5-sains-6",
+     "nama": "6. Cahaya dan Optik",
+     "n": 28
+    },
+    {
+     "id": "f5-sains-7",
+     "nama": "7. Daya dan Tekanan",
+     "n": 46
+    },
+    {
+     "id": "f5-sains-8",
+     "nama": "8. Tenaga Nuklear",
+     "n": 41
+    },
+    {
+     "id": "f5-sains-9",
+     "nama": "9. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-10",
+     "nama": "10. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-11",
+     "nama": "11. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-12",
+     "nama": "12. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-13",
+     "nama": "13. Latihan Lanjutan 5",
+     "n": 14
+    },
+    {
+     "id": "f5-sains-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f5-sains-dlp",
+   "tahap": "F5",
+   "nama": "Science (DLP)",
+   "sk": "SN",
+   "ikon": "🔬",
+   "warna": "#20A39E",
+   "bahasa": "en",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "dlp": true,
+   "asal": "f5-sains",
+   "topik": [
+    {
+     "id": "f5-sains-dlp-1",
+     "nama": "1. Microorganisms",
+     "n": 27
+    },
+    {
+     "id": "f5-sains-dlp-2",
+     "nama": "2. Nutrition and Food Technology",
+     "n": 53
+    },
+    {
+     "id": "f5-sains-dlp-3",
+     "nama": "3. Sustainability of the Environment",
+     "n": 25
+    },
+    {
+     "id": "f5-sains-dlp-4",
+     "nama": "4. Rate of Reaction",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-dlp-5",
+     "nama": "5. Carbon Compounds",
+     "n": 28
+    },
+    {
+     "id": "f5-sains-dlp-6",
+     "nama": "6. Light and Optics",
+     "n": 28
+    },
+    {
+     "id": "f5-sains-dlp-7",
+     "nama": "7. Force and Pressure",
+     "n": 46
+    },
+    {
+     "id": "f5-sains-dlp-8",
+     "nama": "8. Nuclear Energy",
+     "n": 41
+    },
+    {
+     "id": "f5-sains-dlp-9",
+     "nama": "9. Advanced Practice 1",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-dlp-10",
+     "nama": "10. Advanced Practice 2",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-dlp-11",
+     "nama": "11. Advanced Practice 3",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-dlp-12",
+     "nama": "12. Advanced Practice 4",
+     "n": 50
+    },
+    {
+     "id": "f5-sains-dlp-13",
+     "nama": "13. Advanced Practice 5",
+     "n": 14
+    },
+    {
+     "id": "f5-sains-dlp-u1",
+     "nama": "End-of-Year Test (sample)",
+     "n": 52
+    }
+   ],
+   "soalan": 564
+  },
+  {
+   "id": "f5-fiz",
+   "tahap": "F5",
+   "nama": "Fizik",
+   "sk": "FZ",
+   "ikon": "🧲",
+   "warna": "#5C6BC0",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-fiz-1",
+     "nama": "1. Daya dan Gerakan II",
+     "n": 68
+    },
+    {
+     "id": "f5-fiz-2",
+     "nama": "2. Tekanan",
+     "n": 36
+    },
+    {
+     "id": "f5-fiz-3",
+     "nama": "3. Elektrik",
+     "n": 68
+    },
+    {
+     "id": "f5-fiz-4",
+     "nama": "4. Keelektromagnetan",
+     "n": 41
+    },
+    {
+     "id": "f5-fiz-5",
+     "nama": "5. Elektronik",
+     "n": 38
+    },
+    {
+     "id": "f5-fiz-6",
+     "nama": "6. Fizik Nuklear",
+     "n": 27
+    },
+    {
+     "id": "f5-fiz-7",
+     "nama": "7. Fizik Kuantum",
+     "n": 22
+    },
+    {
+     "id": "f5-fiz-8",
+     "nama": "8. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-fiz-9",
+     "nama": "9. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-fiz-10",
+     "nama": "10. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-fiz-11",
+     "nama": "11. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-fiz-12",
+     "nama": "12. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-fiz-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 48
+    }
+   ],
+   "soalan": 560
+  },
+  {
+   "id": "f5-kim",
+   "tahap": "F5",
+   "nama": "Kimia",
+   "sk": "KM",
+   "ikon": "⚗️",
+   "warna": "#8E24AA",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-kim-1",
+     "nama": "1. Keseimbangan Redoks",
+     "n": 118
+    },
+    {
+     "id": "f5-kim-2",
+     "nama": "2. Sebatian Karbon",
+     "n": 38
+    },
+    {
+     "id": "f5-kim-3",
+     "nama": "3. Termokimia",
+     "n": 76
+    },
+    {
+     "id": "f5-kim-4",
+     "nama": "4. Polimer",
+     "n": 29
+    },
+    {
+     "id": "f5-kim-5",
+     "nama": "5. Kimia Konsumer dan Industri",
+     "n": 28
+    },
+    {
+     "id": "f5-kim-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-kim-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-kim-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-kim-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-kim-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 23
+    },
+    {
+     "id": "f5-kim-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
+  },
+  {
+   "id": "f5-bio",
+   "tahap": "F5",
+   "nama": "Biologi",
+   "sk": "BL",
+   "ikon": "🧬",
+   "warna": "#43A047",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-bio-1",
+     "nama": "1. Organisasi Tisu Tumbuhan dan Pertumbuhan",
+     "n": 19
+    },
+    {
+     "id": "f5-bio-2",
+     "nama": "2. Struktur dan Fungsi Daun",
+     "n": 61
+    },
+    {
+     "id": "f5-bio-3",
+     "nama": "3. Nutrisi dalam Tumbuhan",
+     "n": 28
+    },
+    {
+     "id": "f5-bio-4",
+     "nama": "4. Pengangkutan dalam Tumbuhan",
+     "n": 15
+    },
+    {
+     "id": "f5-bio-5",
+     "nama": "5. Gerak Balas dalam Tumbuhan",
+     "n": 24
+    },
+    {
+     "id": "f5-bio-6",
+     "nama": "6. Pembiakan Seks Tumbuhan Berbunga",
+     "n": 24
+    },
+    {
+     "id": "f5-bio-7",
+     "nama": "7. Biodiversiti dan Ekosistem",
+     "n": 80
+    },
+    {
+     "id": "f5-bio-8",
+     "nama": "8. Pewarisan",
+     "n": 21
+    },
+    {
+     "id": "f5-bio-9",
+     "nama": "9. Variasi dan Teknologi Genetik",
+     "n": 20
+    },
+    {
+     "id": "f5-bio-10",
+     "nama": "10. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-bio-11",
+     "nama": "11. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-bio-12",
+     "nama": "12. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-bio-13",
+     "nama": "13. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-bio-14",
+     "nama": "14. Latihan Lanjutan 5",
+     "n": 20
+    },
+    {
+     "id": "f5-bio-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 56
+    }
+   ],
+   "soalan": 568
+  },
+  {
+   "id": "f5-sej",
+   "tahap": "F5",
+   "nama": "Sejarah",
+   "sk": "SJ",
+   "ikon": "🏛️",
+   "warna": "#B5651D",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-sej-1",
+     "nama": "1. Kedaulatan Negara",
+     "n": 14
+    },
+    {
+     "id": "f5-sej-2",
+     "nama": "2. Perlembagaan Persekutuan",
+     "n": 21
+    },
+    {
+     "id": "f5-sej-3",
+     "nama": "3. Raja Berperlembagaan dan Demokrasi Berparlimen",
+     "n": 22
+    },
+    {
+     "id": "f5-sej-4",
+     "nama": "4. Sistem Persekutuan",
+     "n": 27
+    },
+    {
+     "id": "f5-sej-5",
+     "nama": "5. Pembentukan Malaysia",
+     "n": 23
+    },
+    {
+     "id": "f5-sej-6",
+     "nama": "6. Cabaran Selepas Pembentukan Malaysia",
+     "n": 21
+    },
+    {
+     "id": "f5-sej-7",
+     "nama": "7. Membina Kesejahteraan Negara",
+     "n": 15
+    },
+    {
+     "id": "f5-sej-8",
+     "nama": "8. Membina Kemakmuran Negara",
+     "n": 22
+    },
+    {
+     "id": "f5-sej-9",
+     "nama": "9. Dasar Luar Malaysia",
+     "n": 15
+    },
+    {
+     "id": "f5-sej-10",
+     "nama": "10. Kecemerlangan Malaysia di Persada Dunia",
+     "n": 16
+    },
+    {
+     "id": "f5-sej-11",
+     "nama": "11. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-12",
+     "nama": "12. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-13",
+     "nama": "13. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-14",
+     "nama": "14. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-15",
+     "nama": "15. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-16",
+     "nama": "16. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f5-sej-17",
+     "nama": "17. Latihan Lanjutan 7",
+     "n": 16
+    },
+    {
+     "id": "f5-sej-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 68
+    }
+   ],
+   "soalan": 580
+  },
+  {
+   "id": "f5-pi",
+   "tahap": "F5",
+   "nama": "Pendidikan Islam",
+   "sk": "PI",
+   "ikon": "🕌",
+   "warna": "#1F7A4F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru-ustaz",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-pi-1",
+     "nama": "1. Tilawah dan Tajwid",
+     "n": 19
+    },
+    {
+     "id": "f5-pi-2",
+     "nama": "2. Akidah: Hari Akhirat, Qada' dan Qadar",
+     "n": 19
+    },
+    {
+     "id": "f5-pi-3",
+     "nama": "3. Ibadah: Munakahat",
+     "n": 15
+    },
+    {
+     "id": "f5-pi-4",
+     "nama": "4. Ibadah: Faraid dan Wasiat",
+     "n": 32
+    },
+    {
+     "id": "f5-pi-5",
+     "nama": "5. Muamalat Islam",
+     "n": 23
+    },
+    {
+     "id": "f5-pi-6",
+     "nama": "6. Sirah: Khulafa' al-Rasyidin",
+     "n": 17
+    },
+    {
+     "id": "f5-pi-7",
+     "nama": "7. Akhlak Islamiah",
+     "n": 16
+    },
+    {
+     "id": "f5-pi-8",
+     "nama": "8. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-9",
+     "nama": "9. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-10",
+     "nama": "10. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-11",
+     "nama": "11. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-12",
+     "nama": "12. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-13",
+     "nama": "13. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-14",
+     "nama": "14. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f5-pi-15",
+     "nama": "15. Latihan Lanjutan 8",
+     "n": 21
+    },
+    {
+     "id": "f5-pi-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 59
+    }
+   ],
+   "soalan": 571
+  },
+  {
+   "id": "f5-moral",
+   "tahap": "F5",
+   "nama": "Pendidikan Moral",
+   "sk": "PM",
+   "ikon": "🤝",
+   "warna": "#E07A5F",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-moral-1",
+     "nama": "1. Nilai Diri dan Integriti",
+     "n": 24
+    },
+    {
+     "id": "f5-moral-2",
+     "nama": "2. Hubungan di Sekolah",
+     "n": 14
+    },
+    {
+     "id": "f5-moral-3",
+     "nama": "3. Keluarga Harmoni",
+     "n": 12
+    },
+    {
+     "id": "f5-moral-4",
+     "nama": "4. Masyarakat dan Alam Sekitar",
+     "n": 12
+    },
+    {
+     "id": "f5-moral-5",
+     "nama": "5. Kenegaraan, Hak Asasi dan Keharmonian Global",
+     "n": 26
+    },
+    {
+     "id": "f5-moral-6",
+     "nama": "6. Etika Digital",
+     "n": 18
+    },
+    {
+     "id": "f5-moral-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-12",
+     "nama": "12. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-13",
+     "nama": "13. Latihan Lanjutan 7",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-14",
+     "nama": "14. Latihan Lanjutan 8",
+     "n": 50
+    },
+    {
+     "id": "f5-moral-15",
+     "nama": "15. Latihan Lanjutan 9",
+     "n": 6
+    },
+    {
+     "id": "f5-moral-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 59
+    }
+   ],
+   "soalan": 571
+  },
+  {
+   "id": "f5-eko",
+   "tahap": "F5",
+   "nama": "Ekonomi",
+   "sk": "EK",
+   "ikon": "📈",
+   "warna": "#00897B",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-eko-1",
+     "nama": "1. Kos Pengeluaran dan Hasil",
+     "n": 153
+    },
+    {
+     "id": "f5-eko-2",
+     "nama": "2. Struktur Pasaran",
+     "n": 39
+    },
+    {
+     "id": "f5-eko-3",
+     "nama": "3. Inflasi, Pengangguran dan KDNK",
+     "n": 50
+    },
+    {
+     "id": "f5-eko-4",
+     "nama": "4. Perdagangan Antarabangsa",
+     "n": 26
+    },
+    {
+     "id": "f5-eko-5",
+     "nama": "5. Kewangan Awam",
+     "n": 32
+    },
+    {
+     "id": "f5-eko-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-eko-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-eko-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-eko-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-eko-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-eko-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
+  },
+  {
+   "id": "f5-akaun",
+   "tahap": "F5",
+   "nama": "Prinsip Perakaunan",
+   "sk": "PP",
+   "ikon": "🧾",
+   "warna": "#6D4C41",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-akaun-1",
+     "nama": "1. Perakaunan Kelab dan Persatuan",
+     "n": 56
+    },
+    {
+     "id": "f5-akaun-2",
+     "nama": "2. Perkongsian",
+     "n": 67
+    },
+    {
+     "id": "f5-akaun-3",
+     "nama": "3. Rekod Tak Lengkap",
+     "n": 54
+    },
+    {
+     "id": "f5-akaun-4",
+     "nama": "4. Kawalan Dalaman dan Penyesuaian Bank",
+     "n": 26
+    },
+    {
+     "id": "f5-akaun-5",
+     "nama": "5. Syarikat Berhad",
+     "n": 21
+    },
+    {
+     "id": "f5-akaun-6",
+     "nama": "6. Analisis Penyata Kewangan",
+     "n": 76
+    },
+    {
+     "id": "f5-akaun-7",
+     "nama": "7. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-akaun-8",
+     "nama": "8. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-akaun-9",
+     "nama": "9. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-akaun-10",
+     "nama": "10. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-akaun-11",
+     "nama": "11. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-akaun-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 44
+    }
+   ],
+   "soalan": 556
+  },
+  {
+   "id": "f5-niaga",
+   "tahap": "F5",
+   "nama": "Perniagaan",
+   "sk": "PG",
+   "ikon": "💼",
+   "warna": "#3949AB",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-niaga-1",
+     "nama": "1. Pemasaran",
+     "n": 39
+    },
+    {
+     "id": "f5-niaga-2",
+     "nama": "2. Pengurusan Sumber Manusia",
+     "n": 40
+    },
+    {
+     "id": "f5-niaga-3",
+     "nama": "3. Kewangan Perniagaan",
+     "n": 31
+    },
+    {
+     "id": "f5-niaga-4",
+     "nama": "4. Risiko, Insurans dan Etika",
+     "n": 26
+    },
+    {
+     "id": "f5-niaga-5",
+     "nama": "5. E-Dagang dan Rancangan Perniagaan",
+     "n": 35
+    },
+    {
+     "id": "f5-niaga-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-11",
+     "nama": "11. Latihan Lanjutan 6",
+     "n": 50
+    },
+    {
+     "id": "f5-niaga-12",
+     "nama": "12. Latihan Lanjutan 7",
+     "n": 41
+    },
+    {
+     "id": "f5-niaga-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 48
+    }
+   ],
+   "soalan": 560
+  },
+  {
+   "id": "f5-sk",
+   "tahap": "F5",
+   "nama": "Sains Komputer",
+   "sk": "SK",
+   "ikon": "💻",
+   "warna": "#455A64",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-sk-1",
+     "nama": "1. Fungsi, Prosedur dan Rekursi",
+     "n": 54
+    },
+    {
+     "id": "f5-sk-2",
+     "nama": "2. Struktur Data dan Kompleksiti",
+     "n": 150
+    },
+    {
+     "id": "f5-sk-3",
+     "nama": "3. Pembangunan Web",
+     "n": 34
+    },
+    {
+     "id": "f5-sk-4",
+     "nama": "4. OOP, Interaksi Manusia-Komputer dan SDLC",
+     "n": 24
+    },
+    {
+     "id": "f5-sk-5",
+     "nama": "5. Multimedia, Mampatan dan Teknologi Baharu",
+     "n": 38
+    },
+    {
+     "id": "f5-sk-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-sk-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-sk-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-sk-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-sk-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 12
+    },
+    {
+     "id": "f5-sk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
+  },
+  {
+   "id": "f5-pjpk",
+   "tahap": "F5",
+   "nama": "Pendidikan Jasmani dan Kesihatan",
+   "sk": "PJ",
+   "ikon": "⚽",
+   "warna": "#F4511E",
+   "bahasa": "ms",
+   "kur": "KSSM",
+   "semak": "pending-guru",
+   "jawi": false,
+   "topik": [
+    {
+     "id": "f5-pjpk-1",
+     "nama": "1. Latihan Kecergasan Lanjutan",
+     "n": 185
+    },
+    {
+     "id": "f5-pjpk-2",
+     "nama": "2. Biomekanik Sukan",
+     "n": 32
+    },
+    {
+     "id": "f5-pjpk-3",
+     "nama": "3. Psikologi Sukan dan Etika",
+     "n": 16
+    },
+    {
+     "id": "f5-pjpk-4",
+     "nama": "4. Pemakanan Sukan",
+     "n": 28
+    },
+    {
+     "id": "f5-pjpk-5",
+     "nama": "5. Kesihatan Remaja dan Keselamatan",
+     "n": 19
+    },
+    {
+     "id": "f5-pjpk-6",
+     "nama": "6. Latihan Lanjutan 1",
+     "n": 50
+    },
+    {
+     "id": "f5-pjpk-7",
+     "nama": "7. Latihan Lanjutan 2",
+     "n": 50
+    },
+    {
+     "id": "f5-pjpk-8",
+     "nama": "8. Latihan Lanjutan 3",
+     "n": 50
+    },
+    {
+     "id": "f5-pjpk-9",
+     "nama": "9. Latihan Lanjutan 4",
+     "n": 50
+    },
+    {
+     "id": "f5-pjpk-10",
+     "nama": "10. Latihan Lanjutan 5",
+     "n": 32
+    },
+    {
+     "id": "f5-pjpk-u1",
+     "nama": "Ujian Akhir Sesi (contoh)",
+     "n": 40
+    }
+   ],
+   "soalan": 552
   }
  ]
 }

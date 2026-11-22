@@ -1,0 +1,84 @@
+/* My Ihsan 0.6.93 · Kaca cecair (Liquid glass): frosted light glass over a pastel mesh gradient that drifts slowly.
+   The drift moves one fixed layer (body::before) with transform only, so it stays cheap. Chosen tabs carry a slow sheen.
+   html.lowfx, no backdrop-filter, reduced transparency or reduced motion → solid light panels and no animation. */
+@font-face{font-family:"JakartaL";src:url(fonts/plus-jakarta-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"JakartaL";src:url(fonts/plus-jakarta-sans-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+
+html[data-th=cecair]{
+  --bg:#F4EEFF; --card:rgba(255,255,255,.42); --card2:rgba(255,255,255,.34); --well:rgba(255,255,255,.38); --nav:rgba(255,255,255,.50); --hdr:transparent;
+  --line:rgba(255,255,255,.55); --line2:rgba(255,255,255,.75);
+  --fg:#1E1A3A; --mut:#4A4468; --mut2:#555073;
+  --gold:#6A2FC4; --green:#6A2FC4; --deep:#1E1A3A; --red:#B3263E; --blue:#2448B8; --ok:#14704C; --warn:#7A4F00;
+  --lq-blur:blur(22px) saturate(1.8);
+  --lq-edge:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.25);
+  --lq-drop:0 10px 30px -14px rgba(80,60,140,.40);
+  --lq-flow:linear-gradient(120deg,#FFB6D9 0%,#C9B6FF 35%,#B9D4FF 65%,#FFD9A8 100%);
+  color-scheme:light; background:var(--bg)}
+html[data-th=cecair] body{background:transparent;color:var(--fg);font-family:"JakartaL","Plus Jakarta Sans",system-ui,sans-serif}
+html[data-th=cecair] body::before{content:"";position:fixed;inset:-25%;z-index:-1;pointer-events:none;
+  background:radial-gradient(38% 32% at 22% 24%,#FF9AC8 0%,rgba(255,154,200,0) 70%),
+    radial-gradient(42% 36% at 80% 18%,#8EC5FF 0%,rgba(142,197,255,0) 70%),
+    radial-gradient(46% 40% at 72% 78%,#FFD58A 0%,rgba(255,213,138,0) 70%),
+    radial-gradient(42% 38% at 18% 84%,#9DF2D4 0%,rgba(157,242,212,0) 70%),
+    radial-gradient(30% 26% at 50% 50%,#C9B6FF 0%,rgba(201,182,255,0) 70%),
+    linear-gradient(160deg,#F7E8FF 0%,#E8F1FF 100%);
+  animation:lqDrift 28s ease-in-out infinite alternate;will-change:transform}
+@keyframes lqDrift{0%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}50%{transform:translate3d(4%,-3%,0) rotate(7deg) scale(1.06)}100%{transform:translate3d(-4%,3%,0) rotate(-5deg) scale(1.03)}}
+@keyframes lqSheen{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+html[data-th=cecair] #app,html[data-th=cecair] #view{background:transparent}
+html[data-th=cecair] header,html[data-th=cecair] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=cecair] #topTitle{font-family:"JakartaL","Plus Jakarta Sans",system-ui,sans-serif;font-weight:600;font-size:27px;color:var(--fg);letter-spacing:-.01em}
+html[data-th=cecair] h1,html[data-th=cecair] h2,html[data-th=cecair] h3{font-weight:600;color:var(--fg)}
+html[data-th=cecair] #hBar{background:var(--lq-flow);background-size:200% 100%;animation:lqSheen 8s linear infinite}
+html[data-th=cecair] .mut,html[data-th=cecair] small.mut,html[data-th=cecair] .small.mut{color:var(--mut)}
+html[data-th=cecair] .tiny.mut{color:var(--mut2)}
+
+/* ---- glass: one level only ---- */
+html[data-th=cecair] .card,html[data-th=cecair] .mSec,html[data-th=cecair] nav#nav,html[data-th=cecair] #subnav,html[data-th=cecair] .dock,html[data-th=cecair] #overlay>div,html[data-th=cecair] .wg{
+  background:var(--card);border:1px solid var(--line);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);box-shadow:var(--lq-edge),var(--lq-drop)}
+html[data-th=cecair] .card,html[data-th=cecair] .mSec,html[data-th=cecair] .wg{border-radius:22px}
+html[data-th=cecair] .card .card,html[data-th=cecair] .mSec .card,html[data-th=cecair] #overlay .card,html[data-th=cecair] .card .wg,html[data-th=cecair] .dock .card{background:var(--card2);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:var(--lq-edge)}
+html[data-th=cecair] nav#nav{margin:0;border-radius:24px 24px 0 0;border-left:0;border-right:0;border-bottom:0;background:var(--nav);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=cecair] #subnav,html[data-th=cecair] .dock{margin:0;border-radius:22px 22px 0 0;border-left:0;border-right:0;border-bottom:0;background:var(--nav)}
+html[data-th=cecair] #overlay{background:rgba(30,26,58,.18)}
+
+/* ---- tabs: the chosen one is a flowing colour pill ---- */
+html[data-th=cecair] nav#nav button,html[data-th=cecair] #subnav button,html[data-th=cecair] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut)}
+html[data-th=cecair] nav#nav button.on,html[data-th=cecair] #subnav button.on,html[data-th=cecair] .dock button.on:not(.btn),html[data-th=cecair] .chip.on.on,html[data-th=cecair] .btn.gold.gold{
+  background-image:var(--lq-flow);background-size:200% 100%;animation:lqSheen 9s linear infinite;color:var(--fg);border-color:transparent;font-weight:600;box-shadow:var(--lq-edge),0 6px 16px -8px rgba(106,47,196,.45)}
+html[data-th=cecair] nav#nav button.on,html[data-th=cecair] #subnav button.on,html[data-th=cecair] .dock button.on:not(.btn){border-radius:16px}
+html[data-th=cecair] .dock .chip.chip{min-height:0;border-radius:16px;border:0;background-color:transparent}
+
+/* ---- buttons, chips, tiles ---- */
+html[data-th=cecair] .g3d,html[data-th=cecair] .btn.btn,html[data-th=cecair] .chip.chip,html[data-th=cecair] .qt.qt{text-shadow:none}
+html[data-th=cecair] .btn.btn,html[data-th=cecair] .chip.chip,html[data-th=cecair] .qt.qt{background-color:var(--well);background-image:none;color:var(--fg);border:1px solid var(--line2);box-shadow:var(--lq-edge);transition:transform .25s cubic-bezier(.22,1,.36,1),background-color .25s}
+html[data-th=cecair] .btn.btn{border-radius:16px;font-weight:600}
+html[data-th=cecair] .chip.chip{border-radius:999px;min-height:40px}
+html[data-th=cecair] .qt.qt{border-radius:20px}
+html[data-th=cecair] .btn.delb{background-color:rgba(255,214,222,.7);color:#8A1530;border-color:rgba(255,160,180,.8)}
+html[data-th=cecair] #hBtns button,html[data-th=cecair] #hMenu{width:42px;height:42px;border-radius:50%;background:var(--well);background-image:none;border:1px solid var(--line2);box-shadow:var(--lq-edge);color:var(--fg);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur)}
+html[data-th=cecair] .btn:active,html[data-th=cecair] .chip:active,html[data-th=cecair] .g3d:active,html[data-th=cecair] .qt:active{transform:scale(.96)}
+
+/* ---- inputs ---- */
+html[data-th=cecair] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=cecair] select,html[data-th=cecair] textarea,html[data-th=cecair] .ibsel,html[data-th=cecair] .ibdtT{background:rgba(255,255,255,.55);color:var(--fg);border:1px solid var(--line2);border-radius:14px}
+html[data-th=cecair] ::placeholder{color:var(--mut2)}
+html[data-th=cecair] input[type=range],html[data-th=cecair] input[type=checkbox],html[data-th=cecair] input[type=radio]{accent-color:#7A3BD0}
+html[data-th=cecair] .ibddl,html[data-th=cecair] .ibdt.open .ibdtX{background:rgba(255,255,255,.88);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);border-color:var(--line2)}
+
+/* ---- small parts ---- */
+html[data-th=cecair] .ptRow .on,html[data-th=cecair] .wpt .on,html[data-th=cecair] .pt.next{background:rgba(255,255,255,.6);box-shadow:var(--lq-edge);border-radius:12px}
+html[data-th=cecair] .ths.on{outline:3px solid #7A3BD0;outline-offset:3px}
+html[data-th=cecair] .warnbox{background:rgba(255,235,190,.7);color:#4F3600;border-color:rgba(255,205,120,.9)}
+html[data-th=cecair] hr,html[data-th=cecair] .sep{border-color:var(--line2)}
+html[data-th=cecair] a{color:var(--gold)}
+html[data-th=cecair] .qpage{background:#FBF7EC;color:#1d1a12;-webkit-backdrop-filter:none;backdrop-filter:none}
+html[data-th=cecair] canvas,html[data-th=cecair] .three,html[data-th=cecair] #disp,html[data-th=cecair] .dispWrap{-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ---- fallbacks: solid light panels, nothing moves ---- */
+html.lowfx[data-th=cecair]{--card:rgba(255,255,255,.86);--card2:rgba(255,255,255,.7);--well:rgba(255,255,255,.8);--nav:rgba(255,255,255,.92)}
+html.lowfx[data-th=cecair] *,html.lowfx[data-th=cecair] body::before{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;animation:none!important}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){html[data-th=cecair]{--card:rgba(255,255,255,.86);--card2:rgba(255,255,255,.7);--well:rgba(255,255,255,.8);--nav:rgba(255,255,255,.92)}}
+@media (prefers-reduced-transparency:reduce){html[data-th=cecair]{--card:rgba(255,255,255,.86);--card2:rgba(255,255,255,.7);--well:rgba(255,255,255,.8);--nav:rgba(255,255,255,.92)}html[data-th=cecair] *{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+@media (prefers-reduced-motion:reduce){html[data-th=cecair] *,html[data-th=cecair] body::before{animation:none!important;transition:none!important}}
+/* the sticky "Long-press any widget to edit" bar on Home: frosted, not a solid band */
+html[data-th=cecair] .wbar{background:var(--nav);-webkit-backdrop-filter:var(--lq-blur);backdrop-filter:var(--lq-blur);border-bottom-color:var(--line)}

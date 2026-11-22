@@ -1,0 +1,75 @@
+/* My Ihsan 0.6.95 · Hitam & emas (Black & gold), skeuomorphic: black leather with grain and gold stitching, polished gold-metal
+   buttons with engraved labels, black lacquer buttons, a brushed-metal bottom bar with a gold trim, Marcellus titles (bundled, OFL).
+   html.lowfx drops the grain texture (one less layer to paint). */
+@font-face{font-family:"MarcellusB";src:url(fonts/marcellus-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+html[data-th=blackgold]{
+  --bg:#0D0B08; --card:#17130E; --card2:#1E1912; --well:#0B0906; --nav:#0E0D0B; --hdr:transparent;
+  --line:#2B241A; --line2:#3A3122; --fg:#F4EFE2; --mut:#B7AD96; --mut2:#A39A85;
+  --gold:#D8B452; --green:#D8B452; --deep:#7A6420;
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 .18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  --metal:linear-gradient(180deg,#F8E7A1 0%,#E1BE5C 38%,#B88A2B 62%,#E9CD7A 100%);
+  --lacquer:linear-gradient(180deg,#2E2820 0%,#15110C 100%);
+  color-scheme:dark;
+  background-color:var(--bg);
+  background-image:radial-gradient(120% 80% at 50% 0%,rgba(90,70,40,.22) 0%,rgba(0,0,0,0) 60%),var(--grain);
+  background-attachment:fixed}
+html[data-th=blackgold] body,html[data-th=blackgold] #app,html[data-th=blackgold] #view{background:transparent;color:var(--fg)}
+html[data-th=blackgold] header,html[data-th=blackgold] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=blackgold] #topTitle,html[data-th=blackgold] h1,html[data-th=blackgold] h2,html[data-th=blackgold] h3{font-family:"MarcellusB","Marcellus",Georgia,serif;font-weight:400;letter-spacing:.02em}
+html[data-th=blackgold] #topTitle{font-size:29px;color:#E9CD7A;background:var(--metal);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
+html[data-th=blackgold] h3{color:#E9CD7A}
+html[data-th=blackgold] #hBar{background:var(--metal);box-shadow:0 1px 2px rgba(0,0,0,.8)}
+html[data-th=blackgold] .mut,html[data-th=blackgold] small.mut,html[data-th=blackgold] .small.mut{color:var(--mut)}
+html[data-th=blackgold] .tiny.mut{color:var(--mut2)}
+
+/* ---- leather panels with gold stitching ---- */
+html[data-th=blackgold] .card,html[data-th=blackgold] .mSec,html[data-th=blackgold] .wg{
+  background-color:var(--card);background-image:linear-gradient(180deg,rgba(255,240,200,.05) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.25) 100%),var(--grain);
+  border:1px solid #000;border-radius:14px;outline:1.5px dashed rgba(216,180,82,.5);outline-offset:-7px;
+  box-shadow:inset 0 1px 0 rgba(255,240,200,.08),0 1px 0 rgba(216,180,82,.12),0 12px 26px -10px rgba(0,0,0,.85)}
+/* inside a panel: a pressed leather well, no stitching */
+html[data-th=blackgold] .card .card,html[data-th=blackgold] .mSec .card,html[data-th=blackgold] #overlay .card,html[data-th=blackgold] .card .wg,html[data-th=blackgold] .dock .card{
+  background-color:var(--card2);background-image:none;outline:0;box-shadow:inset 0 2px 6px rgba(0,0,0,.75),inset 0 -1px 0 rgba(255,240,200,.06)}
+
+/* ---- brushed metal bars with a gold trim ---- */
+html[data-th=blackgold] nav#nav,html[data-th=blackgold] #subnav,html[data-th=blackgold] .dock{
+  background-color:var(--nav);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,rgba(0,0,0,0) 1px 3px),linear-gradient(180deg,#25221D 0%,#0E0D0B 100%);
+  border:0;border-top:1px solid rgba(216,180,82,.45);box-shadow:0 -8px 20px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,240,200,.08)}
+html[data-th=blackgold] nav#nav{margin:0;border-radius:0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=blackgold] #subnav,html[data-th=blackgold] .dock{margin:0;border-radius:0}
+html[data-th=blackgold] nav#nav button,html[data-th=blackgold] #subnav button,html[data-th=blackgold] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut)}
+html[data-th=blackgold] nav#nav button.on,html[data-th=blackgold] #subnav button.on,html[data-th=blackgold] .dock button.on:not(.btn){
+  background:#070604;color:#E9CD7A;border-radius:12px;box-shadow:inset 0 2px 5px rgba(0,0,0,.9),inset 0 -1px 0 rgba(216,180,82,.25);text-shadow:0 1px 0 #000}
+html[data-th=blackgold] .dock .chip.chip{min-height:0;border-radius:12px;border:0;background:transparent;box-shadow:none}
+
+/* ---- buttons: black lacquer; gold is polished metal with an engraved label ---- */
+html[data-th=blackgold] .g3d,html[data-th=blackgold] .btn.btn,html[data-th=blackgold] .chip.chip,html[data-th=blackgold] .qt.qt{background-image:var(--lacquer);background-color:#15110C;color:var(--fg);border:1px solid #000;text-shadow:0 -1px 0 #000;
+  box-shadow:inset 0 1px 0 rgba(255,240,200,.14),inset 0 -1px 0 rgba(0,0,0,.6),0 3px 7px rgba(0,0,0,.65);transition:transform .12s ease,box-shadow .12s ease}
+html[data-th=blackgold] .btn.btn{border-radius:12px}
+html[data-th=blackgold] .chip.chip{border-radius:999px;min-height:40px}
+html[data-th=blackgold] .qt.qt{border-radius:14px}
+html[data-th=blackgold] .btn.gold.gold,html[data-th=blackgold] .chip.on.on{background-image:var(--metal);background-color:#D8B452;color:#2A1E05;border:1px solid #6E5214;font-weight:600;text-shadow:0 1px 0 rgba(255,244,200,.65);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -2px 3px rgba(90,60,10,.45),0 3px 8px rgba(0,0,0,.7)}
+html[data-th=blackgold] .btn.delb{background-image:linear-gradient(180deg,#5A1A14 0%,#2E0B08 100%);color:#FFD5CB}
+html[data-th=blackgold] .btn:active,html[data-th=blackgold] .chip:active,html[data-th=blackgold] .g3d:active,html[data-th=blackgold] .qt:active{transform:translateY(1px);box-shadow:inset 0 2px 5px rgba(0,0,0,.8)}
+html[data-th=blackgold] #hBtns button,html[data-th=blackgold] #hMenu{width:42px;height:42px;border-radius:50%;background-image:var(--lacquer);border:1px solid rgba(216,180,82,.45);color:#E9CD7A;box-shadow:inset 0 1px 0 rgba(255,240,200,.18),0 3px 8px rgba(0,0,0,.7)}
+
+/* ---- inputs: recessed into the leather ---- */
+html[data-th=blackgold] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=blackgold] select,html[data-th=blackgold] textarea,html[data-th=blackgold] .ibsel,html[data-th=blackgold] .ibdtT{
+  background:var(--well);color:var(--fg);border:1px solid #000;border-radius:10px;box-shadow:inset 0 2px 5px rgba(0,0,0,.85),0 1px 0 rgba(255,240,200,.07)}
+html[data-th=blackgold] ::placeholder{color:var(--mut2)}
+html[data-th=blackgold] input[type=range],html[data-th=blackgold] input[type=checkbox],html[data-th=blackgold] input[type=radio]{accent-color:#D8B452}
+html[data-th=blackgold] .ibddl,html[data-th=blackgold] .ibdt.open .ibdtX{background:#15110C;border:1px solid rgba(216,180,82,.4);box-shadow:0 12px 26px rgba(0,0,0,.8)}
+html[data-th=blackgold] #overlay{background:rgba(0,0,0,.55)}
+html[data-th=blackgold] #overlay>div{background-color:#120F0A;background-image:var(--grain);border-top:1px solid rgba(216,180,82,.45)}
+
+/* ---- small parts ---- */
+html[data-th=blackgold] .ptRow .on,html[data-th=blackgold] .wpt .on,html[data-th=blackgold] .pt.next{background-image:var(--metal);color:#2A1E05;border-radius:10px;text-shadow:0 1px 0 rgba(255,244,200,.6)}
+html[data-th=blackgold] .ptRow .on *,html[data-th=blackgold] .wpt .on *,html[data-th=blackgold] .pt.next *{color:#2A1E05}
+html[data-th=blackgold] .warnbox{background:rgba(216,180,82,.12);color:#F4E2B0;border-color:rgba(216,180,82,.45)}
+html[data-th=blackgold] hr,html[data-th=blackgold] .sep{border-color:var(--line2)}
+html[data-th=blackgold] a{color:#E9CD7A}
+html[data-th=blackgold] .qpage{background:#FBF7EC;color:#1d1a12;outline:0}
+html.lowfx[data-th=blackgold]{background-image:none}
+html.lowfx[data-th=blackgold] .card,html.lowfx[data-th=blackgold] .mSec,html.lowfx[data-th=blackgold] .wg,html.lowfx[data-th=blackgold] #overlay>div{background-image:none}
+@media (prefers-reduced-motion:reduce){html[data-th=blackgold] *{transition:none!important}}

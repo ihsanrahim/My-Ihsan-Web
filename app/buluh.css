@@ -1,0 +1,73 @@
+/* My Ihsan 0.6.95 · Buluh (Bamboo), neumorphism on bamboo: the page is a straw-coloured bamboo mat (slats with nodes);
+   panels are raised pale bamboo with a fine grain and soft light/dark shadows; chosen things are fresh green and pressed in.
+   Figtree for titles (bundled, OFL). html.lowfx drops the textures. */
+@font-face{font-family:"FigtreeB";src:url(fonts/figtree-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"FigtreeB";src:url(fonts/figtree-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+html[data-th=buluh]{
+  --bg:#E6D6A2; --card:#EADCAD; --card2:#EADCAD; --well:#E3D29C; --nav:#E8D9A6; --hdr:transparent;
+  --line:rgba(120,92,40,.22); --line2:rgba(120,92,40,.35);
+  --fg:#2F3A1E; --mut:#4C5532; --mut2:#525B37;
+  --gold:#335A22; --green:#335A22; --deep:#2F3A1E; --red:#9A2B1E; --blue:#2D4F7A; --ok:#2E6B2A; --warn:#7A4F00;
+  --sd:rgba(140,112,58,.48); --sl:rgba(255,251,232,.9);
+  --raise:7px 7px 14px var(--sd),-6px -6px 13px var(--sl);
+  --raiseS:4px 4px 9px var(--sd),-4px -4px 9px var(--sl);
+  --press:inset 4px 4px 8px var(--sd),inset -4px -4px 8px var(--sl);
+  --grainB:repeating-linear-gradient(90deg,rgba(120,92,40,.05) 0 1px,rgba(0,0,0,0) 1px 7px);
+  --sprout:linear-gradient(135deg,#CFE6A6 0%,#A8D08A 100%);
+  color-scheme:light;
+  background-color:var(--bg);
+  background-image:
+    repeating-linear-gradient(0deg,rgba(0,0,0,0) 0 132px,rgba(110,84,36,.26) 132px 135px,rgba(255,250,230,.45) 135px 137px,rgba(0,0,0,0) 137px 200px),
+    repeating-linear-gradient(90deg,rgba(255,250,230,.30) 0 5px,rgba(0,0,0,0) 5px 30px,rgba(120,92,40,.16) 30px 33px,rgba(0,0,0,0) 33px 62px),
+    linear-gradient(90deg,rgba(150,170,80,.10),rgba(0,0,0,0) 40%,rgba(150,170,80,.08));
+  background-attachment:fixed}
+html[data-th=buluh] body,html[data-th=buluh] #app,html[data-th=buluh] #view{background:transparent;color:var(--fg)}
+html[data-th=buluh] header,html[data-th=buluh] header#top{background:transparent;border-color:transparent;box-shadow:none}
+html[data-th=buluh] #topTitle,html[data-th=buluh] h1,html[data-th=buluh] h2,html[data-th=buluh] h3{font-family:"FigtreeB","Figtree",system-ui,sans-serif;font-weight:600;color:var(--fg)}
+html[data-th=buluh] #topTitle{font-size:28px}
+html[data-th=buluh] #hBar{background:linear-gradient(90deg,#7FB35A,#4E8A35);border-radius:6px}
+html[data-th=buluh] .mut,html[data-th=buluh] small.mut,html[data-th=buluh] .small.mut{color:var(--mut)}
+html[data-th=buluh] .tiny.mut{color:var(--mut2)}
+
+/* ---- raised bamboo panels ---- */
+html[data-th=buluh] .card,html[data-th=buluh] .mSec,html[data-th=buluh] .wg{background-color:var(--card);background-image:var(--grainB);border:0;border-radius:22px;box-shadow:var(--raise)}
+html[data-th=buluh] .card .card,html[data-th=buluh] .mSec .card,html[data-th=buluh] #overlay .card,html[data-th=buluh] .card .wg,html[data-th=buluh] .dock .card{box-shadow:var(--press);border-radius:16px}
+html[data-th=buluh] nav#nav,html[data-th=buluh] #subnav,html[data-th=buluh] .dock{background-color:var(--nav);background-image:var(--grainB);border:0;box-shadow:0 -6px 16px rgba(140,112,58,.30),0 -1px 0 rgba(255,251,232,.9) inset}
+html[data-th=buluh] nav#nav{margin:0;border-radius:22px 22px 0 0;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+html[data-th=buluh] #subnav,html[data-th=buluh] .dock{margin:0;border-radius:22px 22px 0 0}
+html[data-th=buluh] #overlay{background:rgba(47,58,30,.25)}
+html[data-th=buluh] #overlay>div{background-color:var(--bg);border:0;box-shadow:0 -10px 30px rgba(47,58,30,.25)}
+
+/* ---- tabs: pressed in, green label ---- */
+html[data-th=buluh] nav#nav button,html[data-th=buluh] #subnav button,html[data-th=buluh] .dock button:not(.btn){background:transparent;background-image:none;border:0;box-shadow:none;color:var(--mut)}
+html[data-th=buluh] nav#nav button.on,html[data-th=buluh] #subnav button.on,html[data-th=buluh] .dock button.on:not(.btn){background:var(--well);box-shadow:var(--press);color:var(--gold);border-radius:16px;font-weight:600}
+html[data-th=buluh] .dock .chip.chip{min-height:0;border-radius:16px;border:0;box-shadow:none;background:transparent}
+html[data-th=buluh] .dock .chip.on.on{background:var(--well);box-shadow:var(--press);color:var(--gold)}
+
+/* ---- buttons and chips ---- */
+html[data-th=buluh] .g3d,html[data-th=buluh] .btn.btn,html[data-th=buluh] .chip.chip,html[data-th=buluh] .qt.qt{background-image:none;text-shadow:none}
+html[data-th=buluh] .btn.btn,html[data-th=buluh] .chip.chip,html[data-th=buluh] .qt.qt,html[data-th=buluh] #hBtns button,html[data-th=buluh] #hMenu{
+  background-color:var(--card);color:var(--fg);border:0;box-shadow:var(--raiseS);transition:transform .2s cubic-bezier(.34,1.4,.64,1),box-shadow .2s ease}
+html[data-th=buluh] .btn.btn{border-radius:16px;font-weight:600}
+html[data-th=buluh] .chip.chip{border-radius:999px;min-height:40px}
+html[data-th=buluh] .qt.qt{border-radius:18px}
+html[data-th=buluh] #hBtns button,html[data-th=buluh] #hMenu{width:42px;height:42px;border-radius:50%}
+html[data-th=buluh] .btn.gold.gold,html[data-th=buluh] .chip.on.on{background:var(--sprout);color:#1F2A10;box-shadow:inset 2px 2px 5px rgba(60,100,30,.30),inset -2px -2px 5px rgba(255,255,240,.55),var(--raiseS);font-weight:600}
+html[data-th=buluh] .btn.delb{background:#F0D6C8;color:#7A1E10}
+html[data-th=buluh] .btn:active,html[data-th=buluh] .chip:active,html[data-th=buluh] .g3d:active,html[data-th=buluh] .qt:active,html[data-th=buluh] #hBtns button:active{transform:scale(.96);box-shadow:var(--press)}
+
+/* ---- inputs: pressed wells ---- */
+html[data-th=buluh] input:not([type=checkbox]):not([type=radio]):not([type=range]),html[data-th=buluh] select,html[data-th=buluh] textarea,html[data-th=buluh] .ibsel,html[data-th=buluh] .ibdtT{background:var(--well);color:var(--fg);border:0;box-shadow:var(--press);border-radius:14px}
+html[data-th=buluh] ::placeholder{color:var(--mut2)}
+html[data-th=buluh] input[type=range],html[data-th=buluh] input[type=checkbox],html[data-th=buluh] input[type=radio]{accent-color:#4E8A35}
+html[data-th=buluh] .ibddl,html[data-th=buluh] .ibdt.open .ibdtX{background:var(--card);border:0;box-shadow:var(--raise)}
+
+/* ---- small parts ---- */
+html[data-th=buluh] .ptRow .on,html[data-th=buluh] .wpt .on,html[data-th=buluh] .pt.next{background:var(--sprout);color:#1F2A10;border-radius:14px;box-shadow:var(--raiseS)}
+html[data-th=buluh] .warnbox{background:#F3E3B0;color:#4F3A00;border:0;border-radius:14px;box-shadow:var(--press)}
+html[data-th=buluh] hr,html[data-th=buluh] .sep{border-color:var(--line2)}
+html[data-th=buluh] a{color:var(--gold)}
+html[data-th=buluh] .qpage{background:#FBF7EC;color:#1d1a12;box-shadow:var(--raise)}
+html.lowfx[data-th=buluh]{background-image:none}
+html.lowfx[data-th=buluh] .card,html.lowfx[data-th=buluh] .mSec,html.lowfx[data-th=buluh] .wg,html.lowfx[data-th=buluh] nav#nav{background-image:none}
+@media (prefers-reduced-motion:reduce){html[data-th=buluh] *{transition:none!important}}

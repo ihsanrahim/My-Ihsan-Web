@@ -109,6 +109,7 @@ function patch(N, A){ A = A || {};
   // pictures, files, contacts
   N.pickImage = function(mode){ pick("image/*", mode === "camera" ? "environment" : "", function(f){ if(!f){ emit("image", {cancel:true}); return; } readAs(f, "readAsDataURL").then(function(d){ return shrink(d, 1600, .85); }).then(function(d){ emit("image", {data:d}); }, function(){ emit("image", {error:"read"}); }); }); };
   N.pickBin = function(){ pick("*/*", "", function(f){ if(!f){ emit("binfile", {cancel:true}); return; } readAs(f, "readAsDataURL").then(function(d){ emit("binfile", {mime:f.type || "application/octet-stream", b64:String(d).split(",")[1] || "", name:f.name}); }, function(e){ emit("binfile", {error:String(e)}); }); }); };
+  N.pickAny = N.pickBin;   // 0.6.63 Tekap fonts
   N.openFile = function(){ pick(".json,.ihsan,.ihsanbiz,.txt,application/json,text/*", "", function(f){ if(!f) return; readAs(f, "readAsText").then(function(t){ emit("opened", {body:t, name:f.name}); }, function(e){ emit("fileError", {error:String(e)}); }); }); };
   N.pickContact = function(){ if(navigator.contacts && navigator.contacts.select){ navigator.contacts.select(["name", "tel"], {multiple:false}).then(function(a){ var c = a && a[0]; if(!c){ emit("contact", {cancel:true}); return; } emit("contact", {n:(c.name || [""])[0], tel:(c.tel || [""])[0]}); }, function(){ emit("contact", {cancel:true}); }); } else emit("contact", {cancel:true}); };
   N.saveFile = function(name, content){ download(name, new Blob([content], {type:"application/json"})); emit("saved", {}); };
