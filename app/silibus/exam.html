@@ -377,6 +377,7 @@ button{font-family:inherit;font-size:inherit;color:inherit;border:none;backgroun
 .t-kiub .palang{border-radius:1px}
 .palang i{display:block;height:100%;background:var(--ok);transition:width .35s ease}
 
+.subTajuk{margin:18px 4px 8px;padding:8px 12px;border-radius:12px;background:var(--panel);color:var(--teks);border:var(--sempadan) solid var(--tepi);font-weight:700;font-size:15px;line-height:1.35}.subTajuk b{color:var(--sorot);margin-right:6px}
 .soalKad{
   background:var(--kertas);color:var(--tinta);
   border:var(--sempadan) solid var(--tepi);
@@ -884,7 +885,7 @@ html,body{overflow-anchor:none}
 </head>
 <body class="t-arked">
 <div id="app"></div>
-<script src="vis.js"></script>
+<script src="vis.js"></script><script src="notaviz.js"></script>
 <script src="sedia.js"></script><script src="f1.js"></script>
 <script src="games3d.js"></script>
 <script src="games.js"></script>
@@ -931,7 +932,7 @@ function tulis(){ try{ localStorage.setItem(KUNCI, JSON.stringify(simpan)); }cat
   setInterval(flush, 15000); document.addEventListener("visibilitychange", function(){ if(document.hidden) flush(); else { t0 = Date.now(); } }); window.addEventListener("pagehide", flush); })();
 // summary for the Learn page (spec §4.3): silibus.<anak>.ringkas = {<pek>:{dijawab,betul,pertama,jum,nota,topik,kemaskini}}
 function ringkas(){ const s0 = DATA.subjek[0]; if(!s0 || MOD === "ujian") return; let dj=0, bt=0, pt=0, jm=0, nb=0;
-  let nx = null; for(const t of s0.topik){ const k = kiraTopik(t); dj+=k.jawab; bt+=k.betul; pt+=k.pBetul; jm+=k.jum; if(simpan[t.id] && simpan[t.id].baca) nb++; if(nx === null && k.jawab < k.jum) nx = t.nama; }
+  let nx = null; for(const t of s0.topik){ const k = kiraTopik(t); dj+=k.jawab; bt+=k.betul; pt+=k.pBetul; jm+=k.jum; if(simpan[t.id] && simpan[t.id].baca && (t.nota||[]).length) nb++; if(nx === null && k.jawab < k.jum) nx = t.nama; }
   const K2 = "silibus." + ANAK + ".ringkas"; let o = {}; try{ o = JSON.parse(localStorage.getItem(K2) || "{}"); }catch(e){}
   o[PEK] = {dijawab:dj, betul:bt, pertama:pt, jum:jm, nota:nb, topik:s0.topik.length, kemaskini:Date.now(), next:nx}; localStorage.setItem(K2, JSON.stringify(o)); }
 function rekod(tid){
@@ -1563,7 +1564,7 @@ function skrinSubjek(){
     ub.innerHTML = `<button class="btn utama" id="ujSlip">🧾 Slip keputusan</button><button class="btn" id="ujBaru">🔄 Kertas baharu</button>`;
     m.appendChild(ub); setTimeout(()=>{ const a = document.getElementById("ujSlip"), b = document.getElementById("ujBaru"); if(a) a.onclick = tunjukSlip; if(b) b.onclick = kertasBaru; }, 0);
     m.appendChild(tajukKecil("Bertulis /" + s.topik.filter(x=>!x.uj.lisan).length*5 + " · Lisan /" + s.topik.filter(x=>x.uj.lisan).reduce((a,x)=>a+x.uj.max,0) + " · tiada pemasa", false)); }
-  m.appendChild(tajukKecil(hb + " · " + s.topik.length + " topik", false));
+  m.appendChild(tajukKecil(hb + " · " + (MOD === "nota" ? s.topik.filter(t=>!(Array.isArray(t.nota) && !t.nota.length)).length : s.topik.length) + " topik", false));
   if(MOD === "kuiz"){   // 0.6.11: done/questions for every topic, at the top of the subject
     const j = document.createElement("div"); j.className = "jalur hudTopik";
     j.innerHTML = s.topik.map((x,n)=>{ const kk = kiraTopik(x); return `<button type="button" class="${kk.jum && kk.jawab===kk.jum ? "penuh" : ""}" title="${lindung(x.nama)}">${n+1} <b>${kk.jawab}/${kk.jum}</b></button>`; }).join("");
@@ -1571,6 +1572,7 @@ function skrinSubjek(){
     m.appendChild(j); }
   if(MOD === "main" && window.GAMES){ m.appendChild(GAMES.picker(s)); return f; }
   s.topik.forEach((t,i)=>{
+    if(MOD === "nota" && Array.isArray(t.nota) && !t.nota.length) return;   // 0.7.11: practice sets (Latihan Lanjutan, sample test) have no notes
     const k = kiraTopik(t), habis = k.jum && k.jawab===k.jum;
     const b = document.createElement("button"); b.className = "topik";
     const dibaca = simpan[t.id] && simpan[t.id].baca;
@@ -1616,7 +1618,7 @@ function skrinTopik(){
   hudEl = null;
   if(laluan.tab === "kuiz"){ hudEl = document.createElement("div"); lekat.appendChild(hudEl);
     const ln = document.createElement("button"); ln.className = "btn lihatNota"; ln.textContent = BAHASA === "en" ? "📖 See notes" : bolehTukar() ? "📖 ليهت نوتا" : "📖 Lihat nota";
-    ln.onclick = ()=> lihatNota(t); if(MOD !== "ujian") tb.appendChild(ln);
+    ln.onclick = ()=> lihatNota(t); if(MOD !== "ujian" && !(Array.isArray(t.nota) && !t.nota.length)) tb.appendChild(ln);
     if(MOD === "ujian" && t.arahan) setTimeout(()=> SEDIA.speak(t.arahan), 350); }   // §4.8: each section's instruction is read aloud
   m.appendChild(lekat);
 
@@ -1658,6 +1660,7 @@ function panelNota(t){
     if(b.j==="o") return `<ol>${b.t.map(x=>`<li>${tafsir(x,peta)}</li>`).join("")}</ol>`;
     if(b.j==="lk") return `<ol class="langkah">${b.t.map(x=>`<li>${tafsir(x,peta)}</li>`).join("")}</ol>`;
     if(b.j==="ar") return `<p class="arab">${b.t}</p>`;
+    if(b.j==="viz") return window.NVIZ ? NVIZ.html(b.v) : "";
     if(b.j==="t") return `<table class="jadualNota"><tr>${b.kepala.map(x=>`<th>${papar(x)}</th>`).join("")}</tr>`+
       b.baris.map(r=>`<tr>${r.map(x=>`<td>${tafsir(x,peta)}</td>`).join("")}</tr>`).join("")+`</table>`;
     return "";
@@ -1678,6 +1681,7 @@ function panelNota(t){
     if(ARAS[b.j]) buka(b.t, ARAS[b.j]);
     else { if(!tindan.length) buka("Nota", 4); tindan[tindan.length-1].bod.insertAdjacentHTML("beforeend", isiHtml(b)); }
   }
+  setTimeout(()=>{ if(window.NVIZ) NVIZ.hydrate(wrap, BAHASA === "en" ? "en" : "ms"); }, 0);   // 0.7.10: lesson pictures + 3D window
   wrap.addEventListener("click", e=>{
     const sp = e.target.closest(".ist"); if(!sp) return;
     const blok = sp.closest("p,li,div,td,summary") || sp;
@@ -1760,7 +1764,9 @@ function panelKuiz(t, m){
   soalanEls = {};
   segarHud(t);
 
+  const subN = {}; (t.sub || []).forEach(x=>{ subN[x.k] = x.n; }); let subLepas = null;   // 0.7.4: textbook subtopic headers (1.1, 1.2 …)
   t.soalan.forEach((q,i)=>{
+    if(t.sub && q.sk !== subLepas && subN[q.sk]){ subLepas = q.sk; const hd = document.createElement("div"); hd.className = "subTajuk"; hd.innerHTML = `<b>${q.sk}</b> ${subN[q.sk]}`; m.appendChild(hd); }
     const kad = nodSoalan(t,q,i);
     soalanEls[q.id] = kad;
     m.appendChild(kad);
@@ -2255,7 +2261,7 @@ window.SILIBUS_BACK = function(){ const nl = document.querySelector(".notaLapis"
 async function mulaUjian(){
   const ids = SEDIA.TULIS.concat(["sedia-lisan"]), packs = {};
   const got = await Promise.all(ids.map(id=> muatPek(id).catch(()=>null)));
-  got.forEach((x,k)=>{ if(x) packs[ids[k]] = {id:ids[k], nama:x.N.nama, ikon:x.N.ikon, topik:x.N.topik.map((t,i)=>Object.assign({}, t, {soalan:(x.K.topik[i]||{}).soalan||[], petikan:(x.K.topik[i]||{}).petikan||{}}))}; });
+  got.forEach((x,k)=>{ if(x) packs[ids[k]] = {id:ids[k], nama:x.N.nama, ikon:x.N.ikon, topik:x.N.topik.map((t,i)=>Object.assign({}, t, {soalan:(x.K.topik[i]||{}).soalan||[], petikan:(x.K.topik[i]||{}).petikan||{}, sub:(x.K.topik[i]||{}).sub}))}; });
   const d = new Date(), seed = QS.get("kertas") || (tarikhKunci(d) + "-" + ANAK);
   if(simpan.__kertas !== seed){ simpan = {__kertas: seed, __jawi: simpan.__jawi, __bunyi: simpan.__bunyi, __tema: simpan.__tema}; tulis(); }
   META.ujian = {ikon:"📝", sk:"UJ", warna:"#E8A33D"};
@@ -2287,7 +2293,7 @@ function lihatNota(t){ const ov = document.createElement("div"); ov.className = 
     if(KAFA_JN[N.id]) NAMA_JAWI[N.id] = NAMA_JAWI[N.id] || KAFA_JN[N.id];   // 0.5.54: Years 4-6 PI words are in kamus.json, so PI opens in Jawi again
     if(BAHASA === "ar") document.body.classList.add("pekArab");
     DATA = {murid:NAMA_ANAK, kelas:"", tempoh:"", tajuk:N.nama, subjek:[{id:N.id, nama:N.nama, sedia:true, semak:N.semak,
-      topik:N.topik.map((t,i)=>Object.assign({}, t, {soalan:(K.topik[i]||{}).soalan||[], petikan:(K.topik[i]||{}).petikan||{}}))}]};
+      topik:N.topik.map((t,i)=>Object.assign({}, t, {soalan:(K.topik[i]||{}).soalan||[], petikan:(K.topik[i]||{}).petikan||{}, sub:(K.topik[i]||{}).sub}))}]};
     laluan = {skrin:"subjek", sub:N.id, topik:null, tab: MOD === "nota" ? "nota" : "kuiz", fokus:null};
     const lt = QS.get("topik"); if(lt && DATA.subjek[0].topik.some(t=>t.id===lt)) laluan = Object.assign(laluan, {skrin:"topik", topik:lt});
     lukis(); ringkas();

@@ -195,3 +195,18 @@
 /* 0.6.17: powers in maths text */
 .soal sup, .f1Why sup, .petikan sup, dd sup, li sup, p sup, button sup{font-size:.68em;line-height:0;vertical-align:super}
 .soal{white-space:pre-line}/* 0.7.1: pseudocode lines in Sains Komputer T4/T5 */
+/* 0.7.10 lesson pictures + 3D window (notaviz.js) */
+.nviz{margin:10px 0 14px;padding:0}
+.nvizImg{position:relative;border-radius:14px;overflow:hidden;background:#1b2238;aspect-ratio:16/10;min-height:120px}
+.nvizImg img{display:block;width:100%;height:100%;object-fit:cover;cursor:zoom-in}
+.nviz3d{position:absolute;right:8px;bottom:8px;padding:7px 14px;font-size:13px;font-weight:600;border-radius:999px;background:rgba(79,123,255,.95);color:#fff;border:0;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.nviz figcaption{font-size:12.5px;color:var(--teks-lembut,#aab);margin:5px 2px 0}
+.nvizCard{display:flex;flex-direction:column;justify-content:center;gap:6px;padding:14px;color:#fff;aspect-ratio:auto}
+.nvizCard span{font-size:13px;opacity:.85}
+.vizLapis{align-items:center;z-index:60}
+.vizWin{background:#1b2238;color:#fff;width:min(96vw,760px);height:min(82vh,620px);border-radius:16px;display:flex;flex-direction:column;overflow:hidden}
+.vizBar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px 8px 14px;font-size:14px}
+.vizX{background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:999px;width:36px;height:36px;font-size:16px;flex:none}
+.vizStage{flex:1;min-height:0}
+.vizStage canvas{display:block;width:100%!important;height:100%!important}
+.vizTip{font-size:12px;opacity:.7;text-align:center;padding:6px}
