@@ -2,142 +2,524 @@
 <html lang="ms">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>My Ihsan</title>
-<meta name="description" content="My Ihsan: waktu solat JAKIM, Al-Quran, ilmu dan Sekolah, keluarga, kewangan dan perniagaan dalam satu aplikasi. Percuma, tanpa iklan. Data anda kekal milik anda.">
-<meta property="og:title" content="My Ihsan">
-<meta property="og:description" content="Solat, Al-Quran, ilmu, keluarga, kewangan dan perniagaan dalam satu aplikasi. Percuma, tanpa iklan.">
-<meta property="og:image" content="https://myihsan.app/img/phone-1-home.jpg">
-<meta name="theme-color" content="#07130d">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My Ihsan · Dari Subuh hingga Isyak</title>
+<meta name="description" content="My Ihsan: waktu solat JAKIM, Al-Quran, Sekolah, keluarga, kewangan, niaga dan banyak lagi dalam satu aplikasi percuma tanpa iklan. Prayer times, Quran, school, family, money and business in one free app with no ads.">
+<meta name="theme-color" content="#1A2650">
+<meta property="og:title" content="My Ihsan · From Subuh to Isyak">
+<meta property="og:description" content="Worship, learning and daily life in one free app, with no ads.">
+<meta property="og:image" content="https://myihsan.app/img/shots/th-kaca.jpg">
 <link rel="icon" href="img/icon-192.png">
-<link rel="apple-touch-icon" href="img/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;600;700&display=swap">
+<link rel="preload" href="app/fonts/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="app/fonts/figtree-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-/* One column of bands: the night-green hero with the gold name, a strip of real screens, six feature groups, the privacy promise, footer. */
-:root{--bg:#07130d;--band:#0c1f16;--card:#11291d;--line:#22412f;--fg:#e9f1ec;--mut:#9fb8aa;--gold:#d8b45a;--gold2:#b8902f;--green:#2f8f5f;
-  --f-d:"Marcellus",Georgia,serif;--f-b:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:dark}
+/* myihsan.app · one scroll is one day: the Kaca (glass) sky follows the scroll from Subuh to Isyak, the app's real screens fly in and
+   out as shaded three.js phones, and every lesson area is a carousel of its features. Fonts are the app's own (no third-party requests). */
+@font-face{font-family:"Fraunces";src:url(app/fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Fraunces";src:url(app/fonts/fraunces-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Figtree";src:url(app/fonts/figtree-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Figtree";src:url(app/fonts/figtree-latin-600-normal.woff2) format("woff2");font-weight:600 800;font-display:swap}
+@font-face{font-family:"Amiri";src:url(app/fonts/amiri-arabic-400-normal.woff2) format("woff2");font-display:swap}
+:root{--fg:#fff;--mut:rgba(255,255,255,.80);--mut2:rgba(255,255,255,.66);--gold:#F1D58A;--glass:rgba(14,18,30,.52);--glass2:rgba(255,255,255,.10);
+ --line:rgba(255,255,255,.14);--line2:rgba(255,255,255,.28);--blur:blur(26px) saturate(1.5);--ez:cubic-bezier(.22,1,.36,1);
+ --f-d:"Fraunces",Georgia,serif;--f-b:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-b);font-size:16px;line-height:1.55}
+html{background:#1A2650;scroll-behavior:smooth}
+body{margin:0;color:var(--fg);font-family:var(--f-b);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:var(--gold)}
-.in{max-width:1080px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
-header.top{position:sticky;top:0;z-index:5;background:rgba(7,19,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-header.top .in{display:flex;align-items:center;gap:12px;padding-block:10px}
-header.top img{width:34px;height:34px;border-radius:9px}
-header.top b{font-family:var(--f-d);font-weight:400;font-size:21px;color:var(--gold)}
+button{font:inherit;color:inherit}
+[data-en]{display:none} html[lang="en"] [data-ms]{display:none} html[lang="en"] [data-en]{display:revert}
+
+/* sky + stage */
+#sky{position:fixed;inset:0;z-index:-3;background:linear-gradient(#1A2650,#4D5A8A 42%,#B98AA3 78%,#F0C4A0)}
+#gl{position:fixed;inset:0;z-index:-2;width:100%;height:100%;display:block;pointer-events:none}
+#masjid{position:fixed;left:0;right:0;bottom:0;height:min(15vh,130px);z-index:-1;pointer-events:none;display:flex;flex-direction:column;justify-content:flex-end}
+#masjid svg{width:auto;height:100%;display:block;margin:0 auto;max-width:100%}
+#masjid:after{content:"";display:block;height:min(2.4vh,22px);background:rgba(12,10,24,.62)}
+.nogl #gl{display:none}
+
+/* header + clock */
+header.top{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);transition:background .3s}
+header.top.solid{background:rgba(8,12,28,.55);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border-bottom:1px solid var(--line)}
+#clock,#rail{transition:opacity .35s}
+body.late #clock,body.late #rail{opacity:0;pointer-events:none}
+header.top .in{display:flex;align-items:center;gap:12px;padding:12px max(18px,env(safe-area-inset-left,0px))}
+header.top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+header.top img{width:34px;height:34px;border-radius:10px;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+header.top b{font-family:var(--f-d);font-weight:600;font-size:20px;letter-spacing:-.2px}
 header.top nav{margin-left:auto;display:flex;gap:8px;align-items:center}
-.lang{border:1px solid var(--line);background:none;color:var(--fg);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
-.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;border-radius:14px;padding:13px 20px;font-size:16px}
-.btn.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#1b1405;box-shadow:0 6px 18px rgba(216,180,90,.25)}
-.btn.line{border:1px solid var(--line);color:var(--fg);background:var(--card)}
-.btn.sm{padding:8px 14px;font-size:14px;border-radius:11px}
-.hero{background:radial-gradient(1200px 500px at 70% -10%,#13402b 0%,transparent 60%),var(--bg);padding-block:56px 40px}
-.hero .in{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
-.hero h1{font-family:var(--f-d);font-weight:400;font-size:clamp(38px,6vw,64px);line-height:1.05;margin:0 0 14px;color:var(--gold);text-wrap:balance}
-.hero p.lead{font-size:clamp(17px,2.2vw,20px);color:var(--fg);max-width:34ch;margin:0 0 22px}
-.hero .cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.hero .soon{font-size:14px;color:var(--mut)}
-.hero .phone{justify-self:center;max-width:300px;width:100%;border-radius:28px;box-shadow:0 30px 70px rgba(0,0,0,.55);border:1px solid var(--line)}
-.ayah{margin-top:26px;color:var(--mut);font-size:14px;max-width:46ch}
-.ayah .ar{display:block;font-size:22px;color:var(--fg);font-family:"Amiri","Scheherazade New",serif;direction:rtl;text-align:left;margin-bottom:4px}
-.strip{background:var(--band);border-block:1px solid var(--line);padding-block:30px}
-.strip .row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
-.strip img{flex:0 0 auto;width:min(46vw,210px);aspect-ratio:9/16;border-radius:16px;scroll-snap-align:start;border:1px solid var(--line)}
-section.feat{padding-block:54px}
-h2{font-family:var(--f-d);font-weight:400;font-size:clamp(28px,4vw,38px);margin:0 0 8px;text-wrap:balance}
-.sub{color:var(--mut);margin:0 0 26px;max-width:60ch}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.f{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 18px 16px;min-width:0}
-.f h3{margin:0 0 6px;font-size:18px;display:flex;gap:10px;align-items:center}
-.f h3 i{font-style:normal;font-size:24px}
-.f p{margin:0;color:var(--mut);font-size:15px}
-.promise{background:var(--band);border-block:1px solid var(--line);padding-block:50px}
-.promise ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 26px}
-.promise li{display:flex;gap:12px;align-items:flex-start}
-.promise li b{color:var(--fg)}
-.promise li span{color:var(--mut);font-size:15px;display:block}
-.promise li i{font-style:normal;font-size:22px;line-height:1.2}
-.webapp{padding-block:54px}
-.webapp .box{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#123826,#0d2419);border:1px solid var(--line);border-radius:22px;padding:26px}
-.webapp .box p{margin:4px 0 0;color:var(--mut);max-width:52ch}
-footer{border-top:1px solid var(--line);padding-block:26px calc(26px + env(safe-area-inset-bottom,0px));color:var(--mut);font-size:14px}
-footer .in{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center}
+.glass{background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);border:1px solid var(--line);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 10px 30px -14px rgba(0,0,0,.45)}
+.lang{border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;border-radius:14px;padding:13px 20px;font-size:16px;border:0;cursor:pointer;transition:transform .2s var(--ez)}
+.btn:hover{transform:translateY(-1px)}
+.btn.gold{background:linear-gradient(180deg,#F6DE9C,#E2BF66);color:#1A1405;box-shadow:0 8px 22px -8px rgba(241,213,138,.6)}
+.btn.sm{padding:8px 14px;font-size:14px;border-radius:12px}
+.btn.ghost{color:var(--fg)}
+#clock{position:fixed;top:calc(64px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:19;border-radius:999px;padding:7px 16px 7px 12px;display:flex;gap:10px;align-items:center;font-size:14px;white-space:nowrap}
+#clock .t{font-weight:800;font-variant-numeric:tabular-nums;font-size:16px}
+#clock .p{letter-spacing:.14em;font-weight:700;font-size:12px;color:var(--gold)}
+#clock .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+#rail{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:19;display:flex;flex-direction:column;gap:6px;padding:8px 6px;border-radius:999px}
+#rail a{display:block;width:30px;height:30px;border-radius:50%;text-decoration:none;font-size:10px;font-weight:800;letter-spacing:.04em;color:var(--mut);display:grid;place-items:center;transition:background .3s,color .3s}
+#rail a.on{background:var(--gold);color:#1A1405}
+
+/* sections: tall, with a sticky glass card so each hour has time to breathe */
+main{position:relative}
+.hour{position:relative;min-height:170vh}
+.hour.short{min-height:120vh}
+.stick{min-width:0;width:100%;position:sticky;top:clamp(110px,16vh,170px);padding:0 max(22px,env(safe-area-inset-left,0px));max-width:1240px;margin:0 auto}
+.card{min-width:0;max-width:560px;border-radius:28px;padding:28px 28px 24px}
+.kick{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.kick i{font-style:normal;font-size:20px;letter-spacing:0}
+h1,h2{font-family:var(--f-d);font-weight:400;letter-spacing:-.02em;line-height:1.04;margin:0 0 12px;text-wrap:balance}
+h1{font-size:clamp(42px,6.6vw,82px)}
+h2{font-size:clamp(32px,4.4vw,54px)}
+h1 em,h2 em{font-style:normal;color:var(--gold)}
+.lead{font-size:clamp(17px,1.9vw,20px);color:var(--mut);margin:0 0 20px;max-width:46ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.soon{font-size:14px;color:var(--mut2)}
+.ayah{margin:22px 0 0;color:var(--mut2);font-size:14px;max-width:48ch}
+.ayah .ar{display:block;font-family:"Amiri","Scheherazade New",serif;font-size:26px;color:var(--fg);direction:rtl;text-align:left;margin-bottom:6px;line-height:1.6}
+.scrollhint{margin-top:22px;font-size:13px;color:var(--mut2);display:flex;gap:8px;align-items:center}
+.scrollhint .ms{display:inline-block;flex:0 0 auto;width:18px;height:28px;border:2px solid var(--line2);border-radius:10px;position:relative}
+.scrollhint .ms:after{content:"";position:absolute;left:50%;top:5px;width:4px;height:6px;margin-left:-2px;border-radius:2px;background:var(--gold);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(9px)}}
+
+/* feature carousel */
+.car{margin-top:4px}
+.car .bar{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.car .ct{font-size:13px;color:var(--mut2);font-variant-numeric:tabular-nums;margin-right:auto}
+.car .nav{width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:var(--glass2);cursor:pointer;display:grid;place-items:center;font-size:18px;transition:background .2s}
+.car .nav:hover{background:rgba(255,255,255,.2)}
+.car .play{width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:none;cursor:pointer;font-size:13px}
+.car .row{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;scrollbar-width:none;mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.car .row::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;scroll-snap-align:start;border:1px solid var(--line);background:var(--glass2);border-radius:16px;padding:10px 14px;cursor:pointer;text-align:left;min-width:150px;max-width:210px;transition:background .25s,border-color .25s,transform .25s var(--ez)}
+.chip b{display:block;font-size:15px;line-height:1.25}
+.chip small{display:block;color:var(--mut2);font-size:12.5px;line-height:1.35;margin-top:3px}
+.chip i{font-style:normal;font-size:20px;display:block;margin-bottom:4px}
+.chip[aria-pressed="true"]{background:rgba(241,213,138,.18);border-color:var(--gold);transform:translateY(-2px)}
+.now{margin:14px 0 0;min-height:3.2em}
+.now b{font-family:var(--f-d);font-weight:600;font-size:24px;display:block;line-height:1.2}
+.now span{color:var(--mut);font-size:15px}
+.fb{display:none}
+.nogl .fb{display:block;margin-top:16px;width:200px;border-radius:22px;border:1px solid var(--line2);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+
+/* themes */
+.ths{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.ths button{border:1px solid var(--line);border-radius:14px;padding:8px 6px;cursor:pointer;background:var(--glass2);font-size:13px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:6px}
+.ths button span{width:100%;height:26px;border-radius:8px;border:1px solid rgba(255,255,255,.25)}
+.ths button[aria-pressed="true"]{border-color:var(--gold);background:rgba(241,213,138,.16)}
+
+/* every feature */
+.all{padding:12vh max(22px,env(safe-area-inset-left,0px)) 6vh;max-width:1240px;margin:0 auto}
+.all .card{max-width:none}
+.all .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:6px 0 18px}
+.all input{flex:1 1 260px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.08);padding:12px 16px;color:var(--fg);font-size:16px;outline:none}
+.all input:focus{border-color:var(--gold)}
+.all .n{color:var(--mut2);font-size:14px}
+.cols{columns:3 300px;column-gap:16px}
+.grp{break-inside:avoid;margin:0 0 16px;border-radius:20px;padding:16px 18px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.grp h3{margin:0 0 8px;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);display:flex;gap:8px;align-items:center}
+.grp h3 i{font-style:normal;font-size:18px;letter-spacing:0}
+.grp ul{list-style:none;margin:0;padding:0}
+.grp li{padding:5px 0;border-top:1px solid rgba(255,255,255,.07);font-size:15px;display:flex;gap:8px}
+.grp li:first-child{border-top:0}
+.grp li span{color:var(--mut2)}
+.grp li.hide,.grp.hide{display:none}
+
+/* promise + web + footer */
+.prom{list-style:none;padding:0;margin:6px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px}
+.prom li{display:flex;gap:12px}
+.prom li i{font-style:normal;font-size:22px;line-height:1.3}
+.prom b{display:block}
+.prom span{color:var(--mut2);font-size:14.5px}
+footer{position:relative;padding:40px max(22px,env(safe-area-inset-left,0px)) calc(150px + env(safe-area-inset-bottom,0px));max-width:1240px;margin:0 auto;color:var(--mut);font-size:14px}
+footer .in{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;border-radius:20px;padding:16px 20px}
 footer .sp{margin-left:auto}
-[data-en]{display:none}
-html[lang="en"] [data-ms]{display:none}
-html[lang="en"] [data-en]{display:revert}
-.btn:focus-visible,.lang:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-@media (max-width:820px){.hero .in{grid-template-columns:1fr}.hero .phone{max-width:240px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:520px){.grid,.promise ul{grid-template-columns:1fr}.hero{padding-block:34px 28px}header.top nav .btn{display:none}}
-@media (prefers-reduced-motion:no-preference){.hero h1,.hero .lead,.hero .cta{animation:up .6s ease-out both}.hero .lead{animation-delay:.08s}.hero .cta{animation-delay:.16s}@keyframes up{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}}
+
+.btn:focus-visible,.lang:focus-visible,a:focus-visible,.chip:focus-visible,.nav:focus-visible,.ths button:focus-visible,.play:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (max-width:860px){
+ .stick{top:auto;bottom:0;position:sticky}
+ .hour{min-height:180vh;display:flex;flex-direction:column;justify-content:flex-end}
+ .hour .stick{padding-top:52vh;padding-bottom:16px}
+ .card{padding:20px 18px 18px;border-radius:24px}
+ #rail{display:none}
+ .prom{grid-template-columns:1fr}
+ .ths{grid-template-columns:repeat(4,minmax(0,1fr))}
+ header.top nav .btn{display:none}
+ #clock{top:calc(58px + env(safe-area-inset-top,0px))}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scrollhint .ms:after{animation:none}}
 </style>
 </head>
 <body>
+<div id="sky" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="masjid" aria-hidden="true"><svg viewBox="80 -50 252 95" preserveAspectRatio="xMidYMax meet"><path fill="rgba(12,10,24,.62)" d="M0 45h412v0H0zM96 45V-11h10v-6h2v-8h2v8h2v6h10v56zM290 45V-11h10v-6h2v-8h2v8h2v6h10v56zM132 45V7h148v38zM160 7a46 40 0 0 1 92 0zM204-33v-14h4v14z" transform="translate(0 0)"/></svg></div>
+
 <header class="top"><div class="in">
-  <img src="img/icon-192.png" alt=""><b>My Ihsan</b>
-  <nav><a class="btn gold sm" href="app/"><span data-ms>Buka aplikasi</span><span data-en>Open the app</span></a><button class="lang" id="lang" type="button" aria-label="Bahasa / Language">EN</button></nav>
+  <a class="brand" href="#subuh"><img src="img/icon-192.png" alt=""><b>My Ihsan</b></a>
+  <nav><a class="btn gold sm" href="app/"><span data-ms>Buka aplikasi</span><span data-en>Open the app</span></a><button class="lang glass" id="lang" type="button" aria-label="Bahasa / Language">EN</button></nav>
 </div></header>
+<div id="clock" class="glass" aria-live="off"><span class="dot"></span><span class="t">5:41 AM</span><span class="p">SUBUH</span></div>
+<nav id="rail" class="glass" aria-label="Waktu / Time of day"></nav>
 
-<section class="hero"><div class="in">
-  <div>
-    <h1><span data-ms>Ibadah, ilmu dan kehidupan dalam satu aplikasi</span><span data-en>Worship, learning and daily life in one app</span></h1>
-    <p class="lead"><span data-ms>Waktu solat JAKIM, Al-Quran, Sekolah untuk anak-anak, keluarga, kewangan dan perniagaan kecil. Percuma, tanpa iklan.</span><span data-en>JAKIM prayer times, the Quran, School for your children, family, money and a small business. Free, with no ads.</span></p>
-    <div class="cta">
-      <a class="btn gold" href="app/">🌐 <span data-ms>Buka aplikasi web</span><span data-en>Open the web app</span></a>
-      <span class="soon">📱 <span data-ms>Android: segera di Google Play</span><span data-en>Android: coming soon to Google Play</span></span>
-    </div>
-    <p class="ayah"><span class="ar" lang="ar">وَأَحْسِنُوا ۛ إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ</span><span data-ms>"Dan berbuat baiklah, sesungguhnya Allah menyukai orang yang berbuat baik." (Al-Baqarah 2:195)</span><span data-en>"And do good; indeed, Allah loves those who do good." (Al-Baqarah 2:195)</span></p>
-  </div>
-  <img class="phone" src="img/phone-1-home.jpg" alt="My Ihsan Home: next prayer and today's prayer times">
-</div></section>
+<main id="main"></main>
 
-<section class="strip"><div class="in"><div class="row">
-  <img src="img/phone-2-qibla.jpg" alt="Qibla" loading="lazy"><img src="img/phone-3-quran.jpg" alt="Al-Quran" loading="lazy"><img src="img/phone-4-zikir.jpg" alt="Zikir" loading="lazy">
-  <img src="img/phone-5-recipes.jpg" alt="Halal recipes" loading="lazy"><img src="img/phone-6-family.jpg" alt="Family tree" loading="lazy"><img src="img/phone-7-focus.jpg" alt="Focus" loading="lazy"><img src="img/phone-8-calendar.jpg" alt="Calendar" loading="lazy">
-</div></div></section>
-
-<section class="feat"><div class="in">
-  <h2><span data-ms>Semua dalam satu tempat</span><span data-en>Everything in one place</span></h2>
-  <p class="sub"><span data-ms>Enam bahagian, setiap satu lengkap. Sembunyikan yang anda tidak perlukan.</span><span data-en>Six parts, each one complete. Hide what you don't need.</span></p>
-  <div class="grid">
-    <div class="f"><h3><i>🕌</i><span data-ms>Solat</span><span data-en>Solat</span></h3><p><span data-ms>Waktu solat JAKIM ikut zon, makluman, kiblat, pengira rakaat, tasbih dan solat sunat.</span><span data-en>JAKIM prayer times by zone, alerts, qibla, a rakaat counter, tasbih and sunnah prayers.</span></p></div>
-    <div class="f"><h3><i>📖</i><span data-ms>Al-Quran & amalan</span><span data-en>Quran & practice</span></h3><p><span data-ms>Mushaf, terjemahan, audio, sasaran khatam, doa, wirid, Ma'thurat dan amalan harian.</span><span data-en>Mushaf, translation, audio, a khatam plan, doa, wirid, Ma'thurat and daily deeds.</span></p></div>
-    <div class="f"><h3><i>🎒</i><span data-ms>Belajar & Sekolah</span><span data-en>Learn & School</span></h3><p><span data-ms>Kuiz silibus Tahun 1 hingga Tingkatan 3, UPKK, Iqra, tajwid, sirah, sains Islam dan teka-teki IQ.</span><span data-en>Syllabus quizzes from Year 1 to Form 3, UPKK, Iqra, tajwid, sirah, Islamic science and IQ puzzles.</span></p></div>
-    <div class="f"><h3><i>👨‍👩‍👧</i><span data-ms>Keluarga</span><span data-en>Family</span></h3><p><span data-ms>Salasilah, hari jadi, bayi, kumpulan, majlis, mod kanak-kanak dan kunci Sekolah.</span><span data-en>Family tree, birthdays, baby, groups, events, kids mode and the School lock.</span></p></div>
-    <div class="f"><h3><i>🛒</i><span data-ms>Wang & Niaga</span><span data-en>Money & Business</span></h3><p><span data-ms>Belanja, hutang, zakat, wasiat; invois, kaunter jualan, dan tempahan homestay atau dewan dengan halaman tempahan dalam talian.</span><span data-en>Expenses, debts, zakat, will; invoices, a sales till, and bookings for a homestay or hall with an online booking page.</span></p></div>
-    <div class="f"><h3><i>⏱</i><span data-ms>Masa & Fokus</span><span data-en>Time & Focus</span></h3><p><span data-ms>Perancang, Fokus (matlamat, tabiat), nota mesyuarat, Gerak dan permainan huruf dengan kamera.</span><span data-en>Planner, Focus (goals, habits), meeting notes, Move and the letters camera game.</span></p></div>
-  </div>
-</div></section>
-
-<section class="promise"><div class="in">
-  <h2><span data-ms>Data anda milik anda</span><span data-en>Your data stays yours</span></h2>
-  <p class="sub"><span data-ms>My Ihsan tidak mempunyai pelayan untuk data anda.</span><span data-en>My Ihsan has no server for your data.</span></p>
-  <ul>
-    <li><i>📱</i><div><b data-ms>Disimpan dalam telefon</b><b data-en>Kept on your phone</b><span data-ms>Semuanya disimpan dalam peranti anda sendiri.</span><span data-en>Everything is stored on your own device.</span></div></li>
-    <li><i>☁️</i><div><b data-ms>Sync dalam Google Drive anda</b><b data-en>Sync in your own Google Drive</b><span data-ms>Pilihan. Folder tersembunyi dalam Drive anda; pembangun tidak dapat melihatnya.</span><span data-en>Optional. A hidden folder in your Drive that the developer cannot see.</span></div></li>
-    <li><i>🚫</i><div><b data-ms>Tiada iklan, tiada jualan data</b><b data-en>No ads, no data selling</b><span data-ms>Percuma sepenuhnya.</span><span data-en>Completely free.</span></div></li>
-    <li><i>🗑</i><div><b data-ms>Padam bila-bila masa</b><b data-en>Delete any time</b><span data-ms><a href="delete.html">Cara memadam data anda</a></span><span data-en><a href="delete.html">How to delete your data</a></span></div></li>
-  </ul>
-</div></section>
-
-<section class="webapp"><div class="in"><div class="box">
-  <div><h2 style="margin:0"><span data-ms>Di komputer atau tablet</span><span data-en>On a laptop or tablet</span></h2>
-    <p><span data-ms>Buka aplikasi penuh dalam pelayar. Log masuk dengan akaun Google yang sama untuk menyegerak dengan telefon anda.</span><span data-en>Open the full app in your browser. Sign in with the same Google account to stay in sync with your phone.</span></p></div>
-  <a class="btn gold" href="app/">🌐 myihsan.app/app</a>
-</div></div></section>
-
-<footer><div class="in">
+<footer><div class="in glass">
   <span>© 2026 My Ihsan</span>
   <a href="privacy.html"><span data-ms>Dasar privasi</span><span data-en>Privacy policy</span></a>
   <a href="delete.html"><span data-ms>Padam data</span><span data-en>Delete your data</span></a>
   <a href="split/"><span data-ms>Bahagi bil</span><span data-en>Split bill</span></a>
-  <span class="sp">ihsanrahim@gmail.com</span>
+  <a class="sp" href="mailto:ihsanrahim@gmail.com">ihsanrahim@gmail.com</a>
 </div></footer>
+
 <script>
-(function(){ var h=document.documentElement, b=document.getElementById("lang");
-  function set(l){ h.lang=l; b.textContent=l==="en"?"BM":"EN"; try{ localStorage.setItem("ihsan_site_lang", l); }catch(e){} }
-  var l="ms"; try{ l=localStorage.getItem("ihsan_site_lang") || (/^(ms|id)/i.test(navigator.language)?"ms":"en"); }catch(e){}
-  set(l); b.onclick=function(){ set(h.lang==="en"?"ms":"en"); }; })();
+"use strict";
+/* ============ content ============ */
+// L(ms, en) pairs. Screens are real captures of app 0.6.92 with invented sample data.
+var S = "img/shots/";
+var HOURS = [
+ // id, rail label, clock hour (24 h), prayer key for the sky, prayer label
+ ["subuh","SB",5.75,"subuh","SUBUH"],["pagi","PG",7.6,"pagi","SYURUK"],["dhuha","DH",9.6,"dhuha","DHUHA"],["zohor","ZH",13.05,"zohor","ZOHOR"],
+ ["asar","AS",16.45,"asar","ASAR"],["maghrib","MG",19.05,"maghrib","MAGHRIB"],["isyak","IS",20.3,"isyak","ISYAK"]];
+var SECTIONS = [
+ {id:"subuh", hour:"subuh", clock:5.68, hero:true, icon:"🌄",
+  kick:["Subuh · 5:41 pagi","Subuh · 5:41 am"],
+  title:["Dari <em>Subuh</em> hingga Isyak, satu aplikasi","From <em>Subuh</em> to Isyak, one app"],
+  lead:["Waktu solat JAKIM, Al-Quran, Sekolah untuk anak-anak, keluarga, kewangan dan perniagaan kecil. Percuma, tanpa iklan.","JAKIM prayer times, the Quran, School for your children, family, money and a small business. Free, with no ads."],
+  ring:[["th-kaca","Utama","Home"],["hero-quran","Al-Quran","The Quran"],["l2-07","Kiblat","Qibla"]]},
+ {id:"solat", hour:"subuh", clock:6.1, lesson:2, icon:"🕌",
+  kick:["Subuh · Tiang hari anda","Subuh · Pillars of the day"],
+  title:["Solat, Al-Quran dan zikir, <em>tepat pada waktunya</em>","Prayer, Quran and zikir, <em>right on time</em>"],
+  lead:["Waktu JAKIM ikut zon, azan, pengira rakaat, kiblat, dan Al-Quran perkataan demi perkataan.","JAKIM times by zone, azan, a rakaat counter, qibla, and the Quran word by word."],
+  ring:[["l2-01","Waktu solat, langsung","Prayer times, live","Kiraan detik ke solat seterusnya","Countdown to the next prayer"],["l2-02","Zon JAKIM","JAKIM zones","Semua zon, setiap hari","Every zone, every day"],["l2-03","Azan & makluman","Azan & alerts","Azan, imsak dan peringatan","Azan, imsak and reminders"],["l2-04","Pengira rakaat","Rakaat counter","Telefon mengira setiap sujud","The phone counts each sujud"],["l2-05","Tasbih","Tasbih","Ketik di mana-mana untuk kira","Tap anywhere to count"],["l2-06","Asmaul Husna","99 Names","Dengan makna dan audio","With meaning and audio"],["l2-07","Kompas kiblat","Qibla compass","Dengan garis kamera","With a camera line"],["l2-08","Solat sunat","Sunnah prayers","Cara, waktu dan waktu larangan","How, when, and forbidden times"],["l2-09","Al-Quran","Al-Quran","Sambung di tempat anda berhenti","Continue where you stopped"],["l2-10","Yasin perkataan demi perkataan","Yasin, word by word","Ketik perkataan untuk makna","Tap a word for its meaning"],["l2-11","Doa setiap ketika","A doa for every moment","☆ simpan di Utama","☆ keep one on Home"],["l2-12","Wirid","Wirid","Pagi dan petang, dengan audio","Morning and evening, with audio"],["l2-13","Al-Ma'thurat","Al-Ma'thurat","Dengan pengira","With counters"],["l2-14","Amalan harian","Daily deeds","Tandakan setiap hari","Tick them off each day"],["l2-15","Tanya","Ask","Badan rasmi atau AI anda","Official bodies or your AI"]]},
+ {id:"pagi", hour:"pagi", clock:7.7, lesson:6, icon:"🏃",
+  kick:["Syuruk · Mukmin yang kuat","Sunrise · Strong believer"],
+  title:["Bergerak untuk <em>setiap tubuh</em>","Exercise for <em>every body</em>"],
+  lead:["90 gerakan dalam 3D, rutin siap, kardio, jalan dan lari dengan GPS, sukan, dan huruf dengan badan anda.","90 moves in 3D, ready routines, cardio, walking and running with GPS, sports, and letters with your body."],
+  ring:[["l6-01","Jenis badan anda","Your body type","Lelaki atau wanita, warna, berapa lama","Male or female, colours, how long"],["l6-02","90 gerakan dalam 3D","90 moves in 3D","Animasi, pemasa dan rehat","Animation, timer and rest"],["l6-03","Rutin","Routines","Sekali ketik untuk mula","One tap to start"],["l6-04","Kardio","Cardio","Di rumah atau bilik hotel","At home or in a hotel room"],["l6-05","Jalan · lari · kayuh","Walk · run · ride","GPS, peta satelit, suara setiap km","GPS, satellite map, voice every km"],["l6-06","Sukan dalam 3D","Sports in 3D","Peraturan, padang 3D, kuiz dan permainan","Rules, 3D fields, quiz and games"],["l6-07","Huruf dengan badan","Letters with your body","Kamera menyemak bentuk anda","The camera checks your shape"],["l6-08","Pelan mingguan","Weekly plan","Bina pelan sendiri","Build your own plan"],["l6-09","Penjejak","Tracker","Apa yang anda buat setiap hari","What you did each day"],["l6-10","Angka kesihatan","Health numbers","Berat, tekanan, nadi","Weight, pressure, pulse"],["l6-11","Langkah","Steps","Dikira di latar belakang","Counted in the background"]]},
+ {id:"dhuha", hour:"dhuha", clock:9.7, lesson:3, icon:"🎒",
+  kick:["Dhuha · Belajar untuk Sekolah","Dhuha · Study for School"],
+  title:["Tahun 1 hingga <em>Tingkatan 5</em>","Year 1 to <em>Form 5</em>"],
+  lead:["Kuiz ikut bab buku teks, setiap anak dengan kemajuan sendiri, permainan, laporan, dan kunci Sekolah untuk ibu bapa.","Quizzes that follow the textbook chapters, each child with their own progress, games, a report, and a School lock for parents."],
+  ring:[["l3-01","Kuiz Sekolah","School quizzes","Setiap anak, kemajuan sendiri","Each child, their own progress"],["l3-02","Tahun 1","Year 1","Termasuk KAFA","Including KAFA"],["l3-03","Tahun 4","Year 4","Matematik, Sains, BM, BI dan lagi","Maths, Science, BM, BI and more"],["l3-04","Tingkatan 1","Form 1","Ikut bab buku teks","By textbook chapter"],["l3-05","Tingkatan 5","Form 5","Hingga SPM","Up to SPM"],["l3-06","Buku teks & PDF","Textbooks & PDFs","Imbas, baca, sorot","Scan, read, highlight"],["l3-07","Iqra","Iqra","Tahap demi tahap","Level by level"],["l3-08","Tajwid","Tajwid","Pelajaran dengan contoh","Lessons with examples"],["l3-09","Huruf hijaiyah","Hijaiyah letters","Bunyi dan bentuk","Sounds and shapes"],["l3-10","Perkataan Al-Quran","Quran words","Perkataan yang paling kerap","The most frequent words"],["l3-11","Peta minda fiqh","Fiqh mind map","Bersuci hingga muamalat","Purification to transactions"],["l3-12","PKSK","PKSK","Latihan dan nota","Practice and notes"],["l3-13","Catur","Chess","Main dan belajar","Play and learn"],["l3-14","Saintis Muslim","Muslim scientists","Algebra, optik, perubatan","Algebra, optics, medicine"]]},
+ {id:"zohor", hour:"zohor", clock:13.1, lesson:4, icon:"🛒",
+  kick:["Zohor · Berkat dalam Niaga","Zohor · Barakah in Business"],
+  title:["Gerai, kedai roti atau homestay, <em>tersusun</em>","Your stall, bakery or homestay, <em>organised</em>"],
+  lead:["Kaunter jualan, resit dan pencetak, invois dan sebut harga, tempahan dengan deposit, belanja dan pelanggan. Google Sheet percuma dalam akaun anda.","A sales till, receipts and a printer, invoices and quotes, bookings with deposits, expenses and customers. A free Google Sheet in your own account."],
+  ring:[["l4-01","Papan jualan","Sales dashboard","Jualan, untung, siapa berhutang","Sales, profit, who still owes you"],["l4-02","Kaunter jualan","Sell till","Tunai, DuitNow, resit","Cash, DuitNow, receipts"],["l4-03","Invois & sebut harga","Invoices & quotes","Sebut harga jadi invois","A quote becomes an invoice"],["l4-04","Kalendar tempahan","Bookings calendar","Bilik, dewan, kereta","Rooms, halls, cars"],["l4-05","Belanja","Expenses","Snap resit","Snap a receipt"],["l4-06","Pelanggan","Customers","Siapa berhutang apa","Who owes what"],["l4-07","Barang & harga","Items & prices","Foto atau emoji","With a photo or emoji"],["l4-08","Profil kedai","Shop profile","Logo, bank, QR DuitNow","Logo, bank, DuitNow QR"],["l4-09","Pelepasan cukai LHDN","LHDN tax reliefs","Ringkasan setahun","A yearly summary"]]},
+ {id:"wang", hour:"zohor", clock:14.3, lesson:5, icon:"💰",
+  kick:["Zohor · Wang & Rancangan","Zohor · Money & Plans"],
+  title:["Setiap ringgit, <em>dirancang</em>","Every ringgit, <em>planned</em>"],
+  lead:["Belanja dengan resit, komitmen, hutang, bahagi bil, zakat dan wasiat; perancang, fokus, mesyuarat dan statistik.","Expenses with receipts, bills, debts, split bills, zakat and a will; a planner, focus, meetings and stats."],
+  ring:[["l5-01","Belanja","Expenses","📷 resit, AI isi","📷 a receipt, AI fills it in"],["l5-02","Komitmen bulanan","Monthly bills","30 hari seterusnya","The next 30 days"],["l5-03","Hutang, seperti 2:282","Debts, as in 2:282","Dengan peringatan","With reminders"],["l5-04","Bahagi bil","Split the bill","Siapa bayar, siapa berhutang","Who paid, who owes whom"],["l5-05","Zakat","Zakat","Kira dan rekod","Work it out and record it"],["l5-06","Wasiat & faraid","Wasiat & faraid","Draf untuk dicetak","A draft to print"],["l5-08","Cukai","Tax","Pelepasan LHDN","LHDN reliefs"],["l5-09","Perancang","Planner","Harian hingga tahunan","Daily to yearly"],["l5-10","Pemasa fokus","Focus timer","Dengan taman","With a garden"],["l5-11","Matlamat","Goals","Langkah demi langkah","Step by step"],["l5-12","Tabiat","Habits","Rantaian setiap hari","A daily chain"],["l5-13","Nota mesyuarat","Meeting notes","Rakam, tanda, ringkasan","Record, mark, summary"],["l5-14","Mod pembesar suara","Speaker mode","Telefon jadi PA","The phone becomes a PA"],["l5-15","Statistik","Stats","Langkah, skrin, solat","Steps, screen time, prayers"]]},
+ {id:"asar", hour:"asar", clock:16.5, lesson:7, icon:"👨‍👩‍👧",
+  kick:["Asar · Silaturahim","Asar · Ties of kinship"],
+  title:["Seluruh keluarga, <em>satu tempat</em>","Your whole family, <em>one place</em>"],
+  lead:["Salasilah 3D, hari jadi, bayi dan vaksin, jagaan warga emas, kumpulan peribadi, majlis, haid dan mod kanak-kanak.","A 3D family tree, birthdays, baby and vaccines, elder care, private groups, events, period tracking and kids mode."],
+  ring:[["l7-01","Salasilah","Family tree","Rumput 3D, papan kapur, vintaj","Grass 3D, chalkboard, vintage"],["l7-02","Hari jadi","Birthdays","Jangan terlepas","Never miss one"],["l7-03","Bayi & vaksin","Baby & vaccines","Jadual KKM dan foto","KKM schedule and photos"],["l7-04","Jagaan untuk Atuk","Care for Atuk","Ubat, bacaan, giliran adik-beradik","Medicines, readings, siblings' turns"],["l7-05","Kumpulan keluarga","Family groups","Tugasan dan kiriman","Tasks and posts"],["l7-06","Kumpulan peribadi","Private groups","Disulitkan, tanpa pelayan","Encrypted, no server"],["l7-07","Acara","Events","Untuk semua","For everyone"],["l7-08","Perancang majlis","Majlis planner","Tetamu, tugasan, pelan tempat duduk","Guests, tasks, seating plan"],["l7-09","Haid & qada","Period & qada","Enjin fiqh Syafie","Shafi'i fiqh engine"],["l7-10","Mod kanak-kanak","Kids mode","Selamat, dengan bintang","Safe, with stars"],["l7-11","Utama kanak-kanak","Kids home","Cerita dan permainan","Stories and games"]]},
+ {id:"ai", hour:"asar", clock:17.6, lesson:1, icon:"🤖",
+  kick:["Asar · Hidupkan AI anda","Asar · Switch on your AI"],
+  title:["Satu kunci, <em>setiap alat AI</em>","One key, <em>every AI tool</em>"],
+  lead:["Log masuk sekali, dan AI membaca label halal, menulis bersama anda, mengisi resit dan menjawab soalan. Ciri peribadi tidak pernah ke AI percuma.","Sign in once, and AI reads halal labels, writes with you, fills in receipts and answers questions. Private features never go to the free AI."],
+  ring:[["l1-01","Tetapan AI","AI settings","Satu tempat untuk semua","One place for all"],["l1-02","Karya menulis bersama","Karya writes with you","Puisi, pantun, cerpen","Poems, pantun, stories"],["l1-03","AI baca label halal","AI reads halal labels","Bahan yang meragukan","Doubtful ingredients"],["l1-04","Tanya tentang Islam","Ask about Islam","Bukan fatwa","Not a fatwa"],["l1-05","Resepi dari pautan","Recipes from any link","TikTok, YouTube, foto","TikTok, YouTube, a photo"],["l1-06","Snap resit","Snap a receipt","Belanja terisi sendiri","Expenses fill themselves"],["l1-07","Surat & CV","Letters & CVs","Dokumen dengan AI","Documents with AI"],["l1-08","Imbas & baca PDF","PDF scan & read","Baca kuat","Read aloud"],["l1-09","Tulisan Tekap","Tekap lettering","Kamera dan pelajaran","Camera and lessons"],["l1-10","Belanja niaga","Business expenses","Resit ke rekod","Receipts to records"]]},
+ {id:"maghrib", hour:"maghrib", clock:19.1, lesson:8, icon:"🏷️",
+  kick:["Maghrib · Halal & baik","Maghrib · Halal & wholesome"],
+  title:["Halal? <em>Semak dulu.</em>","Is it halal? <em>Check.</em>"],
+  lead:["Snap label makanan, cari nombor E, simpan resepi dari video, rancang makan seminggu, dan cari makanan halal serta masjid berdekatan.","Snap a food label, look up an E-number, save a recipe from a video, plan the week's meals, and find halal food and mosques nearby."],
+  ring:[["l8-01","Imbas label","Scan a label","AI baca bahan","AI reads the ingredients"],["l8-02","Nombor E","E-numbers","355 nombor E, 1000+ bahan","355 E-numbers, 1000+ ingredients"],["l8-03","Resepi dari video","Recipes from videos","Kongsi ke My Ihsan","Share to My Ihsan"],["l8-04","Pelan makan","Meal plan","Seminggu","For the week"],["l8-05","Senarai beli","Shopping list","Terbina dari pelan","Built from your plan"],["l8-06","Makanan halal & masjid","Halal food & mosques","Berdekatan anda","Near you"],["l8-07","Puasa","Fasting","Ramadan dan ganti","Ramadan and make-up fasts"]]},
+ {id:"teroka", hour:"maghrib", clock:19.6, lesson:10, icon:"🧭",
+  kick:["Maghrib · Khazanah untuk diteroka","Maghrib · Treasures to explore"],
+  title:["Sirah, haji dan <em>langit malam ini</em>","Sirah, Hajj and <em>tonight's sky</em>"],
+  lead:["Garis masa Sirah, 25 nabi, sahabat dan 40 Hadis; radio, podcast dan berita dunia; haji dan umrah dalam 3D; falak dan kalendar.","The Sirah timeline, 25 prophets, the companions and 40 Hadith; radio, podcasts and world news; Hajj and Umrah in 3D; astronomy and the calendar."],
+  ring:[["l10-01","Garis masa Sirah","Sirah timeline","63 tahun, langkah demi langkah","63 years, step by step"],["l10-02","25 nabi","25 prophets","Untuk kanak-kanak dan dewasa","For children and adults"],["l10-03","Sahabat","Companions","Kisah dan pengajaran","Stories and lessons"],["l10-04","40 Hadis","40 Hadith","Imam an-Nawawi","Imam an-Nawawi"],["l10-05","Radio Islam","Islamic radio","Makkah & Madinah langsung","Makkah & Madinah live"],["l10-06","Podcast","Podcasts","82 penceramah","82 speakers"],["l10-07","Berita dunia","World News","Dengar","Listen"],["l10-08","Haji dalam 3D","Hajj in 3D","Langkah demi langkah","Step by step"],["l10-09","Umrah DIY","DIY Umrah","Bajet, tarikh, pakej","Budget, dates, package"],["l10-10","Falak","Astronomy","Hilal, bulan, gerhana","Hilal, moon, eclipses"],["l10-11","Kalendar Hijri","Hijri calendar","Cuti umum dan sekolah","Public and school holidays"],["l10-12","Puasa","Fasting","Penjejak Ramadan","Ramadan tracker"],["l10-13","Cari","Find","Masjid, surau, tempat derma","Mosques, surau, places to donate"],["l10-14","12 tema","12 themes","Cerah dan gelap","Light and dark"],["l10-15","Sandaran","Backup","Sebelum tukar telefon","Before you change phones"]]},
+ {id:"isyak", hour:"isyak", clock:20.4, lesson:9, icon:"✍️",
+  kick:["Isyak · Pena & skrin","Isyak · Pen & screen"],
+  title:["Tulis, <em>tunjuk</em>, kongsi","Write it, <em>show it</em>, share it"],
+  lead:["Nota, kad ucapan, Karya, Dokumen dan Tekap; telefon jadi papan LED, jam paparan masjid untuk TV.","Notes, greeting cards, Karya, Dokumen and Tekap; the phone becomes an LED sign, and a masjid display clock for the TV."],
+  ring:[["l9-01","Nota","Notes","Pin ke bar sisi","Pin one to the side bar"],["l9-02","Kad ucapan","Greeting cards","Raya, kahwin, bayi","Raya, weddings, new babies"],["l9-03","Karya","Karya","Enam gaya halaman","Six page styles"],["l9-04","Dokumen","Dokumen","Surat, CV, borang, 10 tema, Word","Letters, CVs, forms, 10 themes, Word"],["l9-05","Tekap","Tekap","Tulis dan kesan dengan kamera","Write and trace with the camera"],["l9-06","Papan LED & jam masjid","LED billboard & masjid clock","Telefon, TV atau Android TV","Phone, TV or Android TV"]]},
+ {id:"tema", hour:"isyak", clock:20.9, themes:true, icon:"🎨",
+  kick:["Isyak · Tema","Isyak · Themes"],
+  title:["Empat tema, <em>cerah dan gelap</em>","Four themes, <em>light and dark</em>"],
+  lead:["Teman, Taman, Waktu dan Kaca. Waktu dan Kaca mengikut waktu solat, seperti halaman ini.","Teman, Taman, Waktu and Kaca. Waktu and Kaca follow the prayer time, like this page."],
+  ring:[["th-teman","Teman","Teman","#F1FAEF"],["th-temannight","Teman gelap","Teman dark","#06261C"],["th-taman","Taman","Taman","#EAEFE9"],["th-tamannight","Taman gelap","Taman dark","#0B1D16"],["th-waktu","Waktu","Waktu","#F6EEDF"],["th-waktunight","Waktu gelap","Waktu dark","#0E1424"],["th-kaca","Kaca siang","Kaca day","#5A86CC"],["th-kacanight","Kaca malam","Kaca night","#1A2238"]]},
+ {id:"janji", hour:"isyak", clock:21.4, promise:true, icon:"🔒",
+  kick:["Isyak · Data anda milik anda","Isyak · Your data stays yours"],
+  title:["Tiada pelayan untuk <em>data anda</em>","No server for <em>your data</em>"],
+  ring:[["priv-backup","Sandaran","Backup"]]},
+ {id:"web", hour:"isyak", clock:21.9, web:true, icon:"🌐",
+  kick:["Isyak · Di mana-mana","Isyak · Anywhere"],
+  title:["Telefon hari ini, <em>komputer malam ini</em>","Your phone by day, <em>your laptop tonight</em>"],
+  lead:["Buka aplikasi penuh dalam pelayar. Log masuk dengan akaun Google yang sama untuk menyegerak dengan telefon anda.","Open the full app in your browser. Sign in with the same Google account to stay in sync with your phone."],
+  ring:[["th-kacanight","Utama","Home"],["l2-09","Al-Quran","Al-Quran"],["l4-01","Niaga","Business"]]}
+];
+var PROMISE = [["📱","Disimpan dalam telefon","Kept on your phone","Semuanya dalam peranti anda sendiri.","Everything is stored on your own device."],
+ ["☁️","Sync dalam Google Drive anda","Sync in your own Google Drive","Pilihan. Folder tersembunyi yang pembangun tidak dapat lihat.","Optional. A hidden folder in your Drive that the developer cannot see."],
+ ["🚫","Tiada iklan, tiada jualan data","No ads, no data selling","Percuma sepenuhnya.","Completely free."],
+ ["🗑","Padam bila-bila masa","Delete any time",'<a href="delete.html">Cara memadam data anda</a>','<a href="delete.html">How to delete your data</a>']];
+
+// every feature, grouped (the carousels show the screens; this list leaves nothing out)
+var ALL = [
+ ["🕌","Solat","Prayer",[["Waktu solat JAKIM ikut zon","JAKIM prayer times by zone"],["Kiraan detik ke solat seterusnya","Countdown to the next prayer"],["Azan dan makluman setiap solat","Azan and alerts for each prayer"],["Peringatan imsak, tahajud, syuruk","Imsak, tahajjud and sunrise reminders"],["Lintang tinggi untuk luar negara","High-latitude rules abroad"],["Pengira rakaat (sujud dikesan)","Rakaat counter (detects sujud)"],["Tasbih dan pengira sendiri","Tasbih and your own counters"],["Zikir selepas solat","Zikir after prayer"],["Asmaul Husna","The 99 Names"],["Kompas kiblat dan garis kamera","Qibla compass and camera line"],["Solat sunat dan waktu larangan","Sunnah prayers and forbidden times"],["Panduan solat musafir dan orang sakit","Prayer when travelling or sick"],["Auto-senyap di masjid","Auto-silent at the masjid"]]],
+ ["📖","Al-Quran & amalan","Quran & practice",[["Mushaf dengan terjemahan","Mushaf with translation"],["Perkataan demi perkataan","Word by word"],["Audio dan auto-tatal","Audio and auto-scroll"],["Tafsir dan akar kata","Tafsir and word roots"],["Sasaran khatam ikut tarikh","Khatam target by date"],["Ayat harian di Utama","Ayat of the day on Home"],["Doa setiap ketika, kegemaran","A doa for every moment, favourites"],["Wirid pagi dan petang","Morning and evening wirid"],["Al-Ma'thurat dengan pengira","Al-Ma'thurat with counters"],["Amalan harian dan sedekah","Daily deeds and charity"],["Tanya badan rasmi atau AI","Ask the official bodies or your AI"]]],
+ ["🎒","Belajar & Sekolah","Learn & School",[["Kuiz Prasekolah hingga Tingkatan 5","Quizzes from preschool to Form 5"],["KAFA Tahun 1 dan 2, dalam Jawi","KAFA Years 1 and 2, in Jawi"],["DLP: Matematik dan Sains dalam BI","DLP: Maths and Science in English"],["UPKK dan PKSK","UPKK and PKSK"],["Profil anak, laporan mingguan","Child profiles, weekly report"],["14 permainan 3D dari soalan yang sama","14 3D games from the same questions"],["Kunci Sekolah untuk ibu bapa","School lock for parents"],["Muat turun buku teks rasmi","Download the official textbooks"],["Iqra, tajwid, hijaiyah","Iqra, tajwid, hijaiyah"],["Perkataan Al-Quran, glosari","Quran words, glossary"],["Peta minda fiqh","Fiqh mind map"],["Panduan wuduk, mandi, tayamum","Guides to wudhu, ghusl, tayammum"],["Catur dan 20 teka-teki IQ","Chess and 20 IQ puzzles"],["Saintis Muslim","Muslim scientists"]]],
+ ["📚","Buku & PDF","Books & PDFs",[["Perpustakaan PDF dalam folder","A PDF library in folders"],["Imbas halaman dengan kamera","Scan pages with the camera"],["Foto jadi PDF, gabung PDF","Photos to PDF, merge PDFs"],["Pen dan penyerlah","Pen and highlighter"],["Baca kuat dengan sorotan","Read aloud with highlighting"],["Panduan My Ihsan sebagai buku PDF","The My Ihsan guide as a PDF book"]]],
+ ["🧭","Teroka","Explore",[["Garis masa Sirah 63 tahun","The 63-year Sirah timeline"],["25 nabi (kanak-kanak dan dewasa)","25 prophets (children and adults)"],["Kisah sahabat","Stories of the companions"],["40 Hadis Nawawi","40 Hadith of an-Nawawi"],["Radio Islam dan Makkah langsung","Islamic radio and Makkah live"],["Podcast 82 penceramah","Podcasts from 82 speakers"],["Berita dunia untuk didengar","World News to listen to"],["Haji dan umrah dalam 3D","Hajj and Umrah in 3D"],["Perancang umrah DIY","DIY umrah planner"],["Umrah langsung dan pengira tawaf","Live umrah and tawaf counter"],["Falak: hilal, langit, gerhana, bayang kiblat","Astronomy: hilal, sky, eclipses, qibla shadow"],["Bumi 3D dan orrery","3D Earth and orrery"],["Sukan: peraturan, padang 3D, kuiz","Sports: rules, 3D fields, quizzes"]]],
+ ["📅","Masa & Fokus","Time & Focus",[["Kalendar Hijri dan Masihi","Hijri and Gregorian calendar"],["Cuti umum dan sekolah","Public and school holidays"],["Segerak ke Google atau Outlook Calendar","Sync to Google or Outlook Calendar"],["Perancang harian hingga tahunan","Daily to yearly planner"],["Pemasa fokus dan taman","Focus timer and garden"],["Matlamat, tabiat, Grow, Me","Goals, habits, Grow, Me"],["Mesyuarat: rakam, tanda, ringkasan","Meetings: record, mark, summary"],["Pembesar suara dan Dengar","Speaker and Listen"],["Statistik: langkah, masa skrin, solat","Stats: steps, screen time, prayers"],["Penjejak puasa dan ganti","Fasting and make-up fasts"]]],
+ ["🏃","Gerak","Move",[["Jenis badan, warna, pakaian","Body type, colours, outfits"],["90 gerakan dengan animasi 3D","90 moves with 3D animation"],["Rutin siap","Ready routines"],["Kardio di rumah atau hotel","Cardio at home or in a hotel"],["Jalan, lari, kayuh dengan GPS","Walk, run and ride with GPS"],["Peta satelit, GPX, cabaran","Satellite map, GPX, challenges"],["Huruf dengan badan (kamera)","Letters with your body (camera)"],["Pelan mingguan dan penjejak","Weekly plan and tracker"],["Angka kesihatan","Health numbers"]]],
+ ["👨‍👩‍👧","Keluarga","Family",[["Salasilah: rumput 3D, papan kapur, vintaj","Family tree: grass 3D, chalkboard, vintage"],["Poster salasilah dan PDF","Family tree poster and PDF"],["Kongsi salasilah ke WhatsApp","Share the tree to WhatsApp"],["Hari jadi","Birthdays"],["Bayi: nama, akikah, vaksin KKM, foto","Baby: names, aqiqah, KKM vaccines, photos"],["Jagaan: ubat, bacaan, giliran, kecemasan","Care: medicines, readings, turns, emergency"],["Mod warga emas, ibadah orang sakit","Elder mode, worship for the sick"],["Kumpulan peribadi (pasangan, anak, kelas, usrah)","Private groups (couple, kids, class, usrah)"],["Majlis: tetamu, tugasan, bajet","Majlis: guests, tasks, budget"],["Pelan tempat duduk dengan grid","Seating plan with a grid"],["Haid, nifas, istihadah dan qada","Haid, nifas, istihadah and qada"],["Mod kanak-kanak dengan PIN","Kids mode with a PIN"]]],
+ ["🏷️","Halal & makanan","Halal & food",[["Semak label dengan foto","Check a label with a photo"],["355 nombor E, 1000+ bahan","355 E-numbers, 1000+ ingredients"],["Resepi dari pautan, TikTok, YouTube","Recipes from links, TikTok, YouTube"],["Tukar bahan ke halal, ubah hidangan","Halal swaps, change servings"],["Mod masak dengan pemasa","Cook mode with timers"],["Pelan makan mingguan","Weekly meal plan"],["Senarai beli automatik","Automatic shopping list"],["Cari makanan halal, masjid, surau","Find halal food, mosques, surau"]]],
+ ["💰","Wang","Money",[["Belanja dengan resit atau penyata bank","Expenses from receipts or bank statements"],["Komitmen dan 30 hari seterusnya","Bills and the next 30 days"],["Hutang dengan peringatan","Debts with reminders"],["Bahagi bil trip, dikongsi","Shared trip bill splitting"],["Kalkulator dan rekod zakat","Zakat calculator and records"],["Wasiat, faraid dan draf","Will, faraid and a draft"],["Tukaran mata wang, harga emas","Currency rates, gold price"],["Saham patuh Syariah","Shariah-compliant stocks"],["Pelepasan cukai LHDN","LHDN tax reliefs"]]],
+ ["🛒","Niaga","Business",[["Profil kedai, logo, QR DuitNow","Shop profile, logo, DuitNow QR"],["Kaunter jualan dan mod sekali ketik","Sales till and tap-to-sell"],["Resit dan pencetak terma Bluetooth","Receipts and a Bluetooth thermal printer"],["Sebut harga, invois, resit, DO","Quotes, invoices, receipts, delivery orders"],["Nota kredit/debit, PO, baucar bayaran","Credit/debit notes, POs, payment vouchers"],["Penyata akaun dan invois berulang","Statements and recurring invoices"],["Pelbagai mata wang","Multi-currency"],["Eksport MyInvois","MyInvois export"],["Belanja niaga dan duit runcit","Business expenses and petty cash"],["Pelanggan dan barang","Customers and items"],["Papan: jualan, untung, hutang","Dashboard: sales, profit, owed"],["Google Sheet percuma, telefon staf","Free Google Sheet, staff phones"],["Tempahan dengan harga, deposit, bayaran balik","Bookings with prices, deposits, refunds"],["Halaman tempahan dalam talian","An online booking page"],["Eksport Excel","Excel export"]]],
+ ["✍️","Pena & skrin","Pen & screen",[["Nota dengan pin dan senarai semak","Notes with pins and checklists"],["Kad ucapan","Greeting cards"],["Karya: puisi, pantun, cerpen, munajat","Karya: poems, pantun, stories, munajat"],["Dokumen: surat, CV, borang, ke Word","Dokumen: letters, CVs, forms, to Word"],["Tekap: tulisan dan khat dengan kamera","Tekap: lettering and khat with the camera"],["Papan LED bergerak","A moving LED sign"],["Jam paparan masjid dan iqamah","Masjid display clock and iqamah"],["Kod paparan dan alat kawalan jauh","Display codes and a remote"],["Android TV","Android TV"]]],
+ ["⚙️","Aplikasi","The app",[["Utama dengan widget pilihan anda","Home with the widgets you choose"],["Widget skrin telefon","Phone home-screen widgets"],["Dua bar sisi dan kegemaran ☆","Two side bars and ☆ favourites"],["12 tema, cerah dan gelap, teks besar","12 themes, light and dark, bigger text"],["Bahasa Melayu, English, Indonesia","Bahasa Melayu, English, Indonesian"],["Kunci aplikasi dengan PIN","App lock with a PIN"],["Jadikan skrin utama telefon","Use it as your phone's home screen"],["Tetapan AI untuk setiap ciri","AI settings for every feature"],["Sync Google Drive dan sandaran","Google Drive sync and backup"],["Aplikasi web di komputer","Web app on a computer"],["Mula pantas dan 10 pelajaran","Quick start and 10 lessons"]]]
+];
+
+/* ============ page build ============ */
+var de = document.documentElement, main = document.getElementById("main");
+function bi(p, tag){ tag = tag || "span"; return '<' + tag + ' data-ms>' + p[0] + '</' + tag + '><' + tag + ' data-en>' + p[1] + '</' + tag + '>'; }
+var html = "";
+SECTIONS.forEach(function(s, si){
+  var cls = "hour" + (s.promise || s.web ? " short" : "");
+  html += '<section class="' + cls + '" id="' + s.id + '" data-si="' + si + '"><div class="stick"><div class="card glass">';
+  html += '<p class="kick"><i>' + s.icon + '</i>' + bi(s.kick) + '</p>';
+  html += s.hero ? '<h1>' + bi(s.title) + '</h1>' : '<h2>' + bi(s.title) + '</h2>';
+  if(s.lead) html += '<p class="lead">' + bi(s.lead) + '</p>';
+  if(s.hero){
+    html += '<div class="cta"><a class="btn gold" href="app/">🌐 ' + bi(["Buka aplikasi web","Open the web app"]) + '</a><span class="soon">📱 ' + bi(["Android: segera di Google Play","Android: coming soon to Google Play"]) + '</span></div>';
+    html += '<p class="ayah"><span class="ar" lang="ar">وَأَحْسِنُوا ۛ إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ</span>' + bi(['"Dan berbuat baiklah, sesungguhnya Allah menyukai orang yang berbuat baik." (Al-Baqarah 2:195)','"And do good; indeed, Allah loves those who do good." (Al-Baqarah 2:195)']) + '</p>';
+    html += '<p class="scrollhint"><span class="ms"></span>' + bi(["Tatal untuk melalui hari anda","Scroll through your day"]) + '</p>';
+  } else if(s.themes){
+    html += '<div class="ths" role="group">' + s.ring.map(function(r, i){ return '<button type="button" data-th="' + i + '" aria-pressed="' + (i === 6) + '"><span style="background:' + r[3] + '"></span>' + bi([r[1], r[2]]) + '</button>'; }).join("") + '</div>';
+  } else if(s.promise){
+    html += '<ul class="prom">' + PROMISE.map(function(p){ return '<li><i>' + p[0] + '</i><div><b>' + bi([p[1], p[2]]) + '</b><span>' + bi([p[3], p[4]]) + '</span></div></li>'; }).join("") + '</ul>';
+  } else if(s.web){
+    html += '<div class="cta"><a class="btn gold" href="app/">🌐 myihsan.app/app</a><a class="btn ghost glass" href="#semua">' + bi(["Lihat setiap ciri","See every feature"]) + ' ↓</a></div>';
+  } else if(s.lesson){
+    html += '<div class="car" role="region" aria-roledescription="carousel"><div class="bar"><span class="ct"></span>' +
+      '<button class="play" type="button" aria-label="Main / jeda · Play / pause">❚❚</button><button class="nav prev" type="button" aria-label="Sebelum · Previous">‹</button><button class="nav next" type="button" aria-label="Seterusnya · Next">›</button></div>' +
+      '<div class="row">' + s.ring.map(function(r, i){ return '<button class="chip" type="button" data-i="' + i + '" aria-pressed="' + (i === 0) + '"><b>' + bi([r[1], r[2]]) + '</b><small>' + bi([r[3], r[4]]) + '</small></button>'; }).join("") + '</div>' +
+      '<p class="now" aria-live="polite"></p></div>';
+  }
+  html += '<img class="fb" loading="lazy" alt="" src="' + S + s.ring[0][0] + '.jpg">';
+  html += '</div></div></section>';
+});
+// every feature
+var total = ALL.reduce(function(n, g){ return n + g[3].length; }, 0);
+html += '<section class="all" id="semua"><div class="card glass"><p class="kick"><i>✨</i>' + bi(["Isyak · Setiap ciri","Isyak · Every feature"]) + '</p>' +
+  '<h2>' + bi([total + ' ciri, <em>satu aplikasi</em>', total + ' features, <em>one app</em>']) + '</h2>' +
+  '<div class="tools"><input id="q" type="search" autocomplete="off" aria-label="Cari ciri · Search features"><span class="n" id="qn"></span></div><div class="cols">' +
+  ALL.map(function(g){ return '<div class="grp"><h3><i>' + g[0] + '</i>' + bi([g[1], g[2]]) + '</h3><ul>' + g[3].map(function(f){ return '<li data-k="' + (f[0] + " " + f[1]).toLowerCase().replace(/"/g, "") + '">' + bi(f) + '</li>'; }).join("") + '</ul></div>'; }).join("") +
+  '</div></div></section>';
+main.innerHTML = html;
+
+// language
+var langB = document.getElementById("lang"), q = document.getElementById("q");
+function setLang(l){ de.lang = l; langB.textContent = l === "en" ? "BM" : "EN"; try{ localStorage.setItem("ihsan_site_lang", l); }catch(e){}
+  q.placeholder = l === "en" ? "Search " + total + " features…" : "Cari " + total + " ciri…"; filter(); refreshNow(); }
+langB.onclick = function(){ setLang(de.lang === "en" ? "ms" : "en"); };
+function filter(){ var v = (q.value || "").trim().toLowerCase(), n = 0;
+  document.querySelectorAll(".grp").forEach(function(g){ var any = 0; g.querySelectorAll("li").forEach(function(li){ var ok = !v || li.getAttribute("data-k").indexOf(v) >= 0; li.classList.toggle("hide", !ok); if(ok){ any++; n++; } }); g.classList.toggle("hide", !any); });
+  document.getElementById("qn").textContent = v ? n + " / " + total : ""; }
+q.oninput = filter;
+
+// side rail
+var rail = document.getElementById("rail");
+rail.innerHTML = HOURS.map(function(h){ var s = SECTIONS.filter(function(x){ return x.hour === h[0]; })[0]; return '<a href="#' + s.id + '" data-h="' + h[0] + '" title="' + h[4] + '">' + h[1] + '</a>'; }).join("");
+
+/* ============ the day: hour from scroll, sky colours (the app's own KACA_SKY) ============ */
+var KS = {subuh:["#1A2650","#4D5A8A","#B98AA3","#F0C4A0","#FFD2A8"], pagi:["#3B6EA5","#7FA6CC","#E6C3A6","#F7D9B5","#FFEBC8"], dhuha:["#2D6FA6","#5E93BF","#A9C7DC","#DCE7EC","#FFF4D6"],
+  zohor:["#2D6FA6","#5E93BF","#A9C7DC","#DCE7EC","#FFF4D6"], asar:["#2F5F86","#6F8FA6","#D9A878","#F0C08A","#FFE2A8"], maghrib:["#1D1838","#5A3561","#C45F62","#F2A066","#FFB27A"],
+  isyak:["#060B1E","#0E1838","#1E2A58","#3B3A6E","#E9ECFF"], night:["#04081A","#0A1230","#141E44","#232552","#E9ECFF"]};
+var KEYS = [[4.9,"isyak"],[5.75,"subuh"],[7.6,"pagi"],[9.6,"dhuha"],[13.05,"zohor"],[16.45,"asar"],[19.05,"maghrib"],[20.3,"isyak"],[22.5,"night"]];
+function hx(h){ return [parseInt(h.slice(1,3),16)/255, parseInt(h.slice(3,5),16)/255, parseInt(h.slice(5,7),16)/255]; }
+function lerp(a, b, t){ return a + (b - a) * t; }
+function skyAt(h){ for(var i = 0; i < KEYS.length - 1; i++){ var A = KEYS[i], B = KEYS[i+1]; if(h <= B[0]){ var t = Math.max(0, Math.min(1, (h - A[0]) / (B[0] - A[0]))); t = t * t * (3 - 2 * t);
+  return KS[A[1]].map(function(c, j){ var a = hx(c), b = hx(KS[B[1]][j]); return [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]; }); } } return KS.night.map(hx); }
+function prayerOf(h){ return h < 5.68 ? "QIYAM" : h < 7.15 ? "SUBUH" : h < 7.5 ? "SYURUK" : h < 13.03 ? (h < 7.6 ? "SYURUK" : "DHUHA") : h < 16.42 ? "ZOHOR" : h < 19.02 ? "ASAR" : h < 20.23 ? "MAGHRIB" : "ISYAK"; }
+var secEls = [].slice.call(document.querySelectorAll("section.hour"));
+var hourNow = 5.68, hourTarget = 5.68, activeSi = 0;
+function anchors(){ var vh = innerHeight; return secEls.map(function(el){ var r = el.getBoundingClientRect(); return {top:r.top + scrollY - vh * 0.5, h:SECTIONS[+el.dataset.si].clock, el:el}; }); }
+var ANC = anchors();
+function hourAtScroll(y){ var a = ANC; if(y <= a[0].top) return a[0].h; for(var i = 0; i < a.length - 1; i++){ if(y < a[i+1].top){ var t = (y - a[i].top) / (a[i+1].top - a[i].top); return lerp(a[i].h, a[i+1].h, t); } }
+  var end = document.documentElement.scrollHeight - innerHeight * 1.5; var last = a[a.length-1]; return Math.min(22.4, last.h + Math.max(0, (y - last.top) / Math.max(1, end - last.top)) * 0.5); }
+function fmt(h){ var H = Math.floor(h), M = Math.floor((h - H) * 60), am = H < 12; return (H % 12 || 12) + ":" + (M < 10 ? "0" : "") + M + (am ? " AM" : " PM"); }
+var clockT = document.querySelector("#clock .t"), clockP = document.querySelector("#clock .p"), skyEl = document.getElementById("sky"), themeMeta = document.querySelector('meta[name="theme-color"]');
+function css(c){ return "rgb(" + c.map(function(v){ return Math.round(v * 255); }).join(",") + ")"; }
+
+/* ============ three.js stage ============ */
+var RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+var GL = null;
+function loadThree(cb){ var s = document.createElement("script"); s.src = "app/hajj/three.min.js"; s.onload = cb; s.onerror = function(){ de.classList.add("nogl"); }; document.head.appendChild(s); }
+function startGL(){
+  var THREE = window.THREE; var canvas = document.getElementById("gl"), renderer;
+  try{ renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true, powerPreference:"high-performance"}); }catch(e){ de.classList.add("nogl"); return; }
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2)); renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  var scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100); camera.position.set(0, 0.2, 12);
+
+  // environment for reflections: a soft sky dome with two softbox panels, rebuilt when the sky changes a lot
+  var pmrem = new THREE.PMREMGenerator(renderer), envScene = new THREE.Scene();
+  var domeMat = new THREE.ShaderMaterial({side:THREE.BackSide, depthWrite:false, uniforms:{a:{value:new THREE.Color()}, b:{value:new THREE.Color()}, c:{value:new THREE.Color()}},
+    vertexShader:"varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }",
+    fragmentShader:"uniform vec3 a,b,c; varying vec3 vP; void main(){ float y = vP.y; vec3 col = y>0. ? mix(b,a,pow(y,.6)) : mix(b,c*.25,pow(-y,.5)); gl_FragColor = vec4(col,1.); }"});
+  envScene.add(new THREE.Mesh(new THREE.SphereGeometry(10, 32, 16), domeMat));
+  var box1 = new THREE.Mesh(new THREE.PlaneGeometry(6, 3), new THREE.MeshBasicMaterial({color:0xffffff})); box1.position.set(-4, 5, 4); box1.lookAt(0, 0, 0); envScene.add(box1);
+  var box2 = new THREE.Mesh(new THREE.PlaneGeometry(2, 7), new THREE.MeshBasicMaterial({color:0xffffff})); box2.position.set(6, 1, -2); box2.lookAt(0, 0, 0); envScene.add(box2);
+  var envRT = null, envKey = "";
+  function rebuildEnv(sk, sun){ domeMat.uniforms.a.value.setRGB(sk[0][0], sk[0][1], sk[0][2]); domeMat.uniforms.b.value.setRGB(sk[2][0], sk[2][1], sk[2][2]); domeMat.uniforms.c.value.setRGB(sk[3][0], sk[3][1], sk[3][2]);
+    box1.material.color.setRGB(sun[0] * 2.2, sun[1] * 2.2, sun[2] * 2.2); var old = envRT; envRT = pmrem.fromScene(envScene, 0.02); scene.environment = envRT.texture; if(old) old.dispose(); }
+
+  // lights
+  var hemi = new THREE.HemisphereLight(0xffffff, 0x223, 0.6); scene.add(hemi);
+  var key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(-4, 6, 6); scene.add(key);
+  var rim = new THREE.DirectionalLight(0xbfd0ff, 1.0); rim.position.set(5, 2, -4); scene.add(rim);
+
+  // phone: an extruded rounded body (glossy clear-coated metal) and a screen with rounded corners, a sheen and a fly-in fade
+  function rrect(w, h, r){ var s = new THREE.Shape(), x = -w/2, y = -h/2; s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + h - r); s.quadraticCurveTo(x + w, y + h, x + w - r, y + h); s.lineTo(x + r, y + h); s.quadraticCurveTo(x, y + h, x, y + h - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s; }
+  var SW = 1.0, SH = 657 / 360, BW = SW + 0.1, BH = SH + 0.12, DEP = 0.07;
+  var bodyGeo = new THREE.ExtrudeGeometry(rrect(BW, BH, 0.16), {depth:DEP, bevelEnabled:true, bevelThickness:0.035, bevelSize:0.035, bevelSegments:6, curveSegments:24}); bodyGeo.translate(0, 0, -DEP/2 - 0.035);
+  var screenGeo = new THREE.PlaneGeometry(SW, SH);
+  var screenVS = "varying vec2 vUv; varying vec3 vN; varying vec3 vV; void main(){ vUv = uv; vec4 wp = modelMatrix*vec4(position,1.); vN = normalize(mat3(modelMatrix)*normal); vV = normalize(cameraPosition - wp.xyz); gl_Position = projectionMatrix*viewMatrix*wp; }";
+  var screenFS = "uniform sampler2D map; uniform float op, ready, dim, ar; uniform vec3 tint; varying vec2 vUv; varying vec3 vN; varying vec3 vV;" +
+    "float sd(vec2 p, vec2 b, float r){ vec2 q = abs(p)-b+r; return length(max(q,0.))+min(max(q.x,q.y),0.)-r; }" +
+    "void main(){ vec2 p = (vUv-.5)*vec2(1.,ar); float d = sd(p, vec2(.5,ar*.5), .1); if(d>0.) discard;" +
+    " vec3 c = texture2D(map, vUv).rgb; c = mix(vec3(.05,.07,.12), c, ready);" +
+    " float f = pow(1.-max(dot(vN,vV),0.), 3.); float band = smoothstep(.0,.25, .5-abs(fract(vUv.x*.6+vUv.y*.35+dot(vV,vec3(.6,.3,0.))*.6)-.5))*.10;" +
+    " c = c*(1.-dim) + tint*f*.35 + band; gl_FragColor = vec4(c, op); \n#include <colorspace_fragment>\n }";
+  var bodyMatBase = new THREE.MeshPhysicalMaterial({color:0x1a1f2b, metalness:0.75, roughness:0.28, clearcoat:1, clearcoatRoughness:0.06, envMapIntensity:1.2, transparent:true});
+  var loader = new THREE.TextureLoader(), maxAniso = renderer.capabilities.getMaxAnisotropy(), TEX = {};
+  function tex(name){ if(TEX[name]) return TEX[name]; var t = {tex:null, ready:0, cbs:[]}; TEX[name] = t;
+    loader.load(S + name + ".jpg", function(tx){ tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = maxAniso; tx.generateMipmaps = true; t.tex = tx; t.ready = 1; t.cbs.forEach(function(f){ f(); }); }); return t; }
+  var blank = new THREE.DataTexture(new Uint8Array([20, 24, 34, 255]), 1, 1); blank.needsUpdate = true;
+  function makePhone(){ var g = new THREE.Group(), body = new THREE.Mesh(bodyGeo, bodyMatBase.clone());
+    var sm = new THREE.ShaderMaterial({uniforms:{map:{value:blank}, op:{value:1}, ready:{value:0}, dim:{value:0}, ar:{value:SH/SW}, tint:{value:new THREE.Color(1,1,1)}}, vertexShader:screenVS, fragmentShader:screenFS, transparent:true});
+    var scr = new THREE.Mesh(screenGeo, sm); scr.position.z = 0.04; g.add(body); g.add(scr); g.userData = {body:body, scr:scr, name:null}; return g; }
+  function setScreen(ph, name){ if(ph.userData.name === name) return; ph.userData.name = name; var t = tex(name), u = ph.userData.scr.material.uniforms;
+    var apply = function(){ if(ph.userData.name !== name) return; u.map.value = t.tex; u.ready.value = 0; ph.userData.fadeIn = 0; };
+    if(t.ready) apply(); else { u.ready.value = 0; t.cbs.push(apply); } }
+
+  // contact shadow under the ring
+  var sc = document.createElement("canvas"); sc.width = sc.height = 128; var sx = sc.getContext("2d"), gr = sx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, "rgba(0,0,0,.55)"); gr.addColorStop(1, "rgba(0,0,0,0)"); sx.fillStyle = gr; sx.fillRect(0, 0, 128, 128);
+  var shadow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc), transparent:true, depthWrite:false}));
+  shadow.rotation.x = -Math.PI / 2; scene.add(shadow);
+
+  // rings: one per section; the visible ring flies out and the next one flies in when the section changes
+  var rings = SECTIONS.map(function(s){ var g = new THREE.Group(); g.visible = false; scene.add(g);
+    var n = Math.min(s.ring.length, s.hero || s.web ? 3 : 7); var phones = []; for(var i = 0; i < n; i++){ var p = makePhone(); g.add(p); phones.push(p); }
+    return {g:g, phones:phones, s:s, pos:0, idx:0, fly:0, dir:1, state:"off"}; });
+  function preload(si){ var s = SECTIONS[si]; if(!s) return; s.ring.slice(0, 4).forEach(function(r){ tex(r[0]); }); }
+
+  // layout: desktop → the ring sits right of the text; phone → above the card
+  var view = {w:1, h:1, cx:0, cy:0, sc:1, mob:false};
+  function resize(){ var w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+    var vh = 2 * Math.tan(camera.fov * Math.PI / 360) * camera.position.z, vw = vh * camera.aspect; view.w = vw; view.h = vh; view.mob = w < 860;
+    if(view.mob){ view.cx = 0; view.cy = vh * 0.2; view.sc = Math.min(1.0, vh * 0.36 / SH); }
+    else { view.cx = Math.min(vw * 0.21, 3.1); view.cy = -0.1; view.sc = Math.min(1.45, vh * 0.56 / SH); }
+    ANC = anchors(); }
+  addEventListener("resize", resize); resize();
+
+  // where each phone of a ring goes: an arc carousel around the selected screen
+  function placeRing(R, t){ var s = R.s, n = s.ring.length, k = R.phones.length;
+    R.phones.forEach(function(ph, j){
+      var rel; if(s.hero || s.web){ rel = j - 1; setScreen(ph, s.ring[j][0]); }
+      else { var base = Math.round(R.pos), half = Math.floor(k / 2); var slot = ((j - base) % k + k) % k; if(slot > half) slot -= k; var item = base + slot; rel = item - R.pos;
+        setScreen(ph, s.ring[((item % n) + n) % n][0]); if(n < k && Math.abs(slot) > Math.floor(n / 2)) rel = 99; }
+      var a = Math.abs(rel), th = rel * 0.42, rad = 3.1, f0 = view.mob ? 1.6 : 1.15, f1 = view.mob ? 1.2 : 0.8;
+      var x = Math.sin(th) * rad * (s.hero || s.web ? 0.62 : 0.86), z = (Math.cos(th) - 1) * rad - (s.hero || s.web ? a * 0.9 : 0);
+      var bob = RM ? 0 : Math.sin(t * 0.9 + j * 1.7) * 0.05;
+      ph.position.set(x, bob + (s.hero || s.web ? -a * 0.1 : 0), z); ph.rotation.set(0, -th * 0.9 + (s.hero || s.web ? -rel * 0.12 : 0), (s.hero || s.web) ? -rel * 0.05 : 0);
+      var vis = (s.hero || s.web) ? 1 : Math.max(0, 1 - Math.max(0, a - f0) / f1); ph.visible = vis > 0.01 && rel !== 99;
+      var u = ph.userData.scr.material.uniforms; ph.userData.fadeIn = Math.min(1, (ph.userData.fadeIn || 0) + 0.06); u.ready.value = TEX[ph.userData.name] && TEX[ph.userData.name].ready ? (RM ? 1 : ph.userData.fadeIn) : 0;
+      u.dim.value = Math.min(0.55, a * 0.22); u.op.value = vis * R.alpha; ph.userData.body.material.opacity = vis * R.alpha; ph.renderOrder = 10 - Math.round(a * 2);
+    }); }
+
+  var flyDur = RM ? 0.01 : 0.9, last = performance.now(), cur = -1, skyKey = "";
+  function setActive(si, dir){ if(si === cur) return; var old = rings[cur]; if(old){ old.state = "out"; old.fly = 0; old.dir = dir; }
+    cur = si; var R = rings[si]; if(!R) return; R.state = "in"; R.fly = 0; R.dir = dir; R.g.visible = true; cur = si; preload(si + 1); preload(si - 1); }
+  function ease(x){ return x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1 - x, 4); }
+  GL = {setActive:setActive, ring:function(si){ return rings[si]; }};
+  SECTIONS.forEach(function(s, i){ if(i < 2) preload(i); });
+
+  function frame(now){ var dt = Math.min(0.05, (now - last) / 1000); last = now; var t = now / 1000;
+    // sky: one smooth hour drives gradient, sun/moon, env and light colours
+    hourNow += (hourTarget - hourNow) * (RM ? 1 : Math.min(1, dt * 5)); var sk = skyAt(hourNow);
+    skyEl.style.background = "radial-gradient(circle at " + sunXY(hourNow).x + "% " + sunXY(hourNow).y + "%," + css(sk[4]) + " 0," + "rgba(0,0,0,0) " + (isNight(hourNow) ? 7 : 22) + "%),linear-gradient(" + css(sk[0]) + "," + css(sk[1]) + " 42%," + css(sk[2]) + " 78%," + css(sk[3]) + ")";
+    var kk = sk.map(function(c){ return c.map(function(v){ return Math.round(v * 12); }).join(","); }).join("|");
+    if(kk !== skyKey){ skyKey = kk; rebuildEnv(sk, sk[4]); hemi.color.setRGB(sk[1][0] + .3, sk[1][1] + .3, sk[1][2] + .3); key.color.setRGB(sk[4][0], sk[4][1], sk[4][2]); rim.color.setRGB(sk[2][0], sk[2][1], sk[2][2]); themeMeta.setAttribute("content", css(sk[0])); }
+    var sp = sunXY(hourNow); drawSun(sp, sk, isNight(hourNow));
+    // rings
+    rings.forEach(function(R, i){ if(R.state === "off") return; R.fly = Math.min(1, R.fly + dt / flyDur); var e = ease(R.fly);
+      if(R.state === "out"){ R.alpha = 1 - e; R.g.position.set(view.cx + e * 2.2 * R.dir, view.cy + e * 3.2 * R.dir, -e * 5); R.g.rotation.set(-e * 0.5 * R.dir, e * 1.1 * R.dir, 0); R.g.scale.setScalar(view.sc * (1 - e * 0.25)); if(R.fly >= 1){ R.state = "off"; R.g.visible = false; } }
+      else { R.alpha = e; R.g.position.set(view.cx - (1 - e) * 1.8 * R.dir, view.cy - (1 - e) * 4.2 * R.dir, -(1 - e) * 6); R.g.rotation.set((1 - e) * 0.6 * R.dir, -(1 - e) * 1.3 * R.dir + (RM ? 0 : Math.sin(t * 0.35) * 0.06) - (view.mob ? 0 : 0.12), 0); R.g.scale.setScalar(view.sc * (0.75 + 0.25 * e)); }
+      R.pos += (R.idx - R.pos) * (RM ? 1 : Math.min(1, dt * 6)); placeRing(R, t); });
+    var A = rings[cur]; if(A){ shadow.position.set(A.g.position.x, A.g.position.y - SH * A.g.scale.x * 0.62, A.g.position.z - 0.5); shadow.scale.set(5.5 * A.g.scale.x, 1.6 * A.g.scale.x, 1); shadow.material.opacity = 0.5 * (A.alpha || 0); }
+    renderer.render(scene, camera); requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+}
+// sun / moon on the page sky (drawn into #sky as part of the gradient + a small disc element)
+var sunEl = document.createElement("div"); sunEl.setAttribute("aria-hidden", "true"); sunEl.style.cssText = "position:fixed;z-index:-3;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;pointer-events:none;will-change:transform";
+document.body.insertBefore(sunEl, document.body.firstChild.nextSibling);
+var stars = document.createElement("div"); stars.setAttribute("aria-hidden", "true");
+stars.style.cssText = "position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:0;background-image:radial-gradient(rgba(255,255,255,.9) 1.2px,transparent 1.6px),radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.4px);background-size:190px 210px,120px 140px;background-position:20px 30px,80px 100px";
+document.body.insertBefore(stars, sunEl);
+function isNight(h){ return h < 6.2 || h > 19.35; }
+function sunXY(h){ var night = isNight(h), u; if(!night){ u = (h - 6.2) / (19.35 - 6.2); } else { var hh = h < 12 ? h + 24 : h; u = (hh - 19.35) / (30.2 - 19.35); }
+  u = Math.max(0, Math.min(1, u)); var mob = innerWidth < 860; return {x:(mob ? 8 : 6) + u * (mob ? 84 : 88), y:(mob ? 34 : 70) - Math.sin(Math.PI * u) * (mob ? 22 : 52), night:night}; }
+function drawSun(p, sk, night){ var c = css(sk[4]); sunEl.style.left = p.x + "vw"; sunEl.style.top = p.y + "vh";
+  sunEl.style.background = night ? "radial-gradient(circle at 62% 38%, transparent 0 22px, " + c + " 23px 30px, transparent 31px)" : "radial-gradient(circle, #FFF6DA 0 26px, " + c + " 28px, rgba(255,255,255,0) 42px)";
+  sunEl.style.boxShadow = night ? "none" : "0 0 120px 40px " + c.replace("rgb", "rgba").replace(")", ",.35)");
+  stars.style.opacity = night ? Math.min(0.8, Math.abs(hourNow - (hourNow < 12 ? 6.2 : 19.35)) * 0.9) : 0; }
+// no WebGL: the sky still runs without phones
+function skyOnly(){ (function loop(){ hourNow += (hourTarget - hourNow) * 0.15; var sk = skyAt(hourNow); var sp = sunXY(hourNow);
+  skyEl.style.background = "linear-gradient(" + css(sk[0]) + "," + css(sk[1]) + " 42%," + css(sk[2]) + " 78%," + css(sk[3]) + ")"; drawSun(sp, sk, isNight(hourNow)); requestAnimationFrame(loop); })(); }
+
+/* ============ scroll → hour, active section, rail ============ */
+var lastY = scrollY;
+function onScroll(){ var y = scrollY; hourTarget = hourAtScroll(y); var mid = innerHeight * 0.5, si = activeSi;
+  secEls.forEach(function(el){ var r = el.getBoundingClientRect(); if(r.top <= mid && r.bottom > mid) si = +el.dataset.si; });
+  var past = document.getElementById("semua").getBoundingClientRect().top < innerHeight * 0.4;
+  if(si !== activeSi || past !== onScroll.past){ var dir = y >= lastY ? 1 : -1; activeSi = si; onScroll.past = past; if(GL){ if(past) GL.setActive(-1, dir); else GL.setActive(si, dir); } activateCarousel(si); }
+  var hk = SECTIONS[activeSi].hour; rail.querySelectorAll("a").forEach(function(a){ a.classList.toggle("on", a.dataset.h === hk); });
+  document.querySelector("header.top").classList.toggle("solid", past); document.body.classList.toggle("late", past);
+  clockT.textContent = fmt(hourTarget); clockP.textContent = prayerOf(hourTarget); lastY = y; }
+addEventListener("scroll", onScroll, {passive:true});
+addEventListener("resize", function(){ ANC = anchors(); onScroll(); });
+
+/* ============ carousels ============ */
+var auto = {si:-1, timer:0, paused:RM};
+function carOf(si){ return document.querySelector('section[data-si="' + si + '"] .car'); }
+function select(si, i, fromUser){ var s = SECTIONS[si], n = s.ring.length; i = ((i % n) + n) % n; s.cur = i;
+  var c = carOf(si); if(c){ c.querySelectorAll(".chip").forEach(function(b, j){ b.setAttribute("aria-pressed", j === i); });
+    var b = c.querySelector('.chip[data-i="' + i + '"]'); if(b){ var row = c.querySelector(".row"); row.scrollTo({left:b.offsetLeft - row.offsetLeft - 8, behavior:RM ? "auto" : "smooth"}); }
+    c.querySelector(".ct").textContent = (i + 1) + " / " + n; refreshNow(si); }
+  if(GL){ var R = GL.ring(si); if(R){ var k = R.idx, d = i - (((k % n) + n) % n); if(d > n / 2) d -= n; if(d < -n / 2) d += n; R.idx = k + d; } }
+  if(fromUser){ auto.paused = true; setPlay(); } }
+function refreshNow(si){ if(si == null) si = activeSi; var s = SECTIONS[si]; var c = carOf(si); if(!c || s.cur == null) return; var r = s.ring[s.cur]; var en = de.lang === "en";
+  c.querySelector(".now").innerHTML = "<b>" + (en ? r[2] : r[1]) + "</b><span>" + (en ? r[4] : r[3]) + "</span>"; }
+function setPlay(){ document.querySelectorAll(".play").forEach(function(b){ b.textContent = auto.paused ? "▶" : "❚❚"; }); }
+function activateCarousel(si){ auto.si = si; }
+setInterval(function(){ if(auto.paused || document.hidden) return; var s = SECTIONS[auto.si]; if(!s || !s.lesson) return; select(auto.si, (s.cur || 0) + 1, false); }, 2600);
+SECTIONS.forEach(function(s, si){ var c = carOf(si); if(!c) return; s.cur = 0;
+  c.querySelectorAll(".chip").forEach(function(b){ b.onclick = function(){ select(si, +b.dataset.i, true); }; });
+  c.querySelector(".prev").onclick = function(){ select(si, s.cur - 1, true); }; c.querySelector(".next").onclick = function(){ select(si, s.cur + 1, true); };
+  c.querySelector(".play").onclick = function(){ auto.paused = !auto.paused; setPlay(); };
+  c.addEventListener("keydown", function(e){ if(e.key === "ArrowRight"){ select(si, s.cur + 1, true); e.preventDefault(); } if(e.key === "ArrowLeft"){ select(si, s.cur - 1, true); e.preventDefault(); } });
+  // swipe on the card moves the carousel too
+  var x0 = null; c.addEventListener("pointerdown", function(e){ x0 = e.clientX; }); c.addEventListener("pointerup", function(e){ if(x0 == null) return; var d = e.clientX - x0; x0 = null; if(Math.abs(d) > 60 && !e.target.closest(".row")) select(si, s.cur + (d < 0 ? 1 : -1), true); });
+  select(si, 0, false); });
+// themes: pick one of the 8 home screens
+document.querySelectorAll(".ths button").forEach(function(b){ b.onclick = function(){ var si = +b.closest("section").dataset.si; document.querySelectorAll(".ths button").forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); SECTIONS[si].cur = +b.dataset.th; if(GL){ var R = GL.ring(si), n = 8, k = R.idx, i = +b.dataset.th, d = i - (((k % n) + n) % n); if(d > 4) d -= n; if(d < -4) d += n; R.idx = k + d; } }; });
+
+/* ============ start ============ */
+var l0 = "ms"; try{ l0 = localStorage.getItem("ihsan_site_lang") || (/^(ms|id)/i.test(navigator.language) ? "ms" : "en"); }catch(e){}
+setLang(l0); setPlay();
+var testGL = document.createElement("canvas"); var ok = !!(window.WebGLRenderingContext && (testGL.getContext("webgl2") || testGL.getContext("webgl")));
+if(ok) loadThree(function(){ try{ startGL(); }catch(e){ console.error(e); de.classList.add("nogl"); skyOnly(); } if(GL){ var th = SECTIONS.findIndex(function(s){ return s.themes; }); GL.ring(th).idx = 6; } onScroll.past = null; activeSi = -1; onScroll(); });
+else { de.classList.add("nogl"); skyOnly(); onScroll(); }
 </script>
 </body>
 </html>
