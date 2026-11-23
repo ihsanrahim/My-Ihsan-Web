@@ -522,5 +522,6 @@ var testGL = document.createElement("canvas"); var ok = !!(window.WebGLRendering
 if(ok) loadThree(function(){ try{ startGL(); }catch(e){ console.error(e); de.classList.add("nogl"); skyOnly(); } if(GL){ var th = SECTIONS.findIndex(function(s){ return s.themes; }); GL.ring(th).idx = 6; } onScroll.past = null; activeSi = -1; onScroll(); });
 else { de.classList.add("nogl"); skyOnly(); onScroll(); }
 </script>
+<script>if("serviceWorker" in navigator && location.hostname==="myihsan.app") navigator.serviceWorker.register("/fallback-sw.js", {scope:"/"}).catch(function(){});</script>
 </body>
 </html>

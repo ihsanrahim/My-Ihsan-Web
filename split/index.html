@@ -79,5 +79,6 @@ footer{text-align:center;font-size:12px;color:var(--mut);margin-top:24px}
   start();
 })();
 </script>
+<script>if("serviceWorker" in navigator && location.hostname==="myihsan.app") navigator.serviceWorker.register("/fallback-sw.js", {scope:"/"}).catch(function(){});</script>
 </body>
 </html>
