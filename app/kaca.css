@@ -27,7 +27,10 @@ html[data-th=kaca] #kacaSky svg{width:100%;height:100%;display:block}
 #kacaSky.night .ksBite{opacity:1} #kacaSky.night .ksHalo{transform:scale(.24)}
 #kacaSky .ksStars{fill:#fff;opacity:0} #kacaSky.night .ksStars{opacity:.55}
 #kacaSky .ksMasjid{fill:rgba(20,16,30,.55)} #kacaSky.night .ksMasjid{fill:#070B1A}
-#kacaSky stop,#kacaSky .ksDisc,#kacaSky .ksMasjid,#kacaSky .ksStars,#kacaSky .ksBite{transition:stop-color .6s var(--kz,ease),fill .6s var(--kz,ease),opacity .6s var(--kz,ease)}
+/* 0.7.19 Masjid an-Nabawi skyline: its own layer at the bottom (keeps its shape on any screen width), the ground strip spans the width */
+#kacaSky .ksMqW{position:absolute;left:0;right:0;bottom:var(--ksGh,14px);height:min(128px,18vh)}#kacaSky .ksMq{width:100%;height:100%;display:block}
+#kacaSky .ksGnd{position:absolute;left:0;right:0;bottom:0;height:var(--ksGh,14px);background:rgba(20,16,30,.55)}#kacaSky.night .ksGnd{background:#070B1A}
+#kacaSky stop,#kacaSky .ksDisc,#kacaSky .ksMasjid,#kacaSky .ksGnd,#kacaSky .ksStars,#kacaSky .ksBite{transition:stop-color .6s var(--kz,ease),fill .6s var(--kz,ease),opacity .6s var(--kz,ease)}
 #kacaSky .ksSun{transition:transform .6s cubic-bezier(.22,1,.36,1)}
 
 /* ---- page: everything sits on the sky ---- */
