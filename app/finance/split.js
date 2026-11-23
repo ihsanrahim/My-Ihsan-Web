@@ -14,7 +14,7 @@
 // the web page (My-Ihsan-Web/split) has no i18n.js: fall back to plain locales so this file stays byte-identical in both
 var ibLoc = window.ibLoc || function(en){ return en ? "en-GB" : "ms-MY"; };
 var K = window.NostrKit, KIND = 1778, RELAYS = window.SPLIT_RELAYS || ["wss://relay.damus.io", "wss://nos.lol", "wss://relay.primal.net"];
-var LINK = "https://ihsanrahim.github.io/My-Ihsan-Web/split/#";
+var LINK = "https://ihsanrahim.github.io/My-Ihsan-Web/split/#", LINK2 = "https://ihsanrahim.github.io/My-Ihsan-Wifi/split/#";   // 0.7.13 LINK2 = backup address for Wi-Fi that blocks myihsan.app
 var CURS = ["RM","SAR","USD","SGD","IDR","THB","BND","EUR","GBP","AUD","JPY","KRW","TRY","EGP","AED","QAR","CNY","INR","PKR"];
 var CATS = [["food","🍽️","Makan","Food"],["taxi","🚕","Pengangkutan","Transport"],["hotel","🏨","Penginapan","Stay"],["shop","🛒","Barang","Shopping"],["fuel","⛽","Minyak / tol","Fuel / toll"],["ticket","🎟️","Tiket","Tickets"],["gift","🎁","Hadiah","Gift"],["other","🧾","Lain-lain","Other"]];
 var U = null, host = null, cur = null, live = null, opt = {};
@@ -163,7 +163,7 @@ function pickMe(t, first){ var render = function(ov){ var st = state(t), box = o
   ov.querySelector("#ssMeA").onclick = function(){ var n = ov.querySelector("#ssMeN").value.trim(); if(!n) return; var st = state(t), ex = st.order.filter(function(p){ return st.ppl[p].n.toLowerCase() === n.toLowerCase(); })[0];
     if(ex){ t.me = ex; } else { t.me = rid(6); publish(t, {t: "person", pid: t.me, n: n}); } putTrip(t); clearInterval(iv); U.close(); draw(); }; }
 function invite(t){ var u = link(t), st = state(t);
-  var msg = L("Jom catat perbelanjaan bersama \"", "Let's track our shared costs for \"") + (st.name || t.name) + L("\". Buka pautan ini, ketik nama anda dan masukkan apa yang anda bayar (tiada akaun diperlukan):\n", "\". Open this link, tap your name and add what you paid (no account needed):\n") + u;
+  var msg = L("Jom catat perbelanjaan bersama \"", "Let's track our shared costs for \"") + (st.name || t.name) + L("\". Buka pautan ini, ketik nama anda dan masukkan apa yang anda bayar (tiada akaun diperlukan):\n", "\". Open this link, tap your name and add what you paid (no account needed):\n") + u + L("\n\nJika tidak dibuka (cth. Wi-Fi pejabat): ", "\n\nIf it doesn't open (e.g. office Wi-Fi): ") + LINK2 + u.split("#")[1];
   var ov = U.sheet("📤 " + L("Jemput", "Invite"), '<div style="text-align:center">' + qrSvg(u) + '</div><div class="mut small" style="margin:8px 0">' + L("Sesiapa yang ada pautan ini boleh melihat dan menambah bil. Hantar hanya kepada ahli trip.", "Anyone with this link can see and add bills. Send it only to the people on the trip.") + '</div>' +
     '<div class="btns"><button class="btn gold g3d" id="ssWa" style="flex:1">💬 ' + L("Hantar ke WhatsApp", "Send to WhatsApp") + '</button><button class="btn alt g3d" id="ssCp">📋 ' + L("Salin", "Copy") + '</button></div>');
   ov.querySelector("#ssWa").onclick = function(){ U.share(msg, "com.whatsapp"); };
