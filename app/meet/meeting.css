@@ -51,3 +51,28 @@
 /* 0.6.56: no phone mic in Speaker: a hint until another mic is connected */
 .mtNoMic{margin:10px 0 0;padding:9px 11px;border-radius:12px;border:1px dashed var(--line);font-size:13px;opacity:.9}
 .mtSpkGo.dis{opacity:.5;filter:grayscale(.6)}
+/* 0.7.13 📻 Walkie-talkie */
+.wtHero{display:flex;gap:12px;align-items:center}.wtBig{font-size:44px;line-height:1}
+.wtRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;color:var(--fg);cursor:pointer;margin:6px 0 0;padding:10px}
+.wtRow>span:nth-child(2){flex:1;min-width:0;display:flex;flex-direction:column}.wtRow small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wtIc{font-size:24px;width:32px;text-align:center}.wtGo{color:var(--mut);font-size:22px}
+.wtSeg{margin-top:6px}.wtSeg .chip[disabled]{opacity:.4}
+.wtTop{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:space-between}.wtTop b{font-size:17px}
+.wtChips{display:flex;flex-wrap:wrap;gap:4px}.chip.sm{padding:3px 8px;font-size:12px;min-height:0;margin:0}
+.wtStat{margin:10px 0 4px;padding:8px 10px;border-radius:12px;background:var(--card2);text-align:center;font-size:15px}
+.wtStat.wt-talk{background:rgba(229,72,77,.18)}.wtStat.wt-busy{background:rgba(63,178,127,.18)}.wtStat.wt-wait,.wtStat.wt-hand{background:rgba(240,160,48,.18)}
+.wtPttWrap{display:flex;justify-content:center;padding:14px 0 8px}
+.wtPtt{width:188px;height:188px;border-radius:50%;border:4px solid var(--gold);background:radial-gradient(circle at 35% 30%,var(--card2),var(--card));color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,.35),inset 0 2px 0 rgba(255,255,255,.08);touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer;transition:transform .08s,background .15s}
+.wtPtt:active{transform:scale(.96)}.wtPtt .wtMic{font-size:58px;line-height:1}.wtPtt small{font-size:13px;font-weight:600;max-width:150px;text-align:center}
+.wtPtt.wt-talk{background:radial-gradient(circle at 35% 30%,#ff6b6b,#c62828);border-color:#ff8a80;color:#fff;animation:wtPulse 1.2s infinite}
+.wtPtt.wt-busy,.wtPtt.wt-muted,.wtPtt.wt-off{opacity:.6;border-color:var(--line)}.wtPtt.wt-wait{border-color:#f0a030}.wtPtt.wt-hand{border-color:#f0a030}
+@keyframes wtPulse{0%{box-shadow:0 0 0 0 rgba(229,72,77,.55)}70%{box-shadow:0 0 0 18px rgba(229,72,77,0)}100%{box-shadow:0 0 0 0 rgba(229,72,77,0)}}
+@media (prefers-reduced-motion:reduce){.wtPtt.wt-talk{animation:none}}
+.wtMax{text-align:center;margin-top:4px}
+.wtMem{display:flex;align-items:center;gap:8px;padding:7px 4px;border-top:1px solid var(--line)}.wtMem:first-of-type{border-top:0}.wtMem.talk{background:rgba(63,178,127,.12);border-radius:10px}
+.wtAv{font-size:22px;width:30px;text-align:center}.wtNm{flex:1;min-width:0;display:flex;flex-direction:column}.wtNm b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wtAct{display:flex;gap:4px}.wtAct .chip{font-size:15px;padding:4px 8px}
+.wtShare{text-align:center}.wtQr{display:flex;justify-content:center;margin:6px auto}.wtQr svg{width:180px;height:180px;background:#fff;border-radius:10px;padding:6px}
+.wtCode{font-size:15px;margin:6px 0}.wtCode b{font-size:20px;letter-spacing:1px;color:var(--gold)}
+.wtLeave{margin:6px 0 14px}

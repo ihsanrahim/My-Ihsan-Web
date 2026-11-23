@@ -55,7 +55,7 @@ var BT=[
 var KN={inv:["Jemputan","Invitation"],fol:["Susulan","Follow-up"],thx:["Terima kasih","Thank you"]};
 
 function ld(){ D=H.load("ihsan_events",null)||{}; if(!Array.isArray(D.list)) D.list=[]; if(!Array.isArray(D.tpl)) D.tpl=[]; if(!D.mig) migrate(); return D; }
-function sv(){ H.save("ihsan_events",D); remSync(); }
+function sv(){ H.save("ihsan_events",D); remSync(); if(window.EvShare) try{ EvShare.changed(); }catch(er){} }   // 0.7.17 shared events publish their changes
 function EV(id){ for(var i=0;i<D.list.length;i++) if(D.list[i].id===id) return D.list[i]; return null; }
 function T(k){ for(var i=0;i<TY.length;i++) if(TY[i][0]===k) return TY[i]; return TY[TY.length-1]; }
 function vc(k){ for(var i=0;i<VC.length;i++) if(VC[i][0]===k) return VC[i]; return VC[VC.length-1]; }
@@ -129,14 +129,15 @@ function remSync(){
 // ---------- list of events ----------
 function pList(el){
   var t=U.today(), L=D.list.filter(function(e){ var d=evDate(e), d2=e.d2?U.pd(e.d2):d; return fil==="up" ? (!d || d2>=t) : (d && d2<t); }).sort(function(a,b){ var x=a.d||"9999", y=b.d||"9999"; return fil==="up"?x.localeCompare(y):y.localeCompare(x); });
-  var h='<div class="card"><div class="row"><h3 style="margin:0">🎉 '+L2("Perancang majlis","Event planner")+'</h3><button class="btn gold g3d" id="evNew">＋ '+L2("Majlis","Event")+'</button></div>'+
+  var h='<div class="card"><div class="row"><h3 style="margin:0">🎉 '+L2("Perancang majlis","Event planner")+'</h3><button class="btn gold g3d" id="evNew">＋ '+L2("Majlis","Event")+'</button></div>'+'<button class="btn alt g3d" id="evJoin" style="margin-top:8px">🔗 '+L2("Sertai majlis dikongsi","Join a shared event")+'</button>'+
     '<div class="chips fseg"><button class="chip g3d'+(fil==="up"?" on":"")+'" data-fl="up">'+L2("Akan datang","Upcoming")+'</button><button class="chip g3d'+(fil==="past"?" on":"")+'" data-fl="past">'+L2("Telah berlalu","Past")+'</button></div></div>';
   h+=L.length?L.map(function(e){ var ty=T(e.ty), d=evDate(e), n=d?U.days(t,d):null, p=pax(e), m=money(e), dn=e.tk.filter(function(k){ return k.done; }).length;
-    return '<button class="card evc" data-eo="'+e.id+'"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+'</b><small>'+E(L2(ty[2],ty[3]))+' · '+dRange(e)+(e.t?' · '+tm(e.t):'')+'</small>'+
+    return '<button class="card evc" data-eo="'+e.id+'"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+(e.sh?' <span class="evShB">🔗</span>':'')+'</b><small>'+E(L2(ty[2],ty[3]))+' · '+dRange(e)+(e.t?' · '+tm(e.t):'')+'</small>'+
       '<small>👥 '+p.yes+'/'+p.inv+L2(" hadir"," coming")+' · ✅ '+dn+'/'+e.tk.length+(m.tot?' · 💰 '+rm(m.tot):'')+'</small></span>'+(n!=null&&n>=0?'<span class="evcd"><b>'+(n===0?"🎉":n)+'</b><small>'+(n===0?L2("hari ini","today"):L2("hari","days"))+'</small></span>':'')+'</button>'; }).join("")
     :'<div class="card mut small">'+(fil==="up"?L2("Tiada majlis akan datang. Tekan ＋ Majlis untuk mula merancang: nikah, kenduri, aqiqah, doa selamat, hari lahir dan banyak lagi.","No upcoming events. Tap ＋ Event to start planning: nikah, kenduri, aqiqah, doa selamat, birthdays and more."):L2("Tiada majlis lepas.","No past events."))+'</div>';
   el.innerHTML=h;
   el.querySelector("#evNew").onclick=newEv;
+  el.querySelector("#evJoin").onclick=function(){ var u=prompt(L2("Tampal pautan majlis yang dikongsi","Paste the shared event link"),""); if(!u) return; var go=function(){ EvShare.joinSheet(H, u, function(id){ ld(); cur=id; page="info"; draw(); }); }; if(window.EvShare) go(); else H.loadJs(["family/evshare.js"], go, function(){}); };
   el.querySelectorAll("[data-fl]").forEach(function(b){ b.onclick=function(){ fil=b.getAttribute("data-fl"); draw(); }; });
   el.querySelectorAll("[data-eo]").forEach(function(b){ b.onclick=function(){ cur=b.getAttribute("data-eo"); page="info"; draw(); document.getElementById("view").scrollTop=0; }; }); }
 function newEv(){
@@ -163,6 +164,7 @@ function pInfo(el, e){
     '<label class="fl">'+L2("Keterangan","Description")+'<textarea data-f="desc" rows="3" placeholder="'+L2("Nota, parkir, arah ke rumah, dll.","Notes, parking, directions, etc.")+'">'+E(e.desc||"")+'</textarea></label></div>';
   h+='<div class="card"><div class="row"><label class="trt"><span>🔔 '+L2("Peringatan","Reminders")+'</span><span class="switch sm"><input type="checkbox" id="efRem" '+(e.rem!==false?"checked":"")+'><span></span></span></label></div>'+
     '<div class="chips wrap">'+[30,14,7,3,1].map(function(n){ return '<button class="chip g3d'+((e.pre||[]).indexOf(n)>=0?" on":"")+'" data-pre="'+n+'">'+n+L2(" hari sebelum"," days before")+'</button>'; }).join("")+'</div><div class="mut tiny">'+L2("Jam 9 pagi pada hari-hari itu, dan 2 jam sebelum majlis bermula.","At 9 am on those days, and 2 hours before the event starts.")+'</div></div>';
+  h+='<button class="btn '+(e.sh?'alt':'gold')+' g3d full" id="efShare" style="margin-bottom:8px">🔗 '+(e.sh?L2("Dikongsi langsung · jemput lagi","Shared live · invite more"):L2("Kongsi langsung dengan kumpulan (tetamu, meja, semua)","Share live with a group (guests, tables, everything)"))+'</button>';
   h+='<div class="btns"><button class="btn alt g3d" id="efPr">🖨 '+L2("Cetak / PDF pelan","Print / PDF plan")+'</button><button class="btn alt g3d" id="efDup">⧉ '+L2("Salin majlis","Duplicate")+'</button><button class="btn alt g3d" id="efDel">🗑 '+L2("Padam","Delete")+'</button></div>';
   el.innerHTML=h;
   bindF(el, e, function(k){ if(k==="ty"||k==="d"||k==="d2") draw(); });
@@ -173,6 +175,7 @@ function pInfo(el, e){
   el.querySelector("#efMap").onclick=function(){ if(e.lat==null && !e.addr && !e.loc){ H.toast(L2("Isi alamat dahulu","Fill in the address first")); return; } H.N.openUrl(U.mapUrl(e.lat!=null?{lat:e.lat,lon:e.lon}:{addr:e.addr||e.loc})); };
   bind(el,"#efLLx",function(){ delete e.lat; delete e.lon; sv(); draw(); });
   el.querySelector("#efPr").onclick=function(){ printPlan(e); };
+  el.querySelector("#efShare").onclick=function(){ shareLive(e); };
   el.querySelector("#efDup").onclick=function(){ var c=JSON.parse(JSON.stringify(e)); c.id=uid(); c.n=e.n+" ("+L2("salinan","copy")+")"; c.d=""; c.d2=""; c.g.forEach(function(g){ g.st=""; g.sent=0; g.cp=null; }); c.tk.forEach(function(k){ k.done=false; }); D.list.push(c); sv(); cur=c.id; draw(); H.toast(L2("Disalin","Duplicated")); };
   el.querySelector("#efDel").onclick=function(){ if(!confirm(L2("Padam "+e.n+"?","Delete "+e.n+"?"))) return; D.list=D.list.filter(function(x){ return x!==e; }); cur=null; sv(); draw(); }; }
 // inputs with data-f="path.to.field" save on change
@@ -438,15 +441,16 @@ function pSeat(el, e){ if(!window.EvSeat){ el.innerHTML='<div class="card mut">�
 function fn(k){ return {info:pInfo, guest:pGuest, seat:pSeat, food:pFood, vend:pVend, bud:pBud, iti:pIti, task:pTask, rsvp:pRsvp}[k]||pInfo; }
 function head(e){ var ty=T(e.ty), d=evDate(e), n=d?U.days(U.today(),d):null;
   return '<div class="card evhd"><div class="row"><button class="chip g3d" id="evBk">‹ '+L2("Semua majlis","All events")+'</button>'+(n!=null&&n>=0?'<span class="evcd"><b>'+(n===0?"🎉":n)+'</b><small>'+(n===0?L2("hari ini","today"):L2("hari lagi","days to go"))+'</small></span>':'')+'</div>'+
-    '<div class="evht"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+'</b><small>'+dRange(e)+(e.t?' · '+tm(e.t):'')+(e.loc?' · '+E(e.loc):'')+'</small></span></div></div>'+
+    '<div class="evht"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+'</b><small>'+dRange(e)+(e.t?' · '+tm(e.t):'')+(e.loc?' · '+E(e.loc):'')+'</small></span>'+(e.sh?'<button class="chip g3d evShC" id="evShC">🔗 '+L2("Dikongsi","Shared")+'</button>':'')+'</div></div>'+
     '<div class="bbtabs noswipe">'+PAGES.map(function(p){ return '<button class="chip g3d'+(page===p[0]?" on":"")+'" data-ep="'+p[0]+'">'+p[1]+' '+L2(p[2],p[3])+'</button>'; }).join("")+'</div>'; }
 function view(el, h, dockHtml){
-  H=h; L2=h.L2x; E=h.esc; U=FamView.util(); ld();
+  H=h; L2=h.L2x; E=h.esc; U=FamView.util(); ld(); if(window.EvShare) EvShare.start(H);
   var e=cur?EV(cur):null; if(!e) cur=null;
   if(!e){ el.innerHTML='<div id="evBody"></div>'+dockHtml; pList(el.querySelector("#evBody")); try{ H.dockFix(); }catch(er){} return; }
   el.innerHTML=head(e)+'<div id="evBody"></div>'+dockHtml;
   var body=el.querySelector("#evBody"); fn(page)(body, e);
   el.querySelector("#evBk").onclick=function(){ cur=null; draw(); document.getElementById("view").scrollTop=0; };
+  var shc=el.querySelector("#evShC"); if(shc) shc.onclick=function(){ shareLive(e); };
   el.querySelectorAll("[data-ep]").forEach(function(b){ b.onclick=function(){ page=b.getAttribute("data-ep"); draw(); keepTab(); }; });
   keepTab(); try{ H.dockFix(); }catch(er){}
   // swipe between the eight pages, the neighbour following the finger
@@ -460,6 +464,11 @@ function view(el, h, dockHtml){
   } }
 // keep the selected page chip in view in the top row
 function keepTab(){ setTimeout(function(){ var on=document.querySelector("#view .bbtabs .chip.on"); if(on && on.scrollIntoView) try{ on.parentNode.scrollLeft=on.offsetLeft-on.parentNode.clientWidth/2+on.offsetWidth/2; }catch(e){} }, 0); }
-window.EventView={view:view, navGet:function(){ return {cur:cur, pg:page, k:(cur||"")+":"+page}; }, navSet:function(o){ cur=o.cur||null; page=o.pg||"info"; }};
+function shareLive(e){ var go=function(){ EvShare.shareSheet(e, H, function(){ draw(); }); }; if(window.EvShare) go(); else H.loadJs(["family/evshare.js"], go, function(){}); }
+// 0.7.17 a shared event changed on another phone: reload the list (wait while someone is typing on this page)
+var relPend=false;
+function reload(){ var a=document.activeElement, v=document.getElementById("view"); if(a && v && v.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ if(!relPend){ relPend=true; a.addEventListener("blur", function(){ relPend=false; setTimeout(reload, 50); }, {once:true}); } return; }
+  ld(); if(window.EventView && document.querySelector("#evBody")) draw(); }
+window.EventView={view:view, _reload:reload, navGet:function(){ return {cur:cur, pg:page, k:(cur||"")+":"+page}; }, navSet:function(o){ cur=o.cur||null; page=o.pg||"info"; }};
 window.EventRemSync=function(h){ H=H||h; L2=L2||h.L2x; E=E||h.esc; U=U||FamView.util(); ld(); remSync(); };
 })();

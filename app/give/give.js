@@ -8,7 +8,7 @@
    GiveView.derma(el, H), GiveView.gift(el, H); H = {N, esc, L2x, toast, load, save, fetch, showSheet, closeOverlay}. */
 (function(){
 "use strict";
-var OWNER = "ihsanrahim@gmail.com";
+var OWNER = "myihsan.app@gmail.com";
 var BASE = "https://ihsanrahim.github.io/My-Ihsan/feeds/";
 var DONATE_URL = BASE + "donate.json", SHOP_URL = BASE + "shop.json";
 var H = null, D = {q:"", cat:""}, G = {cat:""};

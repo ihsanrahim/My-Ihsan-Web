@@ -1,0 +1,18 @@
+/* My Ihsan 0.7.17 (owner): one height for every text box. Text boxes, date boxes, number boxes and drop-downs are all --fh tall,
+   and the small buttons that sit in the same row (✕, ＋, Add…) match them instead of stretching the row. Loaded after every theme
+   (index.html) so all themes follow it; page CSS loaded later cannot stretch them either (!important on the sizes only). */
+:root{--fh:40px}
+input.rin:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):not([type=file]),
+input[type=text],input[type=number],input[type=date],input[type=time],input[type=email],input[type=tel],input[type=search],input[type=url],input[type=password],
+select:not(.ibselh),.ibdtT{height:var(--fh)!important;min-height:var(--fh)!important;padding-top:0!important;padding-bottom:0!important;box-sizing:border-box!important}
+/* a row of fields: items keep their own height (no stretching) and the date box loses its block margins */
+:is(div,label,form,span):has(> :is(input.rin,.ibdt,select:not(.ibselh))):not(.card):not(.sheet):not(#view){align-items:center}
+:is(div,label,form,span):has(> :is(input.rin,select:not(.ibselh))):has(> .ibdt) > .ibdt,
+:is(div,label,form,span):has(> .ibdt):has(> :is(button,.btn)) > .ibdt{margin-top:0;margin-bottom:0}
+/* buttons beside a field: same height, square when they only hold an icon (✕ ＋ 🗑) */
+:is(div,label,form,span):has(> :is(input.rin,.ibdt,select:not(.ibselh))):not(.card):not(.sheet):not(#view) > :is(button,.btn,a.btn){height:var(--fh)!important;min-height:var(--fh)!important;padding-top:0!important;padding-bottom:0!important;min-width:var(--fh);box-sizing:border-box!important;align-self:center;line-height:1}
+.skExR{grid-template-columns:1fr 1fr var(--fh)!important}
+/* 0.7.18 (owner): the App theme rows are as tall as a text box (like Language), with small bold text */
+.throw.thRows{gap:6px!important}
+.ths.thRow{height:var(--fh)!important;min-height:var(--fh)!important;padding:0 12px!important;font-size:13px!important;font-weight:700!important;line-height:1.1!important;border-radius:10px!important;border-width:1px!important;box-sizing:border-box!important;align-items:center!important}
+.ths.thRow .thD i{width:14px!important;height:14px!important}.ths.thRow .thD b{font-size:14px!important}

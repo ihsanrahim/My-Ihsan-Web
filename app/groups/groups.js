@@ -143,7 +143,9 @@ function ingest(e, mine){
   if(!mine && p.t==="post" && e.pubkey!==me().pub && since0 > 0 && e.created_at > Date.now()/1000 - 6*3600 && H && H.xrem){
     var f = p.f||{}, urg = p.k==="death" || p.k==="alert" || !!f.imp;
     if(!g.mute || urg){ try{ var x = pk(p.k), who = ""; try{ who = nameOf(state(g), e.pubkey); }catch(er){}
-      H.xrem("gnew"+e.id.slice(0, 12), Date.now()+2500, (x[1]||"📢")+" "+(g.name||L("Kumpulan","Group")), (who?who+": ":"")+String(f.title||f.name||f.text||L(x[2], x[3])).slice(0, 120), "kumpulan", urg); }catch(er2){} } }
+      var nT = (x[1]||"📢")+" "+(g.name||L("Kumpulan","Group")), nB = (who?who+": ":"")+String(f.title||f.name||f.text||L(x[2], x[3])).slice(0, 120);
+      H.xrem("gnew"+e.id.slice(0, 12), Date.now()+2500, nT, nB, "kumpulan", urg);
+      if(window.IbNote) window.IbNote.add({src:"groups", title:nT, body:nB, go:"kumpulan", quiet:true}); }catch(er2){} } }   // 0.7.17 also in the 🔔 list (the phone notification above already shows it)
   if(p.t==="rekey" && p.to===me().pub && isAdmin(g, e.pubkey)){ var nk = openFrom(e.pubkey, p.k); if(nk && nk.k && nk.k!==g.key){ g.old = (g.old||[]).concat([g.key]); g.key = nk.k; putGrp(g); startSync(); } }
   if(onChange) { clearTimeout(syncT); syncT = setTimeout(function(){ if(onChange) onChange(g.id); }, 150); }
 }

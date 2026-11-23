@@ -130,6 +130,7 @@ var S0=[
   ["t.focus","tab:cal/fokus","#view","Fokus ada Hari ini, Matlamat, Tabiat, Berkembang dan Saya. Pemasa fokus ada dalam Hari ini: 25 minit, atau hingga solat seterusnya.","Focus has Today, Goals, Habits, Grow and Me. The focus timer is in Today: 25 minutes, or until the next prayer."],
   ["t.meet", "tab:cal/mesyuarat", "#view", "Nota mesyuarat yang berfungsi tanpa internet: rakam, tanda detik penting, kemudian dapatkan tindakan dan keputusan.", "Meeting notes that work offline: record, mark key moments, then get the action items and decisions.", "ai"],
   ["t.spk", "tab:cal/mesyuarat", "[data-mtp=\"spk\"]", "Pembesar suara menjadikan telefon sistem PA dengan mikrofon tanpa wayar atau Bluetooth. Orang lain boleh mendengar di telefon sendiri dengan mengimbas QR, pada Wi-Fi yang sama.", "Speaker turns the phone into a PA with a wireless or Bluetooth mic. Others can listen on their own phones by scanning a QR, on the same Wi-Fi.", "phone"],
+  ["t.wt", "tab:cal/mesyuarat", "[data-mtp=\"wt\"]", "Walkie-talkie: tekan untuk bercakap, seorang pada satu masa. Di Wi-Fi yang sama tanpa internet, atau melalui internet ke mana-mana. Sesiapa boleh bercakap, atau hos beri giliran.", "Walkie-talkie: push to talk, one person at a time. On the same Wi-Fi with no internet, or over the internet to anywhere. Anyone can talk, or the host gives turns."],
   ["t.stats", "tab:cal/statistik", "#view", "Langkah, masa skrin, solat dan dengar Al-Quran, ikut hari, bulan dan tahun.", "Steps, screen time, prayers and Quran listening, by day, month and year.", "phone"],
   ["l5.done","close","","Siap ✓","Done ✓"]
  ]],
@@ -178,6 +179,7 @@ var S0=[
   ["l9.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l10",[
+  ["x.bell","close","#hBell","🔔 Pemberitahuan: setiap kemas kini oleh orang lain (majlis dikongsi, bahagi bil, kumpulan, perniagaan) masuk ke sini. Leret ke kanan untuk arkib, ke kiri untuk padam. Pilih apa yang diberitahu, dan sembunyikan butiran pada telefon jika mahu.","🔔 Notifications: every update by someone else (shared events, split bills, groups, business) lands here. Swipe right to archive, left to delete. Choose what to be told about, and hide the details on the phone if you like."],
   ["x.stories","tab:learn/kisah","#view","Garis masa Sirah, 25 nabi, para sahabat dan Hadis 40.","The Sirah timeline, the 25 prophets, the companions and 40 Hadith."],
   ["x.listen","tab:learn/dengar","#view","Radio Islam dari seluruh dunia, dan 82 penceramah podcast.","Islamic radio from around the world, and 82 podcast speakers."],
   ["x.hajj","tab:learn/bahasa","[data-guide=\"haji\"]","Lalui Haji dan Umrah dalam 3D, rancang umrah sendiri, kemudian guna mod Umrah Langsung dan pembilang tawaf pada harinya.","Walk through Hajj and Umrah in 3D, plan a DIY umrah, then use Live Umrah mode and the tawaf counter on the day."],

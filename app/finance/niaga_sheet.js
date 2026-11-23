@@ -49,9 +49,9 @@ function apply(D, l, row, why){ var arr = D[KA[row.kind]]; if(!arr) return 0; va
 // ---------- sync ----------
 function sync(pid, opt){ opt = opt || {}; var D0 = C.D(), l0 = link(D0, pid); if(!l0 || !l0.url || l0.off) return Promise.resolve(0);
   if(busy[pid]) return busy[pid]; if(C.editing() && !opt.force){ kick(pid, 8000); return Promise.resolve(0); }
-  var changed = 0, prog = 0; l0.st = "busy"; paint();
+  var changed = 0, prog = 0, seq0 = l0.seq || 0, got = {}; l0.st = "busy"; paint();   // got: changes from other phones, by kind (0.7.17 🔔)
   var pull = function(){ var l = link(C.D(), pid); return call(l, "pull", {since:l.seq || 0, limit:500}).then(function(r){ var D = C.D(), l2 = link(D, pid); l2.sent = l2.sent || {};
-      (r.rows || []).forEach(function(row){ changed += apply(D, l2, row, ""); }); prog += (r.rows || []).length; l2.seq = r.seq; if(r.nd){ if((l2.devs || 1) <= 1 && r.nd > 1 && !l2.letterNote) l2.letterNote = 1; l2.devs = r.nd; }
+      (r.rows || []).forEach(function(row){ var c = apply(D, l2, row, ""); changed += c; if(c) got[row.kind] = (got[row.kind] || 0) + 1; }); prog += (r.rows || []).length; l2.seq = r.seq; if(r.nd){ if((l2.devs || 1) <= 1 && r.nd > 1 && !l2.letterNote) l2.letterNote = 1; l2.devs = r.nd; }
       if(!D.cur || !N.byId(D.profiles, D.cur) || N.byId(D.profiles, D.cur).del){ if(N.byId(D.profiles, pid)) D.cur = pid; }
       C.save(); if(opt.progress) opt.progress(prog); paint(); if(r.more) return pull(); }); };
   var push = function(){ var D = C.D(), l = link(D, pid), list = pending(D, pid).map(function(x){ return rowOf(x[0], x[1]); }); if(!list.length) return;
@@ -70,8 +70,13 @@ function sync(pid, opt){ opt = opt || {}; var D0 = C.D(), l0 = link(D0, pid); if
     return chain.catch(function(e){ var l3 = link(C.D(), pid); if(String(e && e.message) === "op") l3.err = L("Kemas kini skrip untuk simpan gambar di Drive", "Update the script to keep images in Drive"); }); };
   var p = pull().then(push).then(imgs).then(function(){ var D = C.D(), l = link(D, pid); l.last = N.iso(); l.err = ""; })
     .catch(function(e){ var D = C.D(), l = link(D, pid); if(l){ l.err = msg(e); if(String(e && e.message) === "auth") l.gone = true; } })
-    .then(function(){ var D = C.D(), l = link(D, pid); busy[pid] = null; if(l) l.st = ""; C.save(); paint(); if(changed && !C.editing()) C.redraw(); return changed; });
+    .then(function(){ var D = C.D(), l = link(D, pid); busy[pid] = null; if(l) l.st = ""; C.save(); paint(); if(changed && !C.editing()) C.redraw(); noteGot(D, pid, seq0, got); return changed; });
   busy[pid] = p; return p; }
+// 0.7.17 changes made on other phones (pulled from the shared Sheet) go to the 🔔 notification centre; not on the first sync of a link
+function noteGot(D, pid, seq0, got){ var ks = Object.keys(got); if(!seq0 || !ks.length || !window.IbNote) return; try{ var pr = N.byId(D.profiles, pid) || {}, n = 0;
+  var NM = {booking:["tempahan", "bookings"], doc:["dokumen", "documents"], expense:["perbelanjaan", "expenses"], customer:["pelanggan", "customers"], item:["barang", "items"], profile:["profil", "profile"], bkcfg:["tetapan tempahan", "booking settings"]};
+  var body = ks.map(function(k){ n += got[k]; return got[k] + " " + L((NM[k] || [k, k])[0], (NM[k] || [k, k])[1]); }).join(", ");
+  window.IbNote.add({src:"biz", title:"📑 " + (pr.name || pr.co || L("Perniagaan", "Business")), body:L("Dikemas kini dari telefon lain: ", "Updated from another phone: ") + body, go:"side:alat/niaga"}); }catch(e){} }
 function kick(pid, ms){ var D = C.D(), l = link(D, pid); if(!l || l.auto === false || l.off) return; clearTimeout(kickT[pid]); kickT[pid] = setTimeout(function(){ if(C.alive()) sync(pid); }, ms || 4000); }
 function start(){ if(tick) return; tick = setInterval(function(){ if(!C || !C.alive()){ clearInterval(tick); tick = null; return; } var D = C.D(); Object.keys(D.link || {}).forEach(function(pid){ var l = D.link[pid]; if(l && l.auto !== false && !l.off) sync(pid); }); }, 5 * 60000); }
 

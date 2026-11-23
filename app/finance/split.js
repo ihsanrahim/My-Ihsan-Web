@@ -97,7 +97,7 @@ function Live(t, onChange){ var self = this, socks = {}, alive = true; self.t = 
   var open1 = function(u){ var ws; try{ ws = new WebSocket(u); }catch(e){ return; } socks[u] = ws;
     ws.onopen = function(){ self.n++; onChange("net"); try{ ws.send(JSON.stringify(["REQ", "sp" + tg.slice(0, 8), {kinds: [KIND], "#t": [tg], limit: 3000}])); }catch(e){} self.flush(); };
     ws.onmessage = function(m){ var d; try{ d = JSON.parse(m.data); }catch(e){ return; }
-      if(d[0] === "EVENT" && d[2] && verify(d[2])){ if(ingest(t, d[2])){ clearTimeout(self.tm); self.tm = setTimeout(function(){ onChange("ev"); }, 120); } }
+      if(d[0] === "EVENT" && d[2] && verify(d[2])){ if(ingest(t, d[2])){ if(self.synced && d[2].pubkey !== db().pub) self.fresh = (self.fresh || 0) + 1; clearTimeout(self.tm); self.tm = setTimeout(function(){ onChange("ev"); note(t, self); }, 120); } }
       else if(d[0] === "EOSE"){ self.synced = true; onChange("eose"); }
       else if(d[0] === "OK" && d[2]){ var o = outbox().filter(function(x){ return x.e.id !== d[1]; }); saveOut(o); onChange("sent"); } };
     ws.onclose = function(){ if(socks[u] === ws){ delete socks[u]; self.n = Math.max(0, self.n - 1); onChange("net"); } if(alive) setTimeout(function(){ if(alive) open1(u); }, 5000); };
@@ -106,6 +106,9 @@ function Live(t, onChange){ var self = this, socks = {}, alive = true; self.t = 
   self.stop = function(){ alive = false; Object.keys(socks).forEach(function(u){ try{ socks[u].close(); }catch(e){} }); socks = {}; };
   rs.forEach(open1);
   setTimeout(function(){ if(!self.synced){ self.synced = true; onChange("eose"); } }, 7000); }
+// 0.7.17 someone else changed the trip while it is open: tell the 🔔 notification centre (app only; the web page has no IbNote)
+function note(t, lv){ var n = lv.fresh || 0; lv.fresh = 0; if(!n || !window.IbNote) return; try{ var st = state(t), h = st.hist[st.hist.length - 1];
+  window.IbNote.add({src: "split", title: "🧾 " + (st.name || t.name), body: (h ? String(h.x) : L("Ada kemas kini", "Updated")) + (n > 1 ? " (+" + (n - 1) + ")" : ""), go: "bahagi"}); }catch(e){} }
 function goLive(t){ if(live && live.t.id === t.id) return; if(live) live.stop(); live = new Live(t, function(why){ if(cur === t.id && host && document.body.contains(host)) draw(why); }); }
 function stopLive(){ if(live){ live.stop(); live = null; } }
 

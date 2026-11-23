@@ -1,4 +1,4 @@
-/* My Ihsan 0.6.71 (owner): Majlis › 🪑 Susun meja / Seating. For an event in a hall or space:
+/* My Ihsan 0.6.71 (owner): Majlis › 🪑 Susun meja / Seating. 0.7.17: table grid (rows × columns, table type, spacing, ＋/− a row or column) and adjustable grid lines. For an event in a hall or space:
    - the space in metres (width × length), with the pelamin/stage, door, buffet and PA as blocks you drag into place;
    - round tables (8 or 10 seats) and long tables (6–12 seats), dragged into place (snaps to 25 cm), turned 90°, named, deleted;
    - guests (from the event's guest list, a whole party stays together) put at a table; a table over its seats turns red;
@@ -33,11 +33,36 @@ function size(i){ if(i.k === "table") return i.sh === "round" ? [i.seats > 8 ? 1
 // grid: lines every 0.5 m (bold every 1 m); when on, tables snap to it. Off = the old 0.25 m snap.
 var GRID = 0.5;
 function gridOn(s){ return s.grid !== false; }
+function gstep(s){ return [0.25, 0.5, 1, 2].indexOf(+s.gs) >= 0 ? +s.gs : GRID; }   // 0.7.17 (owner): adjustable grid size
+// 0.7.17 (owner): a table grid of R rows × C columns. Grid tables carry gi (their place in the grid); the rest of the plan is left alone.
+// Fewer cells keeps the first tables (with their names and guests); more cells adds new tables; the space grows when the grid does not fit.
+var TT = {round8:["round", 8], round10:["round", 10], long:["long", 8], long10:["long", 10]};
+function tgOf(s){ var g = s.tg = s.tg || {}; if(!g.r) g.r = 3; if(!g.c) g.c = 3; if(!TT[g.t]) g.t = "round10"; if(!(g.gap >= 0.5)) g.gap = 1.2; return g; }
+function tgTables(s){ return tables(s).filter(function(t){ return t.gi != null; }).sort(function(a, b){ return a.gi - b.gi; }); }
+function tgApply(e, s, opt){ opt = opt || {}; var g = tgOf(s), N = g.r * g.c, have = tgTables(s), tt = TT[g.t];
+  if(!have.length && !opt.fresh) have = [];
+  var drop = have.slice(N), lost = drop.reduce(function(a, t){ return a + seated(e, t).length; }, 0);
+  if(lost && !opt.ok && !confirm(L("Meja yang dibuang ada ", "The tables being removed have ") + lost + L(" tetamu. Mereka akan tiada meja. Teruskan?", " guests. They will have no table. Carry on?"))) return false;
+  drop.forEach(function(t){ Object.keys(s.at).forEach(function(k){ if(s.at[k] === t.id) delete s.at[k]; }); s.items = s.items.filter(function(i){ return i !== t; }); });
+  have = have.slice(0, N);
+  var n0 = tables(s).length;
+  while(have.length < N){ var t = {id:uid(), k:"table", sh:tt[0], seats:tt[1], name:L("Meja ", "Table ") + (++n0), r:0, x:0, y:0}; s.items.push(t); have.push(t); }
+  have.forEach(function(t, i){ t.gi = i; if(opt.retype){ t.sh = tt[0]; t.seats = tt[1]; } });
+  // cell = the biggest grid table + the gap; the grid sits under any stage/door block at the top, centred left to right
+  var cw = 0, ch = 0; have.forEach(function(t){ var z = size(t), w = t.r ? z[1] : z[0], h = t.r ? z[0] : z[1]; cw = Math.max(cw, w); ch = Math.max(ch, h); });
+  cw += g.gap; ch += g.gap;
+  var top = 0.6; s.items.forEach(function(i){ if(i.k !== "table" && i.y < s.l / 3){ var b = boxOf(i); top = Math.max(top, b[1] + b[3] + g.gap); } });
+  var needW = g.c * cw - g.gap + 1.2, needH = top + g.r * ch - g.gap + 0.6, grew = false;
+  if(needW > s.w){ s.w = Math.ceil(needW * 2) / 2; grew = true; } if(needH > s.l){ s.l = Math.ceil(needH * 2) / 2; grew = true; }
+  var x0 = Math.max(0.6, (s.w - (g.c * cw - g.gap)) / 2);
+  have.forEach(function(t, i){ var r = Math.floor(i / g.c), c = i % g.c, z = size(t), w = t.r ? z[1] : z[0], h = t.r ? z[0] : z[1];
+    t.x = Math.round((x0 + c * cw + (cw - g.gap - w) / 2) * 100) / 100; t.y = Math.round((top + r * ch + (ch - g.gap - h) / 2) * 100) / 100; });
+  return {grew:grew}; }
 function svg(e, opt){ opt = opt || {}; var s = S(e), M = 0.6, h = '<svg class="stPlan" viewBox="' + (-M) + ' ' + (-M) + ' ' + (s.w + 2 * M) + ' ' + (s.l + 2 * M) + '" xmlns="http://www.w3.org/2000/svg">' +
     '<rect x="0" y="0" width="' + s.w + '" height="' + s.l + '" rx="0.2" fill="' + (opt.print ? "#fff" : "rgba(255,255,255,.04)") + '" stroke="' + (opt.print ? "#333" : "var(--gold,#c9a646)") + '" stroke-width="0.08"/>';
   if(gridOn(s)){ var gc = function(m){ return opt.print ? (m ? "#bbb" : "#ddd") : (m ? "rgba(255,255,255,.30)" : "rgba(255,255,255,.14)"); }, gw = function(m){ return m ? 0.03 : 0.015; };
-    for(var gx = GRID; gx < s.w; gx += GRID){ var mj = Math.abs(gx - Math.round(gx)) < 1e-9; h += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="' + s.l + '" stroke="' + gc(mj) + '" stroke-width="' + gw(mj) + '"/>'; }
-    for(var gy = GRID; gy < s.l; gy += GRID){ var mj2 = Math.abs(gy - Math.round(gy)) < 1e-9; h += '<line x1="0" y1="' + gy + '" x2="' + s.w + '" y2="' + gy + '" stroke="' + gc(mj2) + '" stroke-width="' + gw(mj2) + '"/>'; } }
+    var GS = gstep(s); for(var gx = GS; gx < s.w; gx += GS){ var mj = Math.abs(gx - Math.round(gx)) < 1e-9; h += '<line x1="' + gx + '" y1="0" x2="' + gx + '" y2="' + s.l + '" stroke="' + gc(mj) + '" stroke-width="' + gw(mj) + '"/>'; }
+    for(var gy = GS; gy < s.l; gy += GS){ var mj2 = Math.abs(gy - Math.round(gy)) < 1e-9; h += '<line x1="0" y1="' + gy + '" x2="' + s.w + '" y2="' + gy + '" stroke="' + gc(mj2) + '" stroke-width="' + gw(mj2) + '"/>'; } }
   s.items.forEach(function(i){ var z = size(i), w = i.r ? z[1] : z[0], hh = i.r ? z[0] : z[1], x = i.x, y = i.y, sel = i.id === selId && !opt.print, col = opt.print ? "#333" : "#e8e2cf";
     h += '<g class="stIt" data-it="' + i.id + '" transform="translate(' + x + ' ' + y + ')">';
     if(i.k === "table"){ var u = used(e, i), over = u > i.seats, fill = over ? "rgba(192,57,43,.55)" : u ? "rgba(201,166,70,.55)" : "rgba(255,255,255,.14)";
@@ -51,12 +76,19 @@ function svg(e, opt){ opt = opt || {}; var s = S(e), M = 0.6, h = '<svg class="s
     else { var K = KINDS[i.k]; h += '<rect width="' + w + '" height="' + hh + '" rx="0.1" fill="' + (opt.print ? "#e8eef7" : "rgba(80,140,220,.35)") + '" stroke="' + (sel ? "#ffd400" : col) + '" stroke-width="' + (sel ? 0.1 : 0.04) + '"/><text x="' + w / 2 + '" y="' + (hh / 2 + 0.12) + '" text-anchor="middle" font-size="' + Math.min(0.42, hh * 0.6) + '" fill="' + (opt.print ? "#123" : "#fff") + '">' + K[0] + ' ' + E(L(K[1], K[2])) + '</text>'; }
     h += '</g>'; });
   return h + '</svg>'; }
+function tgHtml(s){ var g = tgOf(s), n = tgTables(s).length, st = function(id, lab, v){ return '<div class="stTgS"><span>' + lab + '</span><button class="chip" data-tg="' + id + '" data-d="-1">−</button><b>' + v + '</b><button class="chip" data-tg="' + id + '" data-d="1">＋</button></div>'; };
+  return '<details class="stTg"' + (n ? ' open' : '') + '><summary>▦ ' + L("Grid meja: baris × lajur", "Table grid: rows × columns") + (n ? ' · <b>' + g.r + ' × ' + g.c + '</b>' : '') + '</summary>' +
+    '<div class="stTgR">' + st("r", L("Baris", "Rows"), g.r) + st("c", L("Lajur", "Columns"), g.c) + '</div>' +
+    '<div class="chips stTgT">' + [["round8", "⭕ " + L("Bulat 8", "Round 8")], ["round10", "⭕ " + L("Bulat 10", "Round 10")], ["long", "▭ " + L("Panjang 8", "Long 8")], ["long10", "▭ " + L("Panjang 10", "Long 10")]].map(function(x){ return '<button class="chip' + (g.t === x[0] ? ' on' : '') + '" data-tgt="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>' +
+    '<div class="stTgR">' + st("gap", L("Jarak (m)", "Spacing (m)"), g.gap.toFixed(1)) + '<div class="stTgS"><span>' + L("Garis grid", "Grid lines") + '</span>' + [0.25, 0.5, 1, 2].map(function(v){ return '<button class="chip' + (gstep(s) === v ? ' on' : '') + '" data-gs="' + v + '">' + v + ' m</button>'; }).join("") + '</div></div>' +
+    '<button class="btn gold g3d" id="stTgGo">▦ ' + (n ? L("Susun semula grid", "Re-lay the grid") : L("Buat grid ", "Make the grid ") + g.r + ' × ' + g.c + ' (' + g.r * g.c + L(" meja)", " tables)")) + '</button>' +
+    '<div class="mut tiny">' + L("Nama dan tetamu setiap meja kekal. Ruang dibesarkan jika grid tidak muat.", "Each table keeps its name and guests. The space grows if the grid does not fit.") + '</div></details>'; }
 function page(el, e, ctx){ C = ctx; var s = S(e), T = tables(s), seats = T.reduce(function(a, t){ return a + t.seats; }, 0), come = e.g.filter(function(g){ return g.st !== "no"; }), seatP = come.filter(function(g){ return s.at[g.id]; }).reduce(function(a, g){ return a + gpax(g); }, 0), allP = come.reduce(function(a, g){ return a + gpax(g); }, 0), sel = s.items.filter(function(i){ return i.id === selId; })[0];
   var h = '<div class="card"><div class="fsum bb4"><div><small>' + L("Meja", "Tables") + '</small><b>' + T.length + '</b></div><div><small>' + L("Kerusi", "Seats") + '</small><b>' + seats + '</b></div><div><small>' + L("Ditempatkan", "Seated") + '</small><b class="evok">' + seatP + '</b><small>/ ' + allP + '</small></div></div>' +
     '<div class="btns" style="flex-wrap:wrap;margin-top:6px"><button class="chip" data-add="round8">⭕ ' + L("Bulat 8", "Round 8") + '</button><button class="chip" data-add="round10">⭕ ' + L("Bulat 10", "Round 10") + '</button><button class="chip" data-add="long">▭ ' + L("Panjang", "Long") + '</button>' +
     Object.keys(KINDS).map(function(k){ return '<button class="chip" data-add="' + k + '">' + KINDS[k][0] + ' ' + E(L(KINDS[k][1], KINDS[k][2])) + '</button>'; }).join("") + '</div>' +
     '<div class="stRoom"><label>' + L("Ruang (m)", "Space (m)") + ' <input id="stW" class="rin" inputmode="decimal" value="' + s.w + '"> × <input id="stL" class="rin" inputmode="decimal" value="' + s.l + '"></label>' +
-    '<div class="stBtns"><button class="chip" id="stRows" title="' + E(L("Susun mendatar", "Line up in rows")) + '">⇔ ' + L("Baris", "Rows") + '</button><button class="chip" id="stCols" title="' + E(L("Susun menegak", "Line up in columns")) + '">⇕ ' + L("Lajur", "Columns") + '</button><button class="chip" id="stGrid">▦ ' + (gridOn(s) ? L("Grid on", "Grid on") : L("Grid off", "Grid off")) + '</button><button class="chip stFs" id="stFs">⛶</button></div></div>' +
+    '<div class="stBtns"><button class="chip" id="stRows" title="' + E(L("Susun mendatar", "Line up in rows")) + '">⇔ ' + L("Baris", "Rows") + '</button><button class="chip" id="stCols" title="' + E(L("Susun menegak", "Line up in columns")) + '">⇕ ' + L("Lajur", "Columns") + '</button><button class="chip" id="stGrid">▦ ' + (gridOn(s) ? L("Grid on", "Grid on") : L("Grid off", "Grid off")) + '</button><button class="chip stFs" id="stFs">⛶</button></div></div>' + tgHtml(s) +
     '<div class="stWrap noswipe' + (Z.full ? ' full' : '') + '" id="stWrap"><button class="chip stFs stFsX">✕</button>' + svg(e) + '</div><div class="mut tiny">' + L("Seret meja ke tempatnya. Ketik meja untuk letak tetamu.", "Drag the tables into place. Tap a table to seat guests.") + '</div></div>' +
     (sel ? '<div class="card stSel"><b>' + (sel.k === "table" ? "🪑 " + E(sel.name) + ' · ' + used(e, sel) + '/' + sel.seats : KINDS[sel.k][0] + ' ' + E(L(KINDS[sel.k][1], KINDS[sel.k][2]))) + '</b><div class="btns" style="flex-wrap:wrap">' +
       (sel.k === "table" ? '<button class="btn gold g3d" id="stSeat">👥 ' + L("Tetamu di meja ini", "Guests at this table") + '</button><button class="chip" id="stName">✎ ' + L("Nama", "Name") + '</button><button class="chip" id="stSeats">🪑 ' + L("Kerusi", "Seats") + '</button>' : '') +
@@ -78,7 +110,7 @@ function page(el, e, ctx){ C = ctx; var s = S(e), T = tables(s), seats = T.reduc
   sv0.addEventListener("pointerdown", function(ev){ var g = ev.target.closest("[data-it]"); if(!g){ if(selId){ selId = null; redraw(); } return; } ev.preventDefault(); var it = s.items.filter(function(i){ return i.id === g.getAttribute("data-it"); })[0], pt = toM(sv0, ev);
     drag = {it:it, dx:pt[0] - it.x, dy:pt[1] - it.y, g:g, moved:false}; try{ sv0.setPointerCapture(ev.pointerId); }catch(x){} });
   sv0.addEventListener("pointermove", function(ev){ if(!drag) return; var pt = toM(sv0, ev), z = size(drag.it), w = drag.it.r ? z[1] : z[0], hh = drag.it.r ? z[0] : z[1];
-    var stp = gridOn(s) ? GRID : 0.25, nx = Math.round((pt[0] - drag.dx) / stp) * stp, ny = Math.round((pt[1] - drag.dy) / stp) * stp; nx = Math.max(0, Math.min(s.w - w, nx)); ny = Math.max(0, Math.min(s.l - hh, ny));
+    var stp = gridOn(s) ? gstep(s) : 0.25, nx = Math.round((pt[0] - drag.dx) / stp) * stp, ny = Math.round((pt[1] - drag.dy) / stp) * stp; nx = Math.max(0, Math.min(s.w - w, nx)); ny = Math.max(0, Math.min(s.l - hh, ny));
     if(nx !== drag.it.x || ny !== drag.it.y){ drag.moved = true; drag.it.x = nx; drag.it.y = ny; drag.g.setAttribute("transform", "translate(" + nx + " " + ny + ")"); } });
   var up = function(){ if(!drag) return; var d = drag; drag = null; if(d.moved){ save(); } else if(Z.full && d.it.k === "table"){ selId = d.it.id; seatSheet(e, d.it, redraw); } else { selId = d.it.id; redraw(); if(d.it.k === "table") setTimeout(function(){ var b = el.querySelector("#stSel, .stSel"); if(b && b.scrollIntoView) b.scrollIntoView({block:"nearest"}); }, 0); } };
   sv0.addEventListener("pointerup", up); sv0.addEventListener("pointercancel", up);
@@ -97,6 +129,13 @@ function page(el, e, ctx){ C = ctx; var s = S(e), T = tables(s), seats = T.reduc
   el.querySelectorAll("[data-z]").forEach(function(b){ b.onclick = function(){ var k = +b.getAttribute("data-z"); Z.z = k ? Math.max(1, Math.min(5, Z.z * (k > 0 ? 1.4 : 1 / 1.4))) : 1; if(!k){ Z.cx = Z.cy = null; } apv(); }; });
   el.querySelectorAll(".stFs").forEach(function(b){ b.onclick = function(){ Z.full = !Z.full; redraw(); }; });
   var gb = q("#stGrid"); if(gb) gb.onclick = function(){ s.grid = !gridOn(s); save(); redraw(); };
+  var tgRun = function(o){ var r = tgApply(e, s, o); if(r === false) return false; save(); redraw(); if(r.grew) C.H.toast("📐 " + L("Ruang dibesarkan ke ", "Space made bigger: ") + s.w + " × " + s.l + " m"); return true; };
+  el.querySelectorAll("[data-tg]").forEach(function(b){ b.onclick = function(){ var g = tgOf(s), k = b.getAttribute("data-tg"), d = +b.getAttribute("data-d"), was = g[k];
+    if(k === "gap") g.gap = Math.max(0.5, Math.min(4, Math.round((g.gap + d * 0.1) * 10) / 10)); else g[k] = Math.max(1, Math.min(20, g[k] + d));
+    if(tgTables(s).length){ if(!tgRun()) { g[k] = was; } } else { save(); redraw(); } }; });
+  el.querySelectorAll("[data-tgt]").forEach(function(b){ b.onclick = function(){ tgOf(s).t = b.getAttribute("data-tgt"); if(tgTables(s).length) tgRun({retype:true}); else { save(); redraw(); } }; });
+  el.querySelectorAll("[data-gs]").forEach(function(b){ b.onclick = function(){ s.gs = +b.getAttribute("data-gs"); s.grid = true; save(); redraw(); }; });
+  var tgo = q("#stTgGo"); if(tgo) tgo.onclick = function(){ tgRun(); };
   q("#stRows").onclick = function(){ arrange(s, "row"); save(); redraw(); }; q("#stCols").onclick = function(){ arrange(s, "col"); save(); redraw(); };
   var pts = {}, pz = null;
   sv0.addEventListener("pointerdown", function(ev){ pts[ev.pointerId] = [ev.clientX, ev.clientY]; var ids = Object.keys(pts); if(ids.length === 2){ drag = null; var a = pts[ids[0]], b = pts[ids[1]]; pz = {d:Math.hypot(b[0] - a[0], b[1] - a[1]), z:Z.z}; }

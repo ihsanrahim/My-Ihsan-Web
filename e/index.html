@@ -1,0 +1,20 @@
+<!doctype html><html lang="ms"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Majlis dikongsi · Shared event · My Ihsan</title>
+<style>:root{color-scheme:dark}body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#07130d;color:#eef5ef;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center;padding:16px;box-sizing:border-box}
+.c{max-width:360px}.l{font-size:56px}h1{font-size:22px;margin:8px 0}p{color:#9db5a5;font-size:14px;line-height:1.5}a.b,button{display:block;width:100%;box-sizing:border-box;margin:10px 0;padding:14px;border-radius:14px;border:0;font-size:16px;font-weight:700;text-decoration:none;cursor:pointer}
+a.g{background:#c9a646;color:#07130d}a.o,button{background:#11241a;color:#eef5ef;border:1px solid #24402f}small{color:#9db5a5;display:block;margin-top:14px;font-size:12px}</style></head>
+<body><div class="c"><div class="l">🎊</div><h1 id="n">Majlis dikongsi · Shared event</h1>
+<p>Anda dijemput menguruskan majlis ini bersama dalam aplikasi My Ihsan: tetamu, susun meja, makanan, vendor dan lain-lain.<br>You're invited to plan this event together in the My Ihsan app: guests, seating, food, vendors and more.</p>
+<a class="b g" id="open" href="#">📲 Buka dalam My Ihsan · Open in My Ihsan</a>
+<a class="b o" href="https://play.google.com/store/apps/details?id=com.myihsan.myapp">⬇ Dapatkan aplikasi · Get the app</a>
+<button id="cp">📋 Salin pautan · Copy the link</button>
+<small>Jika butang tidak berfungsi: buka My Ihsan › Alat › Majlis › 🔗 Sertai majlis dikongsi, dan tampal pautan.<br>If the button does nothing: open My Ihsan › Tools › Events › 🔗 Join a shared event, and paste the link.</small></div>
+<script>
+(function(){ "use strict";
+  var d = location.hash.slice(1); if(!/^[\w-]+$/.test(d)) d = "";
+  try{ var o = JSON.parse(decodeURIComponent(escape(atob(d.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((d.length + 3) % 4))))); if(o && o.n) document.getElementById("n").textContent = "🎊 " + String(o.n).slice(0, 60); }catch(e){}
+  var app = "intent://e/" + d + "#Intent;scheme=myihsan;package=com.myihsan.myapp;end";
+  var a = document.getElementById("open"); a.href = /Android/i.test(navigator.userAgent) ? app : "myihsan://e/" + d;
+  document.getElementById("cp").onclick = function(){ try{ navigator.clipboard.writeText(location.href); this.textContent = "✓ Disalin · Copied"; }catch(e){} };
+})();
+</script></body></html>

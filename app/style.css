@@ -2519,3 +2519,18 @@ select{accent-color:var(--gold)}
 .ths.thRow .thD{display:flex;align-items:center;gap:6px}
 .ths.thRow .thD i{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.7);box-shadow:0 0 0 1px rgba(0,0,0,.25)}
 .ths.thRow .thD b{font-size:18px;margin-left:2px}
+
+/* 0.7.17 seating: table grid (rows × columns) */
+.stTg{margin-top:8px;border:1px solid var(--line);border-radius:12px;padding:8px 10px}.stTg summary{cursor:pointer;font-weight:600;font-size:14px}
+.stTgR{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px}.stTgS{display:flex;align-items:center;gap:6px;font-size:13px}.stTgS b{min-width:28px;text-align:center;font-size:15px}
+.stTgS .chip{margin:0;min-width:36px;padding:6px 10px;min-height:0}.stTgT{margin-top:8px}.stTg .btn{margin-top:10px;width:100%}
+
+/* 0.7.17 🔔 notification centre */
+#hBell{position:relative}#hBell .hbN{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#e5484d;color:#fff;font-size:10px;font-style:normal;font-weight:700;line-height:16px;box-sizing:border-box}#hBell .hbN.hidden{display:none}
+.ntTabs{margin-bottom:6px}.ntHint{margin:2px 0 6px}
+.ntRow{position:relative;display:block;width:100%;box-sizing:border-box;overflow:hidden;border-radius:12px;margin:6px 0;touch-action:pan-y}
+.ntBgA,.ntBgD{position:absolute;inset:0;display:none;align-items:center;padding:0 16px;font-weight:700;color:#fff}.ntBgA{background:#2e7d5b;justify-content:flex-start}.ntBgD{background:#c0392b;justify-content:flex-end}
+.ntRow.toA .ntBgA,.ntRow.toD .ntBgD{display:flex}
+.ntFg{position:relative;width:100%;box-sizing:border-box;display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--card2);border:1px solid var(--line);border-radius:12px;transition:transform .15s;user-select:none;cursor:pointer}
+.ntRow.unread .ntFg{border-left:4px solid var(--gold)}.ntIc{font-size:22px}.ntTx{flex:1;min-width:0;display:flex;flex-direction:column}.ntTx small{color:var(--mut);white-space:normal}.ntAt{font-size:11px;color:var(--mut);align-self:flex-start}
+.ntSet{margin-top:10px}
