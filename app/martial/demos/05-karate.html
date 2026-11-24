@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Karate Dojo</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// White karategi (long sleeves & trousers), obi, head covered, faceless.
+const GI = { top: '#f7f7f3', pants: '#f7f7f3', trim: '#e4e4de', belt: '#111', feetColor: '#ededed', ring: '#d33' };
+const AKA = { ...GI, belt: '#c62828', ring: '#d33', gloves: '#c62828' };   // WKF kumite: red belt + mitts
+const AO = { ...GI, belt: '#1e4fb5', ring: '#2c6bd6', gloves: '#1e4fb5' };
+
+const P = {
+  musubi: { base: 'attention' },
+  rei: { base: 'bow' },
+  yoi: { lLeg: [6, 90, 0], rLeg: [6, 90, 0], lArm: [20, -10, 70], rArm: [20, -10, 70], lElbow: 50, rElbow: 50, lHand: 'fist', rHand: 'fist' },
+  zenkutsu: { lLeg: [36, 8, 0], rLeg: [-32, 10, 0], lKnee: 45, rKnee: 0, lHand: 'fist', rHand: 'fist' },
+  kokutsu: { turn: -55, lLeg: [24, 55, 0], rLeg: [16, 125, 45], lKnee: 15, rKnee: 55, head: [0, 50, 0], lHand: 'fist', rHand: 'fist' },
+  kiba: { turn: -90, lLeg: [42, 85, 10], rLeg: [42, 85, 10], lKnee: 72, rKnee: 72, head: [0, 85, 0], lArm: [-25, 0, 0], rArm: [-25, 0, 0], lElbow: 105, rElbow: 105, lHand: 'fist', rHand: 'fist' },
+  kamae: { turn: -40, lLeg: [24, 40, 0], rLeg: [20, 140, 15], lKnee: 20, rKnee: 18, head: [0, 35, 0], spine: [4, 10, 0],
+    lArm: [70, 35, 50], lElbow: 60, rArm: [35, 15, 70], rElbow: 115, lHand: 'fist', rHand: 'fist' },
+  hikite: { base: 'zenkutsu', rArm: [-28, 10, 0], rElbow: 105 },
+  'gedan-barai': { base: 'hikite', lArm: [36, 25, 0], lElbow: 4 },
+  'gedan-prep': { base: 'zenkutsu', lArm: [95, -50, 90], lElbow: 125, rArm: [40, -10, 0], rElbow: 10 },
+  'age-uke': { base: 'hikite', lArm: [140, -10, 90], lElbow: 95 },
+  'soto-uke': { base: 'hikite', lArm: [70, 35, 0], lElbow: 95, chest: [0, -25, 0] },
+  'uchi-uke': { base: 'hikite', lArm: [60, -10, 25], lElbow: 90, chest: [0, 20, 0] },
+  'shuto-uke': { base: 'kokutsu', lArm: [75, 55, 40], lElbow: 35, rArm: [40, -20, 80], rElbow: 115, lHand: 'open', rHand: 'open' },
+  'oi-zuki': { base: 'zenkutsu', lArm: [88, -6, 0], lElbow: 0, rArm: [-28, 10, 0], rElbow: 105 },
+  'gyaku-zuki': { base: 'zenkutsu', rArm: [88, -6, 0], rElbow: 0, lArm: [-28, 10, 0], lElbow: 105, chest: [0, 25, 0], turn: 5 },
+  'kizami-zuki': { base: 'kamae', lArm: [88, 5, 0], lElbow: 0, spine: [8, 10, 0] },
+  'kamae-gyaku': { base: 'kamae', turn: -5, rArm: [88, -6, 0], rElbow: 0, lArm: [-20, 20, 0], lElbow: 110, chest: [0, 20, 0] },
+  'mae-chamber': { base: 'kamae', turn: -10, lLeg: [6, 30, 0], lKnee: 15, rLeg: [95, 0, 0], rKnee: 120, rFoot: -20, rToe: -50 },
+  'mae-geri': { base: 'mae-chamber', rLeg: [88, 0, 0], rKnee: 0, rFoot: -15, spine: [-8, 0, 0] },
+  'mawashi-chamber': { base: 'kamae', turn: 45, lLeg: [6, -40, 0], lKnee: 15, rLeg: [80, 50, 70], rKnee: 125, rFoot: 40, head: [5, -45, 0], roll: 10 },
+  'mawashi-geri': { base: 'mawashi-chamber', turn: 80, roll: 20, rLeg: [100, 80, 80], rKnee: 5, rFoot: 45, head: [5, -70, 0], spine: [-5, -15, 10] },
+  'yoko-chamber': { base: 'kiba', turn: 90, lLeg: [10, -70, 0], lKnee: 30, rLeg: [92, 70, 90], rKnee: 135, rFoot: -10, head: [5, -85, 0] },
+  'yoko-kekomi': { base: 'yoko-chamber', roll: 30, rLeg: [88, 90, 88], rKnee: 0, spine: [0, -5, 15], head: [5, -85, -15] },
+  'ushiro-turn': { base: 'kamae', turn: -170, lean: 20, lLeg: [6, 0, 0], lKnee: 20, rLeg: [-8, 0, 0], rKnee: 125, rFoot: -10, spine: [20, 0, 0], head: [10, -10, 0] },
+  'ushiro-geri': { base: 'ushiro-turn', lean: 38, rLeg: [-68, 0, 0], rKnee: 2, rFoot: -10, head: [-25, -15, 0] },
+  'hit': { base: 'kamae', spine: [22, 20, 0], head: [20, 25, 0] },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Reigi (etiquette)', name: 'Rei → Yoi',
+    cue: 'Karate begins and ends with courtesy (Karate ni sente nashi — there is no first attack in karate). Musubi-dachi, bow, then yoi.',
+    tracks: { A: [['musubi', 0, 0.6, 'Musubi-dachi — heels together'], ['rei', 0.7, 0.7, 'Rei — bow'], ['musubi', 0.6, 0.3], ['yoi', 0.7, 1.0, 'Yoi — ready, kiai in the belly']] } },
+  { group: 'Kihon: dachi (stances)', name: 'Zenkutsu · Kokutsu · Kiba · Kamae',
+    cue: 'Front stance (70% front), back stance (70% back), straddle stance (50/50, knees pressed out), and the free-fighting guard.',
+    tracks: { A: [['yoi', 0, 0.4], ['zenkutsu', 0.6, 1.0, 'Zenkutsu-dachi'], ['kokutsu', 0.6, 1.0, 'Kokutsu-dachi'], ['kiba', 0.6, 1.0, 'Kiba-dachi'], ['kamae', 0.6, 1.2, 'Kumite kamae']] } },
+  { group: 'Kihon: uke (blocks)', name: 'Gedan-barai · Age-uke · Soto-uke · Uchi-uke · Shuto-uke',
+    cue: 'Five basic blocks. Every block finishes with hikite: the other fist snaps back to the hip — that pull generates half of the power.',
+    tracks: { A: [['yoi', 0, 0.4], ['gedan-prep', 0.4, 0.1], ['gedan-barai', 0.18, 0.6, 'Gedan-barai — downward sweep'], ['age-uke', 0.25, 0.6, 'Age-uke — rising block'],
+      ['soto-uke', 0.25, 0.6, 'Soto-uke — outside-in'], ['uchi-uke', 0.25, 0.6, 'Uchi-uke — inside-out'], ['shuto-uke', 0.4, 0.8, 'Shuto-uke — knife hand in back stance'], ['yoi', 0.6, 0.4]] } },
+  { group: 'Kihon: tsuki (punches)', name: 'Oi-zuki · Gyaku-zuki · Kizami-zuki',
+    cue: 'Lunge punch (same hand as front leg), reverse punch (opposite hand, hip rotation), and the jab. Fist rotates only at the last 10 cm.',
+    tracks: { A: [['yoi', 0, 0.4], ['hikite', 0.4, 0.2], ['oi-zuki', 0.16, 0.6, 'Oi-zuki — lunge punch'], ['hikite', 0.3, 0.1], ['gyaku-zuki', 0.16, 0.6, 'Gyaku-zuki — reverse punch, hips drive'],
+      ['kamae', 0.5, 0.3], ['kizami-zuki', 0.12, 0.5, 'Kizami-zuki — jab'], ['kamae', 0.3, 0.5]] } },
+  { group: 'Kihon: geri (kicks)', name: 'Mae · Mawashi · Yoko-kekomi · Ushiro',
+    cue: 'Front kick (ball of foot), roundhouse, side thrust kick (heel/foot-edge), back kick. Always chamber and re-chamber.',
+    tracks: { A: [['kamae', 0, 0.4], ['mae-chamber', 0.25, 0.05], ['mae-geri', 0.14, 0.3, 'Mae-geri'], ['mae-chamber', 0.16, 0], ['kamae', 0.3, 0.3],
+      ['mawashi-chamber', 0.25, 0.05], ['mawashi-geri', 0.14, 0.3, 'Mawashi-geri'], ['mawashi-chamber', 0.16, 0], ['kamae', 0.3, 0.3],
+      ['yoko-chamber', 0.35, 0.05], ['yoko-kekomi', 0.17, 0.35, 'Yoko-geri kekomi'], ['yoko-chamber', 0.2, 0], ['kamae', 0.35, 0.3],
+      ['ushiro-turn', 0.3, 0.05], ['ushiro-geri', 0.17, 0.4, 'Ushiro-geri'], ['kamae', 0.4, 0.5]] } },
+  { group: 'Kata', name: 'Heian Shodan (opening sequence)',
+    cue: 'First Shotokan kata. Embusen (floor line) is an “I” shape. Moves 1–4 shown: turn left gedan-barai, step oi-zuki, turn 180° gedan-barai, tettsui then step oi-zuki.',
+    tracks: { A: [['yoi', 0, 0.6, 'Yoi'],
+      [at('gedan-barai', 0, 0.3, { turn: 90 }), 0.6, 0.5, '1. Turn left — gedan-barai'],
+      [at('oi-zuki', 0, 0.95, { turn: 90, mirror: true }), 0.6, 0.5, '2. Step — oi-zuki (kiai-free)'],
+      [at('gedan-barai', 0, 0.35, { turn: 90, mirror: true }), 0.8, 0.5, '3. Turn 180° — gedan-barai'],
+      [at('oi-zuki', 0, -0.3, { turn: -90 }), 0.6, 0.5, '4. Step — oi-zuki'],
+      [at('gedan-barai', 0.4, 0), 0.8, 0.4, '5. Turn to the front — gedan-barai'],
+      [at('age-uke', 1.0, 0, { mirror: true }), 0.6, 0.3, '6. Step — age-uke'], [at('age-uke', 1.6, 0), 0.6, 0.3, '7. Step — age-uke'],
+      [at('age-uke', 2.2, 0, { mirror: true }), 0.6, 0.8, '8. Step — age-uke, KIAI!'], [at('yoi', 2.2), 0.8, 0.5]] } },
+  { group: 'Kumite (sparring)', name: 'Kihon ippon kumite (one-step)', gap: 1.6, roles: { A: 'Uke (defender)', B: 'Tori (attacker)' },
+    cue: 'Attacker announces jodan and steps in with oi-zuki to the face; defender steps back into zenkutsu with age-uke and counters gyaku-zuki to the body. Control every counter — stop on the skin.',
+    tracks: {
+      B: [['yoi', 0, 0.4, 'Tori: “Jodan!”'], ['gedan-barai', 0.5, 0.5], [at('oi-zuki', 0.4, 0, { mirror: true, lArm: [108, -4, 0] }), 0.3, 0.05, 'Oi-zuki jodan'], [at('oi-zuki', 0.4, 0, { mirror: true, lArm: [128, 14, 0], spine: [-6, 0, 0] }), 0.18, 1.2, 'Deflected upward by age-uke'], [at('hit', 0.4, 0, { lArm: [40, 20, 60], rArm: [40, 20, 60] }), 0.5, 0.8]],
+      A: [['yoi', 0, 1.4], [at('age-uke', -0.38, 0, { mirror: true, lLeg: [-32, 10, 0], rLeg: [36, 8, 0], rKnee: 45, lKnee: 0 }), 0.3, 0.3, 'Step back — age-uke'],
+        [at('hikite', -0.3, 0, { lArm: [60, 0, 0], lElbow: 30 }), 0.14, 0.02, 'Pull the fist to the hip (hikite)'], [at('gyaku-zuki', 0.36, 0), 0.16, 1.2, 'Gyaku-zuki chudan — kiai!']] } },
+  { group: 'Kumite (sparring)', name: 'Shiai: kizami → gyaku-zuki (yuko)', gap: 1.5, roles: { A: 'Aka', B: 'Ao' }, uniforms: { A: AKA, B: AO },
+    cue: 'Sport kumite: a feint jab draws the guard up, then a fast reverse punch scores. Ao (blue) answers with a mawashi-geri to the head — 3 points (ippon).',
+    tracks: {
+      A: [['kamae', 0, 0.5], [at('kizami-zuki', 0.25), 0.15, 0.1, 'Aka: kizami feint'], [at('kamae-gyaku', 0.42), 0.15, 0.4, 'Gyaku-zuki — yuko (1 pt)'], [at('kamae', 0.0), 0.35, 0.3], [at('hit', -0.05), 0.4, 1.0]],
+      B: [['kamae', 0, 0.6], [at('kamae', 0, 0, { lArm: [100, 30, 60] }), 0.15, 0.5], [at('kamae', -0.1), 0.3, 0.1],
+        ['mawashi-chamber', 0.2, 0], [at('mawashi-geri', 0.3, 0, { rLeg: [115, 80, 80] }), 0.14, 0.4, 'Ao: jodan mawashi-geri — ippon (3 pts)'], [at('kamae', 0.0), 0.4, 0.6]] } },
+];
+
+createDojo({
+  title: 'Karate-dō 空手道', subtitle: 'Shotokan kihon, kata & kumite — modest gi, faceless',
+  floor: { type: 'tatami', colors: ['#c8b98a', '#3c6e47'] },
+  fighters: { A: { uniform: GI, label: 'Karateka' }, B: { uniform: { ...GI, belt: '#6b3f1d', ring: '#2c6bd6' }, label: 'Partner' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

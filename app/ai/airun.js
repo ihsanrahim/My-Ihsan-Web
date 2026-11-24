@@ -13,6 +13,8 @@ function shortModel(m){ m = String(m || ""); var free = /:free$/.test(m); m = m.
   return m + (free ? " 🆓" : ""); }
 function label(feat){ var a = A(); if(!a || !a.featLabel) return "AI"; var x = a.featLabel(feat); return x.name + (x.prov === "pollinations" ? "" : " · " + shortModel(x.model)); }
 function btn(feat){ return '<button type="button" class="aiBtn" data-aiset="' + feat + '" aria-label="' + esc(L("Tetapan AI", "AI settings")) + '">✨ <span class="aiBtnT">' + esc(label(feat)) + '</span> <i>⚙</i></button>'; }
+// 0.7.28 (owner): the same "✨ AI · provider · model ⚙" panel on every AI feature; it opens Settings › Online AI
+function panel(feat){ return '<div class="card aiPanel"><b>✨ AI</b>' + btn(feat) + '</div>'; }
 function card(feat){ return '<div class="aiRun" data-airun="' + feat + '">' + cardHtml(feat) + '</div>'; }
 function secs(j){ return Math.floor((Date.now() - j.t0) / 1000); }
 function cardHtml(feat){ var j = jobs[feat]; if(!j) return "";
@@ -48,5 +50,5 @@ document.addEventListener("click", function(ev){ var t = ev.target.closest && ev
 document.addEventListener("scroll", function(ev){ var sc = ev.target; if(!sc || sc.id !== "view") return; var y = sc.scrollTop, f = document.getElementById("aiFloat"); if(f){ if(y > lastY + 6 && y > 80) f.classList.add("hid"); else if(y < lastY - 6) f.classList.remove("hid"); } lastY = y; }, true);
 // refresh every visible ✨ button after the settings change
 function refresh(){ document.querySelectorAll(".aiBtn .aiBtnT").forEach(function(t){ var b = t.closest("[data-aiset]"); if(b) t.textContent = label(b.getAttribute("data-aiset")); }); }
-window.AIRun = {btn: btn, card: card, start: start, cancel: cancel, open: open, label: label, shortModel: shortModel, refresh: refresh, jobs: function(){ return jobs; }};
+window.AIRun = {btn: btn, panel: panel, card: card, start: start, cancel: cancel, open: open, label: label, shortModel: shortModel, refresh: refresh, jobs: function(){ return jobs; }};
 })();

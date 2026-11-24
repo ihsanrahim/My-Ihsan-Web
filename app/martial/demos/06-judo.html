@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Judo Dojo</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// IJF-style white & blue judogi, heavy lapels, obi. Heads covered (sport hijab style for one), faceless.
+const WHITE = { top: '#f7f7f3', pants: '#f7f7f3', trim: '#dcdcd4', belt: '#111', feetColor: '#e9e9e9', ring: '#ddd' };
+const BLUE = { top: '#1f4fb0', pants: '#1f4fb0', trim: '#18408f', belt: '#111', headwear: 'hijab', headwearColor: '#1a1d26', feetColor: '#e9e9e9', ring: '#2c6bd6' };
+
+const P = {
+  ritsurei: { base: 'bow', spine: [28, 0, 0], chest: [6, 0, 0] },
+  shizentai: { lLeg: [6, 90, 0], rLeg: [6, 90, 0], lKnee: 6, rKnee: 6 },
+  'migi-shizentai': { lLeg: [6, 90, 0], rLeg: [14, 10, 0], lKnee: 8, rKnee: 8, turn: 5 },
+  // kumikata: right hand on lapel, left hand on sleeve
+  kumi: { base: 'migi-shizentai', spine: [8, 0, 0], rArm: [70, -15, 60], rElbow: 70, lArm: [45, 10, 30], lElbow: 80, rHand: 'fist', lHand: 'fist' },
+  'kumi-uke': { base: 'kumi' },
+  // ukemi
+  crouch: { lLeg: [60, 40, 0], rLeg: [60, 40, 0], lKnee: 110, rKnee: 110, spine: [30, 0, 0], lArm: [60, 0, 0], rArm: [60, 0, 0], head: [30, 0, 0] },
+  'ushiro-sit': { lean: -40, lLeg: [100, 20, 0], rLeg: [100, 20, 0], lKnee: 100, rKnee: 100, spine: [25, 0, 0], head: [35, 0, 0], lArm: [80, 0, 0], rArm: [80, 0, 0] },
+  'ushiro-ukemi': { lean: -95, lLeg: [70, 15, 0], rLeg: [70, 15, 0], lKnee: 30, rKnee: 30, spine: [25, 0, 0], head: [40, 0, 0], lArm: [40, 70, 0], rArm: [40, 70, 0], lHand: 'open', rHand: 'open' },
+  'yoko-ukemi': { lean: -90, roll: 25, lLeg: [45, 20, 0], rLeg: [70, 10, 0], lKnee: 40, rKnee: 30, head: [35, 0, 0], lArm: [40, 90, 0], rArm: [60, -20, 60], rElbow: 60 },
+  'roll-1': { lean: 70, lLeg: [70, 20, 0], rLeg: [40, 20, 0], lKnee: 100, rKnee: 30, spine: [40, 0, 0], head: [50, 0, 0], lArm: [120, 20, 0], rArm: [100, 0, 40], rElbow: 60 },
+  'roll-2': { lean: 200, pos: [0, 0.5], lLeg: [100, 20, 0], rLeg: [90, 10, 0], lKnee: 120, rKnee: 110, spine: [40, 0, 0], head: [50, 0, 0], lArm: [90, 40, 0], rArm: [90, -40, 0] },
+  'roll-3': { lean: 290, pos: [0, 1.0], roll: 15, lLeg: [70, 30, 0], rLeg: [40, 10, 0], lKnee: 80, rKnee: 20, head: [30, 0, 0], lArm: [40, 80, 0], rArm: [40, 0, 0] },
+  'roll-up': { lean: 360, pos: [0, 1.25], base: 'crouch' },
+  // nage-waza (tori)
+  'ogoshi-in': { turn: 180, pos: [0, 0.62], lLeg: [30, 60, 0], rLeg: [30, 60, 0], lKnee: 60, rKnee: 60, spine: [10, 0, 0],
+    lArm: [60, -30, 60], lElbow: 50, rArm: [40, -80, 90], rElbow: 60, head: [0, 0, 0], lHand: 'fist' },
+  'ogoshi-lift': { base: 'ogoshi-in', lKnee: 15, rKnee: 15, lLeg: [10, 70, 0], rLeg: [10, 70, 0], spine: [45, -10, 0], lArm: [30, -40, 60], head: [20, -20, 0] },
+  'ogoshi-finish': { base: 'ogoshi-in', spine: [50, -30, 0], lLeg: [20, 60, 0], rLeg: [20, 60, 0], lKnee: 30, rKnee: 30, lArm: [30, 0, 60], lElbow: 80, head: [30, -30, 0] },
+  'seoi-in': { base: 'ogoshi-in', lKnee: 95, rKnee: 95, lLeg: [55, 60, 0], rLeg: [55, 60, 0], rArm: [120, -20, 90], rElbow: 120, spine: [20, 0, 0] },
+  'osoto-in': { pos: [0.18, 0.42], turn: -10, lLeg: [6, 40, 0], lKnee: 12, rLeg: [60, 0, 0], rKnee: 30, spine: [15, 0, 0], rArm: [80, -20, 40], rElbow: 60, lArm: [40, 20, 30], lElbow: 70, lHand: 'fist', rHand: 'fist' },
+  'osoto-reap': { base: 'osoto-in', lean: 35, rLeg: [-70, 0, 0], rKnee: 5, rFoot: 40, spine: [20, 0, 0], head: [20, 0, 0], pos: [0.18, 0.55] },
+  'deashi-sweep': { base: 'kumi', pos: [0, 0.15], turn: -20, lLeg: [40, 30, 50], lKnee: 5, lFoot: 30, roll: -8, rArm: [80, -10, 40], lArm: [50, 20, 30] },
+  // uke being thrown — rotate forward over the hip (lean 0 → 270)
+  'uke-loaded': { base: 'kumi', lean: 40, pos: [0, 0.15], lKnee: 5, rKnee: 5, head: [-20, 0, 0], lArm: [80, 0, 0], rArm: [60, 0, 30] },
+  'uke-over': { lean: 160, y: 0.55, pos: [0, 0.55], lLeg: [30, 30, 0], rLeg: [40, 30, 0], lKnee: 30, rKnee: 30, lArm: [100, 60, 0], rArm: [60, 0, 40], rElbow: 50 },
+  'uke-land': { lean: 270, pos: [0, 1.25], lLeg: [40, 30, 0], rLeg: [20, 30, 0], lKnee: 60, rKnee: 30, head: [35, 0, 0], lArm: [40, 80, 0], rArm: [60, 0, 40], rElbow: 50, lHand: 'open' },
+  'uke-back-off': { base: 'kumi', lean: -25, pos: [0, -0.1], rLeg: [6, 90, 0], spine: [-10, 0, 0], head: [-15, 0, 0] },
+  'uke-reaped': { lean: -70, y: 0.25, pos: [0, -0.45], lLeg: [30, 30, 0], rLeg: [80, 20, 0], lKnee: 30, rKnee: 10, head: [30, 0, 0], lArm: [50, 70, 0], rArm: [70, 0, 30] },
+  'uke-down': { base: 'ushiro-ukemi', pos: [0, -0.7], lean: -92 },
+  'uke-swept': { base: 'kumi', roll: 25, lLeg: [30, 80, 0], lKnee: 5, y: 0.1 },
+  // ne-waza
+  'kesa-tori': { lean: 10, turn: 90, lLeg: [85, 70, 0], lKnee: 80, rLeg: [-30, 120, 20], rKnee: 70, spine: [25, 0, 10],
+    rArm: [90, 50, 80], rElbow: 100, lArm: [40, 0, 50], lElbow: 60, head: [30, 0, 0], lHand: 'fist', rHand: 'open' },
+  'uke-pinned': { base: 'lie-back', lArm: [80, 0, 0], rArm: [40, 80, 0], lKnee: 30, rKnee: 40, lLeg: [30, 60, 0], rLeg: [20, 70, 0] },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Reiho & ukemi', name: 'Ritsurei (standing bow)',
+    cue: 'Judo starts and ends with rei. Bow ~30° from the hips, pause, rise. Then shizentai — the natural posture.',
+    tracks: { A: [['attention', 0, 0.5], ['ritsurei', 0.8, 0.8, 'Ritsurei — bow 30°'], ['attention', 0.8, 0.3], ['shizentai', 0.5, 0.5, 'Shizentai — natural posture'], ['migi-shizentai', 0.5, 0.8, 'Migi-shizentai — right foot forward']] } },
+  { group: 'Reiho & ukemi', name: 'Ushiro & yoko ukemi (back / side breakfall)',
+    cue: 'Tuck the chin (never let the head hit), round the back, and slap the mat with both arms at ~45° as the back lands.',
+    tracks: { A: [['shizentai', 0, 0.4], ['crouch', 0.5, 0.2, 'Sit low'], ['ushiro-sit', 0.4, 0.05, 'Roll back, chin tucked'], ['ushiro-ukemi', 0.25, 0.8, 'Slap! arms at 45°'],
+      ['ushiro-sit', 0.6, 0.1], ['crouch', 0.5, 0.3], ['shizentai', 0.6, 0.3], ['crouch', 0.5, 0.1], ['yoko-ukemi', 0.45, 0.8, 'Yoko-ukemi — side fall, one arm slaps'], ['crouch', 0.7, 0.2], ['shizentai', 0.6, 0.4]] } },
+  { group: 'Reiho & ukemi', name: 'Mae mawari ukemi (rolling breakfall)',
+    cue: 'Roll diagonally from the front shoulder to the opposite hip — not over the head — and slap out or come up.',
+    tracks: { A: [['migi-shizentai', 0, 0.5], ['roll-1', 0.5, 0.05, 'Hand down, look under the arm'], ['roll-2', 0.4, 0, 'Shoulder → back diagonal'], ['roll-3', 0.35, 0.1, 'Slap'], ['roll-up', 0.5, 0.3, 'Come up'], [at('shizentai', 1.25), 0.6, 0.6]] } },
+  { group: 'Nage-waza (throws)', name: 'Kumikata & kuzushi', gap: 0.72, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    cue: 'Right-handed grip: right hand on uke’s lapel, left on the sleeve. Kuzushi = breaking balance — pull, push, step so uke’s weight is on their toes or heels before any throw.',
+    tracks: {
+      A: [['shizentai', 0, 0.5, 'Approach'], ['kumi', 0.5, 0.5, 'Kumikata — lapel & sleeve'], [at('kumi', -0.25, 0, { spine: [0, 0, 0], lArm: [30, 10, 30], lElbow: 100 }), 0.5, 0.4, 'Pull — uke to the front'],
+        [at('kumi', 0.05, 0, { spine: [15, 0, 0], rArm: [85, -15, 40], rElbow: 40 }), 0.5, 0.4, 'Push — uke onto the heels'], [at('kumi', 0), 0.5, 0.6]],
+      B: [['shizentai', 0, 0.5], ['kumi-uke', 0.5, 0.5], [at('kumi-uke', 0.25, 0, { lean: 20, head: [-10, 0, 0] }), 0.5, 0.4, 'Uke tips forward'],
+        [at('kumi-uke', -0.05, 0, { lean: -15, spine: [-10, 0, 0] }), 0.5, 0.4, 'Uke tips back'], [at('kumi-uke', 0), 0.5, 0.6]] } },
+  { group: 'Nage-waza (throws)', name: 'O-goshi (major hip throw)', gap: 0.72, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    cue: 'Kuzushi forward, step in and turn so your hips are lower than uke’s and slightly across, arm around the waist, lift with the legs and rotate.',
+    tracks: {
+      A: [['kumi', 0, 0.5, 'Grip'], [at('ogoshi-in', 0, 0), 0.45, 0.15, 'Tsukuri — turn in, hips low'], ['ogoshi-lift', 0.3, 0.05, 'Straighten the legs — lift'], ['ogoshi-finish', 0.5, 1.0, 'Kake — rotate & throw, keep the sleeve']],
+      B: [['kumi-uke', 0, 0.5], ['uke-loaded', 0.45, 0.15, 'Uke loaded on the hip'], ['uke-over', 0.35, 0, 'Over the hip'], ['uke-land', 0.3, 1.0, 'Breakfall — slap!']] } },
+  { group: 'Nage-waza (throws)', name: 'Seoi-nage (shoulder throw)', gap: 0.72, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    cue: 'Drop low under uke, right arm in uke’s armpit (ippon-seoi) or holding the lapel, back tight to uke’s chest; straighten legs and bow forward.',
+    tracks: {
+      A: [['kumi', 0, 0.5], [at('seoi-in', 0, 0), 0.4, 0.15, 'Drop under — elbow in the armpit'], ['ogoshi-lift', 0.3, 0.05, 'Drive up'], ['ogoshi-finish', 0.5, 1.0, 'Bow forward — ippon!']],
+      B: [['kumi-uke', 0, 0.5], ['uke-loaded', 0.4, 0.15], ['uke-over', 0.35, 0], ['uke-land', 0.3, 1.0]] } },
+  { group: 'Nage-waza (throws)', name: 'O-soto-gari (major outer reap)', gap: 0.72, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    cue: 'Break uke onto the right heel, step deep beside uke’s right foot, swing the right leg through and reap behind uke’s thigh, chest to chest.',
+    tracks: {
+      A: [['kumi', 0, 0.5], ['osoto-in', 0.4, 0.1, 'Step beside, pull uke onto the heel'], ['osoto-reap', 0.25, 0.3, 'Reap!'], [at('kumi', 0.5, 0.15, { lean: 25, spine: [30, 0, 0] }), 0.5, 0.8, 'Follow down, keep control']],
+      B: [['kumi-uke', 0, 0.5], ['uke-back-off', 0.4, 0.1, 'Weight on the heel'], ['uke-reaped', 0.25, 0, 'Leg reaped'], ['uke-down', 0.35, 1.0, 'Ushiro-ukemi']] } },
+  { group: 'Nage-waza (throws)', name: 'De-ashi-barai (advancing foot sweep)', gap: 0.72, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    cue: 'Timing technique: sweep uke’s foot with the sole of your foot just as they step forward and before they put weight on it.',
+    tracks: {
+      A: [['kumi', 0, 0.5], [at('kumi', -0.1), 0.4, 0.1, 'Draw uke forward'], [at('deashi-sweep', -0.1), 0.15, 0.3, 'Sweep the foot as it lands'], [at('kumi', -0.15, 0, { spine: [25, 0, 0] }), 0.4, 1.0]],
+      B: [['kumi-uke', 0, 0.5], [at('kumi-uke', 0.1), 0.4, 0.1, 'Uke steps'], [at('uke-swept', 0.1), 0.15, 0.05], [at('yoko-ukemi', -0.1, -0.1, { turn: 0 }), 0.45, 1.0, 'Side breakfall']] } },
+  { group: 'Katame-waza (ground)', name: 'Kesa-gatame (scarf hold)', gap: 0.9, roles: { A: 'Tori', B: 'Uke' }, uniforms: { B: BLUE },
+    place: { A: [0.5, 0, -90], B: [0, 0, 0] },
+    cue: 'Sit beside uke’s chest, trap the near arm under your armpit, wrap the head, legs wide for a base. Hold 20 s = ippon (IJF rules).',
+    tracks: {
+      B: [['uke-pinned', 0, 4.0, 'Uke on the back']],
+      A: [[at('kneel', -0.15, 0, { turn: 0 }), 0, 0.6, 'Kneel beside'], [at('kesa-tori', -0.02, -0.05), 0.8, 0.4, 'Trap the arm, wrap the head'], [at('kesa-tori', -0.02, -0.05, { spine: [30, 0, 15] }), 0.6, 1.6, 'Osaekomi! wide base, chest heavy']] } },
+];
+
+createDojo({
+  title: 'Judo 柔道', subtitle: 'Kodokan basics — ukemi, nage-waza, katame-waza; modest judogi, faceless',
+  floor: { type: 'tatami', colors: ['#d8c79a', '#c0392b'] },
+  fighters: { A: { uniform: WHITE, label: 'Tori' }, B: { uniform: { ...WHITE, belt: '#c0392b', ring: '#2c6bd6' }, label: 'Uke' } },
+  impacts: 'falls',          // grappling art: show landings/throws, not strike flashes
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

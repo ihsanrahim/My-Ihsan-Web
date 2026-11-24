@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taekwondo Dojang</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// ---------- uniforms: white dobok, black V-neck, fully covered ----------
+const DOBOK = { top: '#f6f6f2', pants: '#f6f6f2', vneck: '#111', belt: '#111', jacketSkirt: false,
+  feetColor: '#e9e9e9', ring: '#d33' };
+const DOBOK_B = { ...DOBOK, belt: '#c62828', ring: '#2c6bd6' };
+// sparring kit: chung (blue) & hong (red) hogu + headgear
+const HONG = { ...DOBOK, hogu: '#c62828', headwear: 'headgear', headwearColor: '#c62828' };
+const CHUNG = { ...DOBOK_B, hogu: '#1e4fb5', headwear: 'headgear', headwearColor: '#1e4fb5' };
+
+// ---------- poses (degrees; see engine header for conventions) ----------
+const P = {
+  // stances
+  charyeot: { base: 'attention' },
+  junbi: { lLeg: [6, 90, 0], rLeg: [6, 90, 0], lArm: [22, -15, 70], rArm: [22, -15, 70], lElbow: 55, rElbow: 55, lHand: 'fist', rHand: 'fist' },
+  'ap-seogi': { lLeg: [20, 0, 0], rLeg: [-16, 0, 0], lKnee: 6, rKnee: 3, lHand: 'fist', rHand: 'fist' },
+  'ap-kubi': { lLeg: [34, 8, 0], rLeg: [-30, 8, 0], lKnee: 38, rKnee: 2, lHand: 'fist', rHand: 'fist', spine: [4, 0, 0] },
+  'dwit-kubi': { turn: -55, lLeg: [22, 55, 0], rLeg: [16, 125, 40], lKnee: 18, rKnee: 48, lHand: 'fist', rHand: 'fist', head: [0, 50, 0],
+    lArm: [55, 50, 60], lElbow: 40, rArm: [30, 20, 70], rElbow: 110 },
+  juchum: { lLeg: [48, 80, 15], rLeg: [48, 80, 15], lKnee: 70, rKnee: 70, lArm: [-25, 0, 0], rArm: [-25, 0, 0], lElbow: 105, rElbow: 105, lHand: 'fist', rHand: 'fist' },
+  gyeorugi: { turn: -55, lLeg: [22, 55, 0], rLeg: [22, 120, 15], lKnee: 18, rKnee: 22, spine: [6, 15, 0], head: [5, 40, 0],
+    lArm: [55, 45, 70], lElbow: 95, rArm: [35, 25, 75], rElbow: 120, lHand: 'fist', rHand: 'fist' },
+  // hand techniques (left front stance)
+  chamberR: { base: 'ap-kubi', rArm: [-28, 10, 0], rElbow: 105 },
+  'arae-makki': { base: 'chamberR', lArm: [38, 25, 0], lElbow: 4 },
+  'arae-prep': { base: 'ap-seogi', lArm: [95, -50, 90], lElbow: 120, rArm: [40, -10, 0], rElbow: 10 },
+  'eolgul-makki': { base: 'chamberR', lArm: [140, -10, 90], lElbow: 95 },
+  'momtong-an-makki': { base: 'chamberR', lArm: [55, -5, 15], lElbow: 92, chest: [0, -15, 0] },
+  'momtong-jireugi': { base: 'ap-kubi', rArm: [88, -6, 0], rElbow: 0, lArm: [-28, 10, 0], lElbow: 105, chest: [0, 20, 0] },
+  'jab-jireugi-L': { base: 'ap-kubi', lArm: [88, -6, 0], lElbow: 0, rArm: [-28, 10, 0], rElbow: 105, chest: [0, -15, 0] },
+  'sonnal-mok': { base: 'ap-kubi', rArm: [92, 40, 85], rElbow: 20, rHand: 'open', rWrist: [0, -10, 0], lArm: [-28, 10, 0], lElbow: 105, chest: [0, 25, 0] },
+  // kicks (right / rear leg, from fighting stance)
+  'ap-chamber': { base: 'gyeorugi', turn: -15, lLeg: [6, 40, 0], lKnee: 12, rLeg: [92, 0, 0], rKnee: 115, rFoot: 35, rToe: -45, head: [5, 15, 0] },
+  'ap-chagi': { base: 'ap-chamber', rLeg: [88, 0, 0], rKnee: 0, rFoot: 20, rToe: -50, spine: [-8, 10, 0] },
+  'dollyeo-chamber': { base: 'gyeorugi', turn: 45, lLeg: [6, -40, 0], lKnee: 12, rLeg: [80, 50, 70], rKnee: 125, rFoot: 50, spine: [0, -15, 0], head: [5, -45, 0], roll: 10 },
+  'dollyeo-chagi': { base: 'dollyeo-chamber', turn: 80, roll: 22, rLeg: [92, 80, 80], rKnee: 4, rFoot: 55, spine: [-5, -20, 10], head: [5, -70, -10] },
+  'yeop-chamber': { base: 'gyeorugi', turn: 85, lLeg: [6, -70, 0], lKnee: 15, rLeg: [92, 70, 90], rKnee: 135, rFoot: -10, spine: [0, -10, 0], head: [5, -80, 0] },
+  'yeop-chagi': { base: 'yeop-chamber', roll: 32, rLeg: [92, 90, 88], rKnee: 0, rFoot: -10, spine: [0, -5, 18], head: [5, -85, -15] },
+  'dwi-turn': { base: 'gyeorugi', turn: -170, lean: 20, lLeg: [6, 0, 0], lKnee: 20, rLeg: [-8, 0, 0], rKnee: 125, rFoot: -10, spine: [20, 0, 0], head: [10, -10, 0], lArm: [60, 10, 70], rArm: [50, 10, 70] },
+  'dwi-chagi': { base: 'dwi-turn', lean: 38, rLeg: [-68, 0, 0], rKnee: 2, rFoot: -10, head: [-25, -15, 0], spine: [5, 0, 0] },
+  'naeryeo-up': { base: 'gyeorugi', turn: -10, lLeg: [6, 30, 0], lKnee: 10, rLeg: [165, 10, 0], rKnee: 5, rFoot: 10, spine: [-15, 0, 0], head: [-5, 10, 0] },
+  'naeryeo-chagi': { base: 'naeryeo-up', rLeg: [70, 0, 0], rKnee: 0, rFoot: 0, spine: [5, 0, 0] },
+  // hit reactions for partner drills
+  'hit-body': { base: 'gyeorugi', spine: [22, 25, 0], head: [20, 30, 0], pos: [0, -0.15] },
+  'step-back': { base: 'gyeorugi', pos: [0, -0.35] },
+};
+
+// a step to a pose but displaced along the fighter's line
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  // --- Fundamentals ---
+  { group: 'Etiquette & Stances', name: 'Charyeot · Kyungye · Junbi',
+    cue: 'Attention, bow (15° at the waist, eyes down), then ready stance with fists one fist-width in front of the belt.',
+    tracks: { A: [['charyeot', 0, 0.6, 'Charyeot — attention'], ['bow', 0.6, 0.6, 'Kyungye — bow'], ['charyeot', 0.6, 0.3], ['junbi', 0.7, 1.2, 'Junbi — ready, breathe out']] } },
+  { group: 'Etiquette & Stances', name: 'The five basic stances',
+    cue: 'Walking stance (ap-seogi), front stance (ap-kubi), back stance (dwit-kubi), horse-riding stance (juchum-seogi) and fighting stance (gyeorugi).',
+    tracks: { A: [['junbi', 0, 0.4], ['ap-seogi', 0.6, 1.0, 'Ap-seogi: one natural step, 50/50 weight'], ['ap-kubi', 0.6, 1.0, 'Ap-kubi: long stance, front knee over toes, rear leg straight'],
+      ['dwit-kubi', 0.7, 1.0, 'Dwit-kubi: 70% on bent rear leg, feet at 90°'], ['juchum', 0.7, 1.0, 'Juchum-seogi: two foot-widths, knees out, back straight'],
+      ['gyeorugi', 0.7, 1.2, 'Gyeorugi: side-on, light on the balls of the feet']] } },
+  // --- Hand techniques ---
+  { group: 'Blocks & Strikes', name: 'Arae makki (low block)',
+    cue: 'Load the blocking fist at the opposite shoulder, then sweep down so the forearm stops one fist above the front knee. The other fist pulls back to the hip.',
+    tracks: { A: [['junbi', 0, 0.4], ['arae-prep', 0.45, 0.25, 'Load: fist near the opposite shoulder'], ['arae-makki', 0.18, 0.9, 'Block down & pull the other fist to the hip'], ['junbi', 0.6, 0.4]] } },
+  { group: 'Blocks & Strikes', name: 'Eolgul makki (high block)',
+    cue: 'Forearm rises in front of the face and stops one fist above the forehead, angled so a strike slides off.',
+    tracks: { A: [['junbi', 0, 0.4], ['ap-kubi', 0.4, 0.1], ['eolgul-makki', 0.2, 1.0, 'Forearm over the forehead, twist at the end'], ['junbi', 0.6, 0.4]] } },
+  { group: 'Blocks & Strikes', name: 'Momtong an makki (inner middle block)',
+    cue: 'Forearm sweeps from outside to the centre line at chest height, elbow bent ~90°.',
+    tracks: { A: [['junbi', 0, 0.4], ['ap-kubi', 0.4, 0.1], ['momtong-an-makki', 0.2, 1.0, 'Sweep to the centre line, chest level'], ['junbi', 0.6, 0.4]] } },
+  { group: 'Blocks & Strikes', name: 'Momtong jireugi (middle punch)',
+    cue: 'Fist travels straight from the hip, turning palm-down at the last moment. Hit with the first two knuckles at solar-plexus height.',
+    tracks: { A: [['junbi', 0, 0.4], ['chamberR', 0.4, 0.3, 'Chamber at the hip'], ['momtong-jireugi', 0.16, 0.6, 'Punch — exhale with a kihap!'], ['chamberR', 0.3, 0.1], ['jab-jireugi-L', 0.16, 0.6, 'Other side'], ['junbi', 0.6, 0.4]] } },
+  { group: 'Blocks & Strikes', name: 'Sonnal mok chigi (knife-hand neck strike)',
+    cue: 'Open hand, strike with the blade edge, palm up, hips turning into it.',
+    tracks: { A: [['junbi', 0, 0.4], ['chamberR', 0.4, 0.2], ['sonnal-mok', 0.18, 0.9, 'Knife-hand: hips rotate, palm up'], ['junbi', 0.6, 0.4]] } },
+  // --- Kicks ---
+  { group: 'Kicks (Chagi)', name: 'Ap chagi (front kick)',
+    cue: 'Chamber the knee high, snap the lower leg out and hit with the ball of the foot (toes pulled back), re-chamber before landing.',
+    tracks: { A: [['gyeorugi', 0, 0.5], ['ap-chamber', 0.3, 0.1, 'Knee up — chamber'], ['ap-chagi', 0.14, 0.25, 'Snap! ball of the foot'], ['ap-chamber', 0.18, 0.1, 'Re-chamber'], ['gyeorugi', 0.35, 0.6]] } },
+  { group: 'Kicks (Chagi)', name: 'Dollyeo chagi (roundhouse)',
+    cue: 'Pivot the standing foot until the heel points at the target, knee travels across, shin snaps horizontally. The most-scored kick in sport sparring.',
+    tracks: { A: [['gyeorugi', 0, 0.5], ['dollyeo-chamber', 0.25, 0.05, 'Pivot & lift the knee across'], ['dollyeo-chagi', 0.14, 0.25, 'Snap with the instep'], ['dollyeo-chamber', 0.18, 0.05], ['gyeorugi', 0.35, 0.6]] } },
+  { group: 'Kicks (Chagi)', name: 'Yeop chagi (side kick)',
+    cue: 'Turn fully side-on, chamber the knee to the chest, thrust the heel/foot-blade out in a straight line; hip, shoulder and heel align.',
+    tracks: { A: [['gyeorugi', 0, 0.5], ['yeop-chamber', 0.35, 0.1, 'Turn side-on, knee to chest'], ['yeop-chagi', 0.18, 0.35, 'Thrust the heel — body in one line'], ['yeop-chamber', 0.25, 0.05], ['gyeorugi', 0.4, 0.6]] } },
+  { group: 'Kicks (Chagi)', name: 'Dwi chagi (back kick)',
+    cue: 'Spin, look over the shoulder, and drive the heel straight back like a mule — the most powerful counter-kick.',
+    tracks: { A: [['gyeorugi', 0, 0.5], ['dwi-turn', 0.3, 0.05, 'Spin — look over your shoulder'], ['dwi-chagi', 0.17, 0.35, 'Drive the heel straight back'], ['dwi-turn', 0.25, 0], ['gyeorugi', 0.4, 0.6]] } },
+  { group: 'Kicks (Chagi)', name: 'Naeryeo chagi (axe kick)',
+    cue: 'Swing a straight leg up past the head, then drop the heel down like an axe.',
+    tracks: { A: [['gyeorugi', 0, 0.5], ['naeryeo-up', 0.35, 0.1, 'Leg rises straight, high'], ['naeryeo-chagi', 0.17, 0.3, 'Drop the heel'], ['gyeorugi', 0.4, 0.6]] } },
+  // --- Poomsae ---
+  { group: 'Poomsae', name: 'Taegeuk Il Jang (moves 1–6)',
+    cue: 'First colour-belt form: heaven/light (Keon). Walking stances, low blocks and middle punches along the 王-shaped line.',
+    tracks: { A: [['junbi', 0, 0.6, 'Junbi'],
+      [at('arae-makki', 0, 0.25, { turn: 90, lLeg: [20, 0, 0], rLeg: [-16, 0, 0], lKnee: 6 }), 0.6, 0.5, '1. Turn left — walking stance, low block'],
+      [at('momtong-jireugi', 0, 0.85, { turn: 90, lLeg: [-16, 0, 0], rLeg: [20, 0, 0], rKnee: 6, lKnee: 3, rArm: [88, 0, 0], lArm: [-28, 10, 0] }), 0.6, 0.5, '2. Step — right middle punch'],
+      [at('arae-makki', 0, 0.2, { mirror: true, turn: 90, lLeg: [20, 0, 0], rLeg: [-16, 0, 0], lKnee: 6 }), 0.8, 0.5, '3. Turn right 180° — low block'],
+      [at('jab-jireugi-L', 0, -0.4, { turn: -90, lLeg: [20, 0, 0], rLeg: [-16, 0, 0], lKnee: 6, rKnee: 3 }), 0.6, 0.5, '4. Step — left middle punch'],
+      [at('arae-makki', 0.45, -0.1), 0.8, 0.5, '5. Turn to the front — front stance, low block'],
+      [at('momtong-jireugi', 0.45, -0.1), 0.18, 0.8, '6. Reverse middle punch — kihap'],
+      ['junbi', 0.9, 0.6, 'Baro — return to ready']] } },
+  // --- Partner drills ---
+  { group: 'Partner drills', name: 'Sebon matsogi (3-step sparring)', gap: 1.55, roles: { A: 'Defender', B: 'Attacker' },
+    cue: 'Attacker steps in three times with middle punches; defender steps back with three blocks and finishes with a counter. Teaches distance and timing.',
+    tracks: {
+      B: [['junbi', 0, 0.5, 'Attacker: low block ready (kihap)'], [at('arae-makki', 0), 0.5, 0.4],
+        [at('momtong-jireugi', 0.4, 0, { mirror: true }), 0.45, 0.35, 'Step 1 — punch'], [at('momtong-jireugi', 0.8), 0.45, 0.35, 'Step 2 — punch'],
+        [at('momtong-jireugi', 1.2, 0, { mirror: true }), 0.45, 1.2, 'Step 3 — punch'], [at('ap-kubi', 1.2, 0, { lArm: [-28, 10, 0], lElbow: 105, rArm: [-28, 10, 0], rElbow: 105 }), 0.6, 0.6]],
+      A: [['junbi', 0, 0.9], [at('junbi', 0), 0.5, 0.4],
+        [at('momtong-an-makki', -0.4, 0, { mirror: true, lLeg: [-30, 8, 0], rLeg: [34, 8, 0], rKnee: 38, lKnee: 2 }), 0.45, 0.35, 'Step back — block'],
+        [at('momtong-an-makki', -0.8, 0, { lLeg: [34, 8, 0], rLeg: [-30, 8, 0] }), 0.45, 0.35, 'Step back — block'],
+        [at('momtong-an-makki', -1.2, 0, { mirror: true, lLeg: [-30, 8, 0], rLeg: [34, 8, 0], rKnee: 38, lKnee: 2 }), 0.45, 0.25, 'Step back — block'],
+        [at('momtong-jireugi', -0.5, 0, { mirror: true, lLeg: [-30, 8, 0], rLeg: [34, 8, 0], rKnee: 38, lKnee: 2 }), 0.16, 1.0, 'Counter punch — kihap!']] } },
+  { group: 'Partner drills', name: 'Sparring: roundhouse → counter back kick', gap: 1.32, roles: { A: 'Hong (red)', B: 'Chung (blue)' }, uniforms: { A: HONG, B: CHUNG },
+    cue: 'Classic Olympic-style exchange: red attacks with a rear-leg roundhouse to the trunk protector; blue steps back to make it miss and answers with a spinning back kick.',
+    tracks: {
+      A: [['gyeorugi', 0, 0.6, 'Both in fighting stance — bounce'], [at('gyeorugi', 0.1), 0.3, 0.1], [at('dollyeo-chamber', 0.2), 0.25, 0.02, 'Red: roundhouse!'],
+        [at('dollyeo-chagi', 0.25), 0.14, 0.3], [at('gyeorugi', 0.35), 0.35, 0.15], [at('hit-body', 0.3, 0, { pos: [0, 0.25] }), 0.35, 0.9]],
+      B: [['gyeorugi', 0, 0.75], [at('gyeorugi', -0.2), 0.35, 0.25, 'Blue: step back — let it miss'], [at('gyeorugi', -0.25), 0.2, 0.15],
+        [at('dwi-turn', -0.2), 0.25, 0.02, 'Blue: spin…'], [at('dwi-chagi', 0.3), 0.17, 1.0, '…back kick to the trunk — 4 points!']] } },
+];
+
+createDojo({
+  title: 'Taekwondo 태권도', subtitle: 'Kukkiwon / World Taekwondo basics — modest dobok, no faces',
+  floor: { type: 'mat', colors: ['#2f6fb8', '#e2b23a'] },
+  fighters: { A: { uniform: DOBOK, label: 'Student' }, B: { uniform: DOBOK_B, label: 'Partner' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

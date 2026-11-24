@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BJJ Academy</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// Gi (kimono) with heavy collar, belt with rank colour; covered heads; faceless.
+const BLUEBELT = { top: '#f4f4f0', pants: '#f4f4f0', trim: '#d9d9d2', belt: '#1e4fb5', headwear: 'hijab', headwearColor: '#262a33', feetColor: '#e9e9e9', ring: '#d33' };
+const NAVY = { top: '#1c2742', pants: '#1c2742', trim: '#141c30', belt: '#5b2a86', feetColor: '#e9e9e9', ring: '#2c6bd6' };
+
+const P = {
+  // ---- standing / solo movement ----
+  'combat-stance': { turn: -20, lLeg: [22, 30, 0], rLeg: [14, 150, 10], lKnee: 30, rKnee: 30, spine: [20, 10, 0], head: [-10, 10, 0],
+    lArm: [55, 20, 40], lElbow: 70, rArm: [45, 10, 40], rElbow: 80, lHand: 'open', rHand: 'open' },
+  'shrimp-1': { lean: -90, roll: -10, lLeg: [50, 30, 0], rLeg: [40, 60, 0], lKnee: 100, rKnee: 90, head: [35, 0, 0], lArm: [70, 0, 30], rArm: [70, 0, 30], lElbow: 100, rElbow: 100 },
+  'shrimp-2': { lean: -90, roll: -60, pos: [0, -0.3], spine: [20, 0, 0], lLeg: [40, 10, 0], rLeg: [70, 30, 0], lKnee: 10, rKnee: 100, head: [30, 0, 0],
+    lArm: [80, -20, 0], lElbow: 10, rArm: [70, 10, 0], rElbow: 20, lHand: 'open', rHand: 'open' },
+  'sit-post': { lean: -35, lLeg: [80, 30, 0], lKnee: 100, rLeg: [70, 40, 30], rKnee: 20, rArm: [-50, 20, 0], rElbow: 0, rHand: 'open', lArm: [60, 20, 40], lElbow: 80, spine: [15, 0, 0], head: [15, 0, 0] },
+  'standup-lift': { lean: -10, y: 0.12, lLeg: [70, 30, 0], lKnee: 95, rLeg: [-30, 30, 0], rKnee: 60, rArm: [-50, 30, 0], rElbow: 0, rHand: 'open', lArm: [60, 20, 40], lElbow: 80, spine: [25, 0, 0] },
+  'standup-base': { pos: [0, -0.35], lLeg: [50, 20, 0], lKnee: 90, rLeg: [-45, 10, 0], rKnee: 40, spine: [25, 0, 0], lArm: [60, 20, 40], rArm: [40, 0, 40], lElbow: 80, rElbow: 80, lHand: 'open', rHand: 'open' },
+  // ---- closed guard ----
+  'guard-bottom': { lean: -90, lLeg: [70, 40, 0], rLeg: [70, 40, 0], lKnee: 105, rKnee: 105, lFoot: 30, rFoot: 30, head: [30, 0, 0],
+    lArm: [70, 10, 40], rArm: [70, 10, 40], lElbow: 70, rElbow: 70, lHand: 'fist', rHand: 'fist' },
+  'guard-top': { lLeg: [10, 50, 0], rLeg: [10, 50, 0], lKnee: 95, rKnee: 95, lFoot: 70, rFoot: 70, spine: [15, 0, 0], head: [-5, 0, 0],
+    lArm: [55, 10, 20], rArm: [55, 10, 20], lElbow: 40, rElbow: 40, lHand: 'fist', rHand: 'fist' },
+  'guard-top-posture': { base: 'guard-top', spine: [0, 0, 0], head: [-15, 0, 0], lArm: [40, 20, 10], rArm: [40, 20, 10], lElbow: 25, rElbow: 25 },
+  'guard-top-broken': { base: 'guard-top', spine: [45, 0, 0], head: [10, 0, 0], lArm: [70, 20, 0], rArm: [60, -5, 0], lElbow: 20, rElbow: 10, rHand: 'open', lHand: 'open' },
+  // armbar from guard (bottom player)
+  'armbar-pivot': { base: 'guard-bottom', turn: 35, lLeg: [100, 35, 0], lKnee: 70, rLeg: [80, 50, 0], rKnee: 100, lArm: [80, -40, 30], rArm: [80, -40, 30], lElbow: 60, rElbow: 60 },
+  'armbar-finish': { base: 'guard-bottom', turn: 70, roll: 0, lLeg: [100, -10, 0], lKnee: 15, rLeg: [100, 30, 0], rKnee: 20, lFoot: 40, rFoot: 40, head: [25, 0, 0],
+    lArm: [95, -20, 30], rArm: [95, -10, 30], lElbow: 50, rElbow: 50, spine: [0, 0, 0] },
+  'armbar-victim': { base: 'guard-top', spine: [50, 0, 0], lArm: [70, 10, 0], lElbow: 0, rArm: [50, 30, 0], rElbow: 30, head: [20, 0, 0] },
+  // scissor sweep
+  'scissor-set': { base: 'guard-bottom', roll: 40, turn: 15, lLeg: [70, 10, 0], lKnee: 100, rLeg: [40, 60, 0], rKnee: 20, lArm: [70, -10, 20], rArm: [80, 0, 40], lElbow: 40, rElbow: 60 },
+  'scissor-chop': { base: 'scissor-set', lLeg: [100, 30, 0], lKnee: 20, rLeg: [10, 80, 0], rKnee: 5 },
+  'swept': { base: 'lie-back', roll: 30, lLeg: [40, 40, 0], rLeg: [60, 40, 0], lKnee: 80, rKnee: 70, lArm: [60, 60, 0], rArm: [80, 0, 30], rElbow: 60 },
+  // mount
+  mount: { lLeg: [55, 75, 0], rLeg: [55, 75, 0], lKnee: 125, rKnee: 125, lFoot: 60, rFoot: 60, y: 0.08, spine: [10, 0, 0],
+    lArm: [50, 20, 0], rArm: [50, 20, 0], lElbow: 20, rElbow: 20, lHand: 'open', rHand: 'open' },
+  'mount-low': { base: 'mount', spine: [45, 0, 0], head: [20, 0, 0], lArm: [80, 40, 40], rArm: [80, 40, 40], lElbow: 60, rElbow: 60 },
+  'bottom-flat': { base: 'lie-back', lArm: [60, 20, 60], rArm: [60, 20, 60], lElbow: 110, rElbow: 110, lLeg: [30, 40, 0], rLeg: [30, 40, 0], lKnee: 80, rKnee: 80, head: [25, 0, 0] },
+  'upa-trap': { base: 'bottom-flat', lArm: [80, -40, 60], lElbow: 100, lHand: 'fist', rArm: [40, 0, 0], rElbow: 90 },
+  'upa-bridge': { base: 'upa-trap', y: 0.18, roll: 20, lLeg: [10, 30, 0], rLeg: [30, 40, 0], lKnee: 100, rKnee: 90 },
+  // side control
+  'side-top': { turn: 0, lean: 65, lLeg: [70, 60, 0], rLeg: [40, 110, 0], lKnee: 110, rKnee: 60, spine: [5, 0, 0], head: [-30, 0, 0],
+    lArm: [100, 20, 60], rArm: [110, -20, 60], lElbow: 90, rElbow: 90, lHand: 'open', rHand: 'open' },
+  // toreando pass
+  'pass-grip': { base: 'combat-stance', turn: 0, spine: [40, 0, 0], lArm: [60, 20, 0], rArm: [60, 20, 0], lElbow: 20, rElbow: 20, lHand: 'fist', rHand: 'fist', lKnee: 45, rKnee: 45 },
+  'pass-toss': { base: 'pass-grip', turn: 35, pos: [-0.35, 0.1], lArm: [40, 70, 0], rArm: [40, 50, 0] },
+  'open-guard': { base: 'guard-bottom', lLeg: [60, 20, 0], rLeg: [60, 20, 0], lKnee: 70, rKnee: 70, lFoot: -10, rFoot: -10 },
+  'legs-tossed': { base: 'guard-bottom', roll: -40, lLeg: [70, -40, 0], rLeg: [70, -30, 0], lKnee: 80, rKnee: 80 },
+  // back control & rear naked choke
+  sit: { lean: -12, lLeg: [85, 25, 0], rLeg: [85, 25, 0], lKnee: 40, rKnee: 40, spine: [10, 0, 0], lArm: [30, 20, 0], rArm: [30, 20, 0], lElbow: 30, rElbow: 30 },
+  'back-control': { base: 'sit', lean: -20, lLeg: [70, 45, 0], rLeg: [70, 45, 0], lKnee: 85, rKnee: 85, lFoot: 20, rFoot: 20, spine: [20, 0, 0],
+    rArm: [70, -30, 60], rElbow: 90, lArm: [70, -40, 60], lElbow: 100, lHand: 'fist', rHand: 'fist' },
+  'rnc': { base: 'back-control', rArm: [95, -45, 95], rElbow: 135, lArm: [125, -10, 90], lElbow: 140, lHand: 'open', rHand: 'open', head: [10, 15, 0], spine: [25, 0, 0] },
+  'choked': { base: 'sit', head: [-15, 0, 10], lArm: [120, -20, 60], rArm: [110, -20, 60], lElbow: 120, rElbow: 120, lHand: 'fist', rHand: 'fist' },
+  'tap': { base: 'choked', rArm: [40, 60, 0], rElbow: 10, rHand: 'open' },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const GUARD = { B: [0, 0, 0], A: [0, 0.58, 180] }; // B lies (feet toward +z), A kneels in B's guard facing B
+
+const LESSONS = [
+  { group: 'Solo movement', name: 'Shrimping (hip escape)',
+    cue: 'The most important movement in BJJ: on your side, post the foot, push the hips away, and frame with the arms to recover space and guard.',
+    tracks: { A: [['shrimp-1', 0, 0.5, 'On your back, knees up, frames ready'], ['shrimp-2', 0.5, 0.4, 'Turn to the side, push the hips back'], [at('shrimp-1', -0.3), 0.5, 0.3, 'Recover'], [at('shrimp-2', -0.6), 0.5, 0.4, 'Again'], [at('shrimp-1', -0.6), 0.5, 0.6]] } },
+  { group: 'Solo movement', name: 'Technical stand-up',
+    cue: 'Getting up safely: post one hand behind, lift the hips, swing the leg back through, land in a base with the hands up.',
+    tracks: { A: [['sit-post', 0, 0.6, 'Sit, post a hand, opposite foot planted'], ['standup-lift', 0.45, 0.15, 'Hips up'], ['standup-base', 0.45, 0.3, 'Leg swings back — base'], [at('combat-stance', -0.35), 0.5, 0.8, 'Stand — hands up']] } },
+  { group: 'Guard', name: 'Closed guard: break posture', place: GUARD, roles: { A: 'Top (in guard)', B: 'Bottom (guard player)' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Bottom player locks the ankles behind the opponent’s back, pulls with the legs and grips the collar/sleeve to break their posture; top player tries to stay upright with hands on the hips.',
+    tracks: {
+      B: [['guard-bottom', 0, 0.8, 'Closed guard — ankles crossed'], [at('guard-bottom', 0, 0, { lLeg: [60, 40, 0], rLeg: [60, 40, 0], lKnee: 115, rKnee: 115, lArm: [75, 0, 30], rArm: [75, 0, 30] }), 0.5, 1.2, 'Pull with the knees, grip the collar'], ['guard-bottom', 0.6, 0.6]],
+      A: [['guard-top-posture', 0, 0.8, 'Top: posture up, hands on hips'], ['guard-top-broken', 0.5, 1.2, 'Posture broken!'], ['guard-top-posture', 0.6, 0.6, 'Re-establish posture']] } },
+  { group: 'Guard', name: 'Armbar from closed guard', place: GUARD, roles: { A: 'Top', B: 'Bottom' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Control the arm, foot on the hip, pivot 90°, leg over the head, squeeze the knees, thumb up, lift the hips slowly. Partner TAPS early — release immediately.',
+    tracks: {
+      B: [['guard-bottom', 0, 0.6, 'Grip the sleeve, pull the arm across'], ['armbar-pivot', 0.6, 0.3, 'Foot on the hip — pivot'], ['armbar-finish', 0.6, 1.0, 'Leg over the head, hips up slowly'], ['armbar-finish', 0.1, 0.6, '']],
+      A: [['guard-top', 0, 0.9], ['armbar-victim', 0.6, 0.4, 'Arm isolated'], [at('armbar-victim', 0, 0, { rArm: [20, 80, 0], rElbow: 0, rHand: 'open' }), 0.4, 1.2, 'Top TAPS — release!']] } },
+  { group: 'Guard', name: 'Scissor sweep', place: GUARD, roles: { A: 'Top', B: 'Bottom' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Collar and sleeve grips, shin across the belly, bottom leg on the floor behind their knee. Pull the top player over the shin while chopping the knee — end in mount.',
+    tracks: {
+      B: [['guard-bottom', 0, 0.5], ['scissor-set', 0.6, 0.4, 'Shin across the belly, grips set'], ['scissor-chop', 0.3, 0.2, 'Pull & chop the knee'], [at('mount', 0.25, 0, { turn: 0, y: 0.1 }), 0.8, 1.2, 'Come up in mount']],
+      A: [['guard-top', 0, 0.9], [at('guard-top', 0.0, 0, { spine: [30, 0, 0] }), 0.4, 0.2, 'Weight pulled forward'], [at('swept', 0.15, -0.0, { turn: 0 }), 0.6, 1.4, 'Swept to the back']] } },
+  { group: 'Passing & pins', name: 'Toreando pass → side control', place: { B: [0, 0, 0], A: [0, 1.05, 180] }, roles: { A: 'Passer', B: 'Guard player' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Standing passer grips both pant legs at the knees, pushes them to one side (like a bullfighter’s cape) and runs around to chest-to-chest side control.',
+    tracks: {
+      A: [['pass-grip', 0, 0.7, 'Grip both knees'], [at('pass-toss', 0, 0), 0.45, 0.15, 'Throw the legs aside'], [at('pass-toss', 0.45, -0.5, { turn: 90 }), 0.45, 0.1, 'Run around'], [at('side-top', 0.85, -0.38, { turn: 90 }), 0.6, 1.3, 'Side control — chest to chest']],
+      B: [['open-guard', 0, 0.7, 'Open guard, feet on the hips'], ['legs-tossed', 0.45, 0.6, 'Legs tossed aside'], ['bottom-flat', 0.6, 1.5, 'Pinned flat']] } },
+  { group: 'Passing & pins', name: 'Mount escape: upa (bridge & roll)', place: { B: [0, 0, 0], A: [0, -0.32, 180] }, roles: { A: 'Top (mount)', B: 'Bottom (escaping)' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Trap one arm and the same-side foot, bridge explosively over the shoulder of the trapped side, and roll — you end up in their guard.',
+    tracks: {
+      B: [['bottom-flat', 0, 0.6, 'Mounted'], ['upa-trap', 0.4, 0.3, 'Trap the arm & foot'], ['upa-bridge', 0.25, 0.15, 'BRIDGE!'], [at('guard-top', 0.25, -0.45, { turn: 80, spine: [20, 0, 0] }), 0.7, 1.2, 'Roll — land in their guard']],
+      A: [['mount', 0, 0.6, 'Mount — low hips, wide knees'], ['mount-low', 0.4, 0.3], [at('mount-low', 0.0, 0, { roll: -25, y: 0.25 }), 0.25, 0.1, 'Toppled'], [at('guard-bottom', 0.45, 0.4, { turn: -80 }), 0.75, 1.2, 'Now on the bottom']] } },
+  { group: 'Back attacks', name: 'Back control → rear naked choke', place: { B: [0, 0, 0], A: [0, -0.33, 0] }, roles: { A: 'Back taker', B: 'Defender' }, uniforms: { A: NAVY, B: BLUEBELT },
+    cue: 'Hooks in (heels inside the thighs), chest glued to the back. Choking arm under the chin, hand to the opposite biceps, other hand behind the head, squeeze the elbows. Tap = release instantly.',
+    tracks: {
+      B: [['sit', 0, 0.8, 'Defender seated'], ['choked', 0.6, 1.0, 'Defending the neck with both hands'], ['tap', 0.4, 1.2, 'TAP — release!']],
+      A: [['back-control', 0, 0.8, 'Hooks in, seatbelt grip'], ['rnc', 0.6, 1.0, 'Arm under the chin, figure-four'], [at('back-control', 0), 0.6, 1.0, 'Released — always respect the tap']] } },
+];
+
+createDojo({
+  title: 'Brazilian Jiu-Jitsu', subtitle: 'Fundamentals — guard, passing, pins, back control; modest gi, faceless',
+  floor: { type: 'mat', colors: ['#2b3c6b', '#1b1b1b', '#e0e0e0'] }, background: '#1c2130',
+  fighters: { A: { uniform: NAVY, label: 'Student' }, B: { uniform: BLUEBELT, label: 'Partner' } },
+  impacts: 'falls',          // grappling art: show landings/throws, not strike flashes
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

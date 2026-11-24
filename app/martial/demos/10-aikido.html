@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aikido Dojo</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// White keikogi + dark hakama (wide pleated trousers) — naturally modest; head covered; faceless.
+const NAGE = { top: '#f6f6f2', pants: '#1b2138', hakama: '#1b2138', trim: '#e2e2dc', belt: null,
+  headwear: 'hijab', headwearColor: '#22252e', feetColor: '#efefef', ring: '#e0b13a' };
+const UKE = { top: '#f6f6f2', pants: '#f6f6f2', trim: '#e2e2dc', belt: '#f0f0f0', feetColor: '#efefef', ring: '#2c6bd6' };
+const UKE2 = { ...UKE, belt: '#6b3f1d', ring: '#a35bd6' };
+const UKE3 = { ...UKE, belt: '#2e7d32', ring: '#3ab07a' };
+const NAGE_BOKKEN = { ...NAGE, weapons: { r: 'bokken' } };
+
+const P = {
+  seiza: { base: 'kneel', lArm: [25, 10, 30], rArm: [25, 10, 30], lElbow: 50, rElbow: 50, lHand: 'open', rHand: 'open' },
+  'za-rei': { base: 'seiza', lean: 0, spine: [55, 0, 0], chest: [15, 0, 0], head: [10, 0, 0], lArm: [85, -15, 20], rArm: [85, -15, 20], lElbow: 30, rElbow: 30 },
+  // hanmi kamae: triangular stance, lead hand on the centre line
+  hanmi: { turn: -30, lLeg: [18, 30, 0], rLeg: [12, 150, 30], lKnee: 15, rKnee: 15, head: [0, 30, 0],
+    lArm: [65, 25, 20], lElbow: 30, rArm: [40, -10, 40], rElbow: 60, lHand: 'open', rHand: 'open' },
+  'hanmi-R': { base: 'hanmi', mirror: true },
+  // tai sabaki
+  irimi: { base: 'hanmi', pos: [0, 0.45], turn: -45, spine: [5, 0, 0] },
+  tenkan: { base: 'hanmi', turn: 150, lLeg: [14, -150, 30], rLeg: [18, 30, 0], lArm: [60, 60, 20], rArm: [50, 30, 20], lElbow: 20, rElbow: 30, head: [0, -10, 0] },
+  // attacks (uke)
+  'shomen-up': { base: 'hanmi-R', rArm: [165, 0, 0], rElbow: 10, rHand: 'open', lArm: [30, 0, 0] },
+  shomen: { base: 'hanmi-R', pos: [0, 0.35], rArm: [85, 0, 0], rElbow: 5, rHand: 'open', spine: [10, 0, 0] },
+  tsuki: { base: 'hanmi', pos: [0, 0.4], turn: 10, rArm: [85, -5, 0], rElbow: 0, rHand: 'fist', lArm: [20, 30, 0], lElbow: 30, spine: [10, 0, 0], rLeg: [-15, 10, 0], lLeg: [35, 5, 0], lKnee: 35 },
+  'katate-dori': { base: 'hanmi', pos: [0, 0.3], rArm: [45, -25, 0], rElbow: 10, rHand: 'fist', spine: [8, 0, 0] },
+  // uke being led / falling
+  'uke-bent': { base: 'hanmi-R', lean: 35, spine: [25, 0, 0], head: [15, 0, 0], rArm: [70, 10, 0], rElbow: 0, lKnee: 30, rKnee: 30 },
+  'uke-pinned': { base: 'lie-front', turn: 0, rArm: [110, 50, 0], rElbow: 0, lArm: [150, 20, 0], head: [-20, 30, 0] },
+  'uke-backfall': { base: 'lie-back', roll: 20, lLeg: [50, 20, 0], rLeg: [30, 20, 0], lKnee: 60, rKnee: 30, head: [35, 0, 0], lArm: [40, 80, 0], rArm: [80, 0, 0] },
+  'uke-arch': { base: 'hanmi-R', lean: -30, spine: [-20, 0, 0], head: [-30, 0, 0], lKnee: 40, rKnee: 30, rArm: [120, 20, 0] },
+  // nage techniques
+  'ikkyo-contact': { base: 'hanmi-R', pos: [0, 0.2], rArm: [100, 0, 0], rElbow: 20, lArm: [100, 15, 0], lElbow: 10 },
+  'ikkyo-cut': { base: 'hanmi-R', pos: [0, 0.55], lean: 10, rArm: [60, 0, 0], rElbow: 10, lArm: [55, 25, 0], lElbow: 15, rKnee: 45, spine: [20, 0, 0] },
+  'ikkyo-pin': { base: 'kneel', pos: [0, 0.75], turn: 60, spine: [25, 0, 0], lArm: [70, 10, 0], rArm: [70, -10, 0], lElbow: 10, rElbow: 10, lHand: 'open', rHand: 'open' },
+  'shiho-raise': { base: 'hanmi', turn: 60, pos: [0.1, 0.25], lArm: [150, -10, 60], rArm: [150, -10, 60], lElbow: 60, rElbow: 60, lHand: 'fist', rHand: 'fist' },
+  'shiho-cut': { base: 'hanmi', turn: 190, pos: [0.1, 0.35], lArm: [60, 0, 0], rArm: [60, 0, 0], lElbow: 15, rElbow: 15, spine: [20, 0, 0], lKnee: 40, lHand: 'fist', rHand: 'fist' },
+  'kote-grab': { base: 'tenkan', lArm: [55, 50, 0], lElbow: 30, lHand: 'fist', rArm: [55, 30, 20], rElbow: 40 },
+  'kote-turn': { base: 'hanmi', turn: 160, pos: [0.15, 0.1], lArm: [70, -20, 0], rArm: [70, -10, 20], lElbow: 40, rElbow: 40, spine: [10, 0, 0], lHand: 'fist', rHand: 'open' },
+  'irimi-behind': { base: 'hanmi', pos: [-0.3, 0.75], turn: 150, lArm: [90, 40, 60], lElbow: 90, rArm: [60, -30, 30], rElbow: 40, lHand: 'open', rHand: 'open' },
+  'irimi-throw': { base: 'hanmi', pos: [-0.3, 0.8], turn: 170, rArm: [120, 0, 0], rElbow: 30, lArm: [40, 60, 0], lElbow: 30, spine: [15, 0, 0], lKnee: 40, rHand: 'open' },
+  // bokken suburi
+  'bokken-chudan': { base: 'hanmi', turn: -10, lArm: [55, -15, 40], rArm: [50, -20, 40], lElbow: 40, rElbow: 45, lHand: 'fist', rHand: 'fist' },
+  'bokken-jodan': { base: 'bokken-chudan', lArm: [160, -10, 40], rArm: [155, -15, 40], lElbow: 70, rElbow: 70 },
+  'bokken-cut': { base: 'bokken-chudan', pos: [0, 0.35], lArm: [75, -15, 10], rArm: [70, -20, 10], lElbow: 5, rElbow: 10, lKnee: 30 },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Reigi & kihon', name: 'Za-rei (seated bow)',
+    cue: 'Class begins kneeling in seiza: left hand down, then right, forming a triangle; bow with a straight back, rise right hand then left.',
+    tracks: { A: [['seiza', 0, 0.8, 'Seiza — kneel, back straight'], ['za-rei', 0.9, 0.9, 'Za-rei — bow'], ['seiza', 0.8, 0.6], [{ base: 'kneel', lLeg: [90, 0, 0], rLeg: [0, 0, 0], rKnee: 90, rFoot: 70, lKnee: 90 }, 0.7, 0.2, 'Rise'], ['hanmi', 0.8, 0.8, 'Hanmi kamae']] } },
+  { group: 'Reigi & kihon', name: 'Tai sabaki: irimi & tenkan',
+    cue: 'Irimi = entering past the attack; tenkan = pivoting 180° behind your front foot. Together they let you blend with any line of force instead of clashing.',
+    tracks: { A: [['hanmi', 0, 0.5], ['irimi', 0.5, 0.6, 'Irimi — enter'], ['hanmi', 0.6, 0.3], ['tenkan', 0.7, 0.6, 'Tenkan — pivot 180°'], ['hanmi', 0.8, 0.6]] } },
+  { group: 'Reigi & kihon', name: 'Bokken: shomen suburi', uniforms: { A: NAGE_BOKKEN },
+    cue: 'Aiki-ken teaches the straight centre line and the timing that empty-hand techniques borrow. Raise to jodan, step and cut through the centre.',
+    tracks: { A: [['bokken-chudan', 0, 0.5, 'Chudan no kamae'], ['bokken-jodan', 0.5, 0.2, 'Raise'], ['bokken-cut', 0.22, 0.5, 'Step & cut shomen'], [at('bokken-chudan', 0.35), 0.4, 0.2], [at('bokken-jodan', 0.35), 0.5, 0.2], [at('bokken-cut', 0.7), 0.22, 0.6, 'Again'], [at('bokken-chudan', 0.7), 0.5, 0.5]] } },
+  // paired waza
+  { group: 'Waza (paired)', name: 'Ikkyo omote vs shomen-uchi', gap: 1.5, roles: { A: 'Nage', B: 'Uke' }, uniforms: { A: NAGE, B: UKE },
+    cue: 'Meet the overhead strike early (enter before it falls), take the wrist and elbow, cut down along uke’s centre and walk through to a pin on the floor.',
+    tracks: {
+      B: [['hanmi-R', 0, 0.4], ['shomen-up', 0.35, 0.05, 'Uke raises'], [at('shomen', 0.1), 0.25, 0.15, 'Shomen-uchi'], [at('uke-bent', 0.05), 0.4, 0.1], [at('uke-bent', -0.3, 0, { lean: 60 }), 0.5, 0.1], [at('uke-pinned', -0.8), 0.6, 1.3, 'Pinned — tap']],
+      A: [['hanmi-R', 0, 0.5], ['ikkyo-contact', 0.25, 0.25, 'Enter & meet the arm'], ['ikkyo-cut', 0.5, 0.2, 'Cut down along the centre'], [at('ikkyo-cut', 0.8), 0.5, 0.1], [at('ikkyo-pin', 0.7, 0.25), 0.6, 1.3, 'Ikkyo osae — kneel & pin']] } },
+  { group: 'Waza (paired)', name: 'Shiho-nage vs katate-dori', gap: 1.4, roles: { A: 'Nage', B: 'Uke' }, uniforms: { A: NAGE, B: UKE },
+    cue: '“Four-direction throw”: uke grabs your wrist; step under the raised arm like a sword cut, turn, and cut down — uke falls backward. The arm must stay near uke’s shoulder.',
+    tracks: {
+      B: [['hanmi', 0, 0.4], ['katate-dori', 0.4, 0.4, 'Uke grabs the wrist'], [at('katate-dori', 0.35, 0, { rArm: [130, -20, 0] }), 0.5, 0.3], [at('uke-arch', 0.3, 0.1), 0.4, 0.05], [at('uke-backfall', -0.2, 0.2), 0.45, 1.2, 'Ushiro ukemi']],
+      A: [['hanmi', 0, 0.8], ['shiho-raise', 0.5, 0.3, 'Raise both hands like a sword, step under'], ['shiho-cut', 0.4, 0.05, 'Turn and cut down'], [at('shiho-cut', 0.45, 0.1, { spine: [30, 0, 0] }), 0.45, 1.2, 'Uke falls behind']] } },
+  { group: 'Waza (paired)', name: 'Kote-gaeshi vs tsuki', gap: 1.4, roles: { A: 'Nage', B: 'Uke' }, uniforms: { A: NAGE, B: UKE },
+    cue: 'Off the line of the punch, take the fist, tenkan to lead uke around, then turn the wrist outward (kote-gaeshi) — uke takes a high breakfall.',
+    tracks: {
+      B: [['hanmi', 0, 0.5], [at('tsuki', 0), 0.25, 0.2, 'Tsuki!'], [at('uke-bent', 0.25, 0.2, { turn: 60 }), 0.5, 0.2, 'Led around'], [at('uke-arch', 0.3, 0.3, { turn: 140 }), 0.4, 0.05], [at('uke-backfall', 0.4, 0.6, { turn: 150 }), 0.45, 1.2, 'Breakfall']],
+      A: [['hanmi', 0, 0.6], [at('hanmi', 0.05, -0.3, { turn: 20 }), 0.2, 0.15, 'Slip off the line'], ['kote-grab', 0.5, 0.2, 'Take the wrist, tenkan'], ['kote-turn', 0.4, 0.05, 'Turn the wrist out'], [at('kote-turn', 0.1, 0.15, { spine: [25, 0, 0] }), 0.45, 1.2, 'Kote-gaeshi!']] } },
+  { group: 'Waza (paired)', name: 'Irimi-nage vs shomen-uchi', gap: 1.5, roles: { A: 'Nage', B: 'Uke' }, uniforms: { A: NAGE, B: UKE },
+    cue: '“Entering throw”: step deep behind uke, bring uke’s head to your shoulder, then rise and cut down past uke’s face — uke falls backward.',
+    tracks: {
+      B: [['hanmi-R', 0, 0.4], ['shomen-up', 0.35, 0.05], [at('shomen', 0.1), 0.25, 0.2, 'Shomen-uchi'], [at('uke-bent', 0.2, 0, { turn: -40 }), 0.5, 0.25, 'Head drawn to nage’s shoulder'], [at('uke-arch', 0.1, 0), 0.4, 0.05], [at('uke-backfall', -0.3, 0), 0.45, 1.2, 'Ushiro ukemi']],
+      A: [['hanmi', 0, 0.75], ['irimi-behind', 0.4, 0.4, 'Enter deep behind uke'], ['irimi-throw', 0.5, 1.4, 'Rise, then cut down — irimi-nage']] } },
+  { group: 'Randori', name: 'Randori: three attackers', roles: { A: 'Nage', B: 'Uke 1', C: 'Uke 2', D: 'Uke 3' },
+    uniforms: { A: NAGE, B: UKE, C: UKE2, D: UKE3 },
+    place: { A: [0, 0, 0], B: [0, 1.6, 180], C: [1.5, -0.4, -70], D: [-1.5, -0.4, 70] },
+    cue: 'Free practice against multiple attackers: keep moving, never stay between two ukes, use each throw to put one uke in the path of the next.',
+    tracks: {
+      A: [['hanmi', 0, 0.6, 'Centre, aware of all three'], ['tenkan', 0.5, 0.1, 'Turn — blend with uke 1'], [at('hanmi', 0.3, 0.2, { turn: 100 }), 0.4, 0.1, 'Enter toward uke 2'],
+        [at('irimi-throw', 0.3, 0.2, { turn: -80 }), 0.35, 0.3, 'Irimi-nage'], [at('hanmi', 0.1, -0.2, { turn: -110 }), 0.45, 0.1, 'Turn to uke 3'], [at('kote-turn', 0.0, -0.35, { turn: -60 }), 0.4, 0.8, 'Kote-gaeshi — move on']],
+      B: [['hanmi', 0, 0.3], [at('tsuki', 0.45), 0.4, 0.1, 'Uke 1 attacks'], [at('uke-bent', 0.95, 0, { turn: 30 }), 0.5, 0.2], [at('uke-backfall', 1.5, 0.3), 0.5, 2.0]],
+      C: [['hanmi', 0, 0.9], [at('shomen', 0.5), 0.5, 0.2, 'Uke 2 strikes'], [at('uke-arch', 0.9), 0.35, 0.05], [at('uke-backfall', 0.8, 0.2), 0.45, 1.6]],
+      D: [['hanmi', 0, 1.8], [at('tsuki', 0.75), 0.5, 0.2, 'Uke 3 punches'], [at('uke-arch', 1.1, 0.2, { turn: 60 }), 0.4, 0.05], [at('uke-backfall', 1.3, 0.5, { turn: 90 }), 0.45, 1.0]] } },
+];
+
+createDojo({
+  title: 'Aikido 合気道', subtitle: 'Aikikai-style kihon — keikogi & hakama, modest, faceless',
+  floor: { type: 'tatami', colors: ['#d9cfa6', '#2f4a3a'] },
+  fighters: { A: { uniform: NAGE, label: 'Nage' }, B: { uniform: UKE, label: 'Uke' }, C: { uniform: UKE2, label: 'Uke 2' }, D: { uniform: UKE3, label: 'Uke 3' } },
+  impacts: 'falls',          // grappling art: show landings/throws, not strike flashes
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

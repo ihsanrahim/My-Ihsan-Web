@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Muay Thai Camp</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// Modest fight kit: long-sleeve rash guard + full-length leggings UNDER Thai shorts, covered head,
+// mongkol (headband) and prajioud (armband) for the Wai Kru, gloves. Faceless.
+const RED = { top: '#1b1b1f', pants: '#1b1b1f', shorts: '#c62828', jacketSkirt: false, belt: null,
+  headwear: 'mongkol', headwearColor: '#e8e0c8', armband: '#c62828', gloves: '#c62828', feetColor: '#2a2a2a', ring: '#d33' };
+const BLUE = { ...RED, shorts: '#1e4fb5', armband: '#1e4fb5', gloves: '#1e4fb5', headwear: null, ring: '#2c6bd6' };
+const RED_FIGHT = { ...RED, headwear: null };       // mongkol is removed before the fight
+const KRU = { ...BLUE, gloves: '#e0b13a', shorts: '#333', top: '#2b2b30', pants: '#2b2b30', ring: '#e0b13a' }; // trainer with pads
+
+const P = {
+  // guard: tall, weight on the back leg, lead leg light for checking & teeps
+  stance: { turn: -25, lLeg: [18, 25, 0], rLeg: [14, 150, 15], lKnee: 10, rKnee: 14, spine: [0, 12, 0], head: [12, 15, 0],
+    lArm: [62, 25, 70], lElbow: 115, rArm: [52, 15, 75], rElbow: 130, lHand: 'fist', rHand: 'fist' },
+  jab: { base: 'stance', lArm: [88, 0, 0], lElbow: 0, spine: [4, 20, 0] },
+  cross: { base: 'stance', turn: 5, rArm: [88, -8, 0], rElbow: 0, spine: [6, 15, 0], rLeg: [10, 160, 30], rFoot: 20 },
+  hook: { base: 'stance', turn: -45, lArm: [85, 70, 90], lElbow: 95, spine: [0, -20, 0], lLeg: [16, 25, 25] },
+  uppercut: { base: 'stance', turn: 0, rArm: [70, -15, -10], rElbow: 70, spine: [10, 25, 0], rKnee: 25 },
+  // kicks
+  teep: { base: 'stance', turn: -10, rLeg: [8, 150, 0], lLeg: [92, 10, 0], lKnee: 0, lFoot: -25, lToe: -45, spine: [-15, 0, 0], head: [5, 10, 0] },
+  'teep-chamber': { base: 'stance', lLeg: [95, 10, 0], lKnee: 110, lFoot: -20, lToe: -40, spine: [-5, 0, 0] },
+  'kick-turn': { base: 'stance', turn: 40, lLeg: [8, -40, 0], lKnee: 12, rLeg: [45, 40, 40], rKnee: 25, rFoot: 20, rArm: [40, 20, 0], rElbow: 20 },
+  'te-tat': { base: 'stance', turn: 95, roll: 18, lLeg: [8, -80, 0], lKnee: 15, rLeg: [80, 90, 30], rKnee: 5, rFoot: 25,
+    rArm: [20, 90, 0], rElbow: 10, lArm: [70, 30, 70], lElbow: 110, spine: [-5, -25, 10], head: [5, -60, 0] },
+  'low-kick': { base: 'te-tat', roll: 8, rLeg: [45, 85, 30] },
+  // knees & elbows
+  khao: { base: 'stance', turn: 10, lean: -10, rLeg: [100, 0, 0], rKnee: 130, rFoot: 50, lArm: [80, -30, 50], rArm: [80, -30, 50], lElbow: 80, rElbow: 80, spine: [-8, 0, 0] },
+  'sok-tat': { base: 'stance', turn: 10, rArm: [90, 15, 90], rElbow: 150, spine: [0, 35, 0], chest: [0, 15, 0] },
+  'sok-ngat': { base: 'stance', rArm: [140, -10, 0], rElbow: 150, spine: [-5, 15, 0] },
+  'check': { base: 'stance', lLeg: [70, 45, 40], lKnee: 110, lFoot: 30, spine: [0, 0, -5] },
+  // clinch (plum): both hands behind the opponent's head, elbows squeezed in
+  plum: { base: 'stance', turn: 0, lLeg: [14, 70, 0], rLeg: [14, 110, 0], spine: [12, 0, 0], lArm: [95, -25, 30], rArm: [95, -25, 30], lElbow: 95, rElbow: 95, lHand: 'open', rHand: 'open' },
+  'plum-knee': { base: 'plum', rLeg: [95, 0, 0], rKnee: 125, rFoot: 50, spine: [20, 0, 0], lean: -5 },
+  'clinched': { base: 'stance', turn: 0, spine: [35, 0, 0], head: [35, 0, 0], lArm: [60, -10, 60], rArm: [60, -10, 60], lElbow: 100, rElbow: 100 },
+  // wai kru (simplified opening)
+  'wai-kneel': { base: 'kneel', lArm: [70, -30, 80], rArm: [70, -30, 80], lElbow: 120, rElbow: 120, head: [10, 0, 0] },
+  'wai-bow': { base: 'kneel', spine: [55, 0, 0], head: [20, 0, 0], lArm: [80, -10, 0], rArm: [80, -10, 0], lElbow: 20, rElbow: 20 },
+  'ram-1': { lLeg: [70, 20, 0], lKnee: 90, lFoot: 20, rLeg: [8, 90, 0], rKnee: 12, lArm: [100, 60, 0], rArm: [100, 60, 0], lElbow: 30, rElbow: 30, spine: [-5, 0, 0] },
+  // pads (trainer)
+  'pads-up': { base: 'stance', turn: 0, lArm: [80, 10, 70], rArm: [80, -10, 70], lElbow: 80, rElbow: 80, spine: [5, 0, 0], head: [0, 0, 0] },
+  'pads-kick': { base: 'stance', turn: -60, lArm: [45, 50, 80], lElbow: 100, rArm: [45, -40, 80], rElbow: 100, spine: [5, 0, 0] },
+  hit: { base: 'stance', spine: [20, 25, 0], head: [25, 0, 0], pos: [0, -0.1] },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Ceremony & stance', name: 'Wai Kru Ram Muay (opening)', uniforms: { A: RED },
+    cue: 'A pre-fight ritual honouring teachers, parents and the art. Kneel, wai (palms together), three bows, then the ram muay dance — it also warms up and focuses the fighter.',
+    tracks: { A: [['attention', 0, 0.4], ['wai-kneel', 0.9, 0.6, 'Kneel — wai, palms together'], ['wai-bow', 0.6, 0.4, 'Bow 1'], ['wai-kneel', 0.5, 0.1], ['wai-bow', 0.5, 0.4, 'Bow 2'], ['wai-kneel', 0.5, 0.1], ['wai-bow', 0.5, 0.4, 'Bow 3'],
+      ['wai-kneel', 0.5, 0.3], ['attention', 0.8, 0.2], ['ram-1', 0.8, 0.5, 'Ram muay — the dance, step like a bird'], [{ base: 'ram-1', mirror: true, pos: [0, 0.3] }, 0.8, 0.5], ['stance', 0.7, 0.6, 'Guard']] } },
+  { group: 'Ceremony & stance', name: 'Stance & guard',
+    cue: 'Square-ish, tall, hands at the forehead, weight 60-70% on the rear leg so the lead leg can check kicks and teep instantly. Chin down.',
+    tracks: { A: [['attention', 0, 0.4], ['stance', 0.7, 1.0, 'Guard up, chin down'], [at('stance', 0.2), 0.3, 0.2, 'Step forward'], [at('stance', 0), 0.3, 0.2, 'Step back'], ['check', 0.25, 0.6, 'Lift the lead knee — check'], ['stance', 0.3, 0.6]] } },
+  { group: 'Weapons of the 8 limbs', name: 'Punches (mat)',
+    cue: 'Jab, cross, lead hook, rear uppercut. Return the hand to the guard by the same path.',
+    tracks: { A: [['stance', 0, 0.4], ['jab', 0.13, 0.35, 'Jab'], ['stance', 0.2, 0.1], ['cross', 0.15, 0.35, 'Cross — pivot the rear foot'], ['stance', 0.2, 0.1], ['hook', 0.16, 0.35, 'Lead hook'], ['stance', 0.2, 0.1], ['uppercut', 0.16, 0.35, 'Rear uppercut'], ['stance', 0.3, 0.6]] } },
+  { group: 'Weapons of the 8 limbs', name: 'Teep (push kick)',
+    cue: 'The jab of the legs: lift the knee, extend the hip, push with the ball of the foot into the belly to stop an advance or score.',
+    tracks: { A: [['stance', 0, 0.4], ['teep-chamber', 0.2, 0.05, 'Knee up'], ['teep', 0.15, 0.4, 'Push through with the hips'], ['teep-chamber', 0.15, 0], ['stance', 0.3, 0.6]] } },
+  { group: 'Weapons of the 8 limbs', name: 'Te tat (roundhouse kick)',
+    cue: 'Step out at 45°, rotate the hips completely over, swing the rear arm down for counter-balance and hit with the SHIN, not the foot. Leg stays almost straight like a baseball bat.',
+    tracks: { A: [['stance', 0, 0.4], ['kick-turn', 0.15, 0, 'Step out, hips open'], ['te-tat', 0.14, 0.35, 'Shin through the target — arm swings down'], ['stance', 0.4, 0.4],
+      ['kick-turn', 0.15, 0], ['low-kick', 0.14, 0.35, 'Low kick to the thigh'], ['stance', 0.4, 0.5]] } },
+  { group: 'Weapons of the 8 limbs', name: 'Khao & sok (knee & elbows)',
+    cue: 'Straight knee driven with the hips forward, horizontal elbow (sok tat) and upward elbow (sok ngat) — cutting tools at close range.',
+    tracks: { A: [['stance', 0, 0.4], ['khao', 0.2, 0.4, 'Khao trong — straight knee, hips forward'], ['stance', 0.3, 0.1], ['sok-tat', 0.15, 0.4, 'Sok tat — horizontal elbow'], ['stance', 0.25, 0.1],
+      ['sok-ngat', 0.15, 0.4, 'Sok ngat — rising elbow'], ['stance', 0.3, 0.6]] } },
+  // partner
+  { group: 'Partner work', name: 'Pad round: jab–cross–kick', gap: 1.45, roles: { A: 'Nak muay', B: 'Kru (pads)' }, uniforms: { A: RED_FIGHT, B: KRU },
+    cue: 'The Thai pad-holder calls and meets each strike. Classic combo: jab, cross, rear roundhouse — exhale "tsss" on every strike.',
+    tracks: {
+      A: [['stance', 0, 0.5, 'Ready'], [at('jab', 0.24), 0.13, 0.25, 'Jab'], [at('stance', 0.1), 0.15, 0], [at('cross', 0.3), 0.15, 0.25, 'Cross'], [at('stance', 0.1), 0.18, 0.05],
+        [at('kick-turn', 0.15), 0.15, 0], [at('te-tat', 0.2), 0.14, 0.4, 'Kick! (pads meet the shin)'], [at('stance', 0), 0.4, 0.8]],
+      B: [['pads-up', 0, 0.62], [at('pads-up', -0.03), 0.08, 0.3], [at('pads-up', -0.05), 0.08, 0.2], [at('pads-kick', 0), 0.2, 0.55], [at('pads-up', 0), 0.4, 0.8]] } },
+  { group: 'Partner work', name: 'Checking the roundhouse', gap: 1.3, roles: { A: 'Defender', B: 'Attacker' }, uniforms: { A: RED_FIGHT, B: BLUE },
+    cue: 'Lift the lead knee and turn the shin out slightly so the attacker’s shin meets your shin bone. Counter immediately with a cross.',
+    tracks: {
+      B: [['stance', 0, 0.5], ['kick-turn', 0.15, 0, 'Low/mid kick'], [at('low-kick', 0.14), 0.14, 0.25], [at('stance', -0.05, 0, { spine: [10, 0, 0] }), 0.4, 0.1], [at('hit', -0.05), 0.35, 1.0]],
+      A: [['stance', 0, 0.55], ['check', 0.12, 0.4, 'Check — shin to shin'], [at('stance', 0.1), 0.25, 0], [at('cross', 0.42), 0.15, 1.0, 'Counter cross!']] } },
+  { group: 'Partner work', name: 'Plum clinch → knees', gap: 0.62, roles: { A: 'Red', B: 'Blue' }, uniforms: { A: RED_FIGHT, B: BLUE },
+    cue: 'Hands stacked behind the opponent’s head (not the neck), elbows squeezed together on the collarbones, pull the head down and drive knees to the body. Train with control.',
+    tracks: {
+      A: [['stance', 0, 0.4], ['plum', 0.4, 0.3, 'Plum — hands behind the head, elbows in'], [at('plum', -0.05, 0, { spine: [20, 0, 0] }), 0.3, 0.1, 'Break the posture'],
+        ['plum-knee', 0.2, 0.25, 'Knee!'], ['plum', 0.2, 0.05], [{ base: 'plum-knee', mirror: true }, 0.2, 0.25, 'Knee!'], ['plum', 0.25, 0.8]],
+      B: [['stance', 0, 0.4], ['clinched', 0.4, 0.3], [at('clinched', 0.05, 0, { spine: [45, 0, 0] }), 0.3, 0.1], [at('clinched', 0.0, 0, { spine: [50, 0, 0] }), 0.2, 0.25],
+        ['clinched', 0.2, 0.05], [at('clinched', 0.0, 0, { spine: [50, 0, 0] }), 0.2, 0.25], ['clinched', 0.25, 0.8]] } },
+];
+
+createDojo({
+  title: 'Muay Thai มวยไทย', subtitle: 'The art of eight limbs — modest fight kit, faceless',
+  floor: { type: 'ring', colors: ['#1f4a8a'] }, background: '#1a1d26',
+  fighters: { A: { uniform: RED_FIGHT, label: 'Nak muay' }, B: { uniform: BLUE, label: 'Partner' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

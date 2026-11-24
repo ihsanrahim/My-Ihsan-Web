@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wing Chun Kwoon</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// Traditional black kung-fu jacket (long sleeves) & trousers, sash, covered head; faceless.
+const SAAM = { top: '#121214', pants: '#121214', trim: '#2a2a2e', belt: '#b71c1c', jacketSkirt: true,
+  feetColor: '#1b1b1b', handColor: '#c49a72', ring: '#d33' };
+const SIHING = { ...SAAM, top: '#7a1a1a', trim: '#5a1010', belt: '#111', ring: '#2c6bd6' };
+
+const P = {
+  // Yee Jee Kim Yeung Ma: knees in, toes in, pelvis tucked, weight centred
+  yjkym: { lLeg: [18, 80, -25], rLeg: [18, 80, -25], lKnee: 32, rKnee: 32, spine: [-3, 0, 0], lArm: [-25, 0, 0], rArm: [-25, 0, 0], lElbow: 115, rElbow: 115, lHand: 'fist', rHand: 'fist' },
+  // man sau (lead hand) + wu sau (guard hand) on the centre line
+  'man-wu': { base: 'yjkym', lArm: [60, -12, 20], lElbow: 45, rArm: [40, -25, 40], rElbow: 95, lHand: 'open', rHand: 'open' },
+  'man-wu-L': { base: 'man-wu', mirror: true },
+  // the "three seeds" of Siu Nim Tau
+  'tan-sau': { base: 'yjkym', lArm: [28, -15, -15], lElbow: 72, lHand: 'open', lWrist: [-10, 0, -40] },
+  'huen-sau': { base: 'yjkym', lArm: [30, -5, -50], lElbow: 80, lHand: 'open' },
+  'wu-sau': { base: 'yjkym', lArm: [25, -25, 40], lElbow: 100, lHand: 'open' },
+  'fook-sau': { base: 'yjkym', lArm: [30, -15, 35], lElbow: 92, lHand: 'open', lWrist: [45, 0, 0] },
+  'bong-sau': { base: 'yjkym', lArm: [78, 40, 130], lElbow: 75, lHand: 'open', rArm: [35, -25, 40], rElbow: 95, rHand: 'open' },
+  'pak-sau': { base: 'yjkym', lArm: [50, -35, 70], lElbow: 55, lHand: 'open' },
+  'jum-sau': { base: 'yjkym', lArm: [35, -10, 0], lElbow: 80, lHand: 'open' },
+  'gan-sau': { base: 'yjkym', lArm: [30, 30, 0], lElbow: 15, lHand: 'open' },
+  // vertical-fist punches
+  'punch-L': { base: 'yjkym', lArm: [82, -8, -40], lElbow: 0, lHand: 'fist', rArm: [40, -15, 50], rElbow: 105 },
+  'punch-R': { base: 'yjkym', rArm: [82, -8, -40], rElbow: 0, rHand: 'fist', lArm: [40, -15, 50], lElbow: 105 },
+  // turning stance (Chum Kiu) & front stance
+  'juen-ma-L': { base: 'yjkym', turn: 45, lLeg: [18, 40, 0], rLeg: [22, 120, 0], lKnee: 30, rKnee: 30, lArm: [78, -10, 130], lElbow: 80, lHand: 'open', rArm: [35, -10, 40], rElbow: 95, rHand: 'open' },
+  'chum-bong': { base: 'juen-ma-L' },
+  'front-kick': { base: 'man-wu', lLeg: [6, 80, 0], lKnee: 15, rLeg: [80, 0, 0], rKnee: 10, rFoot: -15, spine: [-5, 0, 0] },
+  // chi sau roles (rolling poon sau)
+  'chi-tan-fook': { base: 'yjkym', lArm: [40, -10, -15], lElbow: 75, rArm: [42, -15, 35], rElbow: 85, lHand: 'open', rHand: 'open', rWrist: [45, 0, 0] },
+  'chi-bong-fook': { base: 'yjkym', lArm: [68, 30, 130], lElbow: 70, rArm: [42, -15, 35], rElbow: 85, lHand: 'open', rHand: 'open', rWrist: [45, 0, 0] },
+  'chi-punch': { base: 'yjkym', pos: [0, 0.12], lArm: [80, -8, -40], lElbow: 0, lHand: 'fist', rArm: [45, -15, 35], rElbow: 85, rHand: 'open' },
+  'chi-pak': { base: 'chi-tan-fook', rArm: [50, -35, 70], rElbow: 50 },
+  'hit-chest': { base: 'yjkym', pos: [0, -0.12], spine: [15, 0, 0], head: [15, 0, 0], lArm: [35, -10, 0], rArm: [35, -10, 0], lElbow: 80, rElbow: 80, lHand: 'open', rHand: 'open' },
+  'step-punch': { base: 'man-wu', lLeg: [24, 10, -10], rLeg: [-10, 20, 0], lKnee: 30, rKnee: 25 },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+// chain punches: alternating, each fist travels down the centre line over the other
+const chain = [];
+for (let i = 0; i < 8; i++) chain.push([i % 2 ? 'punch-L' : 'punch-R', 0.12, 0.02, i === 0 ? 'Lin wan kuen — chain punches on the centre line' : '']);
+
+const LESSONS = [
+  { group: 'Siu Nim Tau (little idea)', name: 'Open the stance (Yee Jee Kim Yeung Ma)',
+    cue: 'Bend the knees, turn heels out then toes in, knees pinch slightly inward, pelvis forward, back straight. Fists chambered high at the sides of the chest.',
+    tracks: { A: [['attention', 0, 0.6], [{ base: 'attention', lKnee: 30, rKnee: 30, lLeg: [15, 90, 0], rLeg: [15, 90, 0], lArm: [-25, 0, 0], rArm: [-25, 0, 0], lElbow: 115, rElbow: 115, lHand: 'fist', rHand: 'fist' }, 0.7, 0.4, 'Sink, fists chambered'],
+      ['yjkym', 0.7, 1.0, 'Toes in, knees in — the "goat-gripping" stance'], ['man-wu', 0.7, 1.0, 'Man sau / wu sau on the centre line']] } },
+  { group: 'Siu Nim Tau (little idea)', name: 'Tan · Huen · Wu · Fook (the slow section)',
+    cue: 'Performed slowly with relaxed power: Tan (palm-up dispersing), Huen (circling), Wu (guard), Fook (bridge-on). Elbow stays on the centre line, one fist from the body.',
+    tracks: { A: [['yjkym', 0, 0.4], ['tan-sau', 1.2, 0.5, 'Tan sau — palm up, elbow in'], ['huen-sau', 0.8, 0.3, 'Huen sau — circle the wrist'], ['wu-sau', 1.2, 0.5, 'Wu sau — withdraw, protecting'], ['fook-sau', 1.2, 0.5, 'Fook sau — bent wrist, elbow down'],
+      ['wu-sau', 0.8, 0.2], ['fook-sau', 0.8, 0.2], ['yjkym', 0.8, 0.5]] } },
+  { group: 'Siu Nim Tau (little idea)', name: 'Pak · Jum · Gan · Bong',
+    cue: 'Short-range deflections: Pak (slap), Jum (sinking elbow), Gan (splitting low), Bong (wing arm — elbow higher than the wrist, only used when pressured).',
+    tracks: { A: [['yjkym', 0, 0.4], ['pak-sau', 0.18, 0.5, 'Pak sau — slapping palm'], ['jum-sau', 0.3, 0.5, 'Jum sau — sink the elbow'], ['gan-sau', 0.3, 0.5, 'Gan sau — sweep low'], ['bong-sau', 0.3, 0.7, 'Bong sau — wing arm, elbow high'], ['man-wu', 0.4, 0.5]] } },
+  { group: 'Siu Nim Tau (little idea)', name: 'Chain punches',
+    cue: 'Vertical fist, bottom three knuckles, elbow behind the fist, punches roll one over the other along the centre line — fast, relaxed, continuous.',
+    tracks: { A: [['man-wu', 0, 0.4], ...chain, ['man-wu', 0.3, 0.6]] } },
+  { group: 'Chum Kiu & dummy', name: 'Juen ma + bong sau (turning)',
+    cue: 'Chum Kiu adds footwork: turn the whole body on the heels (juen ma) while the arm converts into bong sau — the force is redirected by the turn, not the arm.',
+    tracks: { A: [['man-wu', 0, 0.4], ['juen-ma-L', 0.35, 0.6, 'Turn left — bong sau'], ['man-wu', 0.35, 0.3], [{ base: 'juen-ma-L', mirror: true }, 0.35, 0.6, 'Turn right — bong sau'], ['man-wu', 0.35, 0.3],
+      ['front-kick', 0.25, 0.5, 'Front heel kick on the centre line'], ['man-wu', 0.35, 0.5]] } },
+  { group: 'Chum Kiu & dummy', name: 'Muk Yan Jong (wooden dummy)', props: ['dummy'],
+    cue: 'The dummy gives structure, angles and contact feedback: pak sau + palm to the trunk, tan sau + low palm, bong sau then lap & strike.',
+    tracks: { A: [[at('man-wu', -0.6), 0, 0.5], [at('pak-sau', -0.55, 0, { rArm: [80, -5, -30], rElbow: 5, rHand: 'open' }), 0.18, 0.4, 'Pak + palm strike'],
+      [at('tan-sau', -0.55, 0, { lArm: [35, 10, -15], rArm: [40, -20, 0], rElbow: 20, rHand: 'open' }), 0.2, 0.4, 'Tan sau + low palm'],
+      [at('bong-sau', -0.55, 0.05, { turn: 20 }), 0.2, 0.4, 'Bong sau, turn'], [at('punch-R', -0.55), 0.15, 0.4, 'Punch'],
+      [at('front-kick', -0.6, 0, { rLeg: [55, 0, 0], rKnee: 20 }), 0.2, 0.4, 'Stamp the dummy leg'], [at('man-wu', -0.6), 0.4, 0.5]] } },
+  // partner
+  { group: 'Chi sau (sticky hands)', name: 'Poon sau (rolling hands)', gap: 0.78, roles: { A: 'Student', B: 'Si-hing (senior)' },
+    cue: 'Forearms in contact, the pair rolls: Tan ↔ Bong with Fook on the other arm. You train sensitivity — feeling pressure change and the opening it creates — not strength.',
+    tracks: {
+      A: [['man-wu', 0, 0.4, 'Bridge — touch forearms'], ['chi-tan-fook', 0.4, 0.2, 'Tan + Fook'], ['chi-bong-fook', 0.55, 0.15, 'Roll to Bong + Fook'], ['chi-tan-fook', 0.55, 0.15], ['chi-bong-fook', 0.55, 0.15], ['chi-tan-fook', 0.55, 0.15],
+        ['chi-pak', 0.15, 0.05, 'Feel an opening: pak sau…'], ['chi-punch', 0.13, 0.7, '…and punch through the centre']],
+      B: [['man-wu', 0, 0.4], ['chi-bong-fook', 0.4, 0.2], ['chi-tan-fook', 0.55, 0.15], ['chi-bong-fook', 0.55, 0.15], ['chi-tan-fook', 0.55, 0.15], ['chi-bong-fook', 0.55, 0.15],
+        ['chi-bong-fook', 0.15, 0.05], ['hit-chest', 0.15, 0.7, 'Senior acknowledges the touch']] } },
+  { group: 'Chi sau (sticky hands)', name: 'Lap sau → punch', gap: 0.85, roles: { A: 'Defender', B: 'Attacker' },
+    cue: 'Attacker punches; defender bong-saus, then rotates into lap sau (pulling hand) and punches on the same beat — "simultaneous attack and defence" (lin siu dai da).',
+    tracks: {
+      B: [['man-wu', 0, 0.4], [at('punch-R', 0.12), 0.14, 0.15, 'Punch'], [at('punch-R', 0.22, 0, { spine: [15, 0, 0], head: [10, 0, 0] }), 0.18, 0.1, 'Arm pulled (lap)'], [at('hit-chest', 0.05), 0.15, 1.0]],
+      A: [['man-wu', 0, 0.54], ['bong-sau', 0.13, 0.15, 'Bong sau absorbs'], [at('punch-R', 0, 0, { lArm: [35, -10, 0], lElbow: 40, lHand: 'fist' }), 0.18, 0.1, 'Lap sau + punch!'], [at('punch-L', 0.08), 0.12, 0.08], [at('punch-R', 0.16), 0.12, 0.8, 'Chain punches forward']] } },
+];
+
+createDojo({
+  title: 'Wing Chun 詠春', subtitle: 'Siu Nim Tau, Chum Kiu, Muk Yan Jong, Chi Sau — modest saam, faceless',
+  floor: 'wood', background: '#231d1a',
+  props: { dummy: { type: 'dummy', pos: [0, 0.05], facing: 180 } },
+  fighters: { A: { uniform: SAAM, label: 'Student' }, B: { uniform: SIHING, label: 'Si-hing' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* My Ihsan 0.7.42 · Explore › Martial arts */
+.maRoot{display:flex;flex-direction:column;gap:10px}
+.maRoot .card{margin:0}
+.maIntro p{margin:6px 0;font-size:13.5px;line-height:1.45}
+.maSafe{font-size:12.5px;line-height:1.4;padding:8px 10px;border-radius:10px;background:rgba(224,162,30,.14)}
+.maGrid{display:flex;flex-direction:column;gap:8px}
+.maArt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border-radius:14px;border:1px solid var(--line,rgba(127,127,127,.25));background:var(--card,#fff);color:inherit;font:inherit;cursor:pointer}
+.maArt:active{transform:scale(.99)}
+.maFl{font-size:30px;line-height:1;flex:none}
+.maFl.big{font-size:40px}
+.maTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.maTx b{font-size:15px}
+.maTx small{font-size:12px;line-height:1.3}
+.maGo{font-size:22px;opacity:.5}
+.maTw{overflow-x:auto;margin:8px 0;-webkit-overflow-scrolling:touch}
+.maT{border-collapse:collapse;font-size:12.5px;min-width:100%}
+.maT th,.maT td{padding:6px 8px;border-bottom:1px solid var(--line,rgba(127,127,127,.25));text-align:left;vertical-align:top}
+.maT th{font-weight:700;white-space:nowrap}
+.maT tr[data-ma]{cursor:pointer}
+.maT tr[data-ma] td:first-child{white-space:nowrap;font-weight:600}
+.maHT{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.maHT b{font-size:18px}
+.maHead blockquote,.maBody blockquote{margin:8px 0;padding:8px 10px;border-left:3px solid #e0a21e;background:rgba(224,162,30,.1);border-radius:0 10px 10px 0;font-size:13px;line-height:1.45}
+.maFacts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.maFacts span{font-size:12px;padding:4px 8px;border-radius:999px;background:rgba(127,127,127,.12)}
+.maPlay{width:100%;margin-top:4px}
+.maMulti{margin-top:6px}
+.maToc{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px;scroll-margin-top:8px;-webkit-overflow-scrolling:touch}
+.maToc .chip{flex:none;white-space:nowrap}
+.maBody{font-size:14px;line-height:1.5}
+.maBody .maH{margin:0 0 6px;font-size:17px}
+.maBody h4,.maBody h5{margin:12px 0 4px}
+.maBody ul,.maBody ol{padding-left:20px;margin:6px 0}
+.maBody li{margin:3px 0}
+.maBody p{margin:6px 0}
+.maBody pre{white-space:pre-wrap;font-size:12.5px;padding:8px 10px;border-radius:10px;background:rgba(127,127,127,.12)}
+.maBody code{font-size:.92em;padding:0 3px;border-radius:4px;background:rgba(127,127,127,.14)}
+.maOv{position:fixed;inset:0;z-index:9000;display:flex;flex-direction:column;background:#111}
+.maOvBar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:calc(6px + env(safe-area-inset-top,0px)) 10px 6px;background:#1b1b1b;color:#fff}
+.maOvBar b{font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.maOvBar .chip{flex:none}
+.maFr{flex:1;width:100%;border:0;background:#111}

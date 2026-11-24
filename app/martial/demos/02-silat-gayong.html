@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gelanggang Gayong</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// ---------- black baju silat, samping, bengkung and tengkolok (fully covered, faceless) ----------
+const PESILAT = { top: '#17171c', pants: '#17171c', jacketSkirt: false, belt: '#2e9e44', samping: '#7a1f2b',
+  headwear: 'tengkolok', headwearColor: '#c9a227', feetColor: '#0e0e10', handColor: '#b98563', ring: '#e0b13a' };
+const LAWAN = { ...PESILAT, belt: '#f2f2f2', samping: '#1f3f7a', headwearColor: '#9b2f2f', ring: '#3b78d8' };
+const LAWAN2 = { ...LAWAN, samping: '#2f5d3a', headwearColor: '#5a3d8a', ring: '#a35bd6' };
+const LAWAN_KERIS = { ...LAWAN, weapons: { r: 'keris' } };
+
+const P = {
+  // ---- adab (etiquette) ----
+  tegak: { base: 'attention', lHand: 'open', rHand: 'open' },
+  'sembah-dada': { base: 'tegak', lArm: [50, -40, 70], rArm: [50, -40, 70], lElbow: 115, rElbow: 115 },
+  'sembah-dahi': { base: 'tegak', lArm: [100, -35, 80], rArm: [100, -35, 80], lElbow: 120, rElbow: 120, head: [18, 0, 0], spine: [8, 0, 0] },
+  // ---- kuda-kuda (stances) ----
+  'kuda-hadapan': { lLeg: [30, 8, 0], rLeg: [-24, 12, 15], lKnee: 38, rKnee: 18, spine: [6, 0, 0],
+    lArm: [60, 20, 40], lElbow: 60, rArm: [35, -15, 60], rElbow: 105 },
+  'kuda-tengah': { lLeg: [42, 78, 15], rLeg: [42, 78, 15], lKnee: 72, rKnee: 72, spine: [5, 0, 0],
+    lArm: [55, 30, 50], rArm: [55, 30, 50], lElbow: 80, rElbow: 80 },
+  'kuda-sisi': { turn: -75, lLeg: [32, 75, 0], rLeg: [24, 105, 20], lKnee: 40, rKnee: 35, head: [5, 70, 0],
+    lArm: [70, 70, 30], lElbow: 30, rArm: [45, 40, 70], rElbow: 110 },
+  'kuda-belakang': { lLeg: [26, 10, 0], rLeg: [-10, 25, 30], lKnee: 12, rKnee: 60, spine: [-4, 0, 0],
+    lArm: [65, 10, 40], lElbow: 50, rArm: [40, -15, 60], rElbow: 110 },
+  'kuda-rendah': { lLeg: [70, 40, 10], rLeg: [-20, 30, 40], lKnee: 110, rKnee: 70, spine: [15, 0, 0],
+    lArm: [50, 25, 30], lElbow: 40, rArm: [40, -20, 60], rElbow: 100 },
+  pasang: { base: 'kuda-hadapan', turn: -20, head: [0, 20, 0], lArm: [70, 30, 30], lElbow: 45, rArm: [45, -10, 70], rElbow: 110 },
+  // ---- bunga / tari (flowing flourish) ----
+  'bunga-1': { base: 'kuda-tengah', spine: [5, 25, 0], lArm: [120, 40, 70], lElbow: 70, rArm: [40, -20, 70], rElbow: 110, head: [0, 20, 0] },
+  'bunga-2': { base: 'kuda-hadapan', spine: [5, -15, 0], lArm: [60, -30, 80], lElbow: 100, rArm: [110, 60, 40], rElbow: 40, head: [5, -10, 0] },
+  'bunga-3': { base: 'kuda-rendah', spine: [20, 20, 0], lArm: [30, 40, 0], lElbow: 20, rArm: [80, -30, 80], rElbow: 110, head: [10, 15, 0] },
+  'bunga-4': { base: 'kuda-belakang', mirror: true, spine: [0, -20, 0], lArm: [90, 50, 60], lElbow: 60, rArm: [130, -20, 80], rElbow: 90 },
+  // ---- buah pukul (strikes) ----
+  'tumbuk-sedia': { base: 'kuda-hadapan', rArm: [-25, 10, 0], rElbow: 110, rHand: 'fist' },
+  tumbuk: { base: 'kuda-hadapan', rArm: [88, -6, 0], rElbow: 0, rHand: 'fist', lArm: [50, -20, 70], lElbow: 115, chest: [0, 25, 0] },
+  'tetak-angkat': { base: 'kuda-hadapan', rArm: [150, 20, 60], rElbow: 70, rHand: 'open', chest: [0, 15, 0] },
+  tetak: { base: 'kuda-hadapan', rArm: [55, -25, 40], rElbow: 10, rHand: 'open', chest: [0, 30, 0], spine: [12, 0, 0] },
+  'siku-sedia': { base: 'kuda-hadapan', rArm: [80, 60, 90], rElbow: 145, rHand: 'fist', chest: [0, -20, 0] },
+  siku: { base: 'kuda-hadapan', rArm: [85, 0, 90], rElbow: 150, rHand: 'fist', chest: [0, 40, 0], spine: [0, 15, 0] },
+  'lutut': { base: 'kuda-hadapan', lLeg: [4, 10, 0], lKnee: 8, rLeg: [95, 0, 0], rKnee: 130, rFoot: 50, spine: [-6, 0, 0],
+    lArm: [100, 10, 50], rArm: [100, 0, 50], lElbow: 90, rElbow: 90, lHand: 'open', rHand: 'open' },
+  'sepak-sedia': { base: 'kuda-hadapan', lLeg: [4, 20, 0], lKnee: 10, rLeg: [70, 30, 50], rKnee: 110, rFoot: 40 },
+  sepak: { base: 'sepak-sedia', turn: 30, rLeg: [80, 35, 60], rKnee: 10, rFoot: 50, spine: [-5, -15, 0] },
+  'terajang-sedia': { base: 'kuda-hadapan', lLeg: [4, 10, 0], lKnee: 12, rLeg: [95, 0, 0], rKnee: 120, rFoot: -15 },
+  terajang: { base: 'terajang-sedia', rLeg: [85, 0, 0], rKnee: 0, rFoot: -20, spine: [-12, 0, 0] },
+  // ---- elak & tangkis (evasion & parry) ----
+  'elak-sisi': { base: 'kuda-hadapan', pos: [-0.3, -0.05], turn: -25, roll: -8, spine: [5, 0, 10], head: [0, 25, 0] },
+  'elak-bawah': { base: 'kuda-rendah', spine: [35, 0, 0], head: [-20, 0, 0], pos: [0, -0.05] },
+  'elak-belakang': { base: 'kuda-belakang', pos: [0, -0.3], spine: [-12, 0, 0], head: [-5, 0, 0] },
+  tangkis: { base: 'kuda-hadapan', lArm: [75, 25, 20], lElbow: 75, chest: [0, -15, 0] },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Adab (etiquette)', name: 'Salam hormat',
+    cue: 'Stand tall, bring the palms together at the chest, lift them to the forehead (sembah), bow the head, then return. Gayong opens and closes every session — and every bout — with respect.',
+    tracks: { A: [['tegak', 0, 0.6, 'Tegak — stand upright'], ['sembah-dada', 0.7, 0.5, 'Palms together at the chest'], ['sembah-dahi', 0.7, 1.0, 'Raise to the forehead — sembah'], ['sembah-dada', 0.6, 0.4], ['tegak', 0.6, 0.6, 'Return — ready to learn']] } },
+  { group: 'Kuda-kuda (stances)', name: 'Kuda-kuda asas',
+    cue: 'Four foundation stances. Weight low, back straight, open hands guarding the centre line.',
+    tracks: { A: [['tegak', 0, 0.4], ['kuda-hadapan', 0.7, 1.0, 'Kuda-kuda hadapan — front stance'], ['kuda-tengah', 0.7, 1.0, 'Kuda-kuda tengah — middle (horse) stance'],
+      ['kuda-sisi', 0.7, 1.0, 'Kuda-kuda sisi — side stance'], ['kuda-belakang', 0.7, 1.0, 'Kuda-kuda belakang — rear-weighted'], ['kuda-rendah', 0.7, 1.0, 'Kuda-kuda rendah — low stance'], ['pasang', 0.7, 1.0, 'Pasang — guard, ready to receive']] } },
+  { group: 'Kuda-kuda (stances)', name: 'Langkah tiga (triangle footwork)',
+    cue: 'Step along the points of a triangle: forward-left, back to centre, forward-right. Silat moves off the attack line rather than meeting it head-on.',
+    tracks: { A: [['pasang', 0, 0.4, 'Pasang at the centre'], [at('kuda-hadapan', 0.35, 0.3, { turn: 30 }), 0.6, 0.4, 'Step to the left point'], [at('pasang', 0), 0.6, 0.3, 'Back to centre'],
+      [at('kuda-hadapan', 0.35, -0.3, { mirror: true, turn: -30 }), 0.6, 0.4, 'Step to the right point'], [at('pasang', 0), 0.6, 0.3, 'Centre'], [at('kuda-belakang', -0.35), 0.6, 0.6, 'Withdraw to the rear point']] } },
+  { group: 'Kuda-kuda (stances)', name: 'Bunga silat (flourish)',
+    cue: 'The bunga is slow and flowing: it trains balance, breathing, transitions and hides the real intention. Each opening of the hands can turn into a parry, grab or strike.',
+    tracks: { A: [['tegak', 0, 0.4], ['bunga-1', 1.0, 0.2, 'Open — left hand rises like a flower'], ['bunga-2', 1.0, 0.2, 'Turn — the right hand sweeps'], ['bunga-3', 1.0, 0.2, 'Sink low — guard the body'],
+      ['bunga-4', 1.0, 0.2, 'Rise — both hands open'], ['bunga-1', 1.0, 0.2], ['pasang', 1.0, 0.8, 'Close in pasang']] } },
+  { group: 'Buah pukul (strikes)', name: 'Tumbuk · Tetak · Siku',
+    cue: 'Punch (tumbuk), downward chop with the hand-edge (tetak) and elbow (siku) — all powered by turning the waist from the stance.',
+    tracks: { A: [['pasang', 0, 0.4], ['tumbuk-sedia', 0.4, 0.15], ['tumbuk', 0.15, 0.5, 'Tumbuk — straight punch'], ['tetak-angkat', 0.45, 0.15, 'Raise the hand-edge'], ['tetak', 0.18, 0.5, 'Tetak — chop down diagonally'],
+      ['siku-sedia', 0.4, 0.1], ['siku', 0.16, 0.6, 'Siku — horizontal elbow'], ['pasang', 0.5, 0.4]] } },
+  { group: 'Buah pukul (strikes)', name: 'Lutut · Sepak · Terajang',
+    cue: 'Knee (lutut) for close range, sepak = whipping kick with the instep/shin, terajang = thrusting kick with the sole.',
+    tracks: { A: [['pasang', 0, 0.4], ['lutut', 0.3, 0.5, 'Lutut — pull the head down, knee up'], ['pasang', 0.4, 0.2], ['sepak-sedia', 0.3, 0.05], ['sepak', 0.15, 0.4, 'Sepak — whip the shin'],
+      ['pasang', 0.4, 0.2], ['terajang-sedia', 0.3, 0.05], ['terajang', 0.16, 0.5, 'Terajang — thrust with the sole'], ['pasang', 0.4, 0.4]] } },
+  { group: 'Elak & tangkis (defence)', name: 'Elak (evasions)',
+    cue: 'Evade first: sideways off the line, down under a swing, or back out of range — then counter.',
+    tracks: { A: [['pasang', 0, 0.4], ['elak-sisi', 0.3, 0.6, 'Elak sisi — slip to the side'], ['pasang', 0.4, 0.2], ['elak-bawah', 0.3, 0.6, 'Elak bawah — duck under'], ['pasang', 0.4, 0.2],
+      ['elak-belakang', 0.3, 0.6, 'Elak belakang — sway back'], ['pasang', 0.4, 0.5]] } },
+  // ---- partner work ----
+  { group: 'Buah (partner applications)', name: 'Elak · Tangkap · Kunci · Jatuh', gap: 1.3, roles: { A: 'Pesilat', B: 'Penyerang (attacker)' },
+    cue: 'Attacker throws a right punch. Pesilat slips outside, parries and catches the wrist, turns it into a straight-arm lock and takes the attacker face-down. Always tap and release in training.',
+    tracks: {
+      B: [['pasang', 0, 0.6, 'Attacker: guard'], ['tumbuk-sedia', 0.3, 0.1], [at('tumbuk', 0.3), 0.2, 0.35, 'Attacker: punch!'],
+        [at('tumbuk', 0.3, 0, { spine: [20, -15, 0], head: [10, 0, 0], rArm: [80, 10, 0] }), 0.3, 0.15],
+        [at('stand', 0.25, 0.12, { lean: 35, turn: 30, rArm: [70, 50, -60], rElbow: 0, lArm: [40, 0, 0], lKnee: 25, rKnee: 25, head: [-10, 0, 0] }), 0.45, 0.2, 'Lock: arm straight, shoulder turned'],
+        [at('kneel', 0.15, 0.3, { spine: [45, 0, 0], turn: 40, rArm: [100, 60, -60], rElbow: 0 }), 0.6, 0.2],
+        [at('lie-front', 0.1, 0.45, { turn: 40, rArm: [100, 70, 0], rElbow: 0 }), 0.6, 1.0, 'Attacker taps the floor — release']],
+      A: [['pasang', 0, 0.9], [at('elak-sisi', 0.0), 0.25, 0.1, 'Slip outside the punch'], [at('tangkis', 0.05, -0.28, { turn: -25 }), 0.18, 0.2, 'Tangkis — parry the forearm'],
+        [at('kuda-hadapan', 0.12, -0.3, { turn: 10, lArm: [65, 20, 0], lElbow: 15, rArm: [60, 50, 30], rElbow: 50, lHand: 'fist', rHand: 'open' }), 0.3, 0.15, 'Tangkap — catch the wrist'],
+        [at('kuda-rendah', 0.05, -0.3, { turn: 45, lArm: [55, 50, 0], lElbow: 15, rArm: [55, 30, 40], rElbow: 60, spine: [20, 0, 0] }), 0.45, 0.2, 'Kunci — straight-arm lock'],
+        [at('kuda-rendah', -0.05, -0.35, { turn: 55, spine: [35, 0, 0], lArm: [40, 50, 0], lElbow: 10, rArm: [40, 30, 40], rElbow: 40 }), 0.6, 0.2],
+        [at('kneel', -0.1, -0.5, { turn: 55, lArm: [35, 40, 0], rArm: [35, 30, 40], spine: [25, 0, 0] }), 0.6, 1.0, 'Jatuh — control on the ground']] } },
+  { group: 'Buah (partner applications)', name: 'Seni keris: tikam → rampas', gap: 1.35, roles: { A: 'Pesilat', B: 'Bersenjata (keris)' },
+    uniforms: { B: LAWAN_KERIS },
+    cue: 'A knife thrust (tikam) to the body. Pesilat moves off the line, checks the arm with both hands, traps the wrist and turns the blade back so the attacker must release it (rampas). Training keris only — never a live blade.',
+    tracks: {
+      B: [['pasang', 0, 0.5, 'Attacker draws the keris'], [at('tumbuk-sedia', 0, 0, { rArm: [-20, 10, 0], rElbow: 100 }), 0.3, 0.2],
+        [at('tumbuk', 0.35, 0, { rArm: [70, 0, 0], spine: [15, 0, 0] }), 0.2, 0.35, 'Tikam — thrust!'],
+        [at('tumbuk', 0.35, 0, { rArm: [95, 40, -40], rElbow: 70, spine: [5, -20, 0] }), 0.35, 0.2, 'Wrist turned back'],
+        [at('kuda-belakang', 0.25, 0, { spine: [-15, -20, 0], rArm: [120, 40, -40], rElbow: 110, head: [-15, 0, 0] }), 0.4, 1.1, 'Grip broken — keris taken']],
+      A: [['pasang', 0, 0.95], [at('elak-sisi', 0.05), 0.22, 0.1, 'Off the line'],
+        [at('kuda-hadapan', 0.1, -0.3, { turn: -10, lArm: [65, 10, 30], lElbow: 40, rArm: [55, -20, 50], rElbow: 60 }), 0.2, 0.2, 'Two-hand check on the forearm'],
+        [at('kuda-hadapan', 0.15, -0.25, { turn: 20, lArm: [90, 20, 40], lElbow: 60, rArm: [95, -10, 60], rElbow: 70, lHand: 'fist', rHand: 'fist' }), 0.35, 0.2, 'Trap the wrist, turn the blade back'],
+        [at('kuda-belakang', 0.0, -0.25, { turn: 10, lArm: [60, 20, 40], lElbow: 80, rArm: [-20, 10, 0], rElbow: 100, rHand: 'fist' }), 0.4, 1.1, 'Rampas — strip it and withdraw']] } },
+  { group: 'Buah (partner applications)', name: 'Dua penyerang (two attackers)', roles: { A: 'Pesilat', B: 'Penyerang 1', C: 'Penyerang 2' },
+    place: { A: [0, 0, 0], B: [0, 1.25, 180], C: [1.25, 0.1, -90] },
+    cue: 'Facing two: never stand between them. Evade the first, counter it, then pivot so the second attacker meets your kick while the first is between you and nobody.',
+    tracks: {
+      A: [['pasang', 0, 0.6, 'Watch both attackers'], [at('elak-sisi', 0.05), 0.25, 0.1, 'Slip attacker 1'], [at('siku', 0.25, -0.25, { turn: -10 }), 0.18, 0.35, 'Siku to attacker 1'],
+        [at('pasang', 0.1, -0.2, { turn: 90 }), 0.35, 0.05, 'Pivot to face attacker 2'], [at('terajang', 0.1, -0.15, { turn: 90 }), 0.16, 0.5, 'Terajang stops attacker 2'], [at('pasang', 0.1, -0.2, { turn: 45 }), 0.5, 0.8, 'Re-centre, watch both']],
+      B: [['pasang', 0, 0.6], ['tumbuk-sedia', 0.2, 0.05], [at('tumbuk', 0.25), 0.2, 0.25, 'Attacker 1 punches'], [at('hit-reel', 0.15), 0.2, 2.0]],
+      C: [['pasang', 0, 1.2], [at('pasang', 0.25), 0.35, 0.05, 'Attacker 2 rushes in'], [at('tumbuk-sedia', 0.4), 0.2, 0.05], [at('hit-reel', 0.25), 0.18, 1.5]] } },
+];
+P['hit-reel'] = { base: 'kuda-belakang', spine: [25, 15, 0], head: [25, 0, 0], lArm: [30, 20, 60], rArm: [30, 20, 60], lElbow: 90, rElbow: 90 };
+
+createDojo({
+  title: 'Silat Seni Gayong', subtitle: 'Baju silat hitam, samping & tengkolok — modest, faceless',
+  background: '#26303f',
+  floor: { type: 'gelanggang', colors: ['#2f6b3a', '#e7c25a', '#ffffff'] },
+  fighters: { A: { uniform: PESILAT, label: 'Pesilat' }, B: { uniform: LAWAN, label: 'Lawan' }, C: { uniform: LAWAN2, label: 'Lawan 2' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

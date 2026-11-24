@@ -35,3 +35,5 @@
 .aiS .aiKey input,.aiS input[data-fmo]{background:rgba(255,255,255,.06);color:inherit;border:1px solid var(--line,rgba(255,255,255,.18));border-radius:10px;padding:8px 10px;font:14px var(--uiFont,system-ui)}
 .aiS .aiKey a{color:var(--gold,#e6c35c);text-decoration:none}
 .aiS details summary{cursor:pointer;margin:6px 0}
+/* 0.7.28: the ✨ AI panel on every AI feature */
+.aiPanel{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}

@@ -2528,9 +2528,16 @@ select{accent-color:var(--gold)}
 /* 0.7.17 🔔 notification centre */
 #hBell{position:relative}#hBell .hbN{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#e5484d;color:#fff;font-size:10px;font-style:normal;font-weight:700;line-height:16px;box-sizing:border-box}#hBell .hbN.hidden{display:none}
 .ntTabs{margin-bottom:6px}.ntHint{margin:2px 0 6px}
-.ntRow{position:relative;display:block;width:100%;box-sizing:border-box;overflow:hidden;border-radius:12px;margin:6px 0;touch-action:pan-y}
+#ntBody .ntRow{position:relative;display:block;width:100%;box-sizing:border-box;overflow:hidden;border-radius:12px;margin:6px 0;touch-action:pan-y}
 .ntBgA,.ntBgD{position:absolute;inset:0;display:none;align-items:center;padding:0 16px;font-weight:700;color:#fff}.ntBgA{background:#2e7d5b;justify-content:flex-start}.ntBgD{background:#c0392b;justify-content:flex-end}
-.ntRow.toA .ntBgA,.ntRow.toD .ntBgD{display:flex}
+#ntBody .ntRow.toA .ntBgA,#ntBody .ntRow.toD .ntBgD{display:flex}
 .ntFg{position:relative;width:100%;box-sizing:border-box;display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--card2);border:1px solid var(--line);border-radius:12px;transition:transform .15s;user-select:none;cursor:pointer}
-.ntRow.unread .ntFg{border-left:4px solid var(--gold)}.ntIc{font-size:22px}.ntTx{flex:1;min-width:0;display:flex;flex-direction:column}.ntTx small{color:var(--mut);white-space:normal}.ntAt{font-size:11px;color:var(--mut);align-self:flex-start}
+#ntBody .ntRow.unread .ntFg{border-left:4px solid var(--gold)}.ntIc{font-size:22px}.ntTx{flex:1;min-width:0;display:flex;flex-direction:column}.ntTx small{color:var(--mut);white-space:normal}.ntAt{font-size:11px;color:var(--mut);align-self:flex-start}
 .ntSet{margin-top:10px}
+
+/* 0.7.41: note checklist rows: tick, item, ✕ on one line (the 0.7.17 notification list had taken over .ntRow); items stay plain lines, not boxed fields */
+.ntEd .ntRow{display:flex;align-items:center;gap:8px;margin:4px 0}
+.ntEd .ntRow .ntTk{flex:none;width:32px;height:32px;min-height:0;padding:0;border-radius:50%}
+.ntEd .ntRow input{flex:1;min-width:0;height:auto;min-height:0;background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;padding:6px 2px;box-shadow:none}
+.ntEd .ntRow input:focus{border-bottom-color:var(--gold);outline:none}
+.ntEd .ntRow .ntX{flex:none;width:32px;height:32px;min-height:0;padding:0}

@@ -66,3 +66,6 @@ button.khShot{width:100%;background:transparent;color:inherit;font:inherit}
 .bn-sport .bnSc{background:radial-gradient(circle at 85% 30%,rgba(255,255,255,.28),transparent 45%),repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 22px,transparent 22px 44px),linear-gradient(135deg,#0f5a2a,#1f8a3a 55%,#e0a21e)}
 .bn-sport .bnSc::before{content:"⚽ 🏸 🏀";right:14px;top:6px;font-size:18px;opacity:.35;letter-spacing:4px}
 .bn-sport .bnSc::after{left:0;right:0;bottom:0;height:6px;background:repeating-linear-gradient(90deg,#fff 0 12px,transparent 12px 24px);opacity:.5}
+.bn-martial .bnSc{background:radial-gradient(circle at 85% 30%,rgba(255,255,255,.25),transparent 45%),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 18px,transparent 18px 36px),linear-gradient(135deg,#2a1208,#8a2b14 55%,#d9a441)}
+.bn-martial .bnSc::before{content:"🇲🇾 🇰🇷 🇯🇵 🇹🇭";right:14px;top:6px;font-size:16px;opacity:.4;letter-spacing:3px}
+.bn-martial .bnSc::after{left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,#111 0 70%,#d9a441 70%);opacity:.6}

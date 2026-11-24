@@ -923,6 +923,7 @@ function toolsSheet(){
   var t = function(k, ic, ms, en){ return '<button class="hOpt" data-tl="'+k+'"><span>'+ic+'</span>'+L2(ms, en)+'</button>'; };
   var sh = sheet("🧰 "+L2("Alat PDF","PDF tools"), '<div class="hOpts r3">'+t("etext","✎","Sunting teks","Edit text")+t("sign","✍️","Isi & tandatangan","Fill & sign")+t("org","🗂","Susun halaman","Organise pages")+t("forms","📋","Borang","Forms")+t("txt","📄","Ke teks","To text")+t("docx","📝","Ke Word","To Word")+t("jpg","🖼️","Ke gambar","To images")+
     t("ocr","🔤","Kenal teks (AI)","Recognise text (AI)")+t("num","🔢","Nombor halaman","Page numbers")+t("wm","💧","Tera air","Watermark")+t("comp","🗜","Mampat","Compress")+t("split","✂️","Pisah","Split")+t("info","ℹ️","Maklumat","Info")+'</div>');
+  try{ if(window.AIRun){ var ho=sh.querySelector(".hOpts"); if(ho) ho.insertAdjacentHTML("afterend", AIRun.panel("bookocr")); } }catch(e){}   // 0.7.28: ✨ AI panel (Recognise text)
   sh.querySelectorAll("[data-tl]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-tl"); sh._close(); tool(k); }; });
 }
 function tool(k){
@@ -991,7 +992,7 @@ function compress(){
     .then(function(u8){ var before = RD.b.size||0; return addBook(u8, baseName(RD.b.name)+L2(" (dimampat)"," (compressed)")+".pdf").then(function(nb){ doneSheet(nb.id, nb.name, "application/pdf", fmtSize(before)+" → "+fmtSize(u8.length)+".", true); }); }, function(e){ H.toast(String(e.message||e)); });
 }
 function ocrPage(){
-  var A = window.HalalAI; if(!A || !A.ready()){ H.toast(L2("Hidupkan AI dalam talian dahulu (Halal › Semak › AI dalam talian)","Turn on the online AI first (Halal › Check › Online AI)")); return; }
+  var A = window.HalalAI; if(!A || !A.ready()){ if(window.AIRun) AIRun.open("bookocr"); else H.toast(L2("Hidupkan AI dalam talian dahulu (Tetapan › AI dalam talian)","Turn on the online AI first (Settings › Online AI)")); return; }
   H.toast(L2("AI sedang membaca halaman…","The AI is reading the page…"));
   renderJpg(RD.p, 2, 0.85).then(function(img){ return A.complete([{role:"user", content:[{type:"text", text:"Transcribe all the text on this page exactly, keeping the reading order, headings and lists. Reply with the text only."},{type:"image_url", image_url:{url:img}}]}], 3000, L2, "", "bookocr"); })
     .then(function(r){ var t = r.text.trim(); var sh = sheet("🔤 "+L2("Teks halaman ","Text of page ")+RD.p, '<textarea class="htxt" rows="14" id="bkOt">'+esc(t)+'</textarea><div class="btns" style="margin-top:8px"><button class="btn gold" id="bkOc">📋 '+L2("Salin","Copy")+'</button><button class="btn alt" id="bkOs">📤 '+L2("Kongsi","Share")+'</button></div><div class="mut tiny" style="margin-top:6px">'+esc(r.provider+" · "+r.model)+'</div>');

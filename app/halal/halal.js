@@ -132,7 +132,7 @@ function render(el){
   if(!st.busy) html += jakimHtml();
   var hist = histLoad();
   if(hist.length && !st.busy) html += '<div class="card"><h3>'+L2("Semakan lepas","Previous checks")+'</h3>'+hist.slice(0,6).map(function(h,i){ var d=new Date(h.t); return '<button class="hhist" data-h="'+i+'"><span class="hp '+h.v.replace("?","Q")+'">'+stName(h.v)+'</span><span class="hhs">'+(h.p?'📦 '+H.esc(h.p):H.esc(h.text.slice(0,60))+'…')+'</span><span class="mut">'+d.getDate()+"/"+(d.getMonth()+1)+'</span></button>'; }).join("")+'<button class="chip" id="hClr" style="margin-top:6px">'+L2("Padam sejarah","Clear history")+'</button></div>';
-  html += aiSettingsHtml();
+  html += aiSettingsHtml();   // 0.7.28 (owner): the ✨ AI panel stays on every AI feature; it opens Settings › Online AI
   html += '<div class="card hdisc"><h3>⚖️ '+L2("Panduan sahaja, bukan fatwa","A guide only, not a fatwa")+'</h3><div class="small">'+
     L2("Keputusan dibuat oleh komputer daripada teks label dan pangkalan data ramuan di dalam aplikasi (mengikut amalan halal Malaysia dan mazhab Syafi'i). Ia boleh tersalah baca atau terlepas ramuan. Logo halal JAKIM yang sah lebih utama daripada keputusan ini; jika ragu, tinggalkan, atau semak di laman Halal Malaysia (myehalal.halal.gov.my) atau tanya pihak berautoriti agama.",
        "The result is made by the computer from the label text and an ingredient database inside the app (following Malaysian halal practice and the Shafi'i school). It can misread or miss ingredients. A valid JAKIM halal logo matters more than this result; if in doubt, leave it, or check the Halal Malaysia portal (myehalal.halal.gov.my) or ask a religious authority.")+

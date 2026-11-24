@@ -257,3 +257,12 @@
 .umaddstop{display:block;width:calc(100% - 28px);margin:10px 14px}
 .umplsel{display:flex;gap:6px;margin-top:6px}
 .umplsel select{flex:1;background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font-size:12.5px}
+/* 0.7.23 (owner): foldable / tablet: the map and the list side by side (map left, list right); other tabs use the full width */
+@media (min-width:600px){
+  .umplan{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,44%);grid-template-rows:minmax(0,1fr) auto}
+  .ummapw{grid-column:1;grid-row:1;height:auto;min-height:0;border-right:1px solid var(--line)}
+  .umhandle{display:none}
+  .umpane{grid-column:2;grid-row:1}
+  .umplan.nomap .umpane{grid-column:1 / -1}
+  .umsub{grid-column:1 / -1;grid-row:2}
+}

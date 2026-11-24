@@ -158,7 +158,8 @@ function view(d){ return ST.show && ST.show !== d.lang && d.tr && d.tr[ST.show] 
 
 // ---------- screens ----------
 function draw(){ if(!EL || !document.body.contains(EL)) return; if(ST.busy && window.AIRun){ EL.innerHTML = AIRun.card("dokumen") + '<div class="mut small" style="padding:8px">' + L("AI sedang menyusun dokumen…", "The AI is drafting the document…") + '</div>'; return; }
-  ({home:pHome, pick:pPick, form:pForm, doc:pDoc, prof:pProf, mine:pMine}[ST.pg] || pHome)(); }
+  ({home:pHome, pick:pPick, form:pForm, doc:pDoc, prof:pProf, mine:pMine}[ST.pg] || pHome)();
+  if(window.AIRun && (ST.pg === "home" || ST.pg === "form") && !EL.querySelector(".aiPanel")) EL.insertAdjacentHTML("afterbegin", AIRun.panel("dokumen")); }   // 0.7.28: ✨ AI panel
 function go(pg, x){ ST.pg = pg; Object.assign(ST, x || {}); draw(); var v = document.getElementById("view"); if(v) v.scrollTop = 0; }
 function card(t){ return '<button class="dkType" data-ty="' + t[0] + '"><span class="dkIc">' + t[2] + '</span><b>' + E(L(t[3], t[4])) + '</b><small>' + E(L(t[5], t[6])) + '</small>' + (opts(t).priv ? '<i class="dkLock">🔒</i>' : '') + '</button>'; }
 function bindTypes(){ EL.querySelectorAll("[data-ty]").forEach(function(b){ b.onclick = function(){ openForm(b.getAttribute("data-ty")); }; }); }

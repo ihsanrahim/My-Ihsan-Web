@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="id">
+<head>
+<!-- My Ihsan 0.7.42: from the owner's martial-arts zip; runs offline with the app's three.js and martial/rig.js -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gelanggang Pencak Silat</title>
+</head>
+<body>
+<script src="../../hajj/three.min.js"></script>
+<script src="../rig.js"></script>
+<script>
+"use strict";
+var createDojo = MartialRig.createDojo;
+
+// Black pangsi-style uniform, sabuk (belt), head covered. Competition: red (merah) vs blue (biru) body protector.
+const PESILAT = { top: '#141418', pants: '#141418', jacketSkirt: false, belt: '#e2e2e2',
+  headwear: 'hijab', headwearColor: '#1d1d22', feetColor: '#0c0c0e', handColor: '#b98563', ring: '#d33' };
+const MERAH = { ...PESILAT, hogu: '#c62828', ring: '#d33' };
+const BIRU = { ...PESILAT, hogu: '#1e4fb5', ring: '#2c6bd6' };
+const GOLOK = { ...PESILAT, weapons: { r: 'golok' } };
+const TOYA = { ...PESILAT, weapons: { r: 'tongkat' } };
+
+const P = {
+  'sikap-tegak': { base: 'attention', lHand: 'open', rHand: 'open' },
+  'salam-silat': { base: 'sikap-tegak', lArm: [60, -40, 70], rArm: [60, -40, 70], lElbow: 110, rElbow: 110, head: [10, 0, 0] },
+  // kuda-kuda & sikap pasang
+  'kuda-depan': { lLeg: [32, 8, 0], rLeg: [-26, 12, 15], lKnee: 42, rKnee: 12, spine: [8, 0, 0] },
+  'kuda-tengah': { lLeg: [45, 80, 15], rLeg: [45, 80, 15], lKnee: 75, rKnee: 75, spine: [4, 0, 0] },
+  'kuda-samping': { turn: -80, lLeg: [40, 80, 10], rLeg: [6, 100, 0], lKnee: 70, rKnee: 3, head: [0, 75, 0] },
+  'kuda-belakang': { lLeg: [24, 10, 0], rLeg: [-12, 25, 35], lKnee: 10, rKnee: 65, spine: [-3, 0, 0] },
+  'pasang-1': { base: 'kuda-depan', turn: -25, head: [5, 25, 0], lArm: [70, 30, 40], lElbow: 55, rArm: [40, -15, 70], rElbow: 115, lHand: 'open', rHand: 'open' },
+  'pasang-tanding': { base: 'kuda-belakang', turn: -35, head: [5, 35, 0], lArm: [60, 40, 60], lElbow: 80, rArm: [45, 10, 75], rElbow: 115, lHand: 'fist', rHand: 'fist' },
+  // serangan (attacks)
+  'pukul-sedia': { base: 'kuda-depan', rArm: [-25, 10, 0], rElbow: 110, rHand: 'fist', lArm: [55, 20, 60], lElbow: 100, lHand: 'fist' },
+  'pukulan-lurus': { base: 'pukul-sedia', rArm: [88, -6, 0], rElbow: 0, chest: [0, 25, 0] },
+  'tendangan-depan-sedia': { base: 'pasang-tanding', turn: -10, lLeg: [4, 30, 0], lKnee: 10, rLeg: [95, 0, 0], rKnee: 120, rFoot: 20 },
+  'tendangan-depan': { base: 'tendangan-depan-sedia', rLeg: [85, 0, 0], rKnee: 0, rFoot: 15, spine: [-10, 0, 0] },
+  'sabit-sedia': { base: 'pasang-tanding', turn: 40, lLeg: [6, -40, 0], lKnee: 12, rLeg: [80, 50, 70], rKnee: 125, rFoot: 50, head: [5, -45, 0], roll: 10 },
+  'tendangan-sabit': { base: 'sabit-sedia', turn: 75, roll: 22, rLeg: [90, 80, 80], rKnee: 5, rFoot: 55, spine: [-5, -15, 10], head: [5, -70, 0] },
+  't-sedia': { base: 'pasang-tanding', turn: 85, lLeg: [6, -70, 0], lKnee: 15, rLeg: [92, 70, 90], rKnee: 135, rFoot: -10, head: [5, -80, 0] },
+  'tendangan-t': { base: 't-sedia', roll: 30, rLeg: [90, 90, 88], rKnee: 0, spine: [0, -5, 18], head: [5, -85, -15] },
+  // jatuhan (takedowns)
+  'sapuan-rendah': { base: 'kuda-tengah', turn: 60, lLeg: [70, 40, 0], lKnee: 130, rLeg: [80, 60, 40], rKnee: 5, rFoot: 20, spine: [30, 0, 0],
+    lArm: [40, 30, 0], lElbow: 20, rArm: [30, -20, 0], lHand: 'open', rHand: 'open', head: [-10, -40, 0] },
+  'jatuh-telentang': { base: 'lie-back', lArm: [70, 80, 0], rArm: [70, 80, 0], lKnee: 40, rKnee: 30, lLeg: [30, 80, 0], rLeg: [20, 80, 0] },
+  tangkapan: { base: 'kuda-depan', turn: 20, lArm: [40, 10, 60], lElbow: 110, rArm: [70, -10, 20], rElbow: 30, lHand: 'open', rHand: 'open' },
+  'guntingan-1': { base: 'lie-back', roll: -70, turn: 0, lLeg: [70, 0, 0], rLeg: [30, 0, 0], lKnee: 10, rKnee: 15, lArm: [50, 90, 0], rArm: [20, 0, 0], head: [10, 0, 0] },
+  'kena': { base: 'kuda-belakang', spine: [20, 15, 0], head: [25, 0, 0], lArm: [30, 20, 60], rArm: [30, 20, 60], lElbow: 90, rElbow: 90 },
+  // jurus tunggal (golok / toya)
+  'golok-angkat': { base: 'kuda-depan', rArm: [160, 20, 0], rElbow: 40, rHand: 'fist', lArm: [60, 20, 40], lElbow: 60, lHand: 'open' },
+  'golok-tebas': { base: 'kuda-depan', rArm: [60, -30, 0], rElbow: 5, rHand: 'fist', lArm: [20, 60, 0], lHand: 'open', chest: [0, 30, 0], spine: [15, 0, 0] },
+  'golok-tusuk': { base: 'kuda-depan', lLeg: [40, 8, 0], lKnee: 60, rArm: [85, 0, -90], rElbow: 0, rHand: 'fist', spine: [20, 0, 0], lArm: [80, 80, 0], lHand: 'open' },
+  'toya-pasang': { base: 'kuda-depan', rArm: [70, 0, 90], rElbow: 50, rHand: 'fist', lArm: [40, 0, 0], lElbow: 30 },
+  'toya-pukul': { base: 'kuda-depan', rArm: [120, -20, 90], rElbow: 20, rHand: 'fist', chest: [0, 30, 0], spine: [10, 0, 0] },
+  'toya-putar': { base: 'kuda-tengah', rArm: [100, 60, 0], rElbow: 0, rHand: 'fist', chest: [0, -20, 0] },
+};
+const at = (pose, z, x = 0, extra = {}) => ({ base: pose, pos: [x, z], ...extra });
+
+const LESSONS = [
+  { group: 'Dasar (basics)', name: 'Salam & sikap pasang',
+    cue: 'Salam (respect), then the basic stances and the open-hand guard (sikap pasang) and the fighting guard used in tanding.',
+    tracks: { A: [['sikap-tegak', 0, 0.4], ['salam-silat', 0.6, 0.8, 'Salam — palms together'], ['sikap-tegak', 0.5, 0.2],
+      [{ base: 'kuda-depan', lArm: [40, 10, 40], rArm: [40, -10, 40], lElbow: 60, rElbow: 80, lHand: 'open', rHand: 'open' }, 0.6, 0.8, 'Kuda-kuda depan'],
+      [{ base: 'kuda-tengah', lArm: [50, 30, 50], rArm: [50, 30, 50], lElbow: 80, rElbow: 80, lHand: 'open', rHand: 'open' }, 0.6, 0.8, 'Kuda-kuda tengah'],
+      [{ base: 'kuda-samping', lArm: [70, 70, 30], lElbow: 30, rArm: [45, 40, 70], rElbow: 110, lHand: 'open', rHand: 'open' }, 0.6, 0.8, 'Kuda-kuda samping'],
+      ['pasang-1', 0.6, 0.8, 'Sikap pasang — open guard'], ['pasang-tanding', 0.6, 1.0, 'Pasang tanding — sparring guard']] } },
+  { group: 'Dasar (basics)', name: 'Pukulan & tendangan',
+    cue: 'Straight punch, front kick, crescent/roundhouse kick (sabit) and side kick (tendangan T) — the scoring tools of tanding.',
+    tracks: { A: [['pasang-tanding', 0, 0.4], ['pukul-sedia', 0.3, 0.1], ['pukulan-lurus', 0.15, 0.4, 'Pukulan lurus'], ['pasang-tanding', 0.4, 0.2],
+      ['tendangan-depan-sedia', 0.25, 0.05], ['tendangan-depan', 0.15, 0.35, 'Tendangan depan'], ['pasang-tanding', 0.35, 0.2],
+      ['sabit-sedia', 0.25, 0.05], ['tendangan-sabit', 0.15, 0.35, 'Tendangan sabit'], ['pasang-tanding', 0.35, 0.2],
+      ['t-sedia', 0.3, 0.05], ['tendangan-t', 0.17, 0.4, 'Tendangan T (side kick)'], ['pasang-tanding', 0.4, 0.5]] } },
+  { group: 'Dasar (basics)', name: 'Sapuan (low sweep)',
+    cue: 'Drop low on the supporting leg and sweep the extended leg through the opponent’s heels.',
+    tracks: { A: [['pasang-tanding', 0, 0.4], [{ base: 'kuda-tengah', lKnee: 110, rKnee: 90, spine: [25, 0, 0] }, 0.3, 0.1, 'Drop'], ['sapuan-rendah', 0.35, 0.6, 'Sweep!'], ['pasang-tanding', 0.5, 0.5]] } },
+  // tanding
+  { group: 'Tanding (sparring)', name: 'Tendangan sabit → tangkapan → jatuhan', gap: 1.35, roles: { A: 'Sudut merah', B: 'Sudut biru' },
+    uniforms: { A: MERAH, B: BIRU },
+    cue: 'Red kicks with sabit. Blue absorbs, catches the leg (tangkapan) and sweeps the support leg for a takedown (jatuhan) — worth more than the kick in competition.',
+    tracks: {
+      A: [['pasang-tanding', 0, 0.5, 'Both in pasang'], ['sabit-sedia', 0.25, 0.02, 'Red: tendangan sabit'], [at('tendangan-sabit', 0.1), 0.15, 0.3],
+        [at('tendangan-sabit', 0.15, 0, { roll: 10, spine: [-20, -15, 0], lArm: [80, 60, 0], rArm: [80, 60, 0] }), 0.3, 0.15],
+        [at('jatuh-telentang', 0.05), 0.5, 1.2, 'Down — jatuhan scored']],
+      B: [['pasang-tanding', 0, 0.75], [at('tangkapan', 0.0, 0.0), 0.2, 0.3, 'Blue: tangkapan — trap the leg'],
+        [at('sapuan-rendah', 0.1, 0.05, { turn: 30 }), 0.35, 0.3, 'Sweep the standing leg'], [at('pasang-tanding', 0.1), 0.5, 1.0, 'Stand ready — 3 points']] } },
+  { group: 'Tanding (sparring)', name: 'Guntingan (scissor takedown)', gap: 1.2, roles: { A: 'Sudut merah', B: 'Sudut biru' },
+    uniforms: { A: MERAH, B: BIRU },
+    cue: 'A signature silat takedown: drop sideways, one leg in front of the opponent’s knees and one behind, then scissor. Practise only on mats with a trained partner.',
+    tracks: {
+      A: [['pasang-tanding', 0, 0.6], [{ base: 'kuda-tengah', pos: [0, 0.25], lKnee: 100, rKnee: 100, spine: [20, 0, 0] }, 0.3, 0.05, 'Red: drop in'],
+        [at('guntingan-1', 0.55, 0.0), 0.3, 0.3, 'Legs around the knees — scissor!'],
+        [at('guntingan-1', 0.55, 0.0, { lLeg: [40, 0, 0], rLeg: [70, 0, 0] }), 0.3, 1.2]],
+      B: [['pasang-tanding', 0, 0.95], [at('kena', 0.0, 0.0), 0.2, 0.2, 'Blue: legs trapped'], [at('jatuh-telentang', -0.2), 0.45, 1.3, 'Falls backward']] } },
+  // seni
+  { group: 'Seni (forms)', name: 'Tunggal: jurus golok', uniforms: { A: GOLOK },
+    cue: 'In the tunggal (solo) category the athlete performs a fixed 100-move set — empty hands, golok and toya. Here: raise, slash, thrust.',
+    tracks: { A: [['pasang-1', 0, 0.4], ['golok-angkat', 0.5, 0.2, 'Raise the golok'], ['golok-tebas', 0.2, 0.5, 'Tebas — diagonal slash'],
+      [at('golok-angkat', 0.2), 0.5, 0.2], [at('golok-tusuk', 0.45), 0.25, 0.6, 'Tusuk — lunge and thrust'], ['pasang-1', 0.7, 0.5]] } },
+  { group: 'Seni (forms)', name: 'Tunggal: jurus toya', uniforms: { A: TOYA },
+    cue: 'The toya (staff) section: guard, overhead strike, spinning block.',
+    tracks: { A: [['toya-pasang', 0, 0.5, 'Pasang toya'], ['toya-pukul', 0.25, 0.5, 'Overhead strike'], ['toya-putar', 0.4, 0.5, 'Turn & sweep'], ['toya-pasang', 0.5, 0.5]] } },
+  { group: 'Seni (forms)', name: 'Ganda: serangan golok (choreographed pair)', gap: 1.35, roles: { A: 'Pembela', B: 'Penyerang (golok)' },
+    uniforms: { B: GOLOK },
+    cue: 'Ganda = two athletes, pre-arranged attack and defence judged on realism, timing and flow. Attacker slashes down; defender slips, traps and counters.',
+    tracks: {
+      B: [['pasang-1', 0, 0.5], ['golok-angkat', 0.4, 0.15, 'Attacker raises the golok'], [at('golok-tebas', 0.25), 0.2, 0.3, 'Slash!'], [at('kena', 0.2), 0.2, 0.3], [at('jatuh-telentang', -0.1), 0.5, 1.1]],
+      A: [['pasang-1', 0, 0.95], [at('pasang-1', 0.0, -0.28, { turn: -40, spine: [10, 0, 10] }), 0.25, 0.1, 'Slip outside the blade'],
+        [at('tangkapan', 0.15, -0.25), 0.2, 0.25, 'Trap the arm'], [at('tendangan-depan', 0.15, -0.2), 0.15, 0.3, 'Kick'], [at('pasang-1', 0.1), 0.4, 1.0, 'Finish in pasang']] } },
+];
+
+createDojo({
+  title: 'Pencak Silat', subtitle: 'IPSI / PERSILAT basics — tanding, tunggal & ganda; modest uniform, faceless',
+  background: '#2a2f3c',
+  floor: { type: 'gelanggang', colors: ['#2b55a3', '#e8d35a', '#ffffff'] },
+  fighters: { A: { uniform: PESILAT, label: 'Pesilat' }, B: { uniform: { ...PESILAT, belt: '#c62828', headwearColor: '#3a2a2a', ring: '#2c6bd6' }, label: 'Lawan' } },
+  poses: P, lessons: LESSONS,
+});
+</script>
+</body>
+</html>

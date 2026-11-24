@@ -1,4 +1,4 @@
-/* My Ihsan app - prototype 0.7.19 */
+/* My Ihsan app - prototype 0.7.42 */
 (function(){
 "use strict";
 // ---------- native bridge ----------
@@ -513,6 +513,7 @@ window.onBack = function(){
   if(view==="learn" && (learnPg==="radio"||learnPg==="podcast") && window.IbMedia && IbMedia.back()) return true;
   if(view==="learn" && ILMU_PG[learnPg] && window.IlmuView && IlmuView.back()) return true;
   if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
+  if(view==="learn" && learnPg==="martial" && window.MartialView && MartialView.back()) return true;   // 0.7.42: Back closes the 3D lesson, then the art
   if(view==="learn" && learnPg){ learnBack(); return true; }
   if(view==="learn" && basicsPg){ var fr0=basicsFrom; basicsPg=null; basicsFrom=null; if(fr0==="rakaat"){ SUB2.solat="rakaat"; go("solat"); } else { render(); document.getElementById("view").scrollTop=0; } return true; }   // 0.5.71: Back leaves Purification / Solat / Hajj guides
   if(S.kidLock) return true; // 0.31.0: Back does nothing while kids mode is locked (Home and Recents are blocked by screen pinning)
@@ -1748,7 +1749,7 @@ function vMore0(el){
    '<div class="set"><span>'+(S.lang==="en"?"Face threshold":"Ambang wajah")+'</span><b>'+S.sujud.threshold.toFixed(2)+'</b></div>'+
    '<button class="btn alt full" id="sCalib" style="margin-top:8px">🎯 '+T("calib")+'</button></div>';
   html+=mqCard();
-  html+='<div class="card" id="aboutCard"><h3>ℹ️ '+T("about")+'</h3><div class="small" style="line-height:1.55"><img src="logo.svg" alt="" width="56" height="56" style="border-radius:14px;float:right;margin:0 0 6px 10px">My Ihsan 0.7.19 ('+L2x("prototaip","prototype")+').<br>'+(S.lang==="en"?"Prayer times: JAKIM e-Solat (estimate shown until data loads). All Arabic text, translations and hadith references are pending review by a qualified ustaz. Please report errors. Camera frames are processed on the phone only and never saved or sent. Halal checker: the ingredient database and list work on the phone; label photos are read by the online AI you choose; its verdicts are a guide only, not a fatwa. Recipe builder: recipes are read from the shared page or post (or by the online AI you choose for posts, photos and videos); halal swaps come from the swap table in the app and are a guide only, not a fatwa. Hajj & Umrah 3D uses Three.js (MIT licence), bundled in the app; the scene is stylised and not to scale. Umrah DIY maps use MapLibre GL (BSD licence) with map data © OpenStreetMap contributors via OpenFreeMap; prices and distances are estimates. Al-Quran: KFGQPC Uthmani Hafs text and font (King Fahd Complex) via quran.ws (CC BY 4.0); tajwid text and word meanings from Quran.com; English by Saheeh International; Malay by Abdullah Muhammad Basmeih (downloaded from AlQuran Cloud); recitation by Mishary Rashid Alafasy (EveryAyah); tafsir, surah introductions and Indonesian word meanings from Quran.com; word roots from the Quranic Arabic Corpus, University of Leeds (GPL). Shafi'i Fiqh mind map: chapter tree, ayat references and hadith from Fiqh Syafii by H. Idris Ahmad (Pustaka Antara), read from a scan and pending ustaz review. Books: PDFs are shown with pdf.js (Mozilla, Apache-2.0) and written with pdf-lib (MIT), both inside the app.":"Waktu solat: JAKIM e-Solat (anggaran dipaparkan sehingga data dimuatkan). Semua teks Arab, terjemahan dan rujukan hadis sedang menunggu semakan ustaz bertauliah. Sila laporkan kesilapan. Imej kamera diproses dalam telefon sahaja dan tidak disimpan atau dihantar. Penyemak halal: pangkalan data dan senarai ramuan berjalan di dalam telefon; gambar label dibaca oleh AI dalam talian yang anda pilih; keputusannya panduan sahaja, bukan fatwa. Pembina resepi: resepi dibaca daripada laman atau hantaran yang dikongsi (atau oleh AI dalam talian pilihan anda untuk hantaran, gambar dan video); tukaran halal daripada jadual tukaran dalam aplikasi, panduan sahaja dan bukan fatwa. Haji & Umrah 3D menggunakan Three.js (lesen MIT) yang disertakan dalam aplikasi; paparannya ilustrasi dan tidak mengikut skala. Peta Umrah DIY menggunakan MapLibre GL (lesen BSD) dengan data peta © penyumbang OpenStreetMap melalui OpenFreeMap; harga dan jarak ialah anggaran. Al-Quran: teks dan fon KFGQPC Uthmani Hafs (Kompleks Raja Fahd) melalui quran.ws (CC BY 4.0); teks tajwid dan maksud perkataan daripada Quran.com; terjemahan Inggeris Saheeh International; terjemahan Melayu Abdullah Muhammad Basmeih (dimuat turun daripada AlQuran Cloud); bacaan Mishary Rashid Alafasy (EveryAyah); tafsir, pengenalan surah dan maksud perkataan Bahasa Indonesia daripada Quran.com; akar kata daripada Quranic Arabic Corpus, Universiti Leeds (GPL). Peta minda Fiqh Syafi'i: susunan bab, rujukan ayat dan hadis daripada Fiqh Syafii oleh H. Idris Ahmad (Pustaka Antara), dibaca daripada imbasan dan menunggu semakan ustaz. Buku: PDF dipaparkan dengan pdf.js (Mozilla, Apache-2.0) dan ditulis dengan pdf-lib (MIT), kedua-duanya dalam aplikasi.")+'</div></div>';
+  html+='<div class="card" id="aboutCard"><h3>ℹ️ '+T("about")+'</h3><div class="small" style="line-height:1.55"><img src="logo.svg" alt="" width="56" height="56" style="border-radius:14px;float:right;margin:0 0 6px 10px">My Ihsan 0.7.42 ('+L2x("prototaip","prototype")+').<br>'+(S.lang==="en"?"Prayer times: JAKIM e-Solat (estimate shown until data loads). All Arabic text, translations and hadith references are pending review by a qualified ustaz. Please report errors. Camera frames are processed on the phone only and never saved or sent. Halal checker: the ingredient database and list work on the phone; label photos are read by the online AI you choose; its verdicts are a guide only, not a fatwa. Recipe builder: recipes are read from the shared page or post (or by the online AI you choose for posts, photos and videos); halal swaps come from the swap table in the app and are a guide only, not a fatwa. Hajj & Umrah 3D uses Three.js (MIT licence), bundled in the app; the scene is stylised and not to scale. Umrah DIY maps use MapLibre GL (BSD licence) with map data © OpenStreetMap contributors via OpenFreeMap; prices and distances are estimates. Al-Quran: KFGQPC Uthmani Hafs text and font (King Fahd Complex) via quran.ws (CC BY 4.0); tajwid text and word meanings from Quran.com; English by Saheeh International; Malay by Abdullah Muhammad Basmeih (downloaded from AlQuran Cloud); recitation by Mishary Rashid Alafasy (EveryAyah); tafsir, surah introductions and Indonesian word meanings from Quran.com; word roots from the Quranic Arabic Corpus, University of Leeds (GPL). Shafi'i Fiqh mind map: chapter tree, ayat references and hadith from Fiqh Syafii by H. Idris Ahmad (Pustaka Antara), read from a scan and pending ustaz review. Books: PDFs are shown with pdf.js (Mozilla, Apache-2.0) and written with pdf-lib (MIT), both inside the app.":"Waktu solat: JAKIM e-Solat (anggaran dipaparkan sehingga data dimuatkan). Semua teks Arab, terjemahan dan rujukan hadis sedang menunggu semakan ustaz bertauliah. Sila laporkan kesilapan. Imej kamera diproses dalam telefon sahaja dan tidak disimpan atau dihantar. Penyemak halal: pangkalan data dan senarai ramuan berjalan di dalam telefon; gambar label dibaca oleh AI dalam talian yang anda pilih; keputusannya panduan sahaja, bukan fatwa. Pembina resepi: resepi dibaca daripada laman atau hantaran yang dikongsi (atau oleh AI dalam talian pilihan anda untuk hantaran, gambar dan video); tukaran halal daripada jadual tukaran dalam aplikasi, panduan sahaja dan bukan fatwa. Haji & Umrah 3D menggunakan Three.js (lesen MIT) yang disertakan dalam aplikasi; paparannya ilustrasi dan tidak mengikut skala. Peta Umrah DIY menggunakan MapLibre GL (lesen BSD) dengan data peta © penyumbang OpenStreetMap melalui OpenFreeMap; harga dan jarak ialah anggaran. Al-Quran: teks dan fon KFGQPC Uthmani Hafs (Kompleks Raja Fahd) melalui quran.ws (CC BY 4.0); teks tajwid dan maksud perkataan daripada Quran.com; terjemahan Inggeris Saheeh International; terjemahan Melayu Abdullah Muhammad Basmeih (dimuat turun daripada AlQuran Cloud); bacaan Mishary Rashid Alafasy (EveryAyah); tafsir, pengenalan surah dan maksud perkataan Bahasa Indonesia daripada Quran.com; akar kata daripada Quranic Arabic Corpus, Universiti Leeds (GPL). Peta minda Fiqh Syafi'i: susunan bab, rujukan ayat dan hadis daripada Fiqh Syafii oleh H. Idris Ahmad (Pustaka Antara), dibaca daripada imbasan dan menunggu semakan ustaz. Buku: PDF dipaparkan dengan pdf.js (Mozilla, Apache-2.0) dan ditulis dengan pdf-lib (MIT), kedua-duanya dalam aplikasi.")+'</div></div>';
   el.innerHTML=html;
   el.querySelectorAll("[data-maps]").forEach(function(b){ b.onclick=function(){ openFinder(b.getAttribute("data-maps")); }; });
   bindMoreNew(el); bindMq(el); bindRkSet(el.querySelector("#rkSetC"));
@@ -2907,6 +2908,10 @@ function vLearn0(el){
     el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>♟️ '+L2x("Catur 3D","3D chess")+'</b><span></span></div><div id="chBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
     el.querySelector("#lBack").onclick=function(){ if(window.ChessView) ChessView.stop(); learnBack(); };
     loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["chess/chess_engine.js","chess/chess.js","chess/chess_guide_md.js","chess/chess_guide.js"]), function(){ var bx=el.querySelector("#chBox"); if(bx && document.body.contains(bx)) ChessView.render(bx, {esc:esc, load:load, save:save, en:en_, toast:toast, showSheet:showSheet, closeOverlay:closeOverlay}); }, function(){}); return; }
+  if(learnPg==="martial"){ if(!document.querySelector('link[href="martial/academy.css"]')){ var lm=document.createElement("link"); lm.rel="stylesheet"; lm.href="martial/academy.css"; document.head.appendChild(lm); }   // 0.7.42 (owner): martial arts academy
+    el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>🥋 '+L2x("Seni mempertahankan diri","Martial arts")+'</b><span></span></div><div id="maBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
+    el.querySelector("#lBack").onclick=function(){ if(window.MartialView && MartialView.back()) return; learnBack(); };
+    loadJs(["martial/guides.js","martial/academy.js"].filter(function(f){ return !(f==="martial/guides.js" && window.MA_DATA) && !(f==="martial/academy.js" && window.MartialView); }), function(){ var bx=el.querySelector("#maBox"); if(bx && document.body.contains(bx)) MartialView.render(bx, {esc:esc, L2x:L2x}); }, function(){}); return; }
   if(learnPg==="sport"){ el.innerHTML='<div class="row" style="margin:4px 2px 8px"><button class="chip" id="lBack">‹ '+L2x("Teroka","Explore")+'</button><b>🏅 '+L2x("Sukan","Sports")+'</b><span></span></div><div id="sprtBox"><div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div></div>';
     el.querySelector("#lBack").onclick=learnBack;
     loadJs((window.THREE?[]:["hajj/three.min.js"]).concat(["sport/sport_list.js","sport/sport_engine.js"].filter(function(f){ return !(f==="sport/sport_list.js" && window.SportList) && !(f==="sport/sport_engine.js" && window.SportView); })), function(){ var bx=el.querySelector("#sprtBox"); if(bx && document.body.contains(bx)) try{ SportView.view(bx, fitH()); }catch(err){ console.error(err); bx.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } }, function(){}); return; }
@@ -4098,7 +4103,7 @@ var SUBS={
   solat:[["waktu","🕰","Waktu","Times"],["rakaat","🧎","Rakaat","Rakaat"],["zikir","📿","Zikir","Zikir"],["kiblat","🧭","Kiblat","Qibla"],["ssunat","🌅","Sunat","Sunnah"]],
   sunat:[["quran","📖","Al-Quran","Quran"],["doa","🤲","Doa","Doa"],["wirid","🌄","Wirid","Wirid"],["mathurat","📖","Ma'thurat","Ma'thurat"],["amal","🌱","Amal","Deeds"],["tanya","💬","Tanya","Ask"]],   // 0.6.23 (owner): Ask moved here, far right
   learn:[["sekolah","🎒","Sekolah","School"],["buku","📚","Buku","Books"],["bahasa","📖","Asas","Basics"],["panduan","🧭","Teroka","Explore"],["kisah","🐪","Kisah","Stories"],["dengar","🎧","Dengar","Listen"]],   // 0.6.23 (owner): Books moved here, right of School
-  cal:[["bulan","📝","Perancang","Planner"],["mesyuarat","📋","Mesyuarat","Meeting"],["haid","🌸","Haid","Period"],["senaman","🏃","Gerak","Move"],["fokus","🎯","Fokus","Focus"],["statistik","📊","Statistik","Stats"]],
+  cal:[["bulan","📝","Perancang","Planner"],["mesyuarat","📋","Mesyuarat","Meeting"],["trip","✈️","Trip","Trip"],["haid","🌸","Haid","Period"],["senaman","🏃","Gerak","Move"],["fokus","🎯","Fokus","Focus"],["statistik","📊","Statistik","Stats"]],
   fin:[["hutang","🤝","Hutang","Debts"],["komitmen","📆","Komitmen","Commit"],["bahagi","🧾","Bahagi bil","Split bill"],["zakat","💰","Zakat","Zakat"],["wasiat","📜","Wasiat","Will"],["cukai","🧾","Cukai","Tax"],["belanja","💸","Belanja","Expense"],["tukaran","💱","Tukaran","Currency"]],
   alat:[["keluarga","👨‍👩‍👧","Sosial","Social"],["kumpulan","👥","Kumpulan","Groups"],["halal","🏷️","Halal","Halal"],["nota","✍️","Tulis","Write"],["majlis","🎉","Majlis","Events"],["paparan","📺","Paparan","Display"],["niaga","📑","Niaga","Business"],["kewangan","💰","Kewangan","Finance"]]
 };
@@ -4112,6 +4117,7 @@ function periodHidden(){ var p=load("ihsan_period",{}); return !!(p && p.who==="
   if(Array.isArray(so.fin) && so.fin.indexOf("cukai")<0){ var bi=so.fin.indexOf("belanja"); so.fin.splice(bi<0?so.fin.length:bi+1, 0, "cukai"); ch=true; }   // 0.6.72: Finance › Tax
   if(Array.isArray(so.fin) && !S.fin675){ var ti=so.fin.indexOf("tukaran"), ci=so.fin.indexOf("cukai"); if(ti>=0 && ci>=0){ so.fin[ti]="cukai"; so.fin[ci]="tukaran"; } S.fin675=1; ch=true; }   // 0.6.75 (owner): Tax and Currency swap places
   if(Array.isArray(so.cal) && so.cal.indexOf("puasa")>=0){ so.cal.splice(so.cal.indexOf("puasa"), 1); ch=true; }   // 0.6.68 (owner): no Fasting tab
+  if(Array.isArray(so.cal) && so.cal.indexOf("trip")<0){ var mi=so.cal.indexOf("mesyuarat"); so.cal.splice(mi<0?so.cal.length:mi+1, 0, "trip"); ch=true; }   // 0.7.20 (owner): Time › Trip after Meeting
   if(Array.isArray(so.cal) && so.cal.indexOf("mesyuarat")<0){ var ci=so.cal.indexOf("bulan"); so.cal.splice(ci<0?0:ci+1, 0, "mesyuarat"); ch=true; }   // 0.6.44: Meeting after Planner
   if(ch) saveS(); })();
 var SUBS_FULL={};
@@ -4167,6 +4173,7 @@ window.onBack = function(){
   if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
  if(view==="learn" && learnPg==="jamma" && window.QuranView && QuranView.kidsBack()) return true;
   if(view==="learn" && (learnPg==="iqra" || learnPg==="tajwid") && window.BacaanView && BacaanView.back()) return true;
+  if(view==="learn" && learnPg==="martial" && window.MartialView && MartialView.back()) return true;   // 0.7.42: Back closes the 3D lesson, then the art
   if(view==="learn" && learnPg){ learnBack(); return true; }
   if(view==="learn" && basicsPg){ var fr0=basicsFrom; basicsPg=null; basicsFrom=null; if(fr0==="rakaat"){ SUB2.solat="rakaat"; go("solat"); } else { render(); document.getElementById("view").scrollTop=0; } return true; }   // 0.5.71: Back leaves Purification / Solat / Hajj guides
   if(view==="sunat" && sunPage==="quran" && window.QuranView && QuranView.back()) return true;
@@ -4185,7 +4192,8 @@ function render(){
   var vEl=document.getElementById("view"), y0=vEl.scrollTop, k0=pgKey; vEl.classList.remove("hasSub"); vEl.classList.remove("finv"); vEl.classList.remove("hwall"); if(window.FamView) try{ FamView.stop(); }catch(e){}
   var old=document.getElementById("subnav"); if(old) old.remove();
   var appEl=document.getElementById("app"); appEl.classList.toggle("kidlock", !!S.kidLock); appEl.classList.toggle("senior", !!S.senior && !S.kidLock);
-  appEl.classList.toggle("vHome", view==="home"); appEl.classList.toggle("barsOff", !!barsOff && view!=="home");   // 0.5.92 (owner): on Home the tab row (and the favourites row above it) always stay on screen
+  appEl.classList.toggle("vHome", view==="home"); if(!(view==="cal" && SUB2.cal==="trip")) appEl.classList.remove("tpFull");   // 0.7.24: an open trip hides bars 1 and 2 (trip/trip.js)
+  appEl.classList.toggle("barsOff", !!barsOff && view!=="home");   // 0.5.92 (owner): on Home the tab row (and the favourites row above it) always stay on screen
   var nav=document.getElementById("nav");
   if(S.senior && !S.kidLock) nav.innerHTML = view==="home"?'':'<button data-v="home" class="snHome">🏠 '+L2x("Kembali ke Utama","Back to Home")+'</button>';
   else nav.innerHTML = tabsNow().map(function(n){ var lb=typeof n[2]==="string"?T(n[2]==="home"?"utama":n[2]):L2x(n[2][0],n[2][1]); return '<button data-v="'+n[0]+'" class="g3d'+(view===n[0]?" on":"")+'"><span class="ic">'+n[1]+'</span><span class="lb">'+esc(lb)+'</span></button>'; }).join("");
@@ -4457,9 +4465,12 @@ function openKhat(){ sciCss(); SUB2.learn="panduan"; learnPg="khat"; learnFrom=n
 // 0.5.98 (owner): Sports (sport/) moved from Time › Exercise to Explore: its own page, the same Sports module
 function sportHero(){ return '<button class="bnHero bn-sport" data-sportgo="1"><span class="bnSc"></span><span class="bnI">🏅</span><span class="shTxt"><b>'+L2x("Sukan","Sports")+'</b><small>'+L2x("Peraturan setiap sukan dengan padang 3D, kuiz dan permainan mini. Sukan hari ini berubah setiap hari","Rules of each sport with 3D fields, quizzes and mini games. A new sport of the day, every day")+'</small></span><span class="shGo">›</span></button>'; }
 function openSport(){ SUB2.learn="panduan"; learnPg="sport"; learnFrom=null; if(view==="learn") render(); else go("learn"); document.getElementById("view").scrollTop=0; }
+function martialHero(){ return '<button class="bnHero bn-martial" data-martialgo="1"><span class="bnSc"></span><span class="bnI">🥋</span><span class="shTxt"><b>'+L2x("Seni mempertahankan diri","Martial arts")+'</b><small>'+L2x("10 seni: silat, taekwondo, judo, karate dan lagi. Panduan lengkap + pelajaran 3D","10 arts: silat, taekwondo, judo, karate and more. Full guides + 3D lessons")+'</small></span><span class="shGo">›</span></button>'; }   // 0.7.42 (owner)
+function openMartial(){ SUB2.learn="panduan"; learnPg="martial"; learnFrom=null; if(view==="learn") render(); else go("learn"); document.getElementById("view").scrollTop=0; }
+document.addEventListener("click", function(e){ var t=e.target && e.target.closest && e.target.closest("[data-martialgo]"); if(!t) return; e.stopPropagation(); setTimeout(openMartial, 0); }, true);
 document.addEventListener("click", function(e){ var t=e.target && e.target.closest && e.target.closest("[data-sportgo]"); if(!t) return; e.stopPropagation(); setTimeout(openSport, 0); }, true);
 function openChess(){ if(!document.querySelector('link[href="chess/chess.css"]')){ var l=document.createElement("link"); l.rel="stylesheet"; l.href="chess/chess.css"; document.head.appendChild(l); } SUB2.learn="panduan"; learnPg="chess"; learnFrom=null; if(view==="learn") render(); else go("learn"); document.getElementById("view").scrollTop=0; }
-window.openChess=openChess;
+window.openChess=openChess; window.openMartial=openMartial;
 function sciCss(){ if(!document.querySelector('link[href="science/science.css"]')){ var l=document.createElement("link"); l.rel="stylesheet"; l.href="science/science.css"; document.head.appendChild(l); } }
 // 0.5.72 (owner): one colourful "Science in Islamic History" banner holds the ten field tiles
 function sciTilesHtml(){ var sc=(load("ihsan_sci",{})||{}).q||{}; return '<div class="sciGrid">'+SCI_TILES.map(function(x){ return '<button class="sciT g3d" data-sci="'+x[0]+'" style="--c0:'+x[5]+';--c1:'+x[6]+';--c2:'+x[7]+'">'+(sc[x[0]]!=null?'<span class="sciS">'+sc[x[0]]+'/3</span>':'')+'<span class="sciI">'+x[1]+'</span><b>'+esc(L2x(x[2],x[3]))+'</b><small>'+esc(x[4][en_()?1:0])+'</small></button>'; }).join("")+'</div>'+
@@ -4503,7 +4514,7 @@ function vLearn(el){
   if(s==="tanya"){ SUB2.learn="sekolah"; sunPage="tanya"; save("ihsan_sunpage","tanya"); go("sunat"); return; }   // 0.6.23: Ask is in Practice now
   if(s==="panduan"){
     // 0.5.70 (owner): Guides became Science: the chess banner, Astronomy, and ten fields from the history of science in Muslim lands
-    sciCss(); iqCss(); h+=iqHero()+khatHero()+chessHero()+sportHero()+falakHero();   // 0.5.98 (owner): Sports moved here from Time › Exercise   // 0.5.81 (owner): Science is now Explore, with the Khat coach banner
+    sciCss(); iqCss(); h+=iqHero()+khatHero()+chessHero()+sportHero()+martialHero()+falakHero();   // 0.5.98 (owner): Sports moved here from Time › Exercise   // 0.5.81 (owner): Science is now Explore, with the Khat coach banner
     h+=sciHero();
   } else if(s==="kisah"){
     h+=kidsHero();
@@ -5040,6 +5051,7 @@ function vCal(el){
   if(s==="senaman"){ vFit(el); return; }
   if(s==="fokus"){ vFocus(el); return; }
   if(s==="mesyuarat"){ vMeet(el); return; }
+  if(s==="trip"){ vTrip(el); return; }
   if(s==="haid"){ if(periodHidden()){ SUB2.cal="bulan"; vCal(el); return; } vPeriod(el); return; }
   // statistik (0.30.0: day / month / year, steps, phone screen time, swipe between periods)
   vStats(el);
@@ -5068,6 +5080,12 @@ function insH(){ var h=finH(); h.ymd=ymd; h.prCount=prCount; h.quranSec=function
   h.shareImage=function(url, txt){ if(window.Native && N.shareImage) N.shareImage(url, txt); else { var a=document.createElement("a"); a.href=url; a.download="masa-skrin.png"; document.body.appendChild(a); a.click(); a.remove(); } }; return h; }
 // 0.6.44 Time › Meeting (meet/meeting.js): offline meeting notes, recording, live text, import, summary, actions → Planner
 function meetH(){ var h=finH(); h.loadJs=loadJs; h.pinAsk=pinAsk; h.pinHas=pinHas; h.pinSet=pinSet; h.qrSvg=qrSvgApp; h.qrScan=qrScanApp; return h; }
+// ---------- 0.7.20 TRIP (trip/trip.js): Umrah DIY + Travel Anywhere (AI trip planner for any destination) ----------
+function tripH(){ return {S:S, N:N, load:load, save:save, saveS:saveS, toast:toast, esc:esc, L2x:L2x, en:en_, on:on, off:off, fetch:nFetch, showSheet:showSheet, closeOverlay:closeOverlay, calcDay:calcDay, render:render, dockFix:dockFix,
+  umrahHero:umrahHero, openUmrah:function(){ openUmrah(); }, aiSettings:function(){ if(window.AIRun) AIRun.open("trip"); else if(window.openSettings) window.openSettings("ai"); }, goSplit:function(){ SUB2.fin="bahagi"; go("fin"); }}; }
+function vTrip(el){ if(!document.querySelector('link[href="trip/trip.css"]')){ var lk=document.createElement("link"); lk.rel="stylesheet"; lk.href="trip/trip.css"; document.head.appendChild(lk); }
+  var go_=function(){ if(document.body.contains(el)) try{ TripView.view(el, tripH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
+  if(window.TripView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["trip/trip.js"], go_, function(){ el.innerHTML='<div class="card">'+L2x("Gagal dimuatkan","Could not load")+'</div>'; }); } }
 function vMeet(el){ if(!document.querySelector('link[href="meet/meeting.css"]')){ var lk=document.createElement("link"); lk.rel="stylesheet"; lk.href="meet/meeting.css"; document.head.appendChild(lk); }
   var go_=function(){ if(document.body.contains(el)) try{ MeetView.view(el, meetH()); }catch(err){ console.error(err); el.innerHTML='<div class="card">'+L2x("Gagal dibuka","Could not open")+'</div>'; } };
   if(window.MeetView) go_(); else { el.innerHTML='<div class="card mut">'+L2x("Memuatkan…","Loading…")+'</div>'; loadJs(["meet/meeting.js"], go_, function(){ el.innerHTML='<div class="card">'+L2x("Gagal dimuatkan","Could not load")+'</div>'; }); } }
@@ -5655,7 +5673,7 @@ function aiSetMount(bd){ if(!bd) return; bd.innerHTML='<div class="mut small" st
   if(!document.querySelector('link[href="halal/halal.css"]')){ var lk=document.createElement("link"); lk.rel="stylesheet"; lk.href="halal/halal.css"; document.head.appendChild(lk); }
   var go_=function(){ if(document.body.contains(bd)) try{ AISet.render(bd, {N:N, S:S, esc:esc, L2x:L2x, toast:toast, load:load, save:save, on:on, off:off}); }catch(err){ console.error(err); } };
   if(window.AISet && window.HalalAI) go_(); else loadJs((window.HalalAI?[]:["halal/halal_ai.js"]).concat(window.AISet?[]:["ai/aiset.js"]), go_, function(){ bd.innerHTML='<div class="card">'+L2x("Gagal dimuatkan","Could not load")+'</div>'; }); }
-var APP_VER="0.7.19";
+var APP_VER="0.7.42";
 // ---------- 0.4.3 phone home screen (launcher) ----------
 function homeCard(c){
   var st={}; try{ st=JSON.parse(N.homeState?N.homeState():"{}"); }catch(e){}
@@ -5713,7 +5731,7 @@ function pick8(){
 function arBlock(ar, ms, en, src){ var o={ar:ar,text:L2x(ms,en),src:src||""}; return '<div class="ar" style="font-size:calc(var(--arsize) - 2px);line-height:1.9">'+ar+'</div>'+rumiDiv(ar)+'<div class="tr">'+esc(L2x(ms,en))+'</div>'+(src?'<div class="src">'+srcHtml(src)+'</div>':'')+'<div class="tools">'+sayBtn(ar)+shareBtn(o)+'<button class="ib" data-rep="'+(SHR.length-1)+'">⚑ '+L2x("Lapor kesilapan","Report a mistake")+'</button></div>'; }
 document.addEventListener("click", function(e){ var b=e.target.closest&&e.target.closest("[data-rep]"); if(!b) return; e.preventDefault(); var o=SHR[+b.getAttribute("data-rep")]||{};
   var pg=view+(learnPg?" › "+learnPg:"");
-  var txt=L2x("Laporan kesilapan · My Ihsan 0.7.19","Mistake report · My Ihsan 0.7.19")+"\n"+L2x("Halaman: ","Page: ")+pg+"\n"+(o.ar?o.ar+"\n":"")+(o.text?o.text+"\n":"")+(o.src?L2x("Sumber: ","Source: ")+o.src+"\n":"")+L2x("Catatan saya: ","My note: ");
+  var txt=L2x("Laporan kesilapan · My Ihsan 0.7.42","Mistake report · My Ihsan 0.7.42")+"\n"+L2x("Halaman: ","Page: ")+pg+"\n"+(o.ar?o.ar+"\n":"")+(o.text?o.text+"\n":"")+(o.src?L2x("Sumber: ","Source: ")+o.src+"\n":"")+L2x("Catatan saya: ","My note: ");
   if(window.Native && N.shareTo) N.shareTo("", "", txt); else if(navigator.share) navigator.share({text:txt}).catch(function(){}); else toast(txt); }, true);
 
 // ---------- global search ----------
@@ -6347,6 +6365,7 @@ document.addEventListener("click", function(){ setTimeout(navTick, 40); }, true)
 document.addEventListener("click", function(e){ var b=e.target.closest && e.target.closest("#lBack,#bsBack,#gpBack,#skBack"); if(!b || S.kidLock) return;
   if(document.getElementById("overlay") && !document.getElementById("overlay").classList.contains("hidden")) return;
   if(window.SportView && SportView.active && SportView.active()) return;
+  if(b.id==="lBack" && learnPg==="martial" && window.MartialView && MartialView.back()){ e.stopPropagation(); e.preventDefault(); return; }   // 0.7.42: ‹ on an art goes back to the arts list
   navTick(); if(NAVH.length){ e.stopPropagation(); e.preventDefault(); try{ if(window.IlmuView && b.id==="lBack") IlmuView.stop(); if(window.SciView) SciView.stop(); if(window.ChessView && learnPg==="chess") ChessView.stop(); }catch(er){} navBack(); } }, true);
 document.addEventListener("touchend", function(){ setTimeout(navTick, 450); }, {passive:true, capture:true});
 document.getElementById("view").addEventListener("scroll", function(){ if(navCur && !navRest) navCur.y=this.scrollTop; }, {passive:true});
@@ -6362,8 +6381,10 @@ window.onBack=function(){
   if(!ov.classList.contains("hidden")){ if(ov._close) ov._close(); else closeOverlay(); return true; }
   if(document.getElementById("falak") && window.Falak && Falak.back()) return true;
   if(view==="learn" && learnPg==="chess" && window.ChessView && ChessView.back && ChessView.back()) return true;   // 0.6.66 chess guide → setup
+  if(view==="learn" && learnPg==="martial" && window.MartialView && MartialView.back()) return true;   // 0.7.42: Back closes the 3D lesson, then the art, then the page
   if(window.SportView && SportView.active && SportView.active() && SportView.back()) return true;   // 0.5.37: Sports pages step back one page at a time
   if(view==="cal" && SUB2.cal==="mesyuarat" && window.MeetView && MeetView.back()) return true;
+  if(view==="cal" && SUB2.cal==="trip" && window.TripView && TripView.back()) return true;   // 0.7.20 trip pages step back to the trip list
   if(view==="alat" && SUB2.alat==="nota" && wrTab==="dokumen" && window.DokumenView && DokumenView.back()) return true;
   if(view==="alat" && SUB2.alat==="nota" && wrTab==="tekap" && window.Tekap && Tekap.back()) return true;   // 0.6.63   // 0.6.60   // 0.6.44: a running meeting stays; a meeting page goes back to the list
   if(setOn){ if(moreGrp){ moreGrp=null; setDraw(); } else setShow(false); return true; }
@@ -6450,7 +6471,10 @@ function ibArr(){
   L.classList.toggle("hidden", hide || !t.can(1)); R.classList.toggle("hidden", hide || !t.can(-1));
   if(hide) return;
   var bars=window.innerHeight; [].slice.call(document.querySelectorAll("#view .dock:not(.dkTop), #subnav, #nav, #mini:not(.hidden)")).forEach(function(x){ if(!x.offsetHeight) return; var r=x.getBoundingClientRect().top; if(r>0 && r<bars) bars=r; });
-  var b=(window.innerHeight-bars+8)+"px"; L.style.bottom=b; R.style.bottom=b;
+  var b=(window.innerHeight-bars+8)+"px";
+  // 0.7.30 (owner): on an open trip the arrows sit on the same row as its level-3 bar, one each side (trip/trip.css pads that bar)
+  var tdk=document.getElementById("app").classList.contains("tpFull") && document.querySelector("#view .dock.tpDock"); if(tdk && tdk.offsetHeight){ var r2=tdk.getBoundingClientRect(); b=(window.innerHeight-r2.bottom+(r2.height-34)/2)+"px"; }
+  L.style.bottom=b; R.style.bottom=b;
 }
 function ibArrTarget(){
   var vw=document.getElementById("view");
