@@ -78,8 +78,8 @@ select,input[type=number]{background:var(--card2);color:var(--fg);border:1px sol
 .pray .stat{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-size:11px;opacity:.45}
 .theme-black{background:#000}
 .theme-black .big{color:#777}.theme-black .ringc{stroke:#555}
-.theme-green{background-color:#0b5d3b}
-.theme-gold{background-color:#050505}
+.theme-green{background-color:#000}
+.theme-gold{background-color:#000}
 .theme-gold .big{color:#c9a646}
 .theme-green .big{color:#fff}
 .mihrab{position:absolute;inset:0;pointer-events:none}
@@ -2541,3 +2541,8 @@ select{accent-color:var(--gold)}
 .ntEd .ntRow input{flex:1;min-width:0;height:auto;min-height:0;background:transparent;border:0;border-bottom:1px dashed var(--line);border-radius:0;padding:6px 2px;box-shadow:none}
 .ntEd .ntRow input:focus{border-bottom-color:var(--gold);outline:none}
 .ntEd .ntRow .ntX{flex:none;width:32px;height:32px;min-height:0;padding:0}
+
+/* 0.7.50 (owner): inside the rakaat counter everything is black, whatever the app theme (theme CSS files tint #overlay) */
+#overlay[class*="theme-"]{background:#000!important}
+#overlay[class*="theme-"]::before,#overlay[class*="theme-"]::after{display:none}
+#overlay[class*="theme-"] .pray{background:#000!important;box-shadow:none!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
