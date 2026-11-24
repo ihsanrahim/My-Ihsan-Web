@@ -2546,3 +2546,7 @@ select{accent-color:var(--gold)}
 #overlay[class*="theme-"]{background:#000!important}
 #overlay[class*="theme-"]::before,#overlay[class*="theme-"]::after{display:none}
 #overlay[class*="theme-"] .pray{background:#000!important;box-shadow:none!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+
+/* 0.7.53 (owner): Kids Planet is full screen, no bottom bars */
+#app.kwFull nav#nav,#app.kwFull #subnav,#app.kwFull .dock,#app.kwFull #qtBar,#app.kwFull #notch,#app.kwFull #mini{display:none !important}
+#app.kwFull main{padding-bottom:12px !important}

@@ -156,7 +156,7 @@ var S0=[
   ["fa.groups","tab:alat/kumpulan","#view","Kumpulan untuk keluarga, kelas atau usrah. Kongsi tugas dan hantaran. Hantaran boleh diterjemah dengan AI.","A group for the family, a class or usrah. Share tasks and posts. Posts can be translated with AI.","ai"],
   ["fa.events","tab:alat/majlis","#view","Rancang majlis: tetamu, tugas dan bajet.","Plan a majlis: guests, tasks and budget."],
   ["fa.period","tab:cal/haid","#view","Haid dan kesihatan wanita, untuk diri sendiri atau isteri. Tab ini boleh disembunyikan.","Periods and women's health, for yourself or for your wife. You can hide this tab.","play"],
-  ["fa.kids","set:khas","card~👓","Mod kanak-kanak: ruang selamat dengan bintang, kisah dan permainan. Kunci dengan PIN.","Kids mode: a safe space with stars, stories and games. Lock it with a PIN."],
+  ["fa.kids","set:khas","card~👓","Mod kanak-kanak: sebuah planet bola kecil dengan rumah untuk solat, huruf, nombor, cerita, seni dan permainan, serta bintang dan tahap. Menara Ibu Bapa (PIN) ada had masa dan laporan. Kunci dengan PIN.","Kids mode: a little ball planet with houses for prayer, letters, numbers, stories, art and games, plus stars and levels. The Parent Tower (PIN) has time limits and reports. Lock it with a PIN."],
   ["l7.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l8",[
