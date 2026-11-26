@@ -47,6 +47,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 .err{color:var(--bad);font-size:13px;min-height:18px;margin-top:6px}
 .cat{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:6px 0}
 .cat .ic{font-size:24px;text-align:center}.hide{display:none!important}
+.imgrow{display:flex;gap:10px;align-items:center}.imgrow .thumb{width:72px;height:72px;flex:0 0 72px}.imgbtns{display:flex;gap:8px;flex:1;flex-wrap:wrap}.imgbtns .btn{flex:1;min-width:120px;padding:0 10px}
 .sw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px}.sw input{width:20px;height:20px}
 </style>
 </head>
@@ -66,7 +67,7 @@ function toast(t){ var d = document.createElement("div"); d.className = "toast";
 function linkOk(u){ u = String(u || "").trim(); var h = u.replace(/^https?:\/\//, "").split("/")[0].toLowerCase(); return /^https:\/\//.test(u) && HOSTS.some(function(x){ return h === x || h.slice(-x.length - 1) === "." + x; }); }
 function money(p){ return p === "" || p == null || isNaN(+p) ? "" : "RM " + (+p).toFixed(2); }
 var ERR = {login:"Wrong user name or password.", locked:"Too many wrong passwords. Changes are locked for 15 minutes.", setup:"First sign-in: the user name needs 3+ letters and the password 4+ characters.",
-  link:"The link must be an https Shopee / Lazada / Involve Asia link (e.g. https://s.shopee.com.my/…).", notempty:"Move or delete this category's products first.", short:"New password needs 6+ characters, user name 3+.", net:"Can't reach the Sheet. Check the internet and the Sheet link (Settings)."};
+  link:"The link must be an https Shopee / Lazada / Involve Asia link (e.g. https://s.shopee.com.my/…).", notempty:"Move or delete this category's products first.", short:"New password needs 6+ characters, user name 3+.", imgsize:"The photo is too big (max 4 MB after shrinking).", net:"Can't reach the Sheet. Check the internet and the Sheet link (Settings)."};
 function api(op, x){ var b = Object.assign({u: CRED && CRED.u, p: CRED && CRED.p, op: op}, x || {});
   return fetch(ST.url, {method: "POST", body: JSON.stringify(b)}).then(function(r){ return r.json(); }, function(){ return {ok: false, err: "net"}; }).then(function(r){ if(!r || !r.ok){ var e = new Error(ERR[r && r.err] || ("Error: " + (r && r.err))); e.code = r && r.err; throw e; } return r; }, function(e){ if(e.code) throw e; var x2 = new Error(ERR.net); x2.code = "net"; throw x2; }); }
 function busy(btn, p){ if(btn){ btn.disabled = true; } return p.then(function(r){ if(btn) btn.disabled = false; return r; }, function(e){ if(btn) btn.disabled = false; throw e; }); }
@@ -119,8 +120,27 @@ function fields(p){ p = p || {}; return '<label for="pc">Category</label><select
   '<label for="pl">Affiliate link</label><input id="pl" inputmode="url" placeholder="https://s.shopee.com.my/…" value="' + E(p.link) + '" autocomplete="off">' +
   '<label for="pn">Product name (short)</label><input id="pn" maxlength="120" placeholder="Telekung Cotton Premium Putih" value="' + E(p.name) + '">' +
   '<div class="g2"><div><label for="pp">Price (RM)</label><input id="pp" type="number" step="0.01" min="0" inputmode="decimal" value="' + E(p.price) + '"></div><div><label for="pt">Tag</label><select id="pt">' + tagOpts(p.tag) + '</select></div></div>' +
-  '<label for="pi">Image link (optional)</label><input id="pi" inputmode="url" placeholder="https://…jpg  (computer: right-click the photo › Copy image address)" value="' + E(p.image) + '" autocomplete="off">' +
+  '<label for="pi">Photo (optional)</label><div class="imgrow"><div class="thumb" id="piv">' + (p.image ? '<img src="' + E(p.image) + '" alt="" onerror="this.remove()">' : '🖼') + '</div><div class="imgbtns"><button type="button" class="btn alt" id="pif">🖼 From phone</button><button type="button" class="btn alt" id="pip">📋 Paste</button></div></div>' +
+  '<input type="file" id="pifile" accept="image/*" class="hide"><input id="pi" inputmode="url" placeholder="…or paste an image link (https://…)" value="' + E(p.image) + '" autocomplete="off" style="margin-top:8px"><div class="tiny mut" id="pis"></div>' +
   '<label class="sw"><input type="checkbox" id="po"' + (p.id && !on(p.on) ? '' : ' checked') + '> Show in the app</label><div class="err" id="pe"></div>'; }
+// ---------- photos: pick from the phone or paste; shrunk to 900 px JPEG here, saved by the Sheet's script in Drive (folder "My Ihsan Gifts images") ----------
+var UPL = 0;
+function shrink(blob){ return new Promise(function(ok, no){ var u = URL.createObjectURL(blob), im = new Image(); im.onload = function(){ var m = 900, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, m / Math.max(w, h)), c = document.createElement("canvas");
+  c.width = Math.round(w * k); c.height = Math.round(h * k); var x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); ok(c.toDataURL("image/jpeg", 0.85)); };
+  im.onerror = function(){ URL.revokeObjectURL(u); no(new Error("That file isn't a picture the browser can open.")); }; im.src = u; }); }
+function upImg(blob, root){ var st = $("#pis", root), pv = $("#piv", root); if(!blob || !/^image\//.test(blob.type || "")){ st.textContent = "That isn't a picture."; return; }
+  UPL++; st.textContent = "⏳ Uploading the photo…"; pv.innerHTML = '<img src="' + URL.createObjectURL(blob) + '" alt="">';
+  shrink(blob).then(function(d){ return api("img", {data: d.split(",")[1], name: ($("#pn", root).value || "gift").slice(0, 40)}); }).then(function(r){ UPL--; $("#pi", root).value = r.url; st.textContent = "✓ Photo saved"; },
+    function(e){ UPL--; st.textContent = e.code === "op" ? "Update the script in the Sheet first (Settings › How to update the script)." : e.message; }); }
+function imgUI(root){ var f = $("#pifile", root); if(!f) return;
+  $("#pif", root).onclick = function(){ f.click(); }; f.onchange = function(){ if(f.files && f.files[0]) upImg(f.files[0], root); f.value = ""; };
+  $("#pip", root).onclick = function(){ if(!navigator.clipboard || !navigator.clipboard.read){ $("#pis", root).textContent = "This browser can't read pictures from the clipboard here. Long-press the link box below and Paste, or use 🖼 From phone."; return; }
+    navigator.clipboard.read().then(function(items){ for(var i = 0; i < items.length; i++){ var t = items[i].types.filter(function(x){ return /^image\//.test(x); })[0]; if(t) return items[i].getType(t).then(function(b){ upImg(b, root); }); }
+      return navigator.clipboard.readText().then(function(tx){ tx = String(tx || "").trim(); if(/^https:\/\//.test(tx)){ $("#pi", root).value = tx; $("#piv", root).innerHTML = '<img src="' + E(tx) + '" alt="" onerror="this.remove()">'; $("#pis", root).textContent = "✓ Image link pasted"; } else $("#pis", root).textContent = "No picture in the clipboard. Copy a photo first (long-press it › Copy image)."; }); },
+      function(){ $("#pis", root).textContent = "Allow the clipboard when the browser asks, or long-press the link box below and Paste."; }); };
+  $("#pi", root).addEventListener("change", function(){ var v = this.value.trim(); $("#piv", root).innerHTML = /^https:\/\//.test(v) ? '<img src="' + E(v) + '" alt="" onerror="this.remove()">' : '🖼'; }); }
+document.addEventListener("paste", function(e){ var root = $(".sheet") || document; if(!$("#pi", root)) return; var it = [].slice.call((e.clipboardData && e.clipboardData.items) || []).filter(function(x){ return x.kind === "file" && /^image\//.test(x.type); })[0];
+  if(it){ e.preventDefault(); upImg(it.getAsFile(), root); } });
 function readF(){ return {cat: $("#pc").value, link: $("#pl").value.trim(), name: $("#pn").value.trim(), price: $("#pp").value === "" ? "" : +$("#pp").value, tag: $("#pt").value, image: $("#pi").value.trim(), on: $("#po").checked}; }
 function check(r){ if(!r.cat) return "Choose a category."; if(!linkOk(r.link)) return ERR.link; if(!r.name) return "Type the product name."; if(r.image && !/^https:\/\//.test(r.image)) return "The image link must start with https://"; return ""; }
 function addForm(){ return '<div class="card"><h2>＋ Add a product</h2>' + fields() + '<button class="btn full" id="sv" style="margin-top:6px">Save and add another</button></div>' +
@@ -134,6 +154,7 @@ function catList(){ return '<div class="small mut" style="margin-top:10px">Order
 function settings(){ return '<div class="card"><h2>Change the login</h2><label for="nu">New user name</label><input id="nu" autocapitalize="none" value="' + E(CRED.u) + '"><label for="np">New password (6+ characters)</label><input id="np" type="password" autocomplete="new-password"><div class="err" id="ne"></div><button class="btn full" id="ns" style="margin-top:6px">Save the new login</button></div>' +
   '<div class="card small"><h2>The Sheet</h2><div class="mut" style="overflow-wrap:anywhere">' + E(ST.url) + '</div><div class="mut" style="margin-top:6px">You can also edit the <b>Products</b> and <b>Categories</b> tabs straight in the Sheet. The app picks up changes within about 5 minutes.</div>' +
   '<div class="row" style="margin-top:10px"><a class="btn alt" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="' + E(ST.url) + '" target="_blank" rel="noopener">View the app feed</a><button class="btn alt" id="cu">Change link</button></div></div>' +
+  '<div class="card small"><h2>How to update the script</h2><div class="mut">When this page gets a new feature (like photos), the Sheet\'s script needs the new version too:</div><ol class="steps"><li><button class="btn alt" id="cp2" style="height:32px">📋 Copy the new script</button></li><li>In the Sheet: <b>Extensions › Apps Script</b>, select everything in <code>Code.gs</code>, paste, 💾 Save.</li><li><b>Deploy › Manage deployments</b> › ✎ › Version: <b>New version</b> › Deploy. Allow the new permission (Google Drive, for the photos). The link stays the same.</li></ol></div>' +
   '<button class="btn bad full" id="so">Sign out</button>'; }
 
 // ---------- actions ----------
@@ -151,8 +172,9 @@ function bind(){
   $$("[data-ce]").forEach(function(b){ b.onclick = function(){ editCat(b.getAttribute("data-ce")); }; });
   $$("[data-co]").forEach(function(b){ b.onclick = function(){ var c = cat(b.getAttribute("data-co")); busy(b, api("saveCat", {row: {id: c.id, on: !on(c.on)}})).then(function(r){ c.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
   if($("#nc")) $("#nc").onclick = function(){ editCat(""); };
-  if($("#sv")) $("#sv").onclick = function(){ var r = readF(), er = check(r); if(er){ $("#pe").textContent = er; return; }
-    busy($("#sv"), api("saveProd", {row: r})).then(function(x){ DATA.prods.push(x.row); CUR = r.cat; toast("✓ Added to " + cat(r.cat).name_en + " (" + inCat(r.cat).length + ")"); ["#pl", "#pn", "#pp", "#pi"].forEach(function(s){ $(s).value = ""; }); $("#pt").value = ""; $("#pe").textContent = ""; $("#pl").focus(); }, function(e){ $("#pe").textContent = e.message; }); };
+  imgUI(document);
+  if($("#sv")) $("#sv").onclick = function(){ if(UPL){ $("#pe").textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe").textContent = er; return; }
+    busy($("#sv"), api("saveProd", {row: r})).then(function(x){ DATA.prods.push(x.row); CUR = r.cat; toast("✓ Added to " + cat(r.cat).name_en + " (" + inCat(r.cat).length + ")"); ["#pl", "#pn", "#pp", "#pi"].forEach(function(s){ $(s).value = ""; }); $("#piv").innerHTML = "🖼"; $("#pis").textContent = ""; $("#pt").value = ""; $("#pe").textContent = ""; $("#pl").focus(); }, function(e){ $("#pe").textContent = e.message; }); };
   if($("#bs")) $("#bs").onclick = function(){ var c = $("#pc").value, bad = [], rows = [];
     $("#bk").value.split(/\n/).forEach(function(l, i){ l = l.trim(); if(!l) return; var f = l.split("|").map(function(x){ return x.trim(); });
       var link = f.filter(linkOk)[0], name = f[0] && !linkOk(f[0]) ? f[0] : "", price = f.length > 2 ? f[1].replace(/rm/i, "").replace(/,/g, "") : "";
@@ -163,12 +185,14 @@ function bind(){
   if($("#ns")) $("#ns").onclick = function(){ var nu = $("#nu").value.trim().toLowerCase(), np = $("#np").value; if(nu.length < 3 || np.length < 6){ $("#ne").textContent = ERR.short; return; }
     busy($("#ns"), api("pass", {nu: nu, np: np})).then(function(){ CRED = {u: nu, p: np}; try{ sessionStorage.setItem(K + "c", JSON.stringify(CRED)); }catch(e){} toast("✓ New login saved"); main(); }, function(e){ $("#ne").textContent = e.message; }); };
   if($("#cu")) $("#cu").onclick = function(){ if(!confirm("Disconnect this Sheet link?")) return; ST.url = ""; keep(); CRED = null; DATA = null; draw(); };
+  if($("#cp2")) $("#cp2").onclick = function(){ fetch("Code.gs", {cache: "no-store"}).then(function(r){ return r.text(); }).then(function(t){ return navigator.clipboard.writeText(t); }).then(function(){ toast("Script copied"); }, function(){ window.open("Code.gs", "_blank"); }); };
   if($("#so")) $("#so").onclick = function(){ CRED = null; DATA = null; try{ sessionStorage.removeItem(K + "c"); }catch(e){} draw(); }; }
 function sheet(h){ var d = document.createElement("div"); d.className = "sheet"; d.innerHTML = '<div>' + h + '</div>'; d.onclick = function(e){ if(e.target === d) d.remove(); }; document.body.appendChild(d); return d; }
 function editProd(id){ var p = DATA.prods.filter(function(x){ return String(x.id) === String(id); })[0]; if(!p) return;
   var d = sheet('<h2>✎ Edit product</h2>' + fields(p) + '<div class="row" style="margin-top:8px"><button class="btn" id="es">Save</button><button class="btn alt" id="ex">Cancel</button></div><button class="btn bad full" id="ed" style="margin-top:10px">🗑 Delete</button>');
   $("#ex", d).onclick = function(){ d.remove(); };
-  $("#es", d).onclick = function(){ var r = readF(), er = check(r); if(er){ $("#pe", d).textContent = er; return; } r.id = p.id;
+  imgUI(d);
+  $("#es", d).onclick = function(){ if(UPL){ $("#pe", d).textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe", d).textContent = er; return; } r.id = p.id;
     busy($("#es", d), api("saveProd", {row: r})).then(function(x){ Object.assign(p, x.row); d.remove(); CUR = r.cat; main(); toast("✓ Saved"); }, function(e){ $("#pe", d).textContent = e.message; }); };
   $("#ed", d).onclick = function(){ if(!confirm("Delete \"" + (p.name || "this product") + "\"?")) return; busy($("#ed", d), api("delProd", {id: p.id})).then(function(){ DATA.prods = DATA.prods.filter(function(x){ return x !== p; }); d.remove(); main(); toast("Deleted"); }, function(e){ $("#pe", d).textContent = e.message; }); }; }
 function editCat(id){ var c = id ? cat(id) : {id: "", icon: "🎁", name_ms: "", name_en: "", on: true};

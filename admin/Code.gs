@@ -6,7 +6,7 @@
    script's properties, never in this file or on the website). Change it later in the admin page › Settings.
    Reading the gift list (GET …/exec) is public; every change needs the password. 8 wrong passwords lock changes for 15 minutes. */
 
-var VER = 1;
+var VER = 2;   // 2: photos (op img → Drive folder "My Ihsan Gifts images", shared to view by link)
 var CAT_H = ["id", "icon", "name_ms", "name_en", "order", "on"];
 var PROD_H = ["id", "cat", "name", "price", "link", "image", "tag", "on", "order", "added", "updated"];
 var START = [
@@ -72,6 +72,12 @@ function act(q, P){
     s.deleteRow(f._row); return {ok: true}; }
   if(q.op === "order"){ var nm2 = q.what === "cat" ? "Categories" : "Products", hd = q.what === "cat" ? CAT_H : PROD_H, s2 = tab(nm2, hd), col = hd.indexOf("order") + 1, all = rows(nm2, hd);
     (q.ids || []).forEach(function(id, i){ var f2 = all.filter(function(o){ return String(o.id) === String(id); })[0]; if(f2) s2.getRange(f2._row, col).setValue(i + 1); }); return {ok: true}; }
+  if(q.op === "img"){ var raw = Utilities.base64Decode(String(q.data || "")); if(!raw.length || raw.length > 4 * 1024 * 1024) return {ok: false, err: "imgsize"};
+    var fid = P.getProperty("IMGDIR"), dir = null; try{ if(fid) dir = DriveApp.getFolderById(fid); }catch(x){ dir = null; }
+    if(!dir){ dir = DriveApp.createFolder("My Ihsan Gifts images"); P.setProperty("IMGDIR", dir.getId()); }
+    var nm = String(q.name || "gift").replace(/[^\w .-]/g, "").slice(0, 40) || "gift", f = dir.createFile(Utilities.newBlob(raw, "image/jpeg", nm + " " + today() + ".jpg"));
+    f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    return {ok: true, id: f.getId(), url: "https://lh3.googleusercontent.com/d/" + f.getId() + "=w800"}; }
   return {ok: false, err: "op"}; }
 
 function save(name, head, row, fix){ var s = tab(name, head), o = {}; head.forEach(function(k){ o[k] = row && row[k] != null ? row[k] : ""; }); fix(o);
