@@ -76,15 +76,16 @@ function busy(btn, p){ if(btn){ btn.disabled = true; } return p.then(function(r)
 // ---------- screens ----------
 function draw(){ if(!ST.url) return setup(); if(!CRED) return login(); if(!DATA) return refresh(); main(); }
 function setup(){ $("#app").innerHTML = '<h1>🎁 Gifts admin</h1><div class="mut small">The list behind the 🎁 Gift page in My Ihsan. It lives in your own Google Sheet.</div>' +
-  '<div class="card"><h2>One-time setup (about 5 minutes)</h2><ol class="steps small">' +
-  '<li>Open <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> (signed in as myihsan.app) and name it <b>My Ihsan Gifts</b>.</li>' +
-  '<li>In the Sheet: <b>Extensions › Apps Script</b>. Delete what is in <code>Code.gs</code>, then paste the script: <button class="btn alt" id="cp" style="height:32px;margin-top:4px">📋 Copy the script</button></li>' +
-  '<li>Click 💾 Save, then <b>Deploy › New deployment</b> › ⚙ <b>Web app</b>. Execute as: <b>Me</b>. Who has access: <b>Anyone</b>. Deploy, allow the permissions (Advanced › Go to… if Google warns, it is your own script).</li>' +
+  '<div class="card"><h2>One-time setup (about 5 minutes)</h2><div class="small" style="color:var(--warn);margin-bottom:6px">Tip: do this in an <b>Incognito / private window</b> signed in <b>only</b> as myihsan.app. Two Google accounts in one browser is the usual reason photos fail.</div><ol class="steps small">' +
+  '<li>Open <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> and name it <b>My Ihsan Gifts</b>.</li>' +
+  '<li><b>Extensions › Apps Script</b>. Delete everything in <code>Code.gs</code>, paste the script, 💾 Save: <button class="btn alt" id="cp" style="height:32px;margin-top:4px">📋 Copy the script</button></li>' +
+  '<li>In the toolbar dropdown (next to ▷ Run / Debug) pick <b>allowDrive</b> › ▷ <b>Run</b> › Review permissions › your account › Advanced › Go to… › tick <b>Select all</b> › <b>Allow</b>. The log must say <b>Google Drive OK</b>.</li>' +
+  '<li><b>Deploy › New deployment</b> › ⚙ <b>Web app</b>. Execute as: <b>Me</b>. Who has access: <b>Anyone</b>. Deploy.</li>' +
   '<li>Copy the <b>Web app URL</b> (ends in <code>/exec</code>) and paste it here:</li></ol>' +
   '<label for="u">Web app URL</label><input id="u" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"><div class="err" id="ue"></div><button class="btn full" id="go" style="margin-top:8px">Connect</button></div>';
-  $("#cp").onclick = function(){ fetch("Code.gs").then(function(r){ return r.text(); }).then(function(t){ return navigator.clipboard.writeText(t); }).then(function(){ toast("Script copied"); }, function(){ window.open("Code.gs", "_blank"); }); };
+  $("#cp").onclick = function(){ fetch("Code.gs", {cache: "no-store"}).then(function(r){ return r.text(); }).then(function(t){ return navigator.clipboard.writeText(t); }).then(function(){ toast("Script copied"); }, function(){ window.open("Code.gs", "_blank"); }); };
   $("#go").onclick = function(){ var u = $("#u").value.trim(); if(!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(u)){ $("#ue").textContent = "That doesn't look like a Web app URL (https://script.google.com/macros/s/…/exec)."; return; }
-    busy($("#go"), fetch(u + "?a=ping").then(function(r){ return r.json(); })).then(function(r){ if(!r.ok) throw 0; ST.url = u; ST.first = r.setup; keep(); draw(); }, function(){ $("#ue").textContent = "No answer from that URL. Check it was deployed with access: Anyone."; }); }; }
+    busy($("#go"), fetch(u + "?a=ping").then(function(r){ return r.json(); })).then(function(r){ if(!r.ok) throw 0; ST.url = u; ST.first = r.setup; keep(); SV = +r.v || 1; DRV = r.drive === false ? false : r.drive === true ? true : null; CRED = null; DATA = null; try{ sessionStorage.removeItem(K + "c"); }catch(e){} draw(); }, function(){ $("#ue").textContent = "No answer from that URL. Check it was deployed with access: Anyone."; }); }; }
 function login(){ $("#app").innerHTML = '<h1>🎁 Gifts admin</h1><div class="card"><h2>Sign in</h2>' + (ST.first ? '<div class="small" style="color:var(--warn)">First sign-in: the user name and password you type now become the admin login.</div>' : '') +
   '<form id="f"><label for="lu">User name</label><input id="lu" autocomplete="username" autocapitalize="none"><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"><div class="err" id="le"></div><button class="btn full" style="margin-top:8px">Sign in</button></form></div>' +
   '<button class="btn alt full" id="chg">Change the Sheet link</button>';
@@ -103,14 +104,15 @@ function badge(n){ return '<span class="n' + (n >= 5 && n <= 10 ? " ok" : n > 10
 function main(){ var live = DATA.prods.filter(function(p){ return on(p.on); }).length, full = DATA.cats.filter(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return n >= 5; }).length;
   var h = '<div class="top"><h1>🎁 Gifts admin</h1><span class="sp"></span><button class="btn alt fix" id="rf" title="Reload" aria-label="Reload" style="width:42px;padding:0">⟳</button></div>' +
     '<div class="tabs">' + [["prod", "📦 Products"], ["add", "＋ Add"], ["cats", "🗂 Categories"], ["set", "⚙"]].map(function(t){ return '<button data-t="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '">' + t[1] + '</button>'; }).join("") + '</div>';
-  if(SV !== null && SV < NEED) h += '<div class="card small" style="border-color:var(--warn)"><b>⚠ Update the Sheet\'s script</b><div class="mut" style="margin-top:4px">Your script is version ' + SV + '; this page needs version ' + NEED + ' (photos and dates). Until then photos can\'t be saved. Steps: ⚙ › How to update the script (about 1 minute).</div></div>';
+  if(SV !== null && SV < NEED) h += '<div class="card small" style="border-color:var(--warn)"><b>⚠ Update the Sheet\'s script</b><div class="mut" style="margin-top:4px">Your script is version ' + SV + '; this page needs version ' + NEED + ' (photos, dates and the photo check). Until then photos can\'t be saved. Steps: ⚙ › How to update the script (about 1 minute).</div></div>';
+  if(SV !== null && SV >= NEED && DRV === false) h += '<div class="card small" style="border-color:var(--bad)"><b>⚠ Photos can\'t be saved yet: the script has no Google Drive permission.</b><ol class="steps"><li>Use a window signed in <b>only</b> as the Sheet\'s owner (Incognito is easiest).</li><li>Sheet › Extensions › Apps Script › toolbar dropdown › <b>allowDrive</b> › ▷ Run › tick <b>Select all</b> › Allow. Log: “Google Drive OK”.</li><li>Deploy › Manage deployments › ✎ › Version: <b>New version</b> › Deploy.</li><li>Tap ⟳ here: this notice goes away when it works.</li></ol></div>';
   if(PTR !== null && PTR !== ST.url) h += '<div class="card small" id="ptr" style="border-color:var(--warn)"><b>⚠ The app isn\'t reading this Sheet yet.</b><div class="mut" style="margin-top:4px">Products here won\'t show in the app or web app until this Sheet\'s link is put in the website\'s settings (feeds/gifts.json). Copy the link and send it to the developer. This is needed only once.</div><button class="btn full" id="ptrc" style="margin-top:8px">📋 Copy the Sheet link</button></div>';
   if(TAB === "prod") h += '<div class="sum" style="margin-top:10px"><div><b>' + live + '</b><span class="tiny mut">live products</span></div><div><b>' + full + '/' + DATA.cats.length + '</b><span class="tiny mut">categories with 5+</span></div><div><b>' + DATA.prods.length + '</b><span class="tiny mut">rows in the Sheet</span></div></div>' + chips() + prodList();
   if(TAB === "add") h += addForm();
   if(TAB === "cats") h += catList();
   if(TAB === "set") h += settings();
   $("#app").innerHTML = h; bind(); if($("#ptrc")) $("#ptrc").onclick = function(){ navigator.clipboard.writeText(ST.url).then(function(){ toast("Link copied"); }, function(){ prompt("Copy this link:", ST.url); }); }; }
-var SV = null, NEED = 3; function ping(){ if(ST.url) fetch(ST.url + "?a=ping", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ SV = +j.v || 1; if(DATA) main(); }, function(){}); } ping();
+var SV = null, NEED = 4, DRV = null; function ping(){ if(ST.url) fetch(ST.url + "?a=ping", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ SV = +j.v || 1; DRV = j.drive === false ? false : j.drive === true ? true : null; if(DATA) main(); }, function(){}); } ping();
 var PTR = null; fetch("../feeds/gifts.json", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ PTR = String(j.url || ""); if(DATA) main(); }, function(){});
 function chips(){ var all = DATA.prods.filter(function(p){ return on(p.on); }).length;
   return '<label for="cs0" class="hide">Category</label><select id="cs0" style="margin-top:10px;font-weight:600">' + '<option value="">🗂 All categories (' + all + ' live)</option>' + DATA.cats.map(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length;
@@ -136,14 +138,19 @@ function fields(p){ p = p || {}; return '<label for="pc">Category</label><select
   '<input type="file" id="pifile" accept="image/*" class="hide"><input id="pi" inputmode="url" placeholder="…or paste an image link (https://…)" value="' + E(p.image) + '" autocomplete="off" style="margin-top:8px"><div class="tiny mut" id="pis"></div>' +
   '<label class="sw"><input type="checkbox" id="po"' + (p.id && !on(p.on) ? '' : ' checked') + '> Show in the app</label><div class="err" id="pe"></div>'; }
 // ---------- photos: pick from the phone or paste; shrunk to 900 px JPEG here, saved by the Sheet's script in Drive (folder "My Ihsan Gifts images") ----------
-var UPL = 0;
+var UPL = 0;   // kept for old callers; uploads are tracked per form (root._up) so a failed one never blocks Save
 function shrink(blob){ return new Promise(function(ok, no){ var u = URL.createObjectURL(blob), im = new Image(); im.onload = function(){ var m = 900, w = im.naturalWidth, h = im.naturalHeight, k = Math.min(1, m / Math.max(w, h)), c = document.createElement("canvas");
   c.width = Math.round(w * k); c.height = Math.round(h * k); var x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0, c.width, c.height); URL.revokeObjectURL(u); ok(c.toDataURL("image/jpeg", 0.85)); };
   im.onerror = function(){ URL.revokeObjectURL(u); no(new Error("That file isn't a picture the browser can open.")); }; im.src = u; }); }
 function upImg(blob, root){ var st = $("#pis", root), pv = $("#piv", root); if(!blob || !/^image\//.test(blob.type || "")){ st.textContent = "That isn't a picture."; return; }
-  UPL++; st.textContent = "⏳ Uploading the photo…"; pv.innerHTML = '<img src="' + URL.createObjectURL(blob) + '" alt="">';
-  shrink(blob).then(function(d){ return api("img", {data: d.split(",")[1], name: ($("#pn", root).value || "gift").slice(0, 40)}); }).then(function(r){ UPL--; $("#pi", root).value = r.url; st.textContent = "✓ Photo saved"; },
-    function(e){ UPL--; st.textContent = e.code === "op" ? "Update the script in the Sheet first (Settings › How to update the script)." : e.message; }); }
+  var tk = root._up = {}, old = pv.innerHTML, done = function(){ if(root._up === tk) root._up = null; };
+  st.style.color = ""; st.textContent = "⏳ Uploading the photo…"; pv.innerHTML = '<img src="' + URL.createObjectURL(blob) + '" alt="">';
+  var slow = setTimeout(function(){ if(root._up === tk){ done(); pv.innerHTML = old; st.style.color = "var(--bad)"; st.textContent = "The upload took too long. Check the internet and try again."; } }, 90000);
+  shrink(blob).then(function(d){ return api("img", {data: d.split(",")[1], name: ($("#pn", root).value || "gift").slice(0, 40)}); }).then(function(r){ clearTimeout(slow); if(root._up !== tk) return; done(); $("#pi", root).value = r.url; st.textContent = "✓ Photo saved"; },
+    function(e){ clearTimeout(slow); if(root._up !== tk) return; done(); pv.innerHTML = old; st.style.color = "var(--bad)";
+      if(e.code === "op"){ st.innerHTML = "⚠ Photo not saved: the Sheet's script is the old version. Update it once (1 minute): <b>⚙ › How to update the script</b>. <button type=\"button\" class=\"btn alt\" style=\"height:32px;margin-top:6px\" id=\"upgo\">Show me how</button>"; var g = $("#upgo", root); if(g) g.onclick = function(){ var sh = $(".sheet"); if(sh) sh.remove(); TAB = "set"; main(); window.scrollTo(0, document.body.scrollHeight); }; }
+      else if(/permission to call DriveApp|auth\/drive/i.test(e.message)) st.innerHTML = "⚠ Photo not saved: the script isn't allowed to use your Google Drive yet. Once only: in the Sheet › Extensions › Apps Script, pick <b>allowDrive</b> in the toolbar, click ▶ <b>Run</b> › Review permissions › your account › Advanced › Go to… › tick <b>Select all</b> (or the Google Drive box) › <b>Allow</b>. No new deployment needed; then pick the photo again.";
+      else st.textContent = "⚠ Photo not saved: " + e.message; }); }
 function imgUI(root){ var f = $("#pifile", root); if(!f) return;
   $("#pif", root).onclick = function(){ f.click(); }; f.onchange = function(){ if(f.files && f.files[0]) upImg(f.files[0], root); f.value = ""; };
   $("#pip", root).onclick = function(){ if(!navigator.clipboard || !navigator.clipboard.read){ $("#pis", root).textContent = "This browser can't read pictures from the clipboard here. Long-press the link box below and Paste, or use 🖼 From phone."; return; }
@@ -174,7 +181,7 @@ function settings(){ return '<div class="card"><h2>Change the login</h2><label f
 
 // ---------- actions ----------
 function bind(){
-  $("#rf").onclick = function(){ busy($("#rf"), refresh()).catch(function(){}); };
+  $("#rf").onclick = function(){ ping(); busy($("#rf"), refresh()).catch(function(){}); };
   $$("[data-t]").forEach(function(b){ b.onclick = function(){ TAB = b.getAttribute("data-t"); main(); window.scrollTo(0, 0); }; });
   if($("#cs0")) $("#cs0").onchange = function(){ CUR = this.value; main(); };
   $$("[data-add]").forEach(function(b){ b.onclick = function(){ TAB = "add"; main(); }; });
@@ -190,7 +197,7 @@ function bind(){
   $$("[data-co]").forEach(function(b){ b.onclick = function(){ var c = cat(b.getAttribute("data-co")); busy(b, api("saveCat", {row: {id: c.id, on: !on(c.on)}})).then(function(r){ c.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
   if($("#nc")) $("#nc").onclick = function(){ editCat(""); };
   imgUI(document);
-  if($("#sv")) $("#sv").onclick = function(){ if(UPL){ $("#pe").textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe").textContent = er; return; }
+  if($("#sv")) $("#sv").onclick = function(){ if(document._up){ $("#pe").textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe").textContent = er; return; }
     busy($("#sv"), api("saveProd", {row: r})).then(function(x){ DATA.prods.push(x.row); CUR = r.cat; toast("✓ Added to " + cat(r.cat).name_en + " (" + inCat(r.cat).length + ")"); ["#pl", "#pn", "#pp", "#pi"].forEach(function(s){ $(s).value = ""; }); $("#piv").innerHTML = "🖼"; $("#pis").textContent = ""; $("#pt").value = ""; $("#pe").textContent = ""; $("#pl").focus(); }, function(e){ $("#pe").textContent = e.message; }); };
   if($("#bs")) $("#bs").onclick = function(){ var c = $("#pc").value, bad = [], rows = [];
     $("#bk").value.split(/\n/).forEach(function(l, i){ l = l.trim(); if(!l) return; var f = l.split("|").map(function(x){ return x.trim(); });
@@ -209,7 +216,7 @@ function editProd(id){ var p = DATA.prods.filter(function(x){ return String(x.id
   var d = sheet('<h2>✎ Edit product</h2>' + fields(p) + '<div class="row" style="margin-top:8px"><button class="btn" id="es">Save</button><button class="btn alt" id="ex">Cancel</button></div><button class="btn bad full" id="ed" style="margin-top:10px">🗑 Delete</button>');
   $("#ex", d).onclick = function(){ d.remove(); };
   imgUI(d);
-  $("#es", d).onclick = function(){ if(UPL){ $("#pe", d).textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe", d).textContent = er; return; } r.id = p.id;
+  $("#es", d).onclick = function(){ if(d._up){ $("#pe", d).textContent = "Wait for the photo to finish uploading."; return; } var r = readF(), er = check(r); if(er){ $("#pe", d).textContent = er; return; } r.id = p.id;
     busy($("#es", d), api("saveProd", {row: r})).then(function(x){ Object.assign(p, x.row); d.remove(); CUR = r.cat; main(); toast("✓ Saved"); }, function(e){ $("#pe", d).textContent = e.message; }); };
   $("#ed", d).onclick = function(){ if(!confirm("Delete \"" + (p.name || "this product") + "\"?")) return; busy($("#ed", d), api("delProd", {id: p.id})).then(function(){ DATA.prods = DATA.prods.filter(function(x){ return x !== p; }); d.remove(); main(); toast("Deleted"); }, function(e){ $("#pe", d).textContent = e.message; }); }; }
 function editCat(id){ var c = id ? cat(id) : {id: "", icon: "🎁", name_ms: "", name_en: "", on: true};

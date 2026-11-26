@@ -6,7 +6,7 @@
    script's properties, never in this file or on the website). Change it later in the admin page › Settings.
    Reading the gift list (GET …/exec) is public; every change needs the password. 8 wrong passwords lock changes for 15 minutes. */
 
-var VER = 3;   // 3: dates as yyyy-MM-dd; 2: photos (op img → Drive folder "My Ihsan Gifts images", shared to view by link)
+var VER = 4;   // 4: ping reports Drive access; 3: dates as yyyy-MM-dd; 2: photos (op img → Drive folder "My Ihsan Gifts images", shared to view by link)
 var CAT_H = ["id", "icon", "name_ms", "name_en", "order", "on"];
 var PROD_H = ["id", "cat", "name", "price", "link", "image", "tag", "on", "order", "added", "updated"];
 var START = [
@@ -37,7 +37,8 @@ function today(){ return Utilities.formatDate(new Date(), "Asia/Kuala_Lumpur", "
 
 /* public: the gift list in the app's feed format (cached 5 minutes) */
 function doGet(e){ var p = (e && e.parameter) || {};
-  if(p.a === "ping") return out({ok: true, v: VER, setup: !PropertiesService.getScriptProperties().getProperty("HASH")});
+  if(p.a === "ping"){ var dr = true; try{ DriveApp.getRootFolder().getId(); }catch(x){ dr = false; }   // can this deployment save photos?
+    return out({ok: true, v: VER, drive: dr, setup: !PropertiesService.getScriptProperties().getProperty("HASH")}); }
   var c = CacheService.getScriptCache(), hit = c.get("feed"); if(hit) return ContentService.createTextOutput(hit).setMimeType(ContentService.MimeType.JSON);
   var s = JSON.stringify(feed()); try{ c.put("feed", s, 300); }catch(x){} return ContentService.createTextOutput(s).setMimeType(ContentService.MimeType.JSON); }
 function feed(){ var cats = rows("Categories", CAT_H).filter(function(c){ return yes(c.on); }).sort(function(a, b){ return (+a.order || 0) - (+b.order || 0); }),
@@ -86,3 +87,7 @@ function save(name, head, row, fix){ var s = tab(name, head), o = {}; head.forEa
   if(o.on === "") o.on = true; var vals = [head.map(function(k){ return o[k]; })];
   if(f) s.getRange(f._row, 1, 1, head.length).setValues(vals); else s.appendRow(vals[0]);
   return {ok: true, row: o}; }
+
+/* Run this once from the editor (pick allowDrive in the toolbar › ▶ Run) to let the script save photos in your Drive.
+   On Google's permission screen tick "Select all" (or the Google Drive box) before Allow. */
+function allowDrive(){ Logger.log("Google Drive OK: " + DriveApp.getRootFolder().getName()); }
