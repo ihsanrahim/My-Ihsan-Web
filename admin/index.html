@@ -91,7 +91,7 @@ function login(){ $("#app").innerHTML = '<h1>🎁 Gifts admin</h1><div class="ca
     busy($("#f button"), api("login")).then(function(r){ if(r.first) toast("Admin login saved"); ST.first = false; keep(); try{ sessionStorage.setItem(K + "c", JSON.stringify(CRED)); }catch(e){} refresh(); }, function(e){ CRED = null; $("#le").textContent = e.message; }); };
   $("#chg").onclick = function(){ ST.url = ""; keep(); draw(); }; }
 function refresh(){ if(!DATA) $("#app").innerHTML = '<div class="card mut">Loading…</div>';
-  return api("list").then(function(r){ DATA = r; if(r.hosts) HOSTS = r.hosts; DATA.cats.sort(byOrder); DATA.prods.sort(byOrder); if(!CUR || !cat(CUR)) CUR = (DATA.cats[0] || {}).id || ""; main(); },
+  return api("list").then(function(r){ DATA = r; if(r.hosts) HOSTS = r.hosts; DATA.cats.sort(byOrder); DATA.prods.sort(byOrder); if(CUR && !cat(CUR)) CUR = ""; main(); },
     function(e){ if(e.code === "login"){ CRED = null; try{ sessionStorage.removeItem(K + "c"); }catch(x){} } toast(e.message); if(!DATA) draw(); }); }
 function byOrder(a, b){ return (+a.order || 0) - (+b.order || 0); }
 function cat(id){ return DATA.cats.filter(function(c){ return String(c.id) === String(id); })[0]; }
@@ -102,18 +102,27 @@ function badge(n){ return '<span class="n' + (n >= 5 && n <= 10 ? " ok" : n > 10
 function main(){ var live = DATA.prods.filter(function(p){ return on(p.on); }).length, full = DATA.cats.filter(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return n >= 5; }).length;
   var h = '<div class="top"><h1>🎁 Gifts admin</h1><span class="sp"></span><button class="btn alt fix" id="rf" title="Reload" aria-label="Reload" style="width:42px;padding:0">⟳</button></div>' +
     '<div class="tabs">' + [["prod", "📦 Products"], ["add", "＋ Add"], ["cats", "🗂 Categories"], ["set", "⚙"]].map(function(t){ return '<button data-t="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '">' + t[1] + '</button>'; }).join("") + '</div>';
+  if(PTR !== null && PTR !== ST.url) h += '<div class="card small" id="ptr" style="border-color:var(--warn)"><b>⚠ The app isn\'t reading this Sheet yet.</b><div class="mut" style="margin-top:4px">Products here won\'t show in the app or web app until this Sheet\'s link is put in the website\'s settings (feeds/gifts.json). Copy the link and send it to the developer. This is needed only once.</div><button class="btn full" id="ptrc" style="margin-top:8px">📋 Copy the Sheet link</button></div>';
   if(TAB === "prod") h += '<div class="sum" style="margin-top:10px"><div><b>' + live + '</b><span class="tiny mut">live products</span></div><div><b>' + full + '/' + DATA.cats.length + '</b><span class="tiny mut">categories with 5+</span></div><div><b>' + DATA.prods.length + '</b><span class="tiny mut">rows in the Sheet</span></div></div>' + chips() + prodList();
   if(TAB === "add") h += addForm();
   if(TAB === "cats") h += catList();
   if(TAB === "set") h += settings();
-  $("#app").innerHTML = h; bind(); var ch = $(".chip.on"); if(ch && ch.parentNode) ch.parentNode.scrollLeft = ch.offsetLeft - 16; }
-function chips(){ return '<div class="chips">' + DATA.cats.map(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return '<button class="chip' + (CUR === String(c.id) ? " on" : "") + (on(c.on) ? "" : " off") + '" data-c="' + E(c.id) + '">' + E(c.icon) + ' ' + E(c.name_en) + ' ' + badge(n) + '</button>'; }).join("") + '</div>'; }
-function prodList(){ var c = cat(CUR); if(!c) return '<div class="card mut">Add a category first.</div>'; var l = inCat(CUR);
-  return '<div class="row" style="margin:4px 0"><div class="small mut">' + E(c.icon + " " + c.name_en + " · " + c.name_ms) + (on(c.on) ? "" : " · hidden") + '<br>Aim for 5–10 live links.</div><button class="btn fix" data-add="' + E(CUR) + '">＋ Add</button></div>' +
-    (l.length ? l.map(function(p, i){ return '<div class="it' + (on(p.on) ? "" : " off") + '"><div class="thumb">' + (p.image ? '<img src="' + E(p.image) + '" alt="" loading="lazy" onerror="this.remove()">' : E(c.icon)) + '</div>' +
-      '<div style="min-width:0"><b>' + E(p.name || "(no name)") + '</b><div class="small">' + money(p.price) + (p.tag ? '<span class="tag">' + E(p.tag) + '</span>' : '') + (on(p.on) ? '' : ' · <span class="mut">hidden</span>') + '</div><a class="tiny mut" href="' + E(p.link) + '" target="_blank" rel="noopener" style="overflow-wrap:anywhere">' + E(p.link) + '</a></div>' +
-      '<div class="acts"><button data-up="' + i + '" aria-label="Move up"' + (i ? '' : ' disabled') + '>↑</button><button data-ed="' + E(p.id) + '" aria-label="Edit">✎</button><button data-dn="' + i + '" aria-label="Move down"' + (i < l.length - 1 ? '' : ' disabled') + '>↓</button><button data-on="' + E(p.id) + '" aria-label="Show or hide">' + (on(p.on) ? "👁" : "🚫") + '</button></div></div>'; }).join("")
-      : '<div class="card mut small" style="text-align:center">No products yet in this category.</div>'); }
+  $("#app").innerHTML = h; bind(); if($("#ptrc")) $("#ptrc").onclick = function(){ navigator.clipboard.writeText(ST.url).then(function(){ toast("Link copied"); }, function(){ prompt("Copy this link:", ST.url); }); }; }
+var PTR = null; fetch("../feeds/gifts.json", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ PTR = String(j.url || ""); if(DATA) main(); }, function(){});
+function chips(){ var all = DATA.prods.filter(function(p){ return on(p.on); }).length;
+  return '<label for="cs0" class="hide">Category</label><select id="cs0" style="margin-top:10px;font-weight:600">' + '<option value="">🗂 All categories (' + all + ' live)</option>' + DATA.cats.map(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length;
+    return '<option value="' + E(c.id) + '"' + (CUR === String(c.id) ? " selected" : "") + '>' + E(c.icon + " " + c.name_en) + " — " + n + (n < 5 ? " ⚠" : n > 10 ? " ▲" : " ✓") + (on(c.on) ? "" : " (hidden)") + '</option>'; }).join("") + '</select><div class="tiny mut" style="margin-top:4px">⚠ under 5 · ✓ 5–10 · ▲ over 10 live links</div>'; }
+function itemHtml(p, c, i, l){ return '<div class="it' + (on(p.on) ? "" : " off") + '"><div class="thumb">' + (p.image ? '<img src="' + E(p.image) + '" alt="" loading="lazy" onerror="this.remove()">' : E(c.icon)) + '</div>' +
+  '<div style="min-width:0"><b>' + E(p.name || "(no name)") + '</b><div class="small">' + money(p.price) + (p.tag ? '<span class="tag">' + E(p.tag) + '</span>' : '') + (on(p.on) ? '' : ' · <span class="mut">hidden</span>') + '</div><a class="tiny mut" href="' + E(p.link) + '" target="_blank" rel="noopener" style="overflow-wrap:anywhere">' + E(p.link) + '</a></div>' +
+  '<div class="acts"><button data-up="' + i + '" data-cid="' + E(c.id) + '" aria-label="Move up"' + (i ? '' : ' disabled') + '>↑</button><button data-ed="' + E(p.id) + '" aria-label="Edit">✎</button><button data-dn="' + i + '" data-cid="' + E(c.id) + '" aria-label="Move down"' + (i < l.length - 1 ? '' : ' disabled') + '>↓</button><button data-on="' + E(p.id) + '" aria-label="Show or hide">' + (on(p.on) ? "👁" : "🚫") + '</button></div></div>'; }
+function prodList(){ if(!DATA.cats.length) return '<div class="card mut">Add a category first.</div>';
+  if(!CUR){ var any = DATA.cats.filter(function(c){ return inCat(c.id).length; });
+    return '<div class="row" style="margin:10px 0 4px"><div class="small mut">All products, by category. Aim for 5–10 live links in each.</div><button class="btn fix" data-add="">＋ Add</button></div>' +
+      (any.length ? any.map(function(c){ var l = inCat(c.id), n = l.filter(function(p){ return on(p.on); }).length; return '<h2 style="margin:16px 0 0;display:flex;align-items:center;gap:6px">' + E(c.icon + " " + c.name_en) + ' ' + badge(n) + (on(c.on) ? '' : ' <span class="tiny mut">hidden</span>') + '</h2>' + l.map(function(p, i){ return itemHtml(p, c, i, l); }).join(""); }).join("")
+        : '<div class="card mut small" style="text-align:center">No products yet. Tap ＋ Add.</div>'); }
+  var c = cat(CUR), l = inCat(CUR);
+  return '<div class="row" style="margin:10px 0 4px"><div class="small mut">' + E(c.icon + " " + c.name_en + " · " + c.name_ms) + (on(c.on) ? "" : " · hidden") + '<br>Aim for 5–10 live links.</div><button class="btn fix" data-add="' + E(CUR) + '">＋ Add</button></div>' +
+    (l.length ? l.map(function(p, i){ return itemHtml(p, c, i, l); }).join("") : '<div class="card mut small" style="text-align:center">No products yet in this category.</div>'); }
 function catOpts(sel){ return DATA.cats.map(function(c){ return '<option value="' + E(c.id) + '"' + (String(c.id) === String(sel) ? " selected" : "") + '>' + E(c.icon + " " + c.name_en) + '</option>'; }).join(""); }
 function tagOpts(sel){ return TAGS.map(function(t){ return '<option value="' + E(t[0]) + '"' + (t[0] === (sel || "") ? " selected" : "") + '>' + E(t[1]) + '</option>'; }).join(""); }
 function fields(p){ p = p || {}; return '<label for="pc">Category</label><select id="pc">' + catOpts(p.cat || CUR) + '</select>' +
@@ -161,13 +170,13 @@ function settings(){ return '<div class="card"><h2>Change the login</h2><label f
 function bind(){
   $("#rf").onclick = function(){ busy($("#rf"), refresh()).catch(function(){}); };
   $$("[data-t]").forEach(function(b){ b.onclick = function(){ TAB = b.getAttribute("data-t"); main(); window.scrollTo(0, 0); }; });
-  $$("[data-c]").forEach(function(b){ b.onclick = function(){ CUR = b.getAttribute("data-c"); main(); }; });
+  if($("#cs0")) $("#cs0").onchange = function(){ CUR = this.value; main(); };
   $$("[data-add]").forEach(function(b){ b.onclick = function(){ TAB = "add"; main(); }; });
   $$("[data-ed]").forEach(function(b){ b.onclick = function(){ editProd(b.getAttribute("data-ed")); }; });
   $$("[data-on]").forEach(function(b){ b.onclick = function(){ var p = DATA.prods.filter(function(x){ return String(x.id) === b.getAttribute("data-on"); })[0]; busy(b, api("saveProd", {row: {id: p.id, cat: p.cat, link: p.link, on: !on(p.on)}})).then(function(r){ p.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
   var mv = function(what, list, i, d, btn){ var ids = list.map(function(x){ return x.id; }), t = ids[i]; ids[i] = ids[i + d]; ids[i + d] = t;
     busy(btn, api("order", {what: what, ids: ids})).then(function(){ ids.forEach(function(id, k){ list.filter(function(x){ return x.id === id; })[0].order = k + 1; }); DATA.prods.sort(byOrder); DATA.cats.sort(byOrder); main(); }, function(e){ toast(e.message); }); };
-  $$("[data-up],[data-dn]").forEach(function(b){ b.onclick = function(){ var up = b.hasAttribute("data-up"); mv("prod", inCat(CUR), +b.getAttribute(up ? "data-up" : "data-dn"), up ? -1 : 1, b); }; });
+  $$("[data-up],[data-dn]").forEach(function(b){ b.onclick = function(){ var up = b.hasAttribute("data-up"); mv("prod", inCat(b.getAttribute("data-cid")), +b.getAttribute(up ? "data-up" : "data-dn"), up ? -1 : 1, b); }; });
   $$("[data-cu],[data-cd]").forEach(function(b){ b.onclick = function(){ var up = b.hasAttribute("data-cu"); mv("cat", DATA.cats, +b.getAttribute(up ? "data-cu" : "data-cd"), up ? -1 : 1, b); }; });
   $$("[data-ce]").forEach(function(b){ b.onclick = function(){ editCat(b.getAttribute("data-ce")); }; });
   $$("[data-co]").forEach(function(b){ b.onclick = function(){ var c = cat(b.getAttribute("data-co")); busy(b, api("saveCat", {row: {id: c.id, on: !on(c.on)}})).then(function(r){ c.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
