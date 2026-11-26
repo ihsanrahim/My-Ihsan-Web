@@ -343,7 +343,7 @@ function fullscreen(cfg, onExit){
   try{ if(H.N.setOrientation) H.N.setOrientation(orient==="portrait" ? "portrait" : orient==="auto" ? "sensor" : orient==="rlandscape" ? "rlandscape" : "landscape"); }catch(e){}
   try{ if(H.N.keepScreenOn) H.N.keepScreenOn(true, cfg.bright>0 ? cfg.bright : -1); }catch(e){}
   if(cfg.lock && H.N.lockTask) try{ H.N.lockTask(true); }catch(e){}
-  var start = function(){ if(r) r.stop(); r = cfg.mode==="clk" ? renderClock(box, cfg, {full: true}) : render(box, cfg, {full: true}); };
+  var start = function(){ if(r) r.stop(); r = cfg.mode==="tvd" ? (window.TVD ? window.TVD.render(box, cfg, {full: true, rt: RT}) : null) : cfg.mode==="clk" ? renderClock(box, cfg, {full: true}) : render(box, cfg, {full: true}); };
   setTimeout(start, 350);
   // 0.5.23 content for the slideshow, and the phone remote
   RT.ticker = null; RT.ann = null; RT.ssOff = 0; RT.ssPause = false; var rem = null, annT = null;
@@ -358,7 +358,7 @@ function fullscreen(cfg, onExit){
       else if(o.cmd==="next"){ RT.ssOff++; } else if(o.cmd==="prev"){ RT.ssOff--; }
       else if(o.cmd==="pause"){ RT.ssPause = !!o.v; }
       else if(o.cmd==="clear"){ RT.ticker = null; RT.ann = null; RT.ssPause = false; annShow(); }
-      if(r && r.redraw) r.redraw(); },
+      if(r && r.redraw && cfg.mode!=="tvd") r.redraw(); },
       function(){ return {name: cfg.name, ann: RT.ann, ticker: RT.ticker, pause: RT.ssPause, ss: !!(cfg.ss && cfg.ss.on)}; });
     var badge = document.createElement("div"); badge.className = "dsPair"; var qs = ""; try{ qs = qrSvg("MYIHSAN-TV:"+code); }catch(e){}
     badge.innerHTML = qs+'<div><small>📱 '+L("Alat kawalan telefon","Phone remote")+'</small><b>'+esc(code)+'</b><small>'+L("Paparan › 📱 Kawalan jauh","Display › 📱 Remote")+'</small></div>'; ov.appendChild(badge);
@@ -389,26 +389,42 @@ function fullscreen(cfg, onExit){
 function bigScreen(){ try{ return Math.min(screen.width, screen.height) >= 600; }catch(e){ return false; } }
 // ---------------- page: home ----------------
 function open(el, helpers){ H = helpers; UI.el = el; if(UI.editing) editor(); else home(); }
-function home(){ stopPrev(); UI.editing = null; var el = UI.el, ps = presets(); el.classList.remove("dsEdit");
-  // 0.6.68 (owner): the billboard sits right on the Display page: live preview, the text, a few quick choices and ▶ Start
+// 0.7.55 (owner): the Display page shows only the two displays, each with ▶ Start and ⚙ Settings; everything else lives in Settings
+function needTvd(fn){ if(window.TVD){ window.TVD.init(H); fn(); return; } if(H.loadJs) H.loadJs(["display/tvd.js"], function(){ if(window.TVD){ window.TVD.init(H); fn(); } }); }
+function tvPlay(c){ needTvd(function(){ fullscreen(c || window.TVD.cfg(), function(){ home(); }); }); }
+function home(){ stopPrev(); UI.editing = null; UI.page2 = null; var el = UI.el; el.classList.remove("dsEdit");
+  if(!window.TVD){ el.innerHTML = '<div class="card mut">'+L("Memuatkan…","Loading…")+'</div>'; needTvd(home); return; }
+  window.TVD.init(H); var Q = quickCfg(), tc = window.TVD.cfg(), tn = (window.TVD._t.TPL.filter(function(t){ return t[0]===tc.tpl; })[0] || [])[2];
+  el.innerHTML = '<div class="dsHome2">'+
+    '<div class="card dsC2"><h3>🪧 '+L("Papan tanda","Billboard")+'<small>'+esc(Q.lines.map(function(l){ return l.t; }).join(" · ").slice(0, 40))+'</small></h3><div class="dsC2Pv" id="dsQPv"></div>'+
+      '<div class="dsC2Bar"><button class="btn gold g3d" id="dsQGo">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsBBSet">⚙ '+L("Tetapan","Settings")+'</button></div></div>'+
+    '<div class="card dsC2"><h3>📺 TV Display<small>'+esc(((tc.masjid||{}).n || "")+(tn ? " · "+tn : ""))+'</small></h3><div class="dsC2Pv tvBox" id="dsTvPv"></div>'+
+      '<div class="dsC2Bar"><button class="btn gold g3d" id="dsTvGo">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsTvSet">⚙ '+L("Tetapan","Settings")+'</button></div></div></div>';
+  var qpv = el.querySelector("#dsQPv"); loadFont(Q.st.font); UI.minis = [render(qpv, Q, {})]; qpv.onclick = function(){ fullscreen(quickCfg(), home); };
+  var tpv = el.querySelector("#dsTvPv"); try{ UI.minis.push(window.TVD.render(tpv, tc, {small: true})); }catch(e){} tpv.onclick = function(){ tvPlay(); };
+  el.querySelector("#dsQGo").onclick = function(){ fullscreen(quickCfg(), home); };
+  el.querySelector("#dsBBSet").onclick = bbSet; el.querySelector("#dsTvGo").onclick = function(){ tvPlay(); }; el.querySelector("#dsTvSet").onclick = function(){ tvSet("setup"); };
+}
+function pageHead(title){ return '<div class="dsPageH"><button class="chip" id="dsHome">‹ '+L("Paparan","Display")+'</button><b>'+title+'</b></div>'; }
+function savedList(ps, keep){ var idx = []; ps.forEach(function(p, i){ if(keep(p)) idx.push(i); }); if(!idx.length) return "";
+  return '<div class="card"><h3>💾 '+L("Paparan tersimpan","Saved displays")+'</h3>'+idx.map(function(i){ var p = ps[i], m = p.cfg.mode; return '<div class="dsPre"><div class="dsMini'+(m==="tvd"?' tvMiniS':'')+'" data-mini="'+i+'"></div><span>'+(m==="clk"?"🕰️":m==="tvd"?"📺":"🪧")+' <b>'+esc(p.name)+'</b></span><button class="chip gold" data-pp="'+i+'">▶</button><button class="chip" data-pe="'+i+'">✏️</button><button class="chip" data-pm="'+i+'">⋯</button></div>'; }).join("")+'</div>'; }
+function bindSaved(el, ps, back){
+  el.querySelectorAll("[data-mini]").forEach(function(b){ var c = ps[+b.getAttribute("data-mini")].cfg; b.style.aspectRatio = c.mode==="tvd" ? "25 / 14" : c.orient==="portrait" ? "9 / 14" : "16 / 9"; try{ if(c.st) loadFont(c.st.font); UI.minis.push(c.mode==="tvd" ? window.TVD.render(b, c, {mini: true}) : c.mode==="clk" ? renderClock(b, c, {}) : render(b, c, {})); }catch(e){} b.onclick = function(){ fullscreen(c, back); }; });
+  el.querySelectorAll("[data-pp]").forEach(function(b){ b.onclick = function(){ fullscreen(ps[+b.getAttribute("data-pp")].cfg, back); }; });
+  el.querySelectorAll("[data-pe]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-pe"), c = clone(ps[i].cfg); if(c.mode==="tvd"){ window.TVD.save(c); H.toast("✓ "+ps[i].name); tvSet("setup"); } else edit(c, i); }; });
+  el.querySelectorAll("[data-pm]").forEach(function(b){ b.onclick = function(){ presetMenu(+b.getAttribute("data-pm")); }; }); }
+// Billboard › Settings: the quick text and looks, the full editor, templates, saved billboards
+function bbSet(){ stopPrev(); UI.editing = null; UI.page2 = "bb"; var el = UI.el, ps = presets(); el.classList.remove("dsEdit");
   var Q = quickCfg(), qs = Q.an.cont ? "scroll" : Q.an.show === "neon" ? "flash" : "still";
-  var h = '<div class="card dsQuick"><h3>🪧 '+L("Papan tanda","Billboard")+'</h3><div class="dsQPv" id="dsQPv"></div>'+
+  var h = pageHead("🪧 "+L("Tetapan papan tanda","Billboard settings"))+'<div class="card dsQuick"><div class="dsQPv" id="dsQPv"></div>'+
     '<textarea id="dsQT" class="rin" rows="2" dir="auto" placeholder="'+L("Tulis teks (satu baris setiap paparan)","Type the text (one line per screen)")+'">'+esc(Q.lines.map(function(l){ return l.t; }).join("\n"))+'</textarea>'+
     '<div class="dsChips">'+[["scroll","➡ "+L("Bergerak","Scrolling")],["still","▣ "+L("Tetap","Still")],["flash","✨ "+L("Bercahaya","Glowing")]].map(function(o){ return '<button class="chip'+(qs===o[0]?' on':'')+'" data-qs="'+o[0]+'">'+o[1]+'</button>'; }).join("")+'</div>'+
     '<div class="dsChips">'+[["#ffd400","#000000"],["#ffffff","#0b5d3b"],["#00e5ff","#0b1230"],["#ff2bd6","#120408"],["#39ff14","#000000"],["#000000","#ffd400"]].map(function(p){ return '<button class="dsQc'+(Q.st.color.a===p[0]&&Q.bg.a===p[1]?' on':'')+'" data-qc="'+p.join("|")+'" style="background:'+p[1]+';color:'+p[0]+'">Aa</button>'; }).join("")+'</div>'+
-    '<div class="dsGoBar"><button class="btn gold g3d" id="dsQGo">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsNewBB">⚙ '+L("Lagi tetapan","More settings")+'</button></div></div>'+
-    '<div class="dsModes"><button class="card dsMode" id="dsNewClk"><span>🕰️</span><b>'+L("Jam paparan","Display clock")+'</b><small>'+L("Jam, Hijri, waktu solat, iqamah, 10 tema","Clock, Hijri, prayer times, iqamah, 10 themes")+'</small></button></div>';
-  if(ps.length) h += '<div class="card"><h3>💾 '+L("Paparan tersimpan","Saved displays")+'</h3>'+ps.map(function(p, i){ return '<div class="dsPre"><div class="dsMini" data-mini="'+i+'"></div><span>'+(p.cfg.mode==="clk"?"🕰️":"🪧")+' <b>'+esc(p.name)+'</b></span><button class="chip gold" data-pp="'+i+'">▶</button><button class="chip" data-pe="'+i+'">✏️</button><button class="chip" data-pm="'+i+'">⋯</button></div>'; }).join("")+
-    '<div class="btns" style="margin-top:6px"><button class="chip" id="dsPlay">🗓 '+L("Jadual (playlist)","Schedule (playlist)")+'</button><button class="chip" id="dsImp">📥 '+L("Import kod","Import code")+'</button></div></div>';
-  else h += '<div class="btns"><button class="chip" id="dsImp">📥 '+L("Import kod paparan","Import a display code")+'</button></div>';
+    '<div class="dsGoBar"><button class="btn gold g3d" id="dsQGo">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsNewBB">🎨 '+L("Editor penuh","Full editor")+'</button></div></div>';
   h += '<div class="card"><h3>🪧 '+L("Templat papan tanda","Billboard templates")+'</h3><div class="dsTpl">'+BB_TPL.map(function(t, i){ return '<button class="dsTp" data-tb="'+i+'"><span>'+t[1]+'</span>'+esc(L(t[2], t[3]))+'</button>'; }).join("")+'</div></div>';
-  h += '<button class="card dsWiz" id="dsWiz"><span>🕌</span><b>'+L("Sediakan paparan TV masjid","Set up a masjid TV display")+'</b><small>'+L("Satu langkah: zon, minit iqamah, pengumuman, tema, kunci, mula automatik","One step: zone, iqamah minutes, announcements, theme, lock, auto start")+'</small></button>'+
-    '<button class="card dsWiz" id="dsRem"><span>📱</span><b>'+L("Kawalan jauh TV masjid","Masjid TV remote")+'</b><small>'+L("Hantar pengumuman, tukar teks bergerak dan selak slaid dari telefon anda","Send announcements, change the ticker and turn slides from your phone")+'</small></button>';
-  h += '<div class="card"><h3>🕰️ '+L("Templat jam","Clock templates")+'</h3><div class="dsTpl">'+CLK_TPL.map(function(t, i){ return '<button class="dsTp" data-tc="'+i+'"><span>'+t[1]+'</span>'+esc(L(t[2], t[3]))+'</button>'; }).join("")+'</div></div>';
-  h += '<div class="card"><h3>🧰 '+L("Alat paparan","Display tools")+'</h3><div class="dsTpl">'+[["score","🏆",L("Papan markah","Scoreboard")],["watch","⏱",L("Jam randik / selang","Stopwatch / interval")],["queue","🔢",L("Nombor giliran","Queue number")],["light","🔦",L("Lampu skrin","Screen light")],["tag","🏷",L("Tanda nama","Name tag")]].map(function(t){ return '<button class="dsTp" data-tool="'+t[0]+'"><span>'+t[1]+'</span>'+esc(t[2])+'</button>'; }).join("")+'</div></div>';
-  el.innerHTML = h;
-  // 0.6.31 (owner): each saved display plays live in a small preview, so moving text is seen moving
-  UI.minis = []; el.querySelectorAll("[data-mini]").forEach(function(b){ var c = ps[+b.getAttribute("data-mini")].cfg; b.style.aspectRatio = c.orient==="portrait" ? "9 / 14" : "16 / 9"; try{ if(c.st) loadFont(c.st.font); UI.minis.push(c.mode==="clk" ? renderClock(b, c, {}) : render(b, c, {})); }catch(e){} b.onclick = function(){ fullscreen(c, home); }; });
+  h += savedList(ps, function(p){ return p.cfg.mode==="bb"; })+'<div class="btns"><button class="chip" id="dsImp">📥 '+L("Import kod paparan","Import a display code")+'</button>'+(ps.length ? '<button class="chip" id="dsPlay">🗓 '+L("Jadual (playlist)","Schedule (playlist)")+'</button>' : '')+'</div>';
+  el.innerHTML = h; UI.minis = []; bindSaved(el, ps, bbSet);
+  el.querySelector("#dsHome").onclick = home;
   el.querySelector("#dsNewBB").onclick = function(){ var c = quickCfg(); c.name = L("Papan saya","My board"); edit(c, -1); };
   var qpv = el.querySelector("#dsQPv"), qDraw = function(){ try{ if(UI.qm) UI.qm.stop(); }catch(e){} var c = quickCfg(); loadFont(c.st.font); qpv.style.aspectRatio = "16 / 9"; UI.qm = render(qpv, c, {}); UI.minis = (UI.minis || []).concat([UI.qm]); };
   qDraw(); var qt = el.querySelector("#dsQT"), qT = null;
@@ -416,17 +432,43 @@ function home(){ stopPrev(); UI.editing = null; var el = UI.el, ps = presets(); 
   el.querySelectorAll("[data-qs]").forEach(function(b){ b.onclick = function(){ var k = b.getAttribute("data-qs"); quickSave(function(c){ c.an.cont = k === "scroll" ? "scrollL" : ""; c.an.show = k === "flash" ? "neon" : k === "still" ? "breathe" : ""; c.st.glow = k === "flash"; c.an.enter = k === "scroll" ? "" : "fade"; });
     el.querySelectorAll("[data-qs]").forEach(function(z){ z.classList.toggle("on", z === b); }); qDraw(); }; });
   el.querySelectorAll("[data-qc]").forEach(function(b){ b.onclick = function(){ var p = b.getAttribute("data-qc").split("|"); quickSave(function(c){ c.st.color = {k:"solid", a:p[0]}; c.bg = merge(c.bg, {k:"solid", a:p[1]}); }); el.querySelectorAll("[data-qc]").forEach(function(z){ z.classList.toggle("on", z === b); }); qDraw(); }; });
-  el.querySelector("#dsQGo").onclick = function(){ fullscreen(quickCfg(), home); };
-  el.querySelector("#dsNewClk").onclick = function(){ edit(clkDefault(), -1); };
+  el.querySelector("#dsQGo").onclick = function(){ fullscreen(quickCfg(), bbSet); };
   el.querySelectorAll("[data-tb]").forEach(function(b){ b.onclick = function(){ var t = BB_TPL[+b.getAttribute("data-tb")], c = merge(bbDefault(), t[4]); c.name = L(t[2], t[3]); edit(c, -1); }; });
-  el.querySelectorAll("[data-tc]").forEach(function(b){ b.onclick = function(){ var t = CLK_TPL[+b.getAttribute("data-tc")], c = clkDefault(); Object.keys(c.show).forEach(function(k){ c.show[k] = false; }); merge(c, t[4]); c.name = L(t[2], t[3]); edit(c, -1); }; });
-  el.querySelectorAll("[data-pp]").forEach(function(b){ b.onclick = function(){ fullscreen(ps[+b.getAttribute("data-pp")].cfg, home); }; });
-  el.querySelectorAll("[data-pe]").forEach(function(b){ b.onclick = function(){ var i = +b.getAttribute("data-pe"); edit(clone(ps[i].cfg), i); }; });
-  el.querySelectorAll("[data-pm]").forEach(function(b){ b.onclick = function(){ presetMenu(+b.getAttribute("data-pm")); }; });
-  el.querySelectorAll("[data-tool]").forEach(function(b){ b.onclick = function(){ tool(b.getAttribute("data-tool")); }; });
-  el.querySelector("#dsWiz").onclick = masjidWizard; el.querySelector("#dsRem").onclick = remoteSheet;
   var im = el.querySelector("#dsImp"); if(im) im.onclick = importSheet; var pl = el.querySelector("#dsPlay"); if(pl) pl.onclick = playlistSheet;
 }
+// TV Display › Settings: Set up · Templates · Remote · Tools
+function tvSet(tab){ if(!window.TVD){ needTvd(function(){ tvSet(tab); }); return; } stopPrev(); UI.editing = null; UI.page2 = "tv"; UI.tvTab = tab = tab || UI.tvTab || "setup"; var el = UI.el; el.classList.remove("dsEdit"); window.TVD.init(H);
+  try{ window.TVD.stop(); }catch(e){} if(UI.tvT){ try{ UI.tvT.stop(); }catch(e){} UI.tvT = null; }
+  el.innerHTML = '<div class="dsPageH"><button class="chip" id="dsHome">‹ '+L("Paparan","Display")+'</button><b>📺 TV Display</b><button class="btn gold g3d" id="dsTvGo" style="padding:8px 14px">▶ '+L("Mula","Start")+'</button></div>'+
+    '<div class="dsTabs">'+[["setup","🧩",L("Susun","Set up")],["tpl","🗂",L("Templat","Templates")],["remote","📱",L("Kawalan","Remote")],["tools","🧰",L("Alat","Tools")]].map(function(t){ return '<button data-tvtab="'+t[0]+'"'+(tab===t[0]?' class="on"':'')+'><span>'+t[1]+'</span>'+esc(t[2])+'</button>'; }).join("")+'</div><div id="dsTvBody"></div>';
+  el.querySelector("#dsHome").onclick = function(){ try{ window.TVD.stop(); }catch(e){} if(UI.tvT) try{ UI.tvT.stop(); }catch(e){} home(); };
+  el.querySelector("#dsTvGo").onclick = function(){ tvPlay(null); };
+  el.querySelectorAll("[data-tvtab]").forEach(function(b){ b.onclick = function(){ tvSet(b.getAttribute("data-tvtab")); }; });
+  var body = el.querySelector("#dsTvBody"), auto = function(){ autoSheet({id: "tvd", name: "TV Display"}); };
+  if(tab==="setup") window.TVD.setup(body, {auto: auto});
+  else if(tab==="tpl") UI.tvT = window.TVD.templates(body, {presets: presets, play: function(c){ fullscreen(c, function(){ tvSet("tpl"); }); }, done: function(){ tvSet("setup"); },
+    menu: function(id){ var ps = presets(); ps.forEach(function(p, i){ if(String(p.id)===String(id)) presetMenu(i); }); },
+    saveAs: function(c){ ask(L("Nama susunan","Layout name"), ((c.masjid||{}).n || "TV")+" · "+new Date().toLocaleDateString(), function(v){ if(!v) return; var ps = presets(), n = clone(c); n.name = v; ps.push({id: Date.now(), name: v, cfg: n}); savePresets(ps); H.toast(L("Disimpan","Saved")); tvSet("tpl"); }); }});
+  else if(tab==="remote"){ var c = window.TVD.cfg();
+    body.innerHTML = '<div class="card"><h3>📺 '+L("Skrin ini (TV)","This screen (the TV)")+'</h3><label class="tvSw"><input type="checkbox" id="dsRmOn"'+(c.remote?' checked':'')+'><i></i><span>'+L("Benarkan kawalan dari telefon","Allow the phone remote")+'</span></label>'+
+      '<div class="mut small">'+L("Bila dihidupkan, kod dan QR muncul di penjuru TV selama seminit selepas ▶ Mula. Ketik skrin TV untuk melihatnya semula. Perlu internet.","When on, a code and QR show in a corner of the TV for a minute after ▶ Start. Tap the TV screen to see them again. Needs internet.")+'</div></div>'+
+      '<button class="card dsWiz" id="dsRem"><span>📱</span><b>'+L("Kawal TV dari telefon ini","Control a TV from this phone")+'</b><small>'+L("Hantar pengumuman besar, tukar teks bergerak, jeda dan selak slaid","Send a big announcement, change the ticker, pause and turn slides")+'</small></button>'+
+      '<div class="card"><h3>ℹ️ '+L("Cara guna","How to use")+'</h3><ol class="small" style="margin:0;padding-left:18px;line-height:1.6"><li>'+L("Di TV: hidupkan suis di atas, kemudian ▶ Mula.","On the TV: turn on the switch above, then ▶ Start.")+'</li><li>'+L("Di telefon: Paparan › TV Display › ⚙ Tetapan › 📱 Kawalan › Kawal TV.","On the phone: Display › TV Display › ⚙ Settings › 📱 Remote › Control a TV.")+'</li><li>'+L("Masukkan kod 8 aksara yang tertera di TV.","Enter the 8-character code shown on the TV.")+'</li></ol></div>';
+    body.querySelector("#dsRmOn").onchange = function(){ var x = window.TVD.cfg(); x.remote = this.checked; window.TVD.save(x); H.toast(this.checked ? "📱 ✓" : "📱 ✕"); };
+    body.querySelector("#dsRem").onclick = remoteSheet; }
+  else { var ps = presets();
+    var h = '<div class="card"><h3>🧰 '+L("Alat paparan","Display tools")+'</h3><div class="dsTpl">'+[["score","🏆",L("Papan markah","Scoreboard")],["watch","⏱",L("Jam randik / selang","Stopwatch / interval")],["queue","🔢",L("Nombor giliran","Queue number")],["light","🔦",L("Lampu skrin","Screen light")],["tag","🏷",L("Tanda nama","Name tag")]].map(function(t){ return '<button class="dsTp" data-tool="'+t[0]+'"><span>'+t[1]+'</span>'+esc(t[2])+'</button>'; }).join("")+'</div></div>'+
+      '<div class="card"><h3>🕰️ '+L("Jam paparan klasik","Classic display clock")+'</h3><div class="mut small" style="margin-bottom:8px">'+L("Jam satu skrin dengan 7 susun atur dan 10 tema (cara lama).","The one-screen clock with 7 layouts and 10 themes (the earlier way).")+'</div><div class="dsTpl"><button class="dsTp" id="dsNewClk"><span>＋</span>'+L("Jam baharu","New clock")+'</button>'+CLK_TPL.map(function(t, i){ return '<button class="dsTp" data-tc="'+i+'"><span>'+t[1]+'</span>'+esc(L(t[2], t[3]))+'</button>'; }).join("")+'</div>'+
+      '<button class="card dsWiz" id="dsWiz" style="margin-top:8px"><span>🕌</span><b>'+L("Wizard jam masjid klasik","Classic masjid clock wizard")+'</b><small>'+L("Satu langkah: minit iqamah, pengumuman, tema, kunci, mula automatik","One step: iqamah minutes, announcements, theme, lock, auto start")+'</small></button></div>'+
+      savedList(ps, function(p){ return p.cfg.mode!=="bb"; })+'<div class="btns"><button class="chip" id="dsImp">📥 '+L("Import kod paparan","Import a display code")+'</button>'+(ps.length ? '<button class="chip" id="dsPlay">🗓 '+L("Jadual (playlist)","Schedule (playlist)")+'</button>' : '')+'<button class="chip" id="dsAuto">⏻ '+L("Mula automatik TV Display","Auto start the TV Display")+'</button></div>';
+    body.innerHTML = h; UI.minis = []; bindSaved(body, ps, function(){ tvSet("tools"); });
+    body.querySelectorAll("[data-tool]").forEach(function(b){ b.onclick = function(){ tool(b.getAttribute("data-tool")); }; });
+    body.querySelector("#dsNewClk").onclick = function(){ edit(clkDefault(), -1); };
+    body.querySelectorAll("[data-tc]").forEach(function(b){ b.onclick = function(){ var t = CLK_TPL[+b.getAttribute("data-tc")], c = clkDefault(); Object.keys(c.show).forEach(function(k){ c.show[k] = false; }); merge(c, t[4]); c.name = L(t[2], t[3]); edit(c, -1); }; });
+    body.querySelector("#dsWiz").onclick = masjidWizard; body.querySelector("#dsAuto").onclick = auto;
+    var im = body.querySelector("#dsImp"); if(im) im.onclick = importSheet; var pl = body.querySelector("#dsPlay"); if(pl) pl.onclick = playlistSheet; }
+}
+function back(){ if(UI.page2==="bb") bbSet(); else if(UI.page2==="tv") tvSet(UI.tvTab); else home(); }
 // 0.5.23 phone side of the TV remote
 var PH = null;
 function remoteSheet(){ var last = H.load("ihsan_dsremote_ph", "") || "";
@@ -449,20 +491,20 @@ function remoteSheet(){ var last = H.load("ihsan_dsremote_ph", "") || "";
   ov.querySelector("#rmGo").onclick = function(){ if(window.DsRemote && window.NostrKit) go(); else H.loadJs([window.NostrKit?null:"groups/nostrkit.js", "display/remote.js"].filter(Boolean), go); };
 }
 function code(cfg){ var c = clone(cfg); if(c.bg && c.bg.img && c.bg.img.length > 60000) c.bg.img = ""; return "MYIHSAN-PAPARAN:"+btoa(unescape(encodeURIComponent(JSON.stringify(c)))); }
-function uncode(s){ var i = String(s).indexOf("MYIHSAN-PAPARAN:"); if(i<0) return null; try{ var c = JSON.parse(decodeURIComponent(escape(atob(String(s).slice(i+16).trim().split(/\s/)[0])))); return c && (c.mode==="bb"||c.mode==="clk") ? c : null; }catch(e){ return null; } }
+function uncode(s){ var i = String(s).indexOf("MYIHSAN-PAPARAN:"); if(i<0) return null; try{ var c = JSON.parse(decodeURIComponent(escape(atob(String(s).slice(i+16).trim().split(/\s/)[0])))); return c && (c.mode==="bb"||c.mode==="clk"||c.mode==="tvd") ? c : null; }catch(e){ return null; } }
 function presetMenu(i){ var ps = presets(), p = ps[i];
   var au = H.load("ihsan_dsauto", {}) || {};
   var ov = H.showSheet(esc(p.name), [["pin","📌 "+L("Tambah ke skrin utama telefon","Add to the phone home screen")],["auto", (String(au.id)===String(p.id)?"✅ ":"⏻ ")+L("Mula automatik (selepas hidup semula / bila dicas)","Start automatically (after restart / when charging)")],["ren","✏️ "+L("Namakan semula","Rename")],["dup","⧉ "+L("Salin","Duplicate")],["share","📤 "+L("Kongsi kod","Share code")],["del","🗑 "+L("Padam","Delete")]].map(function(x){ return '<button class="btn alt full g3d" data-x="'+x[0]+'" style="margin-bottom:6px">'+x[1]+'</button>'; }).join(""));
   ov.querySelectorAll("[data-x]").forEach(function(b){ b.onclick = function(){ var a = b.getAttribute("data-x"); H.closeOverlay();
     if(a==="pin"){ if(!p.id){ savePresets(ps); } if(H.N.pinShortcut) H.N.pinShortcut(String(p.id), p.name); else H.toast(L("Hanya dalam aplikasi Android","Only in the Android app")); }
     else if(a==="auto") autoSheet(p);
-    else if(a==="ren") ask(L("Nama baharu","New name"), p.name, function(v){ if(v){ ps[i].name = v; ps[i].cfg.name = v; savePresets(ps); home(); } });
-    else if(a==="dup"){ var c = clone(p); c.name += " 2"; c.cfg.name = c.name; ps.push(c); savePresets(ps); home(); }
+    else if(a==="ren") ask(L("Nama baharu","New name"), p.name, function(v){ if(v){ ps[i].name = v; ps[i].cfg.name = v; savePresets(ps); back(); } });
+    else if(a==="dup"){ var c = clone(p); c.name += " 2"; c.cfg.name = c.name; ps.push(c); savePresets(ps); back(); }
     else if(a==="share"){ var t = L("Paparan My Ihsan: ","My Ihsan display: ")+p.name+"\n"+code(p.cfg); if(H.N.shareText) H.N.shareText(t); else if(H.N.copyText) H.N.copyText(t); else try{ navigator.clipboard.writeText(t); }catch(e){} H.toast(L("Kod sedia untuk dikongsi","Code ready to share")); }
-    else if(a==="del"){ ps.splice(i, 1); savePresets(ps); home(); } }; }); }
+    else if(a==="del"){ ps.splice(i, 1); savePresets(ps); back(); } }; }); }
 function ask(label, val, cb){ var ov = H.showSheet("✏️", '<label class="small">'+esc(label)+'</label><input id="dsAsk" class="rin" value="'+esc(val||"")+'"><button class="btn gold full g3d" id="dsAskOk">OK</button>'); ov.querySelector("#dsAskOk").onclick = function(){ var v = ov.querySelector("#dsAsk").value.trim(); H.closeOverlay(); cb(v); }; }
 function importSheet(){ var ov = H.showSheet("📥 "+L("Import kod paparan","Import a display code"), '<textarea id="dsImC" class="rin" rows="4" placeholder="MYIHSAN-PAPARAN:…"></textarea><button class="btn gold full g3d" id="dsImOk">'+L("Import","Import")+'</button>');
-  ov.querySelector("#dsImOk").onclick = function(){ var c = uncode(ov.querySelector("#dsImC").value); if(!c){ H.toast(L("Kod tidak sah","Not a valid code")); return; } var ps = presets(); ps.push({id: Date.now(), name: c.name||"Paparan", cfg: c}); savePresets(ps); H.closeOverlay(); home(); H.toast(L("Diimport","Imported")); }; }
+  ov.querySelector("#dsImOk").onclick = function(){ var c = uncode(ov.querySelector("#dsImC").value); if(!c){ H.toast(L("Kod tidak sah","Not a valid code")); return; } var ps = presets(); ps.push({id: Date.now(), name: c.name||"Paparan", cfg: c}); savePresets(ps); H.closeOverlay(); back(); H.toast(L("Diimport","Imported")); }; }
 function playlistSheet(){ var ps = presets(), pl = H.load("ihsan_dsplay", []) || [];
   var row = function(x, i){ return '<div class="dsPlR"><select data-pli="'+i+'" data-k="p">'+ps.map(function(p, j){ return '<option value="'+j+'"'+(x.p===j?' selected':'')+'>'+esc(p.name)+'</option>'; }).join("")+'</select><input type="time" data-pli="'+i+'" data-k="f" value="'+esc(x.f||"00:00")+'"><span>→</span><input type="time" data-pli="'+i+'" data-k="t" value="'+esc(x.t||"23:59")+'"><button class="chip" data-plx="'+i+'">✕</button></div>'; };
   var ov = H.showSheet("🗓 "+L("Jadual paparan","Display schedule"), '<div class="mut small">'+L("Paparan berlainan pada waktu berlainan, cth. jam sepanjang hari dan pengumuman kuliah dari Maghrib ke Isyak. Masa yang bertindih: yang di bawah menang.","Different displays at different times, e.g. the clock all day and a kuliah notice from Maghrib to Isyak. Overlapping times: the lower row wins.")+'</div><div id="dsPlL">'+pl.map(row).join("")+'</div><div class="btns"><button class="chip" id="dsPlA">＋ '+L("Tambah","Add")+'</button><button class="btn gold g3d" id="dsPlGo">▶ '+L("Mula jadual","Start schedule")+'</button></div>');
@@ -494,7 +536,7 @@ function editor(){ var el = UI.el, c = UI.cfg; el.classList.add("dsEdit");
     '<div class="dsPvWrap"><div id="dsPv" class="dsBox"></div><div class="dsPvHint mut tiny">'+(c.mode==="bb"?L("Ketik satu baris untuk mengubahnya sahaja. Ketik pratonton dua kali untuk skrin penuh.","Tap one line to edit only that line. Double-tap the preview for full screen."):L("Ketik pratonton dua kali untuk skrin penuh.","Double-tap the preview for full screen."))+'</div></div>'+
     '<div class="dsGoBar"><button class="btn gold g3d" id="dsStart">▶ '+L("Mula","Start")+'</button><button class="btn alt g3d" id="dsSave">💾 '+L("Simpan","Save")+'</button><button class="chip" id="dsReset">'+L("Set semula","Reset")+'</button></div>'+
     '<div class="dsPgHead"><span id="dsPgT"></span><span class="dsDots" id="dsDots"></span></div><div class="dsPages" id="dsPages"></div>';
-  el.querySelector("#dsBack").onclick = function(){ home(); };
+  el.querySelector("#dsBack").onclick = function(){ back(); };
   el.querySelector("#dsName").onchange = function(){ var v = this.value; change(function(x){ x.name = v; }); };
   el.querySelector("#dsUndo").onclick = function(){ if(!UI.hist.length) return; UI.fut.push(JSON.stringify(UI.cfg)); UI.cfg = JSON.parse(UI.hist.pop()); preview(); pages(true); };
   el.querySelector("#dsRedo").onclick = function(){ if(!UI.fut.length) return; UI.hist.push(JSON.stringify(UI.cfg)); UI.cfg = JSON.parse(UI.fut.pop()); preview(); pages(true); };
@@ -781,12 +823,12 @@ function autoSheet(p){ var au = H.load("ihsan_dsauto", {}) || {}, mine = String(
     '<div class="mut tiny">'+L("Satu paparan sahaja boleh mula automatik. Android tidak membenarkan aplikasi membuka skrinnya sendiri selepas hidup semula, jadi satu ketikan pada makluman diperlukan.","Only one display can start automatically. Android does not let apps open their own screen after a restart, so one tap on the notification is needed.")+'</div><button class="btn gold full g3d" id="asOk">'+L("Simpan","Save")+'</button>';
   var ov = H.showSheet("⏻ "+esc(p.name), h);
   ov.querySelector("#asOk").onclick = function(){ var b = ov.querySelector("#asB").checked, c2 = ov.querySelector("#asC").checked, r = ov.querySelector("#asR").checked;
-    if(b || c2 || r) setAuto({id: p.id, name: p.name, boot: b, charge: c2, restart: r}); else if(mine) setAuto({}); H.closeOverlay(); H.toast(L("Disimpan","Saved")); home(); }; }
-function play(id){ var p = presets().filter(function(x){ return String(x.id)===String(id); })[0]; if(p){ fullscreen(p.cfg, home); return true; } return false; }
-function resume(cfg){ fullscreen(cfg, home); }
+    if(b || c2 || r) setAuto({id: p.id, name: p.name, boot: b, charge: c2, restart: r}); else if(mine) setAuto({}); H.closeOverlay(); H.toast(L("Disimpan","Saved")); back(); }; }
+function play(id){ if(String(id)==="tvd"){ tvPlay(); return true; } var p = presets().filter(function(x){ return String(x.id)===String(id); })[0]; if(p){ fullscreen(p.cfg, home); return true; } return false; }
+function resume(cfg){ if(cfg && cfg.mode==="tvd") tvPlay(cfg); else fullscreen(cfg, home); }
 // the home widget: first saved billboard's text, or the next prayer countdown
 function widget(helpers){ H = helpers || H; var ps = presets(), bb = ps.filter(function(p){ return p.cfg.mode==="bb"; })[0], np = nextPrayer(new Date());
   return (bb ? '<div class="small"><b>'+esc(bb.cfg.lines.map(function(l){ return fields(l.t, bb.cfg); }).join(" · ").slice(0, 90))+'</b></div>' : '')+'<div class="small">🕌 '+pName(np.k, np.t.getDay()===5)+' '+L("dalam ","in ")+dur(np.t - new Date()).replace(/:\d\d$/, "")+'</div>'; }
 
-window.DisplayView = {play: play, resume: resume, widget: widget, open: open, render: render, renderClock: renderClock, _t: {drawBB: drawBB, weather: weather, setAuto: setAuto, fields: fields, nextPrayer: nextPrayer, code: code, uncode: uncode, ANIMS: ANIMS, THEMES: THEMES, FONTS: FONTS, BB_TPL: BB_TPL}};
+window.DisplayView = {_x: {THEMES: THEMES, PATTERNS: PATTERNS, SILHOUETTE: SILHOUETTE, svgUrl: svgUrl, font: font, FONTS: FONTS, day: day, nextPrayer: nextPrayer, pName: pName, dur: dur, hm: hm, atTime: atTime, PKEYS: PKEYS, qrSvg: qrSvg}, tvPlay: tvPlay, play: play, resume: resume, widget: widget, open: open, render: render, renderClock: renderClock, _t: {drawBB: drawBB, weather: weather, setAuto: setAuto, fields: fields, nextPrayer: nextPrayer, code: code, uncode: uncode, ANIMS: ANIMS, THEMES: THEMES, FONTS: FONTS, BB_TPL: BB_TPL}};
 })();

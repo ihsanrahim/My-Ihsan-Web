@@ -181,3 +181,7 @@ input.bad{border-color:var(--red,#e0533b)!important}input.warn{border-color:#e0a
 .ngSegX{flex:none;margin-top:8px;padding:6px 10px;font-size:14px}
 .ngSegW.all .ngSeg{flex-wrap:wrap;overflow:visible}
 .nbCal{margin-top:10px;padding:8px 10px;border-radius:12px;background:var(--card2)}.nbCal b{display:block}.nbCal small{display:block;margin-bottom:6px}
+
+/* 0.7.76 (owner): every icon sits in the same box so all labels line up (colour emoji are taller than the drawn icons) */
+.ngNav button{justify-content:flex-start}.ngNav button span{height:20px;width:100%;display:flex;align-items:center;justify-content:center;line-height:1;font-size:16px;overflow:visible}
+.ngNav button span img,.ngNav button span svg{max-height:18px;width:auto}

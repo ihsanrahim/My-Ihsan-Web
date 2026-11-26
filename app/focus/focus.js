@@ -64,10 +64,10 @@ function stop(done){
 function extras(){
   var out = [], now = Date.now(), s = st().sess;
   if(s.on){ var t = now, k = 0;
-    while(k < 16){ var p = phase(t + 1000); if(!p || !p.end) break; out.push({t:p.end, id:"fo"+p.end, title:p.work ? "☕ "+L("Masa rehat","Break time") : "🎯 "+L("Kembali fokus","Back to focus"), body:p.work ? L("Rehat sebentar. Regangkan badan atau berzikir.","Take a short break. Stretch or do some zikir.") : L("Sesi fokus seterusnya bermula.","The next focus round starts."), open:"side:cal/fokus"}); t = p.end; k++; }
-    if(s.until) out.push({t:s.until, id:"foend", title:"✅ "+L("Sesi fokus selesai","Focus session done"), body:L("Alhamdulillah. Ketik untuk lihat ringkasan.","Well done. Tap to see your summary."), open:"side:cal/fokus"});
+    while(k < 16){ var p = phase(t + 1000); if(!p || !p.end) break; out.push({t:p.end, id:"fo"+p.end, title:p.work ? "☕ "+L("Masa rehat","Break time") : "🎯 "+L("Kembali fokus","Back to focus"), body:p.work ? L("Rehat sebentar. Regangkan badan atau berzikir.","Take a short break. Stretch or do some zikir.") : L("Sesi fokus seterusnya bermula.","The next focus round starts."), open:"side:cal/fokus/focus"}); t = p.end; k++; }
+    if(s.until) out.push({t:s.until, id:"foend", title:"✅ "+L("Sesi fokus selesai","Focus session done"), body:L("Alhamdulillah. Ketik untuk lihat ringkasan.","Well done. Tap to see your summary."), open:"side:cal/fokus/focus"});
   }
-  plans().forEach(function(x){ out.push({t:x.t, id:"fp"+x.id+x.t, title:x.ic+" "+x.name, body:L("Masa untuk fokus. Ketik untuk mula sesi.","Time to focus. Tap to start a session."), open:"side:cal/fokus"}); });
+  plans().forEach(function(x){ out.push({t:x.t, id:"fp"+x.id+x.t, title:x.ic+" "+x.name, body:L("Masa untuk fokus. Ketik untuk mula sesi.","Time to focus. Tap to start a session."), open:"side:cal/fokus/focus"}); });
   H.save("ihsan_focus_ex", out.filter(function(x){ return x.t > now; }).slice(0, 30));
   if(H.pushSchedule) H.pushSchedule();
 }

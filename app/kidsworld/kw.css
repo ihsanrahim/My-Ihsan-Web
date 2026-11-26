@@ -14,7 +14,7 @@
 .kwNear{position:absolute;left:50%;top:92px;transform:translateX(-50%);background:#fffffff2;color:#2c3a3a;border-radius:14px;padding:6px 14px;font:800 14px system-ui,sans-serif;box-shadow:0 6px 14px #0003;pointer-events:none;white-space:nowrap;z-index:2}
 .kwPad{position:absolute;left:14px;bottom:14px;width:124px;height:124px;border-radius:50%;background:#ffffff55;border:3px solid #ffffffcc;touch-action:none;box-shadow:0 6px 16px #0002;z-index:2}
 .kwPad i{position:absolute;left:50%;top:50%;width:50px;height:50px;margin:-25px 0 0 -25px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff 0 10%,#ffe9b0 12%,#f1b73a 70%,#c78a12);box-shadow:0 4px 10px #0005}
-.kwSb{position:absolute;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:2}
+.kwSb{position:absolute;right:12px;bottom:14px;display:flex;flex-direction:column;gap:8px;align-items:flex-end;z-index:4}
 .kwBtn{border:0;border-radius:99px;padding:12px 18px;font:800 15px system-ui,sans-serif;cursor:pointer;background:linear-gradient(180deg,#31c4ba,#12908a);color:#fff;box-shadow:0 5px 0 #0b5f5b,0 10px 16px #0003;min-height:44px}
 .kwBtn.alt{background:linear-gradient(180deg,#fff,#f0e8d8);color:#2c3a3a;box-shadow:0 5px 0 #cfc3a8,0 10px 16px #0002}
 .kwBtn.kwGo{background:linear-gradient(180deg,#ffd166,#f59f00);color:#3a2800;box-shadow:0 5px 0 #b87400,0 10px 16px #0003}
@@ -83,3 +83,34 @@
 .kwChart{width:100%;height:auto;margin-top:6px}.kwTime{width:auto}
 .kwTog{width:54px;height:30px;border-radius:99px;border:0;background:#c9c2b2;position:relative;cursor:pointer;box-shadow:inset 0 2px 5px #0004;flex:none}.kwTog::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 32% 26%,#fff 0 12%,#f6f1e4 14%,#d8cfbb);box-shadow:0 3px 6px #0004;transition:transform .2s}.kwTog[aria-pressed="true"]{background:#12908a}.kwTog[aria-pressed="true"]::after{transform:translateX(24px)}
 .kwDays{display:flex;gap:6px;justify-content:space-between;margin-top:8px}.kwDay{display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:none;font:700 11px system-ui,sans-serif;color:#6b7b78;cursor:pointer;padding:2px}
+/* 0.7.56 (owner): globe button, ✨ teleport list that drops up, orbit hint, the moving clip on the Kids mode banner */
+.kwBtn.kwRound{width:56px;height:56px;min-height:0;padding:0;border-radius:50%;font-size:27px;display:flex;align-items:center;justify-content:center}
+.kwBtn.kwRound.on{background:linear-gradient(180deg,#ffd166,#f59f00);box-shadow:0 5px 0 #b87400,0 10px 16px #0003}
+.kwTpL{display:flex;flex-direction:column;gap:6px;max-height:min(50vh,430px);overflow-y:auto;padding:8px;border-radius:20px;background:#fffdf8f2;box-shadow:0 12px 28px #0004;width:min(270px,70vw);animation:kwUp .18s ease-out;transform-origin:bottom right}
+.kwTpL[hidden]{display:none}
+@keyframes kwUp{from{transform:translateY(16px) scale(.94)}to{transform:none}}
+.kwTpI{display:flex;align-items:center;gap:9px;border:0;border-left:5px solid var(--c,#12908a);border-radius:14px;background:#fff;color:#2c3a3a;padding:7px 9px;text-align:left;font:inherit;box-shadow:0 2px 6px #0001;cursor:pointer}
+.kwTpI:active{transform:scale(.97)}
+.kwTpE{font-size:24px;width:30px;text-align:center}
+.kwTpN{flex:1;min-width:0;display:flex;flex-direction:column}.kwTpN b{font:800 13.5px system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.kwTpN small{font-size:11px;color:#6b7a7a}
+.kwTpS{color:#f2b632;font-size:13px;letter-spacing:-1px}.kwTpS i{font-style:normal;color:#d9dde0}
+.kwOrbH{position:absolute;left:50%;top:92px;transform:translateX(-50%);background:#2c3a3aE6;color:#fff;border-radius:14px;padding:7px 14px;font:700 12.5px system-ui,sans-serif;pointer-events:none;white-space:nowrap;z-index:3}
+.kwOrbH[hidden]{display:none}
+.kwStage.kwPv{border-radius:0;border:0;box-shadow:none;pointer-events:none;background:transparent}
+.kwStage.kwPv>*:not(canvas){display:none!important}
+.kwPop3{z-index:6}
+/* 0.7.60 (owner): the notch under the planet resizes it */
+.kwGrip{display:flex;justify-content:center;align-items:center;height:22px;margin:2px auto 0;width:120px;cursor:ns-resize;touch-action:none}
+.kwGrip i{display:block;width:54px;height:6px;border-radius:3px;background:#ffffff66;box-shadow:0 0 0 1px #0002}
+.kwGrip.on i,.kwGrip:hover i{background:#f2b632}
+/* 0.7.68 (owner): sort, count, dig, target, note */
+.kwSortIt{font-size:26px;text-align:center;padding:18px 10px;margin:8px 0;border-radius:18px;background:#fff;box-shadow:0 4px 12px #0001;color:#2c3a3a;font-weight:700}
+.kwSortB{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kwBin{font-size:16px;min-height:64px}
+.kwCount{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:14px;border-radius:18px;background:#e7f5ff;min-height:110px;margin:8px 0}.kwCount span{font-size:34px;display:inline-block}
+.kwDig{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:8px 0}.kwDigC{aspect-ratio:1;min-height:0;padding:0;border-radius:12px;background:radial-gradient(circle at 35% 30%,#f2d394,#d9a84e);box-shadow:0 3px 0 #b8893a;font-size:26px}.kwDigC.op{background:#fff4dc;box-shadow:inset 0 2px 6px #0002}
+.kwTgtF{position:relative;height:260px;border-radius:18px;background:linear-gradient(180deg,#d0ebff,#e6fcf5);overflow:hidden;margin:8px 0;touch-action:manipulation}
+.kwTgt{position:absolute;transform:translate(-50%,-50%);font-size:40px;min-height:0;padding:6px;background:none;box-shadow:none;transition:left .55s ease,top .55s ease}.kwTgt.pop{animation:kwPopT .3s}
+@keyframes kwPopT{50%{transform:translate(-50%,-50%) scale(1.4)}}
+.kwNote{background:#fff9ec;border-radius:18px;padding:10px;box-shadow:0 4px 12px #0001;border:2px dashed #f2b632}
+/* 0.7.73 (owner): a fish walker turns the Kids Planet into a water world */
+.kwStage.kwWater{background:radial-gradient(circle at 50% 20%,#2a9cc4,#0b4f6c 55%,#04253a)}

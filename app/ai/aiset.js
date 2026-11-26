@@ -50,10 +50,10 @@ function html(){ var a = A(), c = a.cfg();
     '<details' + (st.more ? ' open' : '') + ' id="aiMoreK"><summary class="mut small">' + L2("Lagi", "More") + ' (Mistral, Qwen, DeepSeek, OpenAI, Claude, Grok, ' + L2("lain", "custom") + ')</summary>' + MORE.map(keyRow).join("") + '</details>' +
     '<div class="aiKey"><b>' + L2("AI percuma", "Free AI") + '</b><span class="mut tiny">' + L2("tanpa kunci", "no key") + '</span><span></span><div class="st">' + dot("pollinations") + '</div></div>' +
     '<button class="btn gold full" id="aiKeys">' + L2("Simpan & uji kunci", "Save & test keys") + '</button>' +
-    '<h4>🎯 ' + L2("AI untuk setiap ciri", "Which AI for what") + '</h4>' +
+    '<details class="aiWhich" id="aiWhich"' + (st.which ? ' open' : '') + '><summary><b>🎯 ' + L2("AI untuk setiap ciri", "Which AI for what") + '</b> <span class="mut tiny">' + L2("Halal hingga suara video resepi · ketik untuk buka", "Halal to recipe video speech · tap to open") + '</span></summary>' +
     '<label class="hrow"><span>' + L2("Satu tetapan untuk semua ciri", "One setting for every feature") + '</span><input type="checkbox" id="aiOne"' + (c.one && c.one.on ? ' checked' : '') + '></label>' +
     (c.one && c.one.on ? featRow({id:"__all", ic:"✨", ms:"Semua ciri", en:"Every feature", photo:false}) + '<div class="mut tiny">' + L2("Ciri yang membaca gambar memakai AI lain jika yang ini tidak boleh membaca gambar.", "Features that read photos use another AI if this one cannot read photos.") + '</div>' : a.FEATS.map(function(f){ return featRow(a.FEAT[f[0]]); }).join("")) + sttRow() +
-    '<div class="mut tiny">📷 ' + L2("membaca gambar", "reads photos") + ' · 🔒 ' + L2("peribadi: AI percuma tidak dipakai sebagai sandaran", "private: the free AI is never used as backup") + ' · 🆓 ' + L2("model percuma", "free model") + '</div>' +
+    '<div class="mut tiny">📷 ' + L2("membaca gambar", "reads photos") + ' · 🔒 ' + L2("peribadi: AI percuma tidak dipakai sebagai sandaran", "private: the free AI is never used as backup") + ' · 🆓 ' + L2("model percuma", "free model") + '</div></details>' +   // 0.7.59 (owner): folded until opened
     '<h4>🔁 ' + L2("Sandaran", "Backup") + '</h4><label class="hrow"><span>' + L2("Jika gagal atau lambat, cuba AI lain", "If it fails or is slow, try another AI") + '</span><input type="checkbox" id="aiBk"' + (c.backup !== false ? ' checked' : '') + '></label>' +
     '<div class="mut tiny" style="margin-top:8px;line-height:1.45">🔒 ' + L2("Kunci disimpan dalam telefon ini sahaja. Gambar dan teks dihantar hanya kepada AI yang dipakai.", "Keys stay on this phone. Photos and text go only to the AI in use.") + '</div></div>'; }
 function testKeys(list){ var a = A(), c = a.cfg();
@@ -62,6 +62,7 @@ function testKeys(list){ var a = A(), c = a.cfg();
 function bind(el){ var a = A();
   el.querySelectorAll("[data-kurl]").forEach(function(x){ x.onclick = function(e){ e.preventDefault(); url(x.getAttribute("data-kurl")); }; });
   var mk = el.querySelector("#aiMoreK"); if(mk) mk.addEventListener("toggle", function(){ st.more = mk.open; });
+  var wh = el.querySelector("#aiWhich"); if(wh) wh.addEventListener("toggle", function(){ st.which = wh.open; });
   var on = el.querySelector("#aiOn"); on.onchange = function(){ var c = a.cfg(); c.on = on.checked; a.saveCfg(c); rerender(); };
   el.querySelector("#aiKeys").onclick = function(){ var c = a.cfg(), ch = [];
     el.querySelectorAll("[data-key]").forEach(function(i){ var p = i.getAttribute("data-key"), v = i.value.trim(); if((c.keys[p] || "") !== v){ c.keys[p] = v; ch.push(p); } });

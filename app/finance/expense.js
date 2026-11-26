@@ -14,7 +14,7 @@ function E(s){ return H.esc(s == null ? "" : String(s)); }
 var OUT = [["food","🍽️","Makan","Food"],["groc","🛒","Barang dapur","Groceries"],["trans","🚗","Pengangkutan","Transport"],["fuel","⛽","Minyak & tol","Fuel & toll"],
   ["bills","💡","Bil utiliti","Bills"],["home","🏠","Rumah & sewa","Home & rent"],["phone","📱","Telefon & internet","Phone & internet"],["shop","🛍️","Membeli-belah","Shopping"],
   ["health","💊","Kesihatan","Health"],["edu","🎓","Pendidikan","Education"],["family","👨‍👩‍👧","Keluarga","Family"],["give","🤲","Sedekah & zakat","Charity & zakat"],
-  ["fun","🎬","Hiburan","Leisure"],["travel","✈️","Pelancongan","Travel"],["takaful","🛡️","Takaful & insurans","Takaful"],["other","📦","Lain-lain","Other"]];
+  ["fun","🎬","Hiburan","Leisure"],["travel","✈️","Pelancongan","Travel"],["takaful","🛡️","Takaful & insurans","Takaful"],["pets","🐾","Haiwan peliharaan","Pets"],["other","📦","Lain-lain","Other"]];
 var IN = [["salary","💼","Gaji","Salary"],["biz","🏪","Perniagaan","Business"],["gift","🎁","Hadiah","Gift"],["refund","↩️","Bayaran balik","Refund"],["invest","📈","Pelaburan","Investment"],["inother","💰","Lain-lain","Other income"]];
 var PAY = [["cash","💵","Tunai","Cash"],["card","💳","Kad","Card"],["ewallet","📲","e-Dompet","e-Wallet"],["bank","🏦","Bank","Bank"]];
 var MON = [["Jan","Jan"],["Feb","Feb"],["Mac","Mar"],["Apr","Apr"],["Mei","May"],["Jun","Jun"],["Jul","Jul"],["Ogo","Aug"],["Sep","Sep"],["Okt","Oct"],["Nov","Nov"],["Dis","Dec"]];

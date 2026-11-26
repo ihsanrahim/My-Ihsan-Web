@@ -18,9 +18,9 @@ var CH=[
  ["l2","🕌","Tiang Hari Anda","Pillars of the Day",4,"Waktu solat, makluman, rakaat, zikir, kiblat, sunat; Al-Quran, doa, wirid, amal dan Tanya.","Prayer times, alerts, rakaat, zikir, qibla, sunnah; Quran, doa, wirid, deeds and Ask."],
  ["l3", "🎒", "Belajar untuk Sekolah", "Study for School", 4, "Anak (tambah, tukar nama, susun, padam), kuiz ikut tahun dan subjek, laporan, tetapan ibu bapa dan kunci Sekolah; buku teks, PDF dan pembaca.", "Children (add, rename, reorder, delete), quizzes by year and subject, report, parent settings and the School lock; textbooks, PDFs and the reader."],
  ["l4", "🛒", "Berkat dalam Niaga", "Barakah in Business", 6, "Profil kedai, barang, kaunter Jual, resit, pencetak; dokumen, belanja, pelanggan, papan; Tempahan dengan harga, deposit, bayaran balik dan halaman tempahan dalam talian.", "Shop profile, items, the Sell till, receipts, printer; records, expenses, customers, dashboard; Bookings with prices, deposits, refunds and an online booking page."],
- ["l5", "💰", "Wang & Rancangan", "Money & Plans", 5, "Belanja dengan resit, komitmen, hutang, zakat, wasiat; Perancang, Fokus, Mesyuarat dengan Pembesar suara dan Dengar, dan Statistik.", "Expenses with receipts, commitments, debts, zakat, will; Planner, Focus, Meeting with Speaker and Listen, and Stats."],
+ ["l5", "💰", "Wang & Rancangan", "Money & Plans", 5, "Belanja dengan resit, komitmen, hutang, zakat, wasiat; Perancang dengan Fokus, Himpun (majlis, mesyuarat, Pembesar suara, walkie) dan Jejak.", "Expenses with receipts, commitments, debts, zakat, will; Planner with Focus, Gather (events, meetings, Speaker, walkie) and Track."],
  ["l6","🏃","Mukmin yang Kuat","Strong Believer",3,"Pilih jenis badan, rutin, kardio, sukan, huruf dan isyarat, pelan dan penjejak.","Body type, routines, cardio, sports, letters and signing, plan and tracker."],
- ["l7","👨‍👩‍👧","Silaturahim","Ties of Kinship",4,"Salasilah, hari jadi, bayi, jagaan, kumpulan, majlis, haid dan mod kanak-kanak.","Family tree, birthdays, baby, care, groups, events, period and kids mode."],
+ ["l7","👨‍👩‍👧","Silaturahim","Ties of Kinship",4,"Salasilah, hari jadi, bayi, jagaan, haiwan, kumpulan, majlis, haid dan mod kanak-kanak.","Family tree, birthdays, baby, care, pets, groups, events, period and kids mode."],
  ["l8","🏷️","Halal & Baik","Halal & Wholesome",3,"Imbas label, nombor E, resepi dari pautan dan video, pelan makan, senarai beli.","Scan a label, E-numbers, recipes from links and videos, meal plan, shopping list."],
  ["l9","✍️","Pena & Skrin","Pen & Screen",3,"Nota, kad ucapan, Karya; papan iklan, jam paparan masjid dan kod paparan.","Notes, greeting cards, Karya; billboard, masjid display clock and display codes."],
  ["l10","🧭","Khazanah untuk Diteroka","Treasures to Explore",4,"Kisah, dengar, haji dan umrah, falak, kalendar, puasa, Cari, tema dan sandaran.","Stories, listening, Hajj and Umrah, astronomy, calendar, fasting, Find, themes and backup."]
@@ -39,7 +39,7 @@ var S0=[
   ["q.left","side","#side","Ini bar kiri: setiap halaman aplikasi, disusun seperti tab di bawah. Kotak tanda di kanan menyembunyikan halaman atau tab yang anda tidak guna. Taip dalam kotak carian di atas untuk terus ke mana-mana.","This is the left bar: every page in the app, grouped like the tabs at the bottom. The tick boxes on the right hide a page or tab you don't use. Type in the search box at the top to jump anywhere."],
   ["q.right","set","#setp","Ini bar kanan, tetapan anda: bahasa, tema, zon solat, makluman, AI dan sandaran. Tekan di luar untuk menutupnya.","This is the right bar, your settings: language, theme, prayer zone, alerts, AI and backup. Tap outside to close it."],
   ["q.sync","close","#hSync","Tekan ⟳ Segerak untuk menyimpan salinan data anda dalam Google Drive anda sendiri. Kemudian buka My Ihsan di komputer riba atau tablet di myihsan.app/app dan log masuk dengan akaun Google yang sama: aplikasi penuh, seiring dengan telefon ini.","Tap ⟳ Sync to keep a copy of your data in your own Google Drive. Then open My Ihsan on a laptop or tablet at myihsan.app/app and sign in with the same Google account: the full app, in step with this phone."],
-  ["q.save","side>sunat","[data-sfv=\"sunat/quran\"]","Sekarang jom simpan kegemaran. Tekan ☆ di sebelah Al-Quran.","Now let's save a favourite. Tap the ☆ next to Al-Quran.","tap"],
+  ["q.save","side>iman","[data-sfv=\"sunat/quran\"]","Sekarang jom simpan kegemaran. Tekan ☆ di sebelah Al-Quran.","Now let's save a favourite. Tap the ☆ next to Al-Quran.","tap"],
   ["q.school","side>learn","[data-sfv=\"learn/sekolah\"]","Satu lagi: tekan ☆ di sebelah Sekolah.","And one more: tap the ☆ next to School.","tap"],
   ["q.strip","side","#sdFav","Kedua-duanya ada di sini sekarang, di bawah bar kiri, sekali tekan sahaja.","Both are here now, at the bottom of the left bar, one tap away."],
   ["q.row","home","#qtBar","Ia juga ada dalam baris ini di atas tab bawah. Letak ☆ pada apa-apa yang anda selalu guna.","They also sit in this row above the bottom tabs. Put ☆ on anything you use often."],
@@ -76,7 +76,7 @@ var S0=[
   ["p.doa","tab:sunat/doa","#view","Doa untuk setiap ketika. ☆ menyimpan satu di Utama.","A doa for every moment. ☆ keeps one on Home."],
   ["p.wirid","tab:sunat/wirid","#view","Wirid pagi dan petang serta Ma'thurat, dengan audio dan pembilang.","Morning and evening wirid and Ma'thurat, with audio and counters."],
   ["p.deeds","tab:sunat/amal","#view","Tetapkan amalan harian dan tandakan: Al-Quran, Dhuha, sedekah, puasa.","Set daily deeds and tick them off: Quran, Dhuha, charity, fasting."],
-  ["p.ask","tab:sunat/tanya","#view","Ada soalan tentang Islam? Tanya badan rasmi, atau AI anda.","A question about Islam? Ask the official bodies, or your AI.","ai"],
+  ["p.ask","set:ai","#askBox","Ada soalan tentang Islam? Tanya AI di Tetapan › AI dalam talian.","A question about Islam? Ask the AI in Settings › Online AI.","ai"],
   ["l2.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l3",[
@@ -127,12 +127,12 @@ var S0=[
   ["f.fx","nav:fin/tukaran","#view","Kadar tukaran, harga emas dan saham patuh Syariah.","Rates, gold price and Shariah-compliant stocks."],
   ["t.plan","tab:cal/bulan","#view","Senarai harian, mingguan, bulanan dan tahunan anda. Mula dari pratetap seperti Hari Muslim atau Pelajar.","Your daily, weekly, monthly and yearly lists. Start from a preset like Muslim day or Student."],
   ["t.tick","tab:cal/bulan","","Tandakan sambil berjalan. Jalur minggu dan bulan terisi sendiri.","Tick as you go. The week and month strips fill in by themselves."],
-  ["t.focus","tab:cal/fokus","#view","Fokus ada Hari ini, Matlamat, Tabiat, Berkembang dan Saya. Pemasa fokus ada dalam Hari ini: 25 minit, atau hingga solat seterusnya.","Focus has Today, Goals, Habits, Grow and Me. The focus timer is in Today: 25 minutes, or until the next prayer."],
-  ["t.meet", "tab:cal/mesyuarat", "#view", "Nota mesyuarat yang berfungsi tanpa internet: rakam, tanda detik penting, kemudian dapatkan tindakan dan keputusan.", "Meeting notes that work offline: record, mark key moments, then get the action items and decisions.", "ai"],
-  ["t.spk", "tab:cal/mesyuarat", "[data-mtp=\"spk\"]", "Pembesar suara menjadikan telefon sistem PA dengan mikrofon tanpa wayar atau Bluetooth. Orang lain boleh mendengar di telefon sendiri dengan mengimbas QR, pada Wi-Fi yang sama.", "Speaker turns the phone into a PA with a wireless or Bluetooth mic. Others can listen on their own phones by scanning a QR, on the same Wi-Fi.", "phone"],
+  ["t.focus","tab:cal/fokus","#view","Perancang juga ada Hari ini, Matlamat dengan Berkembang, Tabiat, Fokus dan Saya. Pemasa Fokus: 25 minit, atau hingga solat seterusnya.","Planner also has Today, Goals with Grow, Habits, Focus and Me. The Focus timer runs 25 minutes, or until the next prayer."],
+  ["t.meet", "tab:cal/mesyuarat", "#view", "Himpun: majlis dan mesyuarat. Nota mesyuarat berfungsi tanpa internet: rakam, tanda detik penting, kemudian dapatkan tindakan dan keputusan.", "Gather: events and meetings. Meeting notes work offline: record, mark key moments, then get the action items and decisions.", "ai"],
+  ["t.spk", "tab:cal/mesyuarat", "[data-mtp=\"spk\"]", "Pembesar suara menjadikan telefon sistem PA dengan mikrofon tanpa wayar atau Bluetooth. Orang lain boleh mendengar di telefon sendiri dengan mengimbas QR, pada Wi-Fi yang sama. Dengar ada di dalamnya.", "Speaker turns the phone into a PA with a wireless or Bluetooth mic. Others can listen on their own phones by scanning a QR, on the same Wi-Fi. Listen is inside it.", "phone"],
   ["t.wt", "tab:cal/mesyuarat", "[data-mtp=\"wt\"]", "Walkie-talkie: tekan untuk bercakap, seorang pada satu masa. Di Wi-Fi yang sama tanpa internet, atau melalui internet ke mana-mana. Sesiapa boleh bercakap, atau hos beri giliran.", "Walkie-talkie: push to talk, one person at a time. On the same Wi-Fi with no internet, or over the internet to anywhere. Anyone can talk, or the host gives turns."],
   ["t.trip", "tab:cal/trip", ".bn-trip", "Trip: Umrah DIY di atas, dan Travel Anywhere untuk ke mana saja. Taip destinasi, hari dan orang; AI rancang hari demi hari dengan peta, gambar, pautan Google Maps, bajet dalam RM dan waktu solat. Tambah penerbangan atau hotel dengan tangkapan skrin.", "Trip: Umrah DIY on top, and Travel Anywhere for anywhere else. Type the destination, days and people; AI plans day by day with a map, photos, Google Maps links, a budget in RM and prayer times. Add flights or hotels with a screenshot.", "ai"],
-  ["t.stats", "tab:cal/statistik", "#view", "Langkah, masa skrin, solat dan dengar Al-Quran, ikut hari, bulan dan tahun.", "Steps, screen time, prayers and Quran listening, by day, month and year.", "phone"],
+  ["t.stats", "tab:cal/statistik", "#view", "Jejak: langkah, masa skrin, solat dan dengar Al-Quran ikut hari, bulan dan tahun, serta kalendar Masihi dan Hijrah.", "Track: steps, screen time, prayers and Quran listening by day, month and year, plus the Gregorian and Hijri calendars.", "phone"],
   ["l5.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l6",[
@@ -148,13 +148,14 @@ var S0=[
   ["l6.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l7",[
-  ["fa.open","tab:alat/keluarga","#view","Keluarga anda di satu tempat.","Your family in one place."],
+  ["fa.open","tab:alat/keluarga","#view","Hidup: keluarga, hari jadi, bayi, jaga, haiwan dan kumpulan di satu tempat.","Life: family, birthdays, baby, care, pets and groups in one place."],
   ["fa.tree","tab:alat/keluarga","~🌳","Bina salasilah. Lihat sebagai Rumput 3D, Papan Hitam atau Vintaj, dan kongsi dengan saudara.","Build your tree. View it as Grass 3D, Chalkboard or Vintage, and share it with relatives."],
   ["fa.bday","tab:alat/keluarga","~🎂","Jangan terlepas hari jadi.","Never miss a birthday."],
   ["fa.baby","tab:alat/keluarga","~👶","Nama, akikah, tumbesaran dan peringatan.","Names, aqiqah, growth and reminders."],
   ["fa.care","tab:alat/keluarga","~🩺","Jaga yang sakit dan warga emas: waktu ubat, kemas kini bersama dan mod warga emas.","Care for the sick and elderly: medicine times, shared updates and an elder mode."],
+  ["fa.pets","tab:alat/keluarga","[data-kom=\"pets\"]","Haiwan: penjagaan, kesihatan, vaksin, kos dan peringatan untuk setiap haiwan, dan kongsi dengan keluarga.","Pets: care, health, vaccines, costs and reminders for every pet, shared with the family if you like."],
   ["fa.groups","tab:alat/kumpulan","#view","Kumpulan untuk keluarga, kelas atau usrah. Kongsi tugas dan hantaran. Hantaran boleh diterjemah dengan AI.","A group for the family, a class or usrah. Share tasks and posts. Posts can be translated with AI.","ai"],
-  ["fa.events","tab:alat/majlis","#view","Rancang majlis: tetamu, tugas dan bajet.","Plan a majlis: guests, tasks and budget."],
+  ["fa.events","tab:alat/majlis","#view","Rancang majlis dalam Masa › Himpun: tetamu, tugas dan bajet.","Plan a majlis in Time › Gather: guests, tasks and budget."],
   ["fa.period","tab:cal/haid","#view","Haid dan kesihatan wanita, untuk diri sendiri atau isteri. Tab ini boleh disembunyikan.","Periods and women's health, for yourself or for your wife. You can hide this tab.","play"],
   ["fa.kids","set:khas","card~👓","Mod kanak-kanak: sebuah planet bola kecil dengan rumah untuk solat, huruf, nombor, cerita, seni dan permainan, serta bintang dan tahap. Menara Ibu Bapa (PIN) ada had masa dan laporan. Kunci dengan PIN.","Kids mode: a little ball planet with houses for prayer, letters, numbers, stories, art and games, plus stars and levels. The Parent Tower (PIN) has time limits and reports. Lock it with a PIN."],
   ["l7.done","close","","Siap ✓","Done ✓"]
@@ -175,8 +176,8 @@ var S0=[
   ["w.cards","nav:alat/nota/kad","#view","Raya, perkahwinan, bayi baru dan banyak lagi. Pilih reka bentuk, tambah kata-kata, kongsi sebagai gambar.","Raya, wedding, new baby and more. Pick a design, add your words, share as a picture."],
   ["w.karya","nav:alat/nota/karya","#view","Sajak, pantun, cerpen dan munajat, ditulis dengan AI. Enam gaya halaman untuk dikongsi.","Poems, pantun, short stories and munajat, written with AI. Six page styles to share.","ai"],
   ["d.bill","tab:alat/paparan","~🪧","Jadikan telefon papan LED bergerak: jemput di lapangan terbang, sambutan majlis kahwin, tingkap kereta.","Turn your phone into a moving LED sign: airport pickup, wedding welcome, car window."],
-  ["d.clock","tab:alat/paparan","~🕰","Jam gaya masjid dengan waktu solat dan kiraan iqamah. Sesuai untuk tablet lama di dinding.","A masjid-style clock with prayer times and iqamah countdown. Great for an old tablet on the wall."],
-  ["d.code","tab:alat/paparan","~📥","Tunjukkan paparan reka orang lain dengan menampal kodnya.","Show a display someone else designed by pasting its code."],
+  ["d.clock","tab:alat/paparan","~📺","TV Display: jam gaya masjid dengan waktu solat dan kiraan iqamah. Sesuai untuk tablet lama atau TV di dinding.","TV Display: a masjid-style clock with prayer times and iqamah countdown. Great for an old tablet or a TV on the wall."],
+  ["d.code","tab:alat/paparan","#dsBBSet","⚙ Tetapan: templat, papan tersimpan, jadual, dan tampal kod paparan orang lain.","⚙ Settings: templates, saved billboards, a schedule, and pasting someone else's display code."],
   ["l9.done","close","","Siap ✓","Done ✓"]
  ]],
  ["l10",[

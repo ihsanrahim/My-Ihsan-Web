@@ -20,6 +20,7 @@ var HOUSES = [
    {id:"m_sleep",i:56, t:"doa", mode:"sleep", ic:"🌙", n:"Doa tidur dan bangun|Sleep and wake-up dua"},
    {id:"m_hajj", i:58, t:"hajj", ic:"🕋", n:"Haji untuk kanak-kanak|Hajj for kids"},
    {id:"m_sirah",i:0,  t:"sirah", ic:"🐪", n:"Jejak Sirah Nabi ﷺ|The Prophet's ﷺ Sirah trail"},
+   {id:"m_iquiz",i:0,  t:"xquiz", ic:"🧠", n:"Kuiz Islam|Islamic quiz"},
    {id:"m_qibla",i:52, t:"soon", ic:"🧭", n:"Permainan hadap kiblat|Face-the-qibla game"},
    {id:"m_eid",  i:57, t:"soon", ic:"🌙", n:"Mod Aidilfitri dan Aidiladha|Eid mode"},
    {id:"m_recite",i:61,t:"soon", ic:"🎙️", n:"Baca dan banding dengan qari|Recite and compare"},
@@ -96,6 +97,8 @@ var HOUSES = [
    {id:"h_road", i:88, t:"quiz", bank:"road", ic:"🚦", n:"Keselamatan jalan raya|Road safety"},
    {id:"h_manner",i:89,t:"quiz", bank:"manners", ic:"🙏", n:"Adab makan dan bertamu|Table and visiting manners"},
    {id:"h_tree", i:40, t:"family", ic:"🌳", n:"Salasilah keluarga saya|My family tree"},
+   {id:"h_vpet", i:0, t:"vpet", ic:"🎮", n:"Pet telefon 3D saya|My 3D phone pet"},
+   {id:"h_mypet", i:0, t:"mypet", ic:"🐾", n:"Haiwan saya|My pet"},
    {id:"h_hunt", i:77, t:"soon", ic:"🗝️", n:"Memburu harta karun|House treasure hunt"}
  ]}
 ];

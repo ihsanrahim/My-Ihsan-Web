@@ -118,6 +118,7 @@ function gNow(g){ return g.m === "hab" ? (g._hc != null ? g._hc : (gProg(g), g._
 // ---------------- XP, levels, badges (worked out from the data each time) ----------------
 function xpAll(){ var D = db(), x = 0, n = {hab:0, top:0, ms:0, gd:0, rev:0, chk:0, sp:0, cards:0, fo:0, room:0, ch:0};
   D.habits.forEach(function(h){ Object.keys(h.log || {}).forEach(function(k){ if(hDone(h, k)) n.hab++; }); if(h.k === "quit" && h.since) n.hab += Math.max(0, diffD(lastSlip(h) || h.since, today())); });
+  try{ var PL = H.load("ihsan_planner", null); if(PL && PL.d) Object.keys(PL.d).forEach(function(k2){ (PL.d[k2] || []).forEach(function(x){ if(x && x.done) n.top++; }); }); }catch(e){}   // 0.7.77: Top 3 is gone; ticked planner tasks count instead
   Object.keys(D.day).forEach(function(k){ var d = D.day[k]; (d.top || []).forEach(function(t){ if(t && t.d) n.top++; }); if(d.int) n.chk++; if(d.ev) n.chk++; });
   D.goals.forEach(function(g){ (g.ms || []).forEach(function(m){ if(m.done) n.ms++; }); if(g.st === "done") n.gd++; });
   n.rev = Object.keys(D.rev).length; n.sp = (D.sp || []).length + (D.rec || 0); n.cards = D.cardsDone || 0; n.room = D.cleaned || 0;
@@ -132,7 +133,7 @@ var BADGES = [["first","🌱","Langkah pertama","First step",function(n, b){ ret
   ["goal","🎯","Matlamat tercapai","Goal reached",function(n){ return n.gd >= 1; }],["goals5","🏆","5 matlamat","5 goals",function(n){ return n.gd >= 5; }],
   ["rev4","🧭","4 semakan mingguan","4 weekly reviews",function(n){ return n.rev >= 4; }],["fo10","⏱","10 jam fokus","10 focus hours",function(n){ return n.fo >= 600; }],
   ["sp5","🎤","5 latihan bercakap","5 speaking practices",function(n){ return n.sp >= 5; }],["c100","📇","100 kad","100 cards",function(n){ return n.cards >= 100; }],
-  ["top50","✅","50 tugasan utama","50 top tasks",function(n){ return n.top >= 50; }],["ch","⭐","Cabaran selesai","Challenge done",function(n){ return n.ch >= 1; }],
+  ["top50","✅","50 tugasan selesai","50 tasks done",function(n){ return n.top >= 50; }],["ch","⭐","Cabaran selesai","Challenge done",function(n){ return n.ch >= 1; }],
   ["home","🧽","20 tugasan rumah","20 home tasks",function(n){ return n.room >= 20; }],["chk30","🌅","30 daftar masuk","30 check-ins",function(n){ return n.chk >= 30; }]];
 function badges(){ var a = xpAll(), best = 0; db().habits.forEach(function(h){ best = Math.max(best, streak(h), h.best || 0); }); return BADGES.map(function(b){ return {b:b, on:!!b[4](a.n, {best:best})}; }); }
 
@@ -141,9 +142,8 @@ function sched(){ var out = [], D = db(), now = Date.now(), base = today();
   var at = function(k, hm){ var p = String(hm).split(":"), d = dOf(k); d.setHours(+p[0] || 0, +p[1] || 0, 0, 0); return d.getTime(); };
   for(var i = 0; i < 10; i++){ var k = dAdd(base, i);
     D.habits.forEach(function(h){ if(!h.rem || !hDue(h, k) || (i === 0 && hDone(h, k))) return; out.push({t:at(k, h.rem), id:"gh" + h.id + k, title:h.ic + " " + h.name, body:h.cue ? L("Selepas ", "After ") + h.cue + (h.tiny ? " · " + L("Versi kecil: ", "Tiny version: ") + h.tiny : "") : (h.tiny ? L("Hari sukar? Cuba: ", "Hard day? Try: ") + h.tiny : L("Ketik untuk tanda selesai.", "Tap to tick it off.")), open:"side:cal/fokus"}); });
-    if(D.set.rem.am && !(i === 0 && day(k).int)) out.push({t:at(k, D.set.rem.am), id:"gam" + k, title:"🌅 " + L("Niat hari ini", "Today's intention"), body:L("Satu minit: niat dan 3 perkara utama hari ini.", "One minute: your intention and today's top 3."), open:"side:cal/fokus"});
     if(D.set.rem.pm && !(i === 0 && day(k).ev)) out.push({t:at(k, D.set.rem.pm), id:"gpm" + k, title:"🌙 " + L("Semakan malam", "Evening review"), body:L("Apa yang menjadi hari ini? Satu syukur, satu baiki.", "What went well today? One thanks, one fix."), open:"side:cal/fokus"});
-    if(D.set.rem.wk && dOf(k).getDay() === 0 && !D.rev[monOf(k)]) out.push({t:at(k, "20:30"), id:"gwk" + k, title:"🧭 " + L("Semakan mingguan", "Weekly review"), body:L("10 minit: kejayaan, terlepas, pengajaran, 3 utama minggu depan.", "10 minutes: wins, misses, lessons, next week's top 3."), open:"side:cal/fokus"}); }
+    if(D.set.rem.wk && dOf(k).getDay() === 0 && !D.rev[monOf(k)]) out.push({t:at(k, "20:30"), id:"gwk" + k, title:"🧭 " + L("Semakan mingguan", "Weekly review"), body:L("10 minit: kejayaan, terlepas, pengajaran, satu perubahan.", "10 minutes: wins, misses, lessons, one change."), open:"side:cal/fokus"}); }
   (D.people || []).forEach(function(p){ if(!p.every) return; var due = dAdd(p.last || p.made || base, p.every); if(due < base) due = base; if(diffD(base, due) <= 10) out.push({t:at(due, "10:00"), id:"gpp" + p.id + due, title:"🤝 " + L("Hubungi ", "Reach out to ") + p.n, body:p.note ? p.note : L("Sudah lama tidak berhubung. Satu mesej pun cukup.", "It has been a while. One message is enough."), open:"side:cal/fokus"}); });
   (D.renew || []).forEach(function(r){ [30, 7, 1].forEach(function(b){ var k = dAdd(r.date, -b); if(k >= base && diffD(base, k) <= 10) out.push({t:at(k, "09:00"), id:"grn" + r.id + b, title:(r.ic || "🗂") + " " + r.n, body:L("Tamat tempoh dalam " + b + " hari (" + r.date + ").", "Expires in " + b + " days (" + r.date + ")."), open:"side:cal/fokus"}); }); });
   H.save("ihsan_grow_ex", out.filter(function(x){ return x.t > now; }).sort(function(a, b){ return a.t - b.t; }).slice(0, 60));
@@ -156,16 +156,17 @@ function chipA(k){ var a = area(k); return '<span class="gwA" style="--ac:' + a[
 function empty(ic, t, btn){ return '<div class="gwEmpty"><div class="gwEmIc">' + ic + '</div><div>' + t + '</div>' + (btn || '') + '</div>'; }
 function sheet(title, html){ return H.showSheet(title, html); }
 function share(t){ if(N().shareText) N().shareText(t); else if(navigator.clipboard) navigator.clipboard.writeText(t).then(function(){ H.toast(L("Disalin", "Copied")); }); }
-function go(p){ PG = p; db().set.pg = p; H.save(KEY, db()); draw(); var v = document.getElementById("view"); if(v) v.scrollTop = 0; }
+function go(p){ PG = p; db().set.pg = p; H.save(KEY, db()); if(H.onPage && H.onPage(p)) return; draw(); var v = document.getElementById("view"); if(v) v.scrollTop = 0; }
 
 // ---------------- pages ----------------
 // 0.6.41 (owner "merge with focus"): the focus timer, garden, plans and Time Nudge (focus/focus.js) live inside Today; no separate Timer page
 var PAGES = [["today","☀️","Hari ini","Today"],["goals","🎯","Matlamat","Goals"],["habits","🔁","Tabiat","Habits"],["grow","🌱","Bina diri","Grow"],["me","👤","Saya","Me"]];
-function view(el, h){ H = h; G = null; EL = el; db();
+function view(el, h){ H = h; G = null; EL = el; db(); if(H.page) PG = H.page;
   if(!PG){ var fs = (H.load("ihsan_focus", {}) || {}).sess; PG = fs && fs.on ? "today" : (db().set.pg || "today"); }
-  if(!PAGES.some(function(p){ return p[0] === PG; })) PG = "today";
+  if(!PAGES.some(function(p){ return p[0] === PG; }) && PG !== "focus") PG = "today";
   draw(); }
 function draw(){ if(!EL || !document.body.contains(EL)) return;
+  if(H.hostDock){ EL.innerHTML = '<div id="gwBody"></div>'; BODY = EL.querySelector("#gwBody"); fn(PG)(BODY); return; }   // 0.7.77 (owner): inside Time > Planner, which draws the tabs
   EL.innerHTML = '<div id="gwBody"></div><div class="dock gwdock"><div class="gwg6">' + (window.l3Keep ? l3Keep(PAGES, "cal/fokus", PG) : PAGES).map(function(p){ return '<button class="chip' + (PG === p[0] ? " on" : "") + '" data-gp="' + p[0] + '">' + p[1] + ' ' + L(p[2], p[3]) + '</button>'; }).join("") + '</div></div>';
   BODY = EL.querySelector("#gwBody"); fn(PG)(BODY);
   EL.querySelectorAll("[data-gp]").forEach(function(b){ b.onclick = function(){ if(window.GrowTools) GrowTools.close(); go(b.getAttribute("data-gp")); }; });
@@ -175,7 +176,10 @@ function draw(){ if(!EL || !document.body.contains(EL)) return;
     window.IbSwipe(pg, {can:function(s){ return !!nb(s) && !(window.GrowTools && GrowTools.open()); }, go:function(s){ go(nb(s)); }, find:function(){ return document.querySelector("#gwBody .ibpg"); },
       skip:function(){ var a = document.activeElement; return (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)) || !!document.querySelector(".gwNoSw"); }}); } }
 function redraw(){ var v = document.getElementById("view"), y = v ? v.scrollTop : 0; draw(); if(v) v.scrollTop = y; }
-function fn(p){ return {today:pToday, goals:pGoals, habits:pHabits, grow:pGrow, me:pMe}[p] || pToday; }
+function fn(p){ return {today:pToday, goals:H.hostDock ? pGoalsGrow : pGoals, habits:pHabits, grow:pGrow, me:pMe, focus:pFocus}[p] || pToday; }
+// 0.7.77 (owner): Goals carries Grow (self-improvement roadmaps and tools) underneath; Focus is its own page
+function pGoalsGrow(b){ b.innerHTML = '<div id="gwGo"></div><div class="snl" style="margin:16px 2px 6px">🌱 ' + L("Bina diri", "Grow") + '</div><div id="gwGr"></div>'; pGoals(b.querySelector("#gwGo")); pGrow(b.querySelector("#gwGr")); }
+function pFocus(b){ b.innerHTML = '<div id="gwFocus" class="gwFocus more"></div>'; focusInto(b); }
 /** the focus timer (focus/focus.js) inside Today: start card, countdown ring, garden, focus today, plans, Time Nudge */
 function focusInto(b){ var host = b.querySelector("#gwFocus"); if(!host) return;
   if(window.FocusView) FocusView.view(host, H); else H.loadJs(["focus/focus.js"], function(){ if(document.body.contains(host)) FocusView.view(host, H); }, function(){}); }
@@ -185,20 +189,14 @@ function pGrow(b){ var go_ = function(){ if(document.body.contains(b)) GrowTools
 // ---------- Today ----------
 function greet(){ var h = new Date().getHours(); return h < 12 ? L("Selamat pagi", "Good morning") : h < 15 ? L("Selamat tengah hari", "Good afternoon") : h < 19 ? L("Selamat petang", "Good evening") : L("Selamat malam", "Good night"); }
 function dueToday(){ var k = today(); return db().habits.filter(function(h){ return !h.arch && h.k !== "quit" && hDue(h, k); }); }
-function pToday(b){ var D = db(), k = today(), d = day(k), hrs = new Date().getHours(), due = dueToday(), top = d.top || [];
-  var tTop = top.filter(function(t){ return t && t.t; }), done = due.filter(function(h){ return hDone(h, k); }).length + tTop.filter(function(t){ return t.d; }).length, tot = due.length + tTop.length;
+function pToday(b){ var D = db(), k = today(), d = day(k), hrs = new Date().getHours(), due = dueToday(), pt = H.dayTasks ? H.dayTasks() : {n:0, k:0};   // 0.7.77 (owner): no Top 3, no intention; planner tasks count instead
+  var done = due.filter(function(h){ return hDone(h, k); }).length + pt.k, tot = due.length + pt.n;
   var lv = level(xpAll().xp), best = 0; D.habits.forEach(function(h){ if(!h.arch && h.k !== "quit") best = Math.max(best, streak(h)); });
   var h = '<div class="card gwHero"><div class="gwHeroL"><div class="mut small">' + E(new Date().toLocaleDateString(loc(), {weekday:"long", day:"numeric", month:"long"})) + '</div><h2>' + greet() + '</h2>' +
     '<div class="gwHeroS"><span>⭐ ' + L("Tahap ", "Level ") + lv.l + '</span>' + (best ? '<span>🔥 ' + best + ' ' + L("hari", "days") + '</span>' : '') + '<span>✅ ' + done + '/' + tot + '</span></div>' +
-    (d.int ? '<div class="gwInt">🌅 ' + E(d.int) + '</div>' : '') + '</div>' + ring(tot ? done / tot : 0, 92, "var(--gold)", tot ? Math.round(done / tot * 100) + "%" : "—") + '</div>';
+'</div>' + ring(tot ? done / tot : 0, 92, "var(--gold)", tot ? Math.round(done / tot * 100) + "%" : "—") + '</div>';
   if(!D.set.onb && !D.habits.length && !D.goals.length) h += '<div class="card gwStart"><h3>✨ ' + L("Mula dalam 2 minit", "Start in 2 minutes") + '</h3><div class="mut small">' + L("Nilai 8 bahagian hidup anda, pilih 3 untuk diberi tumpuan, dan kami sediakan pelan permulaan: satu matlamat dan beberapa tabiat kecil.", "Rate 8 areas of your life, pick 3 to focus on, and we set up a starter plan: one goal and a few small habits.") + '</div><button class="btn gold full" id="gwOnb">' + L("Mula", "Begin") + ' ›</button></div>';
-  if(!d.int && hrs < 14) h += '<div class="card"><h3>🌅 ' + L("Niat hari ini", "Today's intention") + '</h3><div class="radd"><input id="gwIntI" class="rin" placeholder="' + E(L("Hari ini saya ingin…", "Today I want to…")) + '"><button class="btn gold" id="gwIntS">✓</button></div></div>';
-  var foOn = !!(((H.load("ihsan_focus", {}) || {}).sess || {}).on), FO = '<div id="gwFocus" class="gwFocus' + (FMORE ? ' more' : '') + '"></div><button class="chip gwFoMore" id="gwFoM">' + (FMORE ? '▲ ' + L("Tutup", "Hide") : '🌳 ' + L("Taman, pelan fokus & peringatan masa", "Garden, focus plans & Time Nudge")) + '</button>';
-  if(foOn) h += FO;
-  // top 3
-  h += '<div class="card"><div class="row"><h3 style="margin:0">⭐ ' + L("3 perkara utama", "Top 3 today") + '</h3><button class="chip" data-side="cal/bulan">📝 ' + L("Senarai penuh", "Full list") + '</button></div><div class="mut tiny" style="margin:2px 0 6px">' + L("Tiga perkara yang menjadikan hari ini satu kejayaan.", "The three things that make today a win.") + '</div>' +
-    [0, 1, 2].map(function(i){ var t = top[i] || {}; return '<div class="gwTop' + (t.d ? ' ok' : '') + '"><button class="gwTick" data-tt="' + i + '"' + (t.t ? '' : ' disabled') + '>' + (t.d ? '✓' : (i + 1)) + '</button><input class="rin" data-ti="' + i + '" value="' + E(t.t || "") + '" placeholder="' + E(L("Perkara ", "Thing ") + (i + 1)) + '"></div>'; }).join("") + '</div>';
-  if(!foOn) h += FO;
+  if(H.timeline) h += '<div id="gwTl"></div>';
   // habits due
   if(due.length || D.habits.length) h += '<div class="card"><div class="row"><h3 style="margin:0">🔁 ' + L("Tabiat hari ini", "Habits today") + '</h3><label class="gwBad"><input type="checkbox" id="gwBad"' + (BAD ? ' checked' : '') + '> ' + L("Hari sukar", "Hard day") + '</label></div>' +
     (BAD ? '<div class="mut tiny" style="margin:4px 0">💛 ' + L("Tak mengapa. Buat versi 2 minit sahaja; ia tetap dikira.", "That's okay. Do the 2-minute versions; they still count.") + '</div>' : '') +
@@ -206,9 +204,9 @@ function pToday(b){ var D = db(), k = today(), d = day(k), hrs = new Date().getH
   h += nextCard() + nudge();
   // evening review
   if(d.ev) h += '<div class="card gwDone"><h3>🌙 ' + L("Semakan malam selesai", "Evening review done") + '</h3><div class="mut small">' + MOODS[(d.mood || 3) - 1][0] + ' ' + (d.good ? E(d.good) : '') + '</div><button class="chip" id="gwEv">✏️ ' + L("Ubah", "Edit") + '</button></div>';
-  else h += '<div class="card"><h3>🌙 ' + L("Semakan malam", "Evening review") + '</h3><div class="mut small">' + L("Kurang 60 saat: perasaan, apa yang menjadi, satu syukur, dan 3 utama esok.", "Under 60 seconds: mood, what went well, one thanks and tomorrow's top 3.") + '</div><button class="btn' + (hrs >= 17 ? ' gold' : ' alt') + ' full" id="gwEv" style="margin-top:8px">🌙 ' + L("Mula semakan", "Start review") + '</button></div>';
-  var wk = monOf(k), wd = new Date().getDay(); if(!D.rev[wk] && (D.habits.length || D.goals.length) && (wd === 0 || wd === 6 || (wd === 5 && hrs >= 17))) h += '<div class="card"><h3>🧭 ' + L("Semakan mingguan", "Weekly review") + '</h3><div class="mut small">' + L("5 soalan: kejayaan, terlepas, pengajaran, 3 utama minggu depan, satu perubahan.", "5 questions: wins, misses, lessons, next week's top 3, one change.") + '</div><button class="btn alt full" id="gwRev" style="margin-top:8px">🧭 ' + L("Buat semakan", "Do the review") + '</button></div>';
-  b.innerHTML = h; bindToday(b); focusInto(b); }
+  else h += '<div class="card"><h3>🌙 ' + L("Semakan malam", "Evening review") + '</h3><div class="mut small">' + L("Kurang 60 saat: perasaan, apa yang menjadi dan satu syukur.", "Under 60 seconds: mood, what went well and one thanks.") + '</div><button class="btn' + (hrs >= 17 ? ' gold' : ' alt') + ' full" id="gwEv" style="margin-top:8px">🌙 ' + L("Mula semakan", "Start review") + '</button></div>';
+  var wk = monOf(k), wd = new Date().getDay(); if(!D.rev[wk] && (D.habits.length || D.goals.length) && (wd === 0 || wd === 6 || (wd === 5 && hrs >= 17))) h += '<div class="card"><h3>🧭 ' + L("Semakan mingguan", "Weekly review") + '</h3><div class="mut small">' + L("4 soalan: kejayaan, terlepas, pengajaran, satu perubahan.", "4 questions: wins, misses, lessons, one change.") + '</div><button class="btn alt full" id="gwRev" style="margin-top:8px">🧭 ' + L("Buat semakan", "Do the review") + '</button></div>';
+  b.innerHTML = h; bindToday(b); var tl = b.querySelector("#gwTl"); if(tl && H.timeline) H.timeline(tl, function(){ redraw(); }); }
 var MOODS = [["😞","Teruk","Awful"],["🙁","Kurang baik","Not great"],["😐","Biasa","Okay"],["🙂","Baik","Good"],["😄","Hebat","Great"]];
 function hRow(x, k, today_){ var v = hVal(x, k), ok = hDone(x, k), n = x.n || 1, st = streak(x), fz = db().fz[x.id + "|" + k], u = unitOf(x);
   var sub = (BAD && x.tiny && !ok ? '💛 ' + E(x.tiny) : (x.cue ? '↪ ' + L("Selepas ", "After ") + E(x.cue) : hSub(x))) + (x.k === "count" || x.k === "min" ? ' · ' + v + '/' + n + (u ? ' ' + E(u) : '') : '');
@@ -263,12 +261,10 @@ function evening(){ var k = today(), d = day(k), J = H.load("ihsan_muhasabah", {
     '<div class="gwQ">' + L("Apa yang menjadi hari ini?", "What went well today?") + '</div><input id="evG" class="rin" value="' + E(d.good || "") + '">' +
     (J.lock ? '<div class="mut tiny" style="margin-top:8px">🔒 ' + L("Jurnal Muhasabah dikunci; syukur ditulis di sana.", "The Muhasabah journal is locked; write your thanks there.") + '</div>' :
       '<div class="gwQ">🤲 ' + L("Saya bersyukur kerana…", "I am grateful for…") + '</div><input id="evT" class="rin" value="' + E(je.g || "") + '"><div class="gwQ">🌱 ' + L("Esok saya ingin memperbaiki…", "Tomorrow I want to improve…") + '</div><input id="evI" class="rin" value="' + E(je.i || "") + '">') +
-    '<div class="gwQ">⭐ ' + L("3 utama esok", "Tomorrow's top 3") + '</div>' + [0, 1, 2].map(function(i){ return '<input class="rin evTm" style="margin-bottom:4px" value="' + E((tm[i] || {}).t || "") + '" placeholder="' + (i + 1) + '">'; }).join("") +
     '<button class="btn gold full" id="evS" style="margin-top:10px">' + L("Simpan", "Save") + '</button><div class="mut tiny" style="margin-top:6px">' + L("Syukur dan perkara untuk diperbaiki disimpan dalam jurnal Muhasabah (Masa › Perancang).", "Thanks and things to improve are kept in the Muhasabah journal (Time › Planner).") + '</div>');
   ov.querySelectorAll("[data-md]").forEach(function(x){ x.onclick = function(){ d.mood = +x.getAttribute("data-md"); ov.querySelectorAll("[data-md]").forEach(function(y){ y.classList.toggle("on", y === x); }); }; });
   ov.querySelector("#evS").onclick = function(){ d.good = ov.querySelector("#evG").value.trim(); d.ev = 1; d.mood = d.mood || 3;
     if(!J.lock){ var g = ov.querySelector("#evT").value.trim(), im = ov.querySelector("#evI").value.trim(); if(g || im){ J.d[k] = J.d[k] || {}; if(g) J.d[k].g = g; if(im) J.d[k].i = im; H.save("ihsan_muhasabah", J); } }
-    var t2 = []; ov.querySelectorAll(".evTm").forEach(function(i, n){ var v = i.value.trim(), o = tm[n]; t2[n] = v ? {t:v, d:!!(o && o.t === v && o.d)} : null; }); day(dAdd(k, 1)).top = t2;
     save(); H.closeOverlay(); celebrate(L("Semakan selesai. Rehat yang baik.", "Review done. Rest well.")); redraw(); }; }
 
 // weekly review wizard (5 questions) with this week's numbers first
@@ -276,16 +272,16 @@ function weekStats(m){ var D = db(), hd = 0, hdue = 0, fo = 0, top = 0, moods = 
   for(var i = 0; i < 7; i++){ var k = dAdd(m, i); if(k > today()) break; D.habits.forEach(function(h){ if(h.k === "quit" || h.arch || (h.made && k < h.made)) return; if(hDue(h, k) || hDone(h, k)){ hdue++; if(hDone(h, k)) hd++; } }); fo += fl[k] || 0; var d = D.day[k] || {}; (d.top || []).forEach(function(t){ if(t && t.d) top++; }); if(d.mood) moods.push(d.mood); }
   return {hab:hdue ? hd / hdue : 0, hd:hd, hdue:hdue, fo:fo, top:top, mood:moods.length ? moods.reduce(function(a, b){ return a + b; }, 0) / moods.length : 0}; }
 function weekly(){ var m = monOf(today()), S = weekStats(m), R = db().rev[m] || {}, step = 0, nx = dAdd(m, 7);
-  var Q = [["wins","🏆","Apa kejayaan minggu ini?","What were this week's wins?"],["miss","🌧","Apa yang terlepas, dan kenapa?","What was missed, and why?"],["lesson","💡","Apa pengajarannya?","What is the lesson?"],["top","⭐","3 utama minggu depan","Next week's top 3"],["chg","🔧","Satu perubahan untuk minggu depan","One change for next week"]];
+  var Q = [["wins","🏆","Apa kejayaan minggu ini?","What were this week's wins?"],["miss","🌧","Apa yang terlepas, dan kenapa?","What was missed, and why?"],["lesson","💡","Apa pengajarannya?","What is the lesson?"],["chg","🔧","Satu perubahan untuk minggu depan","One change for next week"]];
   var ov = sheet("🧭 " + L("Semakan mingguan", "Weekly review"), '<div id="wrB"></div>');
   var draw_ = function(){ var B = ov.querySelector("#wrB"), q = Q[step];
-    B.innerHTML = (step === 0 ? '<div class="gwWkS"><div><b>' + Math.round(S.hab * 100) + '%</b><small>' + L("tabiat", "habits") + '</small></div><div><b>' + Math.round(S.fo / 6) / 10 + L(" j", " h") + '</b><small>' + L("fokus", "focus") + '</small></div><div><b>' + S.top + '</b><small>' + L("utama selesai", "top done") + '</small></div><div><b>' + (S.mood ? MOODS[Math.round(S.mood) - 1][0] : "—") + '</b><small>' + L("perasaan", "mood") + '</small></div></div>' : '') +
-      '<div class="gwStep">' + (step + 1) + ' / 5</div><div class="gwQ">' + q[1] + ' ' + L(q[2], q[3]) + '</div>' +
+    B.innerHTML = (step === 0 ? '<div class="gwWkS"><div><b>' + Math.round(S.hab * 100) + '%</b><small>' + L("tabiat", "habits") + '</small></div><div><b>' + Math.round(S.fo / 6) / 10 + L(" j", " h") + '</b><small>' + L("fokus", "focus") + '</small></div><div><b>' + (S.mood ? MOODS[Math.round(S.mood) - 1][0] : "—") + '</b><small>' + L("perasaan", "mood") + '</small></div></div>' : '') +
+      '<div class="gwStep">' + (step + 1) + ' / ' + Q.length + '</div><div class="gwQ">' + q[1] + ' ' + L(q[2], q[3]) + '</div>' +
       (q[0] === "top" ? [0, 1, 2].map(function(i){ return '<input class="rin wrT" style="margin-bottom:4px" value="' + E((R.top || [])[i] || "") + '" placeholder="' + (i + 1) + '">'; }).join("") : '<textarea id="wrA" class="rin" rows="3">' + E(R[q[0]] || "") + '</textarea>') +
-      '<div class="btns" style="margin-top:10px">' + (step ? '<button class="btn alt" id="wrP">‹</button>' : '') + '<button class="btn gold" id="wrN">' + (step < 4 ? L("Seterusnya", "Next") + ' ›' : '✓ ' + L("Selesai", "Finish")) + '</button></div>';
+      '<div class="btns" style="margin-top:10px">' + (step ? '<button class="btn alt" id="wrP">‹</button>' : '') + '<button class="btn gold" id="wrN">' + (step < Q.length - 1 ? L("Seterusnya", "Next") + ' ›' : '✓ ' + L("Selesai", "Finish")) + '</button></div>';
     var grab = function(){ if(q[0] === "top"){ R.top = []; B.querySelectorAll(".wrT").forEach(function(i){ R.top.push(i.value.trim()); }); } else R[q[0]] = B.querySelector("#wrA").value.trim(); };
     var p = B.querySelector("#wrP"); if(p) p.onclick = function(){ grab(); step--; draw_(); };
-    B.querySelector("#wrN").onclick = function(){ grab(); if(step < 4){ step++; draw_(); return; } R.d = today(); R.hab = S.hab; R.fo = S.fo; db().rev[m] = R; var wt = day(nx); if(!(wt.top || []).some(Boolean) && R.top) wt.top = R.top.map(function(t){ return t ? {t:t, d:false} : null; });
+    B.querySelector("#wrN").onclick = function(){ grab(); if(step < Q.length - 1){ step++; draw_(); return; } R.d = today(); R.hab = S.hab; R.fo = S.fo; db().rev[m] = R;
       save(); H.closeOverlay(); celebrate(L("Semakan mingguan selesai! +40 XP", "Weekly review done! +40 XP")); redraw(); }; };
   draw_(); }
 
@@ -323,7 +319,7 @@ function pGoals(b){ var D = db(), L0 = D.goals.filter(function(g){ return GF ===
   b.innerHTML = h;
   b.querySelectorAll("[data-gf]").forEach(function(x){ x.onclick = function(){ GF = x.getAttribute("data-gf"); redraw(); }; });
   ["#gwGAdd", "#gwGAdd2"].forEach(function(s){ var x = b.querySelector(s); if(x) x.onclick = function(){ goalBuilder(null); }; });
-  b.querySelectorAll("[data-go]").forEach(function(x){ x.onclick = function(){ goalSheet(D.goals.filter(function(g){ return g.id === x.getAttribute("data-go"); })[0]); }; });
+  b.querySelectorAll("[data-go]").forEach(function(x){ x.onclick = function(e){ if(e) e.stopPropagation(); goalSheet(D.goals.filter(function(g){ return g.id === x.getAttribute("data-go"); })[0]); }; });
   var r2 = b.querySelector("#gwRev2"); if(r2) r2.onclick = weekly; }
 function goalBuilder(g0){ var g = g0 ? JSON.parse(JSON.stringify(g0)) : {id:uid(), ic:"🎯", name:"", area:(db().set.focus || ["skills"])[0], why:"", m:"num", s:0, t:10, u:"", cur:0, due:dAdd(today(), 90), made:today(), ms:[], hab:[], q:false, st:"on", log:[]}, step = 0;
   var ov = sheet("🎯 " + (g0 ? L("Ubah matlamat", "Edit goal") : L("Pembina matlamat", "Goal builder")), '<div id="gbB"></div>');

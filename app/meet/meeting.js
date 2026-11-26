@@ -75,16 +75,19 @@ function extract(m){ var S = sentences(m), base = m.t0 || Date.now(), act = [], 
 // ---------- list ----------
 function view(el, h){ H = h; EL = el; if(window.__meetPg){ PGM = window.__meetPg; CUR = null; window.__meetPg = null; } draw(); recover(); }
 // 0.6.48 (owner): Meeting has three sub-tabs: 📋 Meetings · 🔊 Speaker · 👂 Listen
-var PGM = "list"; (window.__pgNow = window.__pgNow || {}).__meetPg = function(){ return PGM; };   // 0.6.56: the app remembers the open tab
-function subTabs(){ var T = [["list", "📋 " + L("Mesyuarat", "Meetings")], ["spk", "🔊 " + L("Pembesar suara", "Speaker")], ["lis", "👂 " + L("Dengar", "Listen")], ["wt", "📻 Walkie"]]; if(window.l3Keep) T = l3Keep(T, "cal/mesyuarat", PGM);
-  return '<div class="dock mtDock"><div class="grp' + (T.length === 2 ? '2' : T.length === 4 ? '3 grp4' : '3') + '">' + T.map(function(x){ return '<button class="chip g3d' + (PGM === x[0] ? ' on' : '') + '" data-mtp="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div></div>'; }
+var PGM = "ev";   // 0.7.75 (owner): Meeting became Gather, with Events as the first tab (window.__pgNow = window.__pgNow || {}).__meetPg = function(){ return PGM; };   // 0.6.56: the app remembers the open tab
+function subTabs(){ var T = [["ev", "🎉 " + L("Majlis", "Events")], ["list", "📋 " + L("Mesyuarat", "Meetings")], ["spk", "🔊 " + L("Pembesar suara", "Speaker")], ["wt", "📻 Walkie"]];   // 0.7.76 (owner): Listen lives inside Speaker if(window.l3Keep) T = l3Keep(T, "cal/mesyuarat", PGM);
+  return '<div class="dock mtDock"><div class="' + (T.length >= 5 ? 'chips mtChips' : 'grp' + (T.length === 2 ? '2' : T.length === 4 ? '3 grp4' : '3')) + '">' + T.map(function(x){ return '<button class="chip g3d' + (PGM === x[0] || (x[0] === "spk" && PGM === "lis") ? ' on' : '') + '" data-mtp="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div></div>'; }
+function spkSeg(){ return '<div class="mtSeg">' + [["spk", "🔊 " + L("Pembesar suara", "Speaker")], ["lis", "👂 " + L("Dengar", "Listen")]].map(function(x){ return '<button class="' + (PGM === x[0] ? 'on' : '') + '" data-mts="' + x[0] + '">' + x[1] + '</button>'; }).join("") + '</div>'; }
+function bindSeg(){ EL.querySelectorAll("[data-mts]").forEach(function(b){ b.onclick = function(){ if(PGM === b.getAttribute("data-mts")) return; PGM = b.getAttribute("data-mts"); draw(); }; }); }
 function bindTabs(){ try{ if(H.dockFix) setTimeout(H.dockFix, 0); }catch(e){} EL.querySelectorAll("[data-mtp]").forEach(function(b){ b.onclick = function(){ SEEN_NOW = {}; PGM = b.getAttribute("data-mtp"); draw(); var v = document.getElementById("view"); if(v) v.scrollTop = 0; }; }); }
 function draw(){ if(!EL || !document.body.contains(EL)) return; if(CUR){ detail(); return; }
   evOnce();
-  if(PGM === "spk"){ EL.innerHTML = '<div id="mtSp" class="mtPg"></div>' + subTabs(); bindTabs(); spkPage(EL.querySelector("#mtSp")); return; }
+  if(PGM === "ev"){ EL.innerHTML = '<div id="mtEv" class="mtPg"></div>' + subTabs(); bindTabs(); if(H.events) H.events(EL.querySelector("#mtEv")); return; }
+  if(PGM === "spk"){ EL.innerHTML = spkSeg() + '<div id="mtSp" class="mtPg"></div>' + subTabs(); bindSeg(); bindTabs(); spkPage(EL.querySelector("#mtSp")); return; }
   if(PGM === "wt"){ EL.innerHTML = '<div id="mtWt" class="mtPg"><div class="card mut">' + L("Memuatkan…", "Loading…") + '</div></div>' + subTabs(); bindTabs(); var wel = EL.querySelector("#mtWt"), go_ = function(){ if(document.body.contains(wel)) Walkie.view(wel, H); };
     if(window.Walkie) go_(); else H.loadJs(["meet/walkie.js"], go_, function(){ wel.innerHTML = '<div class="card">' + L("Gagal dimuatkan", "Could not load") + '</div>'; }); return; }
-  if(PGM === "lis"){ EL.innerHTML = '<div id="mtLs" class="mtPg"></div>' + subTabs(); bindTabs(); lisPage(EL.querySelector("#mtLs")); return; }
+  if(PGM === "lis"){ EL.innerHTML = spkSeg() + '<div id="mtLs" class="mtPg"></div>' + subTabs(); bindSeg(); bindTabs(); lisPage(EL.querySelector("#mtLs")); return; }
   var D = db(), list = D.list.filter(function(m){ return !Q || (m.title + " " + (m.lines || []).map(function(l){ return l.x; }).join(" ") + " " + (m.aiT || "") + " " + (m.notes || []).map(function(n){ return n.x; }).join(" ")).toLowerCase().indexOf(Q.toLowerCase()) >= 0; });
   var h = '<div class="card mtHero"><div><h3>📋 ' + L("Mesyuarat", "Meeting") + '</h3><div class="mut small">' + L("Nota mesyuarat luar talian: rakam, tanda detik penting, dapat tindakan & keputusan.", "Offline meeting notes: record, mark key moments, get action items and decisions.") + '</div></div><button class="btn gold full g3d" id="mtNew">＋ ' + L("Mesyuarat baharu", "New meeting") + '</button></div>';
   if(D.list.length) h += '<input id="mtQ" class="rin" style="margin:0 0 10px" placeholder="🔎 ' + E(L("Cari tajuk, teks, nota…", "Search titles, text, notes…")) + '" value="' + E(Q) + '">';
@@ -405,6 +408,6 @@ function moreSheet(m){ var ov = H.showSheet("⋯ " + E(m.title), '<div class="bt
   ov.querySelector("#msD").onclick = function(){ if(!confirm(L("Padam mesyuarat ini dan audionya?", "Delete this meeting and its audio?"))) return; var go = function(){ segDel(m.id, m.segs || 0); var d = db(); d.list = d.list.filter(function(x){ return x.id !== m.id; }); H.save("ihsan_meet", d); H.closeOverlay(); CUR = null; draw(); };
     if(m.lock) H.pinAsk(L("Padam", "Delete"), go); else go(); }; }
 
-window.MeetView = {view:view, active:function(){ return !!(REC || CAP || SP.on || LS.on || (window.Walkie && Walkie.active()) || (LIVE && document.querySelector(".mtLive"))); }, back:function(){ if(document.querySelector(".mtLive")) return true; if(!CUR && PGM !== "list"){ PGM = "list"; draw(); return true; } if(CUR){ CUR = null; draw(); return true; } return false; },
+window.MeetView = {view:view, active:function(){ return !!(REC || CAP || SP.on || LS.on || (window.Walkie && Walkie.active()) || (LIVE && document.querySelector(".mtLive"))); }, back:function(){ if(document.querySelector(".mtLive")) return true; if(!CUR && PGM !== "ev" && PGM !== "list"){ PGM = "list"; draw(); return true; } if(CUR){ CUR = null; draw(); return true; } return false; },
   _t:{importNative:importNative, extract:extract, dueOf:dueOf, cleanVtt:cleanVtt, parseImport:parseImport, toWav:toWav, db:db, get:get, SEG:function(v){ SEG_MS = v; }}};
 })();

@@ -267,7 +267,7 @@ function askai(){
   html+='<div id="aiLog">';
   if(!log.length && !st.aiBusy){
     var sug=H.en()?["What breaks the fast?","How do I combine and shorten prayers when travelling?","How many rakaat is the Dhuha prayer, and when is it?","What are the manners of reciting the Quran?"]:["Apakah perkara yang membatalkan puasa?","Bagaimana cara solat jamak dan qasar ketika musafir?","Berapa rakaat solat Dhuha dan bilakah waktunya?","Apakah adab membaca al-Quran?"];
-    html+='<div class="mut small" style="margin:4px 4px 6px">'+L2("Contoh soalan:","Example questions:")+'</div><div class="aiSug">'+sug.map(function(s){ return '<button class="chip" data-sug="'+E(s)+'">'+E(s)+'</button>'; }).join("")+'</div>';
+    html+='<div class="mut small aiSugL" style="margin:4px 4px 6px">'+L2("Contoh soalan:","Example questions:")+'</div><div class="aiSug">'+sug.map(function(s){ return '<button class="chip" data-sug="'+E(s)+'">'+E(s)+'</button>'; }).join("")+'</div>';
   }
   var cats=aiTagged(log), all=!st.aiCat, qi=-1;
   // 0.34.1 (Farah): under "All" only the questions show; tap one to drop its answer down. A category shows the answers.
@@ -284,7 +284,7 @@ function askai(){
   if(st.aiErr) html+='<div class="aiB err">'+E(st.aiErr)+' <button class="chip" id="aiRetry">↻ '+L2("Cuba lagi","Try again")+'</button></div>';
   html+='</div>';
   html+='<div class="aiIn"><textarea id="aiQ" rows="2" maxlength="1200" placeholder="'+L2("Tulis soalan anda…","Type your question…")+'"></textarea><button class="btn gold" id="aiGo"'+(st.aiBusy?' disabled':'')+'>'+L2("Hantar","Send")+'</button></div>';
-  if(A && A.APPS) html+='<div class="card"><h3>📲 '+L2("Atau tanya dalam aplikasi AI anda","Or ask in your own AI app")+'</h3><div class="mut tiny" style="margin-bottom:6px">'+L2("Soalan yang anda tulis dihantar ke aplikasi itu bersama arahan ringkas.","The question you typed goes to that app with a short instruction.")+'</div><div class="aiLinks">'+A.APPS.map(function(x,i){ return '<button class="chip" data-app="'+i+'">'+E(x[0])+'</button>'; }).join("")+'</div></div>';
+  if(A && A.APPS) html+='<div class="card aiApps"><h3>📲 '+L2("Atau tanya dalam aplikasi AI anda","Or ask in your own AI app")+'</h3><div class="mut tiny" style="margin-bottom:6px">'+L2("Soalan yang anda tulis dihantar ke aplikasi itu bersama arahan ringkas.","The question you typed goes to that app with a short instruction.")+'</div><div class="aiLinks">'+A.APPS.map(function(x,i){ return '<button class="chip" data-app="'+i+'">'+E(x[0])+'</button>'; }).join("")+'</div></div>';
   if(log.length) html+='<button class="btn alt full" id="aiClr" style="margin-bottom:12px">🗑 '+L2("Padam perbualan","Clear the conversation")+'</button>';
   box.innerHTML=html;
   var ta=q("#aiQ"); if(H.st.aiPre){ ta.value=H.st.aiPre; H.st.aiPre=null; } else if(st.aiDraft) ta.value=st.aiDraft;

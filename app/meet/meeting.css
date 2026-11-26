@@ -76,3 +76,7 @@
 .wtShare{text-align:center}.wtQr{display:flex;justify-content:center;margin:6px auto}.wtQr svg{width:180px;height:180px;background:#fff;border-radius:10px;padding:6px}
 .wtCode{font-size:15px;margin:6px 0}.wtCode b{font-size:20px;letter-spacing:1px;color:var(--gold)}
 .wtLeave{margin:6px 0 14px}
+
+/* 0.7.76 (owner): Speaker › Speaker | Listen switch */
+.mtSeg{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;margin:0 0 10px;border-radius:14px;background:var(--card2);border:1px solid var(--line)}
+.mtSeg button{border:0;border-radius:10px;padding:9px 4px;background:none;color:var(--fg);font:600 13.5px system-ui,sans-serif}.mtSeg button.on{background:var(--gold);color:#111}

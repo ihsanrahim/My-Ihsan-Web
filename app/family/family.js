@@ -466,7 +466,8 @@ function vNikah(el){
 // 0.36.0 (Farah): Majlis left Keluarga and is its own page in Alat, just left of Kewangan.
 // 0.5.48: Jaga (Care) for the sick and elderly, next to Bayi (family/care.js)
 var SECS=[["tree","🌳","Salasilah","Family tree"],["bday","🎂","Hari lahir","Birthdays"],["baby","👶","Bayi","Baby"],["care","🩺","Jaga","Care"]];
-function dock(){ return '<div class="dock"><div class="grp3'+(SECS.length>3?' grp4':'')+'">'+SECS.map(function(s){ return '<button class="chip g3d'+(sec===s[0]?" on":"")+'" data-fsec="'+s[0]+'">'+s[1]+' '+L2(s[2],s[3])+'</button>'; }).join("")+'</div></div>'; }
+function dock(){ if(H && H.noDock) return '';   // 0.7.75 (owner): in Tools › Life the sections are the Life tabs themselves
+  return '<div class="dock"><div class="grp3'+(SECS.length>3?' grp4':'')+'">'+SECS.map(function(s){ return '<button class="chip g3d'+(sec===s[0]?" on":"")+'" data-fsec="'+s[0]+'">'+s[1]+' '+L2(s[2],s[3])+'</button>'; }).join("")+'</div></div>'; }
 function draw(){ if(!host || !document.body.contains(host)) return; var v=document.getElementById("view"), y=v.scrollTop; render(host); v.scrollTop=y; }
 function vBaby(el){ if(window.BabyView) BabyView.view(el, H, dock()); else vNames(el); }
 function vCare(el){ if(window.CareView) CareView.view(el, H, dock()); else vTree(el); }

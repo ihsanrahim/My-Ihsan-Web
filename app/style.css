@@ -2550,3 +2550,157 @@ select{accent-color:var(--gold)}
 /* 0.7.53 (owner): Kids Planet is full screen, no bottom bars */
 #app.kwFull nav#nav,#app.kwFull #subnav,#app.kwFull .dock,#app.kwFull #qtBar,#app.kwFull #notch,#app.kwFull #mini{display:none !important}
 #app.kwFull main{padding-bottom:12px !important}
+
+/* 0.7.54 (owner): bar size from the notch grip. Full = today. Compact = only the current tab keeps its name. Mini = icons only. */
+#notch,#notch *{-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+#notch #ntG{display:flex;align-items:center;justify-content:center;width:46px;min-height:18px;background:var(--bg);border:1px solid var(--line);border-bottom:0;cursor:ns-resize;touch-action:none}
+#notch #ntG i{display:block;width:22px;height:3px;border-radius:2px;background:var(--mut);box-shadow:0 -5px 0 var(--mut)}
+#notch.off #ntG{display:none}
+#notch #ntS{display:none}
+#notch #ntS.on{display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--line);border-bottom:0;border-radius:10px 0 0 0;padding:2px 9px;cursor:pointer;font-size:13px;line-height:1.2}
+#notch #ntS em{font-style:normal;color:var(--mut);font-size:10px;margin:0 1px}
+#notch.off #ntS.on + #ntT{border-radius:0}
+#app.den-compact nav#nav button,#app.den-mini nav#nav button{flex-direction:row;gap:4px;padding-top:7px;padding-bottom:6px}
+#app.den-compact nav#nav button:not(.on) .lb,#app.den-mini nav#nav button .lb{display:none}
+#app.den-compact nav#nav button.on{flex:2.1 1 0}
+#app.den-compact #subnav button,#app.den-mini #subnav button{flex-direction:row;gap:4px;padding-top:4px;padding-bottom:4px}
+#app.den-compact #subnav button:not(.on) b,#app.den-mini #subnav button b{display:none}
+#app.den-compact #subnav button.on{flex:2 1 0}
+#app.den-compact .dock,#app.den-mini .dock{padding-top:3px;padding-bottom:2px}
+#app.den-compact .dock .chip,#app.den-mini .dock .chip{padding-top:4px;padding-bottom:4px;min-height:30px}
+#app.den-compact .dock .chip:not(.on):has(.ico),#app.den-mini .dock .chip:has(.ico){font-size:0;padding-left:10px;padding-right:10px;justify-content:center}
+#app.den-compact .dock .chip:not(.on) .ico,#app.den-mini .dock .chip .ico{font-size:16px}
+#app.den-mini nav#nav button{padding-top:5px;padding-bottom:4px}
+#app.den-mini #subnav button{padding-top:3px;padding-bottom:3px}
+#app.den-mini .dock .chip{min-height:26px;padding-top:2px;padding-bottom:2px}
+#app.den-mini nav#nav button.on,#app.den-mini #subnav button.on,#app.den-mini .dock .chip.on{box-shadow:inset 0 -3px 0 var(--gold)}
+#notch.denShow::after{content:attr(data-den);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:99px;padding:3px 12px;font-size:12px;font-weight:700;white-space:nowrap;pointer-events:none;box-shadow:0 4px 10px rgba(0,0,0,.25)}
+/* 0.7.54: tighter rows for Compact and Mini */
+#app.den-compact nav#nav{padding-top:3px;padding-bottom:calc(3px + env(safe-area-inset-bottom))}
+#app.den-compact nav#nav button{padding-top:5px;padding-bottom:5px}
+#app.den-compact #subnav{padding-top:3px;padding-bottom:3px}
+#app.den-compact #subnav button{padding-top:3px;padding-bottom:3px;min-height:0}
+#app.den-compact #subnav button span{line-height:1}
+#app.den-compact .dock,#app.den-mini .dock{padding-top:2px;padding-bottom:1px}
+#app.den-compact .dock .chip{height:30px;min-height:0;padding-top:0;padding-bottom:0}
+#app.den-mini nav#nav{padding-top:2px;padding-bottom:calc(2px + env(safe-area-inset-bottom))}
+#app.den-mini nav#nav button{padding-top:4px;padding-bottom:4px}
+#app.den-mini nav#nav button .ic{font-size:16px}
+#app.den-mini #subnav{padding-top:2px;padding-bottom:2px}
+#app.den-mini #subnav button{padding-top:2px;padding-bottom:2px;min-height:0}
+#app.den-mini #subnav button span{font-size:14px;line-height:1}
+#app.den-mini .dock .chip{height:26px;min-height:0;padding-top:0;padding-bottom:0}
+#app.den-mini .dock .chip .ico{font-size:14px}
+#app.den-compact .dock .grp3,#app.den-mini .dock .grp3{display:flex !important;gap:5px}
+#app.den-compact .dock .grp3>.chip,#app.den-mini .dock .grp3>.chip{flex:1 1 0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#app.den-compact .dock .grp3>.chip.on{flex:2.6 1 0}
+/* 0.7.56 (owner): Basics banners at half height, two columns */
+.bnHalf{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.bnHalf .bnHero{margin:0;min-height:62px;padding:9px 10px;align-items:flex-end}
+.bnHalf .bnHero .shTxt{padding-right:0;gap:0}
+.bnHalf .bnHero .shTxt b{font-size:14px;line-height:1.2}
+.bnHalf .bnHero .shTxt small{display:none}
+.bnHalf .bnHero .bnI{right:8px;top:6px;bottom:auto;font-size:24px}
+.bnHalf .bnHero .shGo{display:none}
+/* 0.7.56 (owner): Kids mode chooser: two big banners side by side */
+.kwPick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 12px}
+.kwPk{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:4px;min-height:min(62vh,340px);border:0;border-radius:24px;padding:14px 12px;overflow:hidden;text-align:left;font:inherit;color:#fff;cursor:pointer;box-shadow:0 10px 22px -10px #0008}
+.kwPk:active{transform:scale(.98)}
+.kwPk b{font-size:22px;line-height:1.1;text-shadow:0 2px 4px #0006}
+.kwPk small{font-size:12.5px;line-height:1.3;opacity:.95;text-shadow:0 1px 3px #0007}
+.kwPk.sim{background:radial-gradient(circle at 30% 20%,#ffe08a 0 18%,transparent 19%),linear-gradient(165deg,#ff9f5a,#f0567a 55%,#8e44ad)}
+.kwPkI{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:66px;filter:drop-shadow(0 6px 8px #0004)}
+.kwPkS{position:absolute;top:110px;left:0;right:0;text-align:center;font-size:20px;letter-spacing:1px}
+.kwPkGo{margin-top:4px;background:#ffffffe6;color:#2c3a3a;border-radius:99px;padding:5px 12px;font-weight:800;font-size:13px}
+.kwPk.pla{background:linear-gradient(180deg,#9fd8ff 0%,#dff0ff 55%,#ffe9c2 100%);color:#123}
+.kwPk.pla b,.kwPk.pla small{color:#fff}
+.kwPkV{position:absolute;inset:0;display:block}
+.kwPkV .kwStage{height:100%!important}
+.kwPkT{position:relative;z-index:2;display:flex;flex-direction:column;gap:4px;align-items:flex-start;width:100%;padding:30px 12px 0;margin:0 -12px -14px;padding-bottom:14px;background:linear-gradient(transparent,#0b3d5ccc);width:calc(100% + 24px);box-sizing:border-box}
+.kwPkFb{display:flex;align-items:center;justify-content:center;height:100%;font-size:90px;animation:kwSpin 12s linear infinite}
+@keyframes kwSpin{to{transform:rotate(360deg)}}
+/* 0.7.59 (owner): Iman › Solat: Rakaat (left half) + Qibla (right half) above the times */
+.imTop{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px;align-items:stretch}
+.imRk{display:flex;flex-direction:column;gap:6px;min-width:0}
+.imRk .rkban{margin:0;flex:1;min-height:150px;width:100%}
+.imRk .rkban .rbt{padding-right:0}
+.imRk .rkban .rbn{font-size:20px}
+.imRk .rkban .rbgo{font-size:13px}
+.imMore{background:var(--card2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:7px 6px;font:inherit;font-size:11.5px;cursor:pointer}
+.imQb{margin:0;padding:8px 6px;cursor:pointer;min-width:0;overflow:hidden}
+.imQb h3{font-size:13px;margin:0 0 2px}
+.imQb .compass{width:100%;max-width:140px;margin:0 auto}
+.imQb .compass.sm{width:100%}
+.imQb #qDeg{font-size:20px!important}
+.imQb .btns,.imQb .mut.small:not(#qHead),.imQb .warnbox{display:none!important}
+.imQb #qHead{font-size:11px;margin-top:2px}
+/* Amal and Zikir: level 3 picks the page, its own level 4 is one compact swipeable row */
+#view.imNest .dock.dk4 .grp3,#view.imNest .dock.dk4 .chips,#view.imNest .dock.dk4 .tabrow{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;gap:6px}
+#view.imNest .dock.dk4 .grp3::-webkit-scrollbar,#view.imNest .dock.dk4 .chips::-webkit-scrollbar{display:none}
+#view.imNest .dock.dk4 .chip,#view.imNest .dock.dk4 button{flex:0 0 auto;padding:5px 11px;font-size:12.5px;min-height:0;white-space:nowrap}
+/* Settings › Online AI › Ask AI: just the explanation and the text box */
+.askSimple .aiLinks,.askSimple .aiCats,.askSimple .aiSug,.askSimple .aiSugL,.askSimple .aiApps{display:none!important}
+.askSimple{margin-bottom:10px}
+details.aiWhich{margin:10px 0 4px;border-top:1px solid var(--line);padding-top:8px}
+details.aiWhich>summary{cursor:pointer;list-style:none}
+details.aiWhich>summary b{color:var(--gold)}
+/* 0.7.59: level 4 under Amal / Zikir: one compact swipeable row each (Doa groups + subgroups, Deeds topics) */
+#view.imNest .dock.dk4 .dsubs,#view.imNest .dock.dk4 .dgrps,#view.imNest .dock.dk4 .lv2,#view.imNest .dock.dk4 .lv3{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;gap:6px;grid-template-columns:none!important;padding:4px 6px}
+#view.imNest .dock.dk4 .dsubs::-webkit-scrollbar,#view.imNest .dock.dk4 .dgrps::-webkit-scrollbar,#view.imNest .dock.dk4 .lv2::-webkit-scrollbar{display:none}
+#view.imNest .dock.dk4 .dsub,#view.imNest .dock.dk4 .dgrp,#view.imNest .dock.dk4 .lv2 button{flex:0 0 auto;display:flex;flex-direction:row;align-items:center;gap:4px;padding:5px 11px;font-size:12.5px;min-height:0;white-space:nowrap;border-radius:99px}
+#view.imNest .dock.dk4 .dgrp span,#view.imNest .dock.dk4 .lv2 button span{font-size:14px;line-height:1;margin:0}
+/* 0.7.60 (owner): Basics half banners keep their short brief; Fiqh and Companions are half too */
+.bnHalf .bnHero{align-items:flex-start;min-height:96px}
+.bnHalf .bnHero .shTxt small{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:10.5px;line-height:1.3;margin-top:3px;padding-right:26px}
+.bnHalf .bnHero .shTxt b{padding-right:28px}
+.bnHalf .bn-people .bnPills{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.bnHalf .bn-people .bnPill{padding:3px 7px;font-size:10.5px}
+.kpW{padding:4px 0;border-bottom:1px solid var(--line)}.kpW:last-child{border-bottom:0}
+/* 0.7.62 (owner): School › children row: "Main" (was Year) is as wide as a level-2 tab and highlighted */
+.skKidDock .chip.skMain{min-width:calc((100vw - 24px) / 6);justify-content:center;background:linear-gradient(135deg,#e8c56a,#c9962e)!important;color:#1b1408!important;border-color:#c9962e!important;font-weight:800}
+.skKidDock .chip.skMain.on{box-shadow:0 0 0 2px var(--bg),0 0 0 4px #e8c56a}
+/* 0.7.65 (owner): Ilmu half tiles at full colour; decorations shrink into the bottom-right corner and titles keep clear of the icon */
+.bnHalf .bnHero .bnSc::before{top:auto!important;bottom:12px;right:10px!important;transform:scale(.55);transform-origin:100% 100%}
+.bnHalf .bnHero .shTxt b{padding-right:36px}
+.bnHalf .bnHero .shTxt small{padding-right:10px}
+/* 0.7.66 (owner): the Home shortcut row floats over the page at 50%, full when pressed */
+#qtBar .qtB{opacity:.5;transition:opacity .15s}
+#qtBar .qtB:active,#qtBar .qtB:focus-visible,#qtBar .qtB:hover{opacity:1}
+/* 0.7.69 (owner): top bar. No ☰ / ⚙ (the side notches sit at the top instead), Gregorian and Hijri dates on two lines at double size,
+   on the right: now · countdown · next prayer at one size; about 15% lower. Applies while the notches are on (body.ntTop). */
+body.ntTop #hMenu,body.ntTop #hSet{display:none!important}
+body.ntTop header#top{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:0;align-items:start;padding:2px calc(var(--ntW,32px) + 4px) 2px}
+body.ntTop header#top .hrow{display:contents}
+body.ntTop #topTitle{grid-column:1;grid-row:1;line-height:1;align-self:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ntTop #hBtns{grid-column:2;grid-row:1;justify-self:end;gap:6px}
+body.ntTop #hBtns button{width:28px!important;height:28px!important;min-height:0!important;font-size:13px!important;padding:0!important}
+body.ntTop .hL{grid-column:1;grid-row:2;min-width:0;align-self:end}
+body.ntTop .hR{grid-column:2;grid-row:2;align-self:end;gap:0}
+body.ntTop #topSub,body.ntTop #topHij{font-size:15.4px!important;line-height:18px;margin:0;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.ntTop #topHij{color:var(--gold)}
+body.ntTop #hCur,body.ntTop #hLeft,body.ntTop #hNext,body.ntTop #hLeft .hl{font-size:14px!important;line-height:15px;font-weight:600;color:var(--fg);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+body.ntTop #hCur b,body.ntTop #hNext b{color:var(--gold)}
+body.ntTop .hbar{grid-column:1/-1;grid-row:3;margin-top:2px}
+body.ntTop .edgeN{bottom:auto!important}
+html[data-dz=s] body.ntTop header#top{padding:3px calc(var(--ntW,32px) + 6px) 2px}
+/* 0.7.71: #app is a flex item of body; with the grid top bar it shrank to its content on some pages (School was 28px narrow on the right) */
+#app{width:100%;min-width:0;flex:1 1 auto}
+/* 0.7.74 (owner): Kids mode › 🎮 Phone pets banner (full width, under Iqra and Planet) */
+.kwPk.pet{grid-column:1/-1;min-height:118px;flex-direction:row;align-items:center;justify-content:flex-start;gap:14px;background:linear-gradient(135deg,#3b2f7a,#7b4fd6 55%,#f783ac);color:#fff}
+.kwPkP{display:flex;flex:none}.kwPkP i{font-style:normal;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:28px;margin-left:-10px;box-shadow:0 0 0 2px rgba(255,255,255,.5)}.kwPkP i:first-child{margin-left:0}
+.kwPk.pet .kwPkT{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;min-width:0}
+/* 0.7.76 (owner): Tools › Life tabs: one row of 6, icon above the label (same look as Business) */
+.lfNav{display:grid;gap:3px;margin:2px 0 3px}
+.lfNav button{background:var(--card2);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:4px 0;font-size:10.5px;letter-spacing:-.2px;overflow:hidden;white-space:nowrap;line-height:1.15;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;min-height:44px}
+.lfNav button span{height:20px;width:100%;display:flex;align-items:center;justify-content:center;font-size:17px;line-height:1}
+.lfNav button.on{background:var(--gold);color:#111;font-weight:700;border-color:var(--gold)}
+/* 0.7.77 (owner): Planner › Today timeline: prayers as anchors, tasks (tick), Gather events, children's items */
+.plTl .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.tlR{display:flex;align-items:center;gap:10px;padding:8px 2px;border-top:1px solid var(--line);font-size:14px}
+.tlT{width:66px;flex:none;color:var(--mut);font-size:12px;font-variant-numeric:tabular-nums}
+.tlI{width:26px;text-align:center;flex:none;font-size:17px}.tlN{flex:1;min-width:0}
+.tlTk{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--gold);background:none;color:#111;font-weight:800;font-size:13px;padding:0}
+.tlR.ok .tlTk{background:var(--gold)}.tlR.ok .tlN{opacity:.5;text-decoration:line-through}
+.tlR.k-pray{background:color-mix(in srgb,var(--gold) 9%,transparent);border-radius:10px;border-top-color:transparent;margin:2px 0}.tlR.k-pray .tlN{font-weight:700;color:var(--gold)}
+.tlR.k-kid .tlN,.tlR.k-ev .tlN{color:var(--mut)}
+.tlNow{display:flex;align-items:center;gap:8px;color:#ff8787;font:700 11.5px system-ui,sans-serif;margin:4px 0}.tlNow i{flex:1;height:2px;background:#ff8787;border-radius:2px;order:2}
