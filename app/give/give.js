@@ -123,20 +123,28 @@ function joinForm(cats){
 }
 
 // ---------------- Hadiah ----------------
+// 0.7.79 (owner: no Shopee API, hand-picked affiliate links): the list lives in the owner's Google Sheet, edited at myihsan.app/admin.
+// feeds/gifts.json on the website (and its backup copy) says where the Sheet's feed is; until it is set, the old GitHub Pages list.
+var GIFT_PTR = ["https://myihsan.app/feeds/gifts.json", "https://ihsanrahim.github.io/My-Ihsan-Wifi/feeds/gifts.json"];
+function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null); if(c && c.t > Date.now() - 6 * 3600000) return cb(c.url || SHOP_URL);
+  if(!H.fetch) return cb((c && c.url) || SHOP_URL);
+  var i = 0, next = function(){ if(i >= GIFT_PTR.length) return cb((c && c.url) || SHOP_URL);
+    H.fetch(GIFT_PTR[i++], function(st, body){ var u = ""; if(st === 200){ try{ u = String(JSON.parse(body).url || ""); }catch(e){ u = ""; } if(u && !/^https:\/\/script\.google(usercontent)?\.com\//.test(u)) u = ""; H.save("ihsan_giftsrc", {t: Date.now(), url: u}); return cb(u || SHOP_URL); } next(); }); };
+  next(); }
 function gift(el){
-  feed("ihsan_shop", SHOP_URL, window.SHOP_DATA || null, function(data, fresh){ if(!fresh || document.body.contains(el)) drawGift(el, data); });
+  giftSrc(function(url){ feed("ihsan_shop", url, window.SHOP_DATA || null, function(data, fresh){ if(!fresh || document.body.contains(el)) drawGift(el, data); }); });
 }
 function money(p, cur){ if(p==null) return ""; return (cur||"RM")+" "+(+p).toFixed(2); }
 function drawGift(el, data){
   var cats = (data && data.cats || []).filter(function(c){ return c.items && c.items.length; });
   if(G.cat && !cats.some(function(c){ return c.id===G.cat; })) G.cat = "";
-  var h = '<div class="card gvhero"><div class="gvh"><span class="gvic">🎁</span><div><b>'+L("Hadiah Islamik","Islamic gifts")+'</b><div class="mut small">'+L("Telekung, sejadah, Al-Quran, jubah, kurma dan lain-lain: barangan paling laris, disusun automatik setiap minggu.","Telekung, prayer mats, Quran, jubah, dates and more: best sellers, picked automatically every week.")+'</div></div></div>'+
+  var h = '<div class="card gvhero"><div class="gvh"><span class="gvic">🎁</span><div><b>'+L("Hadiah Islamik","Islamic gifts")+'</b><div class="mut small">'+L("Telekung, sejadah, Al-Quran, jubah, kurma dan lain-lain: barangan laris yang dipilih satu per satu.","Telekung, prayer mats, Quran, jubah, dates and more: well-rated best sellers, picked one by one.")+'</div></div></div>'+
     '<div class="gvaff">🔗 '+L("Pautan afiliasi: My Ihsan mungkin menerima komisen kecil, tanpa kos tambahan kepada anda. Harga dan stok ikut kedai.","Affiliate links: My Ihsan may earn a small commission at no extra cost to you. Prices and stock are set by the shop.")+'</div></div>';
   if(!cats.length) h += '<div class="card mut small" style="text-align:center;padding:24px">🎁 '+L("Senarai hadiah sedang disediakan. Cuba lagi nanti (perlu internet).","The gift list is being prepared. Try again later (needs the internet).")+'</div>';
   else {
     h += '<div class="gvcats">'+[{id:"", ic:"🎁", ms:"Pilihan", en:"Top picks"}].concat(cats).map(function(c){ return '<button class="chip g3d'+(G.cat===c.id ? ' on' : '')+'" data-gk="'+esc(c.id)+'">'+c.ic+' '+esc(L(c.ms, c.en))+'</button>'; }).join("")+'</div>';
     var items = G.cat ? cats.filter(function(c){ return c.id===G.cat; })[0].items : cats.map(function(c){ return c.items.slice(0, 2).map(function(it){ it._c = c; return it; }); }).reduce(function(a, b){ return a.concat(b); }, []);
-    h += '<div class="gvgrid">'+items.map(function(it){ return '<button class="gvit" data-url="'+esc(it.url)+'"><div class="gvimg">'+(it.img ? '<img src="'+esc(it.img)+'" alt="" loading="lazy" onerror="this.remove()">' : '🎁')+(it.mall ? '<i class="gvmall">Mall</i>' : '')+'</div>'+
+    h += '<div class="gvgrid">'+items.map(function(it){ return '<button class="gvit" data-url="'+esc(it.url)+'"><div class="gvimg">'+(it.img ? '<img src="'+esc(it.img)+'" alt="" loading="lazy" onerror="this.remove()">' : '🎁')+(it.mall ? '<i class="gvmall">Mall</i>' : '')+(it.tag ? '<i class="gvtag">'+esc(it.tag)+'</i>' : '')+'</div>'+
       '<div class="gvin">'+esc(it.n)+'</div><div class="gvip"><b>'+money(it.p, data.cur)+'</b>'+(it.r ? ' <span>⭐'+(+it.r).toFixed(1)+'</span>' : '')+'</div><div class="mut tiny">'+(it.sold ? esc(it.sold)+L(" terjual"," sold") : '')+(it.shop ? ' · '+esc(it.shop) : '')+'</div></button>'; }).join("")+'</div>';
     h += '<div class="mut tiny" style="padding:6px 4px">'+L("Dikemas kini ","Updated ")+esc(data.updated||"")+' · '+esc(data.source||"Shopee")+'</div>';
   }

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Gifts Admin</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#f4f1ea;--card:#fff;--card2:#f1ede4;--txt:#1d2a22;--mut:#6b766e;--line:#e2dccf;--acc:#1f7a52;--acc2:#e6f3ec;--gold:#b8892b;--warn:#c47a12;--bad:#c0453c;--good:#2e9c6a;--shadow:0 1px 3px rgba(0,0,0,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101613;--card:#18211c;--card2:#1f2a24;--txt:#e7efe9;--mut:#93a198;--line:#2a372f;--acc:#4cc08a;--acc2:#1c3328;--gold:#d9ad55;--warn:#e7a144;--bad:#ef7b72;--good:#5ccf98;--shadow:none}}
+:root[data-theme="dark"]{--bg:#101613;--card:#18211c;--card2:#1f2a24;--txt:#e7efe9;--mut:#93a198;--line:#2a372f;--acc:#4cc08a;--acc2:#1c3328;--gold:#d9ad55;--warn:#e7a144;--bad:#ef7b72;--good:#5ccf98;--shadow:none}
+*{box-sizing:border-box}html,body{margin:0}body{background:var(--bg);color:var(--txt);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:760px;margin:0 auto;padding:12px 16px 80px}
+h1{font-size:20px;margin:6px 0 2px}h2{font-size:16px;margin:0 0 8px}.mut{color:var(--mut)}.small{font-size:13px}.tiny{font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0;box-shadow:var(--shadow)}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input,select,textarea{width:100%;height:42px;border:1px solid var(--line);border-radius:10px;background:var(--card2);color:var(--txt);font:inherit;padding:0 12px;min-width:0}
+textarea{height:auto;min-height:110px;padding:10px 12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:0}
+button{font:inherit;cursor:pointer;color:inherit}
+.btn{height:42px;border:0;border-radius:10px;padding:0 16px;background:var(--acc);color:#fff;font-weight:600}
+.btn.alt{background:var(--card2);color:var(--txt);border:1px solid var(--line)}.btn.bad{background:transparent;color:var(--bad);border:1px solid var(--bad)}
+.btn.full{width:100%}.btn:disabled{opacity:.5}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.row .fix{flex:0 0 auto}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+.top{display:flex;align-items:center;gap:10px;padding:6px 0}.top .sp{flex:1}
+.tabs{display:flex;gap:6px;position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0;border-bottom:1px solid var(--line)}
+.tabs button{flex:1;height:40px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:600;font-size:14px;padding:0 4px;white-space:nowrap}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:10px 0 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;height:36px;border-radius:18px;border:1px solid var(--line);background:var(--card);padding:0 12px;font-size:13.5px;display:flex;align-items:center;gap:6px}
+.chip.on{border-color:var(--acc);background:var(--acc2);font-weight:600}
+.n{min-width:22px;height:20px;border-radius:10px;font-size:11.5px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;padding:0 5px;color:#fff;background:var(--bad)}
+.n.ok{background:var(--good)}.n.hi{background:var(--warn)}
+.it{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:8px 0}
+.it.off{opacity:.55}.thumb{width:56px;height:56px;border-radius:10px;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.it b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 6px;background:var(--acc2);color:var(--acc);font-weight:600;margin-left:4px}
+.acts{display:grid;grid-template-columns:repeat(2,34px);gap:4px}.acts button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card2);font-size:15px;padding:0}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sum div{background:var(--card2);border-radius:10px;padding:8px;text-align:center}.sum b{display:block;font-size:20px}
+.steps{padding-left:20px;margin:6px 0}.steps li{margin:6px 0}code{background:var(--card2);padding:1px 5px;border-radius:5px;font-size:13px;overflow-wrap:anywhere}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--txt);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:30;max-width:calc(100% - 32px);text-align:center}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:20;display:flex;align-items:flex-end;justify-content:center}
+.sheet>div{background:var(--bg);width:100%;max-width:760px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:14px 16px 20px}
+.err{color:var(--bad);font-size:13px;min-height:18px;margin-top:6px}
+.cat{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:6px 0}
+.cat .ic{font-size:24px;text-align:center}.hide{display:none!important}
+.sw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px}.sw input{width:20px;height:20px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+(function(){ "use strict";
+var K = "gadm", ST = load(), CRED = null, DATA = null, CUR = "", TAB = "prod";
+var TAGS = [["", "—"], ["Budget", "Budget"], ["Best seller", "Best seller"], ["Premium", "Premium"], ["New", "New"], ["Halal", "Halal"]];
+var HOSTS = ["shopee.com.my", "s.shopee.com.my", "shp.ee", "shope.ee", "lazada.com.my", "s.lazada.com.my", "invol.co"];
+function load(){ try{ return JSON.parse(localStorage.getItem(K) || "{}") || {}; }catch(e){ return {}; } }
+function keep(){ try{ localStorage.setItem(K, JSON.stringify(ST)); }catch(e){} }
+try{ CRED = JSON.parse(sessionStorage.getItem(K + "c") || "null"); }catch(e){}
+function $(s, r){ return (r || document).querySelector(s); } function $$(s, r){ return [].slice.call((r || document).querySelectorAll(s)); }
+function E(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function toast(t){ var d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(function(){ d.remove(); }, 2600); }
+function linkOk(u){ u = String(u || "").trim(); var h = u.replace(/^https?:\/\//, "").split("/")[0].toLowerCase(); return /^https:\/\//.test(u) && HOSTS.some(function(x){ return h === x || h.slice(-x.length - 1) === "." + x; }); }
+function money(p){ return p === "" || p == null || isNaN(+p) ? "" : "RM " + (+p).toFixed(2); }
+var ERR = {login:"Wrong user name or password.", locked:"Too many wrong passwords. Changes are locked for 15 minutes.", setup:"First sign-in: the user name needs 3+ letters and the password 4+ characters.",
+  link:"The link must be an https Shopee / Lazada / Involve Asia link (e.g. https://s.shopee.com.my/…).", notempty:"Move or delete this category's products first.", short:"New password needs 6+ characters, user name 3+.", net:"Can't reach the Sheet. Check the internet and the Sheet link (Settings)."};
+function api(op, x){ var b = Object.assign({u: CRED && CRED.u, p: CRED && CRED.p, op: op}, x || {});
+  return fetch(ST.url, {method: "POST", body: JSON.stringify(b)}).then(function(r){ return r.json(); }, function(){ return {ok: false, err: "net"}; }).then(function(r){ if(!r || !r.ok){ var e = new Error(ERR[r && r.err] || ("Error: " + (r && r.err))); e.code = r && r.err; throw e; } return r; }, function(e){ if(e.code) throw e; var x2 = new Error(ERR.net); x2.code = "net"; throw x2; }); }
+function busy(btn, p){ if(btn){ btn.disabled = true; } return p.then(function(r){ if(btn) btn.disabled = false; return r; }, function(e){ if(btn) btn.disabled = false; throw e; }); }
+
+// ---------- screens ----------
+function draw(){ if(!ST.url) return setup(); if(!CRED) return login(); if(!DATA) return refresh(); main(); }
+function setup(){ $("#app").innerHTML = '<h1>🎁 Gifts admin</h1><div class="mut small">The list behind the 🎁 Gift page in My Ihsan. It lives in your own Google Sheet.</div>' +
+  '<div class="card"><h2>One-time setup (about 5 minutes)</h2><ol class="steps small">' +
+  '<li>Open <a href="https://sheets.new" target="_blank" rel="noopener">sheets.new</a> (signed in as myihsan.app) and name it <b>My Ihsan Gifts</b>.</li>' +
+  '<li>In the Sheet: <b>Extensions › Apps Script</b>. Delete what is in <code>Code.gs</code>, then paste the script: <button class="btn alt" id="cp" style="height:32px;margin-top:4px">📋 Copy the script</button></li>' +
+  '<li>Click 💾 Save, then <b>Deploy › New deployment</b> › ⚙ <b>Web app</b>. Execute as: <b>Me</b>. Who has access: <b>Anyone</b>. Deploy, allow the permissions (Advanced › Go to… if Google warns, it is your own script).</li>' +
+  '<li>Copy the <b>Web app URL</b> (ends in <code>/exec</code>) and paste it here:</li></ol>' +
+  '<label for="u">Web app URL</label><input id="u" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off"><div class="err" id="ue"></div><button class="btn full" id="go" style="margin-top:8px">Connect</button></div>';
+  $("#cp").onclick = function(){ fetch("Code.gs").then(function(r){ return r.text(); }).then(function(t){ return navigator.clipboard.writeText(t); }).then(function(){ toast("Script copied"); }, function(){ window.open("Code.gs", "_blank"); }); };
+  $("#go").onclick = function(){ var u = $("#u").value.trim(); if(!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(u)){ $("#ue").textContent = "That doesn't look like a Web app URL (https://script.google.com/macros/s/…/exec)."; return; }
+    busy($("#go"), fetch(u + "?a=ping").then(function(r){ return r.json(); })).then(function(r){ if(!r.ok) throw 0; ST.url = u; ST.first = r.setup; keep(); draw(); }, function(){ $("#ue").textContent = "No answer from that URL. Check it was deployed with access: Anyone."; }); }; }
+function login(){ $("#app").innerHTML = '<h1>🎁 Gifts admin</h1><div class="card"><h2>Sign in</h2>' + (ST.first ? '<div class="small" style="color:var(--warn)">First sign-in: the user name and password you type now become the admin login.</div>' : '') +
+  '<form id="f"><label for="lu">User name</label><input id="lu" autocomplete="username" autocapitalize="none"><label for="lp">Password</label><input id="lp" type="password" autocomplete="current-password"><div class="err" id="le"></div><button class="btn full" style="margin-top:8px">Sign in</button></form></div>' +
+  '<button class="btn alt full" id="chg">Change the Sheet link</button>';
+  $("#f").onsubmit = function(ev){ ev.preventDefault(); CRED = {u: $("#lu").value.trim().toLowerCase(), p: $("#lp").value};
+    busy($("#f button"), api("login")).then(function(r){ if(r.first) toast("Admin login saved"); ST.first = false; keep(); try{ sessionStorage.setItem(K + "c", JSON.stringify(CRED)); }catch(e){} refresh(); }, function(e){ CRED = null; $("#le").textContent = e.message; }); };
+  $("#chg").onclick = function(){ ST.url = ""; keep(); draw(); }; }
+function refresh(){ if(!DATA) $("#app").innerHTML = '<div class="card mut">Loading…</div>';
+  return api("list").then(function(r){ DATA = r; if(r.hosts) HOSTS = r.hosts; DATA.cats.sort(byOrder); DATA.prods.sort(byOrder); if(!CUR || !cat(CUR)) CUR = (DATA.cats[0] || {}).id || ""; main(); },
+    function(e){ if(e.code === "login"){ CRED = null; try{ sessionStorage.removeItem(K + "c"); }catch(x){} } toast(e.message); if(!DATA) draw(); }); }
+function byOrder(a, b){ return (+a.order || 0) - (+b.order || 0); }
+function cat(id){ return DATA.cats.filter(function(c){ return String(c.id) === String(id); })[0]; }
+function on(v){ return v === true || String(v).toUpperCase() === "TRUE"; }
+function inCat(id){ return DATA.prods.filter(function(p){ return String(p.cat) === String(id); }); }
+function badge(n){ return '<span class="n' + (n >= 5 && n <= 10 ? " ok" : n > 10 ? " hi" : "") + '">' + n + '</span>'; }
+
+function main(){ var live = DATA.prods.filter(function(p){ return on(p.on); }).length, full = DATA.cats.filter(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return n >= 5; }).length;
+  var h = '<div class="top"><h1>🎁 Gifts admin</h1><span class="sp"></span><button class="btn alt fix" id="rf" title="Reload" aria-label="Reload" style="width:42px;padding:0">⟳</button></div>' +
+    '<div class="tabs">' + [["prod", "📦 Products"], ["add", "＋ Add"], ["cats", "🗂 Categories"], ["set", "⚙"]].map(function(t){ return '<button data-t="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '">' + t[1] + '</button>'; }).join("") + '</div>';
+  if(TAB === "prod") h += '<div class="sum" style="margin-top:10px"><div><b>' + live + '</b><span class="tiny mut">live products</span></div><div><b>' + full + '/' + DATA.cats.length + '</b><span class="tiny mut">categories with 5+</span></div><div><b>' + DATA.prods.length + '</b><span class="tiny mut">rows in the Sheet</span></div></div>' + chips() + prodList();
+  if(TAB === "add") h += addForm();
+  if(TAB === "cats") h += catList();
+  if(TAB === "set") h += settings();
+  $("#app").innerHTML = h; bind(); var ch = $(".chip.on"); if(ch && ch.parentNode) ch.parentNode.scrollLeft = ch.offsetLeft - 16; }
+function chips(){ return '<div class="chips">' + DATA.cats.map(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return '<button class="chip' + (CUR === String(c.id) ? " on" : "") + (on(c.on) ? "" : " off") + '" data-c="' + E(c.id) + '">' + E(c.icon) + ' ' + E(c.name_en) + ' ' + badge(n) + '</button>'; }).join("") + '</div>'; }
+function prodList(){ var c = cat(CUR); if(!c) return '<div class="card mut">Add a category first.</div>'; var l = inCat(CUR);
+  return '<div class="row" style="margin:4px 0"><div class="small mut">' + E(c.icon + " " + c.name_en + " · " + c.name_ms) + (on(c.on) ? "" : " · hidden") + '<br>Aim for 5–10 live links.</div><button class="btn fix" data-add="' + E(CUR) + '">＋ Add</button></div>' +
+    (l.length ? l.map(function(p, i){ return '<div class="it' + (on(p.on) ? "" : " off") + '"><div class="thumb">' + (p.image ? '<img src="' + E(p.image) + '" alt="" loading="lazy" onerror="this.remove()">' : E(c.icon)) + '</div>' +
+      '<div style="min-width:0"><b>' + E(p.name || "(no name)") + '</b><div class="small">' + money(p.price) + (p.tag ? '<span class="tag">' + E(p.tag) + '</span>' : '') + (on(p.on) ? '' : ' · <span class="mut">hidden</span>') + '</div><a class="tiny mut" href="' + E(p.link) + '" target="_blank" rel="noopener" style="overflow-wrap:anywhere">' + E(p.link) + '</a></div>' +
+      '<div class="acts"><button data-up="' + i + '" aria-label="Move up"' + (i ? '' : ' disabled') + '>↑</button><button data-ed="' + E(p.id) + '" aria-label="Edit">✎</button><button data-dn="' + i + '" aria-label="Move down"' + (i < l.length - 1 ? '' : ' disabled') + '>↓</button><button data-on="' + E(p.id) + '" aria-label="Show or hide">' + (on(p.on) ? "👁" : "🚫") + '</button></div></div>'; }).join("")
+      : '<div class="card mut small" style="text-align:center">No products yet in this category.</div>'); }
+function catOpts(sel){ return DATA.cats.map(function(c){ return '<option value="' + E(c.id) + '"' + (String(c.id) === String(sel) ? " selected" : "") + '>' + E(c.icon + " " + c.name_en) + '</option>'; }).join(""); }
+function tagOpts(sel){ return TAGS.map(function(t){ return '<option value="' + E(t[0]) + '"' + (t[0] === (sel || "") ? " selected" : "") + '>' + E(t[1]) + '</option>'; }).join(""); }
+function fields(p){ p = p || {}; return '<label for="pc">Category</label><select id="pc">' + catOpts(p.cat || CUR) + '</select>' +
+  '<label for="pl">Affiliate link</label><input id="pl" inputmode="url" placeholder="https://s.shopee.com.my/…" value="' + E(p.link) + '" autocomplete="off">' +
+  '<label for="pn">Product name (short)</label><input id="pn" maxlength="120" placeholder="Telekung Cotton Premium Putih" value="' + E(p.name) + '">' +
+  '<div class="g2"><div><label for="pp">Price (RM)</label><input id="pp" type="number" step="0.01" min="0" inputmode="decimal" value="' + E(p.price) + '"></div><div><label for="pt">Tag</label><select id="pt">' + tagOpts(p.tag) + '</select></div></div>' +
+  '<label for="pi">Image link (optional)</label><input id="pi" inputmode="url" placeholder="https://…jpg  (computer: right-click the photo › Copy image address)" value="' + E(p.image) + '" autocomplete="off">' +
+  '<label class="sw"><input type="checkbox" id="po"' + (p.id && !on(p.on) ? '' : ' checked') + '> Show in the app</label><div class="err" id="pe"></div>'; }
+function readF(){ return {cat: $("#pc").value, link: $("#pl").value.trim(), name: $("#pn").value.trim(), price: $("#pp").value === "" ? "" : +$("#pp").value, tag: $("#pt").value, image: $("#pi").value.trim(), on: $("#po").checked}; }
+function check(r){ if(!r.cat) return "Choose a category."; if(!linkOk(r.link)) return ERR.link; if(!r.name) return "Type the product name."; if(r.image && !/^https:\/\//.test(r.image)) return "The image link must start with https://"; return ""; }
+function addForm(){ return '<div class="card"><h2>＋ Add a product</h2>' + fields() + '<button class="btn full" id="sv" style="margin-top:6px">Save and add another</button></div>' +
+  '<div class="card"><h2>📋 Paste many at once</h2><div class="small mut">One product per line: <code>name | price | link</code> (price can be empty). They go into the category chosen above.</div>' +
+  '<textarea id="bk" placeholder="Sejadah Turki Lembut | 45.90 | https://s.shopee.com.my/AbCd123&#10;Tasbih Kayu Kokka | | https://s.shopee.com.my/XyZ987"></textarea><div class="err" id="be"></div><button class="btn alt full" id="bs">Add these</button></div>' +
+  '<div class="card small"><h2>How to get the link</h2><ol class="steps"><li>Shopee app, signed in to your affiliate account: open the product › <b>Share</b> › <b>Copy link</b>.</li><li>Or on a computer: affiliate.shopee.com.my › <b>Custom Link</b> › paste the product page › <b>Get link</b>.</li></ol><div class="mut">Pick: rating 4.8+, 500+ sold, Mall or Preferred; food and cosmetics with the JAKIM halal logo.</div></div>'; }
+function catList(){ return '<div class="small mut" style="margin-top:10px">Order = order of the chips in the app. Hidden categories don\'t show.</div>' + DATA.cats.map(function(c, i){ var n = inCat(c.id).length;
+    return '<div class="cat' + (on(c.on) ? "" : " off") + '" style="' + (on(c.on) ? "" : "opacity:.55") + '"><span class="ic">' + E(c.icon) + '</span><div style="min-width:0"><b>' + E(c.name_en) + '</b><div class="tiny mut">' + E(c.name_ms) + ' · ' + E(c.id) + ' · ' + n + ' products' + (on(c.on) ? '' : ' · hidden') + '</div></div>' +
+      '<div class="acts"><button data-cu="' + i + '" aria-label="Move up"' + (i ? '' : ' disabled') + '>↑</button><button data-ce="' + E(c.id) + '" aria-label="Edit">✎</button><button data-cd="' + i + '" aria-label="Move down"' + (i < DATA.cats.length - 1 ? '' : ' disabled') + '>↓</button><button data-co="' + E(c.id) + '" aria-label="Show or hide">' + (on(c.on) ? "👁" : "🚫") + '</button></div></div>'; }).join("") +
+  '<button class="btn full" id="nc" style="margin-top:8px">＋ New category</button>'; }
+function settings(){ return '<div class="card"><h2>Change the login</h2><label for="nu">New user name</label><input id="nu" autocapitalize="none" value="' + E(CRED.u) + '"><label for="np">New password (6+ characters)</label><input id="np" type="password" autocomplete="new-password"><div class="err" id="ne"></div><button class="btn full" id="ns" style="margin-top:6px">Save the new login</button></div>' +
+  '<div class="card small"><h2>The Sheet</h2><div class="mut" style="overflow-wrap:anywhere">' + E(ST.url) + '</div><div class="mut" style="margin-top:6px">You can also edit the <b>Products</b> and <b>Categories</b> tabs straight in the Sheet. The app picks up changes within about 5 minutes.</div>' +
+  '<div class="row" style="margin-top:10px"><a class="btn alt" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="' + E(ST.url) + '" target="_blank" rel="noopener">View the app feed</a><button class="btn alt" id="cu">Change link</button></div></div>' +
+  '<button class="btn bad full" id="so">Sign out</button>'; }
+
+// ---------- actions ----------
+function bind(){
+  $("#rf").onclick = function(){ busy($("#rf"), refresh()).catch(function(){}); };
+  $$("[data-t]").forEach(function(b){ b.onclick = function(){ TAB = b.getAttribute("data-t"); main(); window.scrollTo(0, 0); }; });
+  $$("[data-c]").forEach(function(b){ b.onclick = function(){ CUR = b.getAttribute("data-c"); main(); }; });
+  $$("[data-add]").forEach(function(b){ b.onclick = function(){ TAB = "add"; main(); }; });
+  $$("[data-ed]").forEach(function(b){ b.onclick = function(){ editProd(b.getAttribute("data-ed")); }; });
+  $$("[data-on]").forEach(function(b){ b.onclick = function(){ var p = DATA.prods.filter(function(x){ return String(x.id) === b.getAttribute("data-on"); })[0]; busy(b, api("saveProd", {row: {id: p.id, cat: p.cat, link: p.link, on: !on(p.on)}})).then(function(r){ p.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
+  var mv = function(what, list, i, d, btn){ var ids = list.map(function(x){ return x.id; }), t = ids[i]; ids[i] = ids[i + d]; ids[i + d] = t;
+    busy(btn, api("order", {what: what, ids: ids})).then(function(){ ids.forEach(function(id, k){ list.filter(function(x){ return x.id === id; })[0].order = k + 1; }); DATA.prods.sort(byOrder); DATA.cats.sort(byOrder); main(); }, function(e){ toast(e.message); }); };
+  $$("[data-up],[data-dn]").forEach(function(b){ b.onclick = function(){ var up = b.hasAttribute("data-up"); mv("prod", inCat(CUR), +b.getAttribute(up ? "data-up" : "data-dn"), up ? -1 : 1, b); }; });
+  $$("[data-cu],[data-cd]").forEach(function(b){ b.onclick = function(){ var up = b.hasAttribute("data-cu"); mv("cat", DATA.cats, +b.getAttribute(up ? "data-cu" : "data-cd"), up ? -1 : 1, b); }; });
+  $$("[data-ce]").forEach(function(b){ b.onclick = function(){ editCat(b.getAttribute("data-ce")); }; });
+  $$("[data-co]").forEach(function(b){ b.onclick = function(){ var c = cat(b.getAttribute("data-co")); busy(b, api("saveCat", {row: {id: c.id, on: !on(c.on)}})).then(function(r){ c.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
+  if($("#nc")) $("#nc").onclick = function(){ editCat(""); };
+  if($("#sv")) $("#sv").onclick = function(){ var r = readF(), er = check(r); if(er){ $("#pe").textContent = er; return; }
+    busy($("#sv"), api("saveProd", {row: r})).then(function(x){ DATA.prods.push(x.row); CUR = r.cat; toast("✓ Added to " + cat(r.cat).name_en + " (" + inCat(r.cat).length + ")"); ["#pl", "#pn", "#pp", "#pi"].forEach(function(s){ $(s).value = ""; }); $("#pt").value = ""; $("#pe").textContent = ""; $("#pl").focus(); }, function(e){ $("#pe").textContent = e.message; }); };
+  if($("#bs")) $("#bs").onclick = function(){ var c = $("#pc").value, bad = [], rows = [];
+    $("#bk").value.split(/\n/).forEach(function(l, i){ l = l.trim(); if(!l) return; var f = l.split("|").map(function(x){ return x.trim(); });
+      var link = f.filter(linkOk)[0], name = f[0] && !linkOk(f[0]) ? f[0] : "", price = f.length > 2 ? f[1].replace(/rm/i, "").replace(/,/g, "") : "";
+      if(!link){ bad.push("line " + (i + 1) + ": no Shopee link"); return; } if(price !== "" && isNaN(+price)){ bad.push("line " + (i + 1) + ": price"); return; }
+      rows.push({cat: c, name: name || "(name me)", price: price === "" ? "" : +price, link: link, on: !!name}); });
+    if(bad.length){ $("#be").textContent = bad.join(" · "); return; } if(!rows.length){ $("#be").textContent = "Nothing to add."; return; }
+    busy($("#bs"), api("saveProds", {rows: rows})).then(function(){ toast("✓ " + rows.length + " added"); $("#bk").value = ""; CUR = c; TAB = "prod"; refresh(); }, function(e){ $("#be").textContent = e.message; }); };
+  if($("#ns")) $("#ns").onclick = function(){ var nu = $("#nu").value.trim().toLowerCase(), np = $("#np").value; if(nu.length < 3 || np.length < 6){ $("#ne").textContent = ERR.short; return; }
+    busy($("#ns"), api("pass", {nu: nu, np: np})).then(function(){ CRED = {u: nu, p: np}; try{ sessionStorage.setItem(K + "c", JSON.stringify(CRED)); }catch(e){} toast("✓ New login saved"); main(); }, function(e){ $("#ne").textContent = e.message; }); };
+  if($("#cu")) $("#cu").onclick = function(){ if(!confirm("Disconnect this Sheet link?")) return; ST.url = ""; keep(); CRED = null; DATA = null; draw(); };
+  if($("#so")) $("#so").onclick = function(){ CRED = null; DATA = null; try{ sessionStorage.removeItem(K + "c"); }catch(e){} draw(); }; }
+function sheet(h){ var d = document.createElement("div"); d.className = "sheet"; d.innerHTML = '<div>' + h + '</div>'; d.onclick = function(e){ if(e.target === d) d.remove(); }; document.body.appendChild(d); return d; }
+function editProd(id){ var p = DATA.prods.filter(function(x){ return String(x.id) === String(id); })[0]; if(!p) return;
+  var d = sheet('<h2>✎ Edit product</h2>' + fields(p) + '<div class="row" style="margin-top:8px"><button class="btn" id="es">Save</button><button class="btn alt" id="ex">Cancel</button></div><button class="btn bad full" id="ed" style="margin-top:10px">🗑 Delete</button>');
+  $("#ex", d).onclick = function(){ d.remove(); };
+  $("#es", d).onclick = function(){ var r = readF(), er = check(r); if(er){ $("#pe", d).textContent = er; return; } r.id = p.id;
+    busy($("#es", d), api("saveProd", {row: r})).then(function(x){ Object.assign(p, x.row); d.remove(); CUR = r.cat; main(); toast("✓ Saved"); }, function(e){ $("#pe", d).textContent = e.message; }); };
+  $("#ed", d).onclick = function(){ if(!confirm("Delete \"" + (p.name || "this product") + "\"?")) return; busy($("#ed", d), api("delProd", {id: p.id})).then(function(){ DATA.prods = DATA.prods.filter(function(x){ return x !== p; }); d.remove(); main(); toast("Deleted"); }, function(e){ $("#pe", d).textContent = e.message; }); }; }
+function editCat(id){ var c = id ? cat(id) : {id: "", icon: "🎁", name_ms: "", name_en: "", on: true};
+  var d = sheet('<h2>' + (id ? "✎ Edit category" : "＋ New category") + '</h2><div class="g2"><div><label for="ci">Icon (emoji)</label><input id="ci" maxlength="4" value="' + E(c.icon) + '"></div><div><label for="cid">Short id (a–z)</label><input id="cid" value="' + E(c.id) + '"' + (id ? " disabled" : "") + ' autocapitalize="none"></div></div>' +
+    '<label for="cen">Name (English)</label><input id="cen" value="' + E(c.name_en) + '"><label for="cms">Name (Malay)</label><input id="cms" value="' + E(c.name_ms) + '"><div class="err" id="ce"></div>' +
+    '<div class="row" style="margin-top:8px"><button class="btn" id="cs">Save</button><button class="btn alt" id="cx">Cancel</button></div>' + (id ? '<button class="btn bad full" id="cdel" style="margin-top:10px">🗑 Delete category</button>' : ''));
+  $("#cx", d).onclick = function(){ d.remove(); };
+  $("#cs", d).onclick = function(){ var r = {id: id || $("#cid", d).value.trim().toLowerCase().replace(/[^a-z0-9]/g, ""), icon: $("#ci", d).value.trim() || "🎁", name_en: $("#cen", d).value.trim(), name_ms: $("#cms", d).value.trim()};
+    if(!r.id || !r.name_en || !r.name_ms){ $("#ce", d).textContent = "Fill in the id and both names."; return; } if(!id && cat(r.id)){ $("#ce", d).textContent = "That id is taken."; return; }
+    busy($("#cs", d), api("saveCat", {row: r})).then(function(x){ if(id) Object.assign(c, x.row); else DATA.cats.push(x.row); d.remove(); main(); toast("✓ Saved"); }, function(e){ $("#ce", d).textContent = e.message; }); };
+  if($("#cdel", d)) $("#cdel", d).onclick = function(){ if(!confirm("Delete the category \"" + c.name_en + "\"?")) return; busy($("#cdel", d), api("delCat", {id: c.id})).then(function(){ DATA.cats = DATA.cats.filter(function(x){ return x !== c; }); if(CUR === c.id) CUR = (DATA.cats[0] || {}).id || ""; d.remove(); main(); }, function(e){ $("#ce", d).textContent = e.message; }); }; }
+draw();
+})();
+</script>
+</body>
+</html>

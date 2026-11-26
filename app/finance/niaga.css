@@ -153,6 +153,7 @@ input.bad{border-color:var(--red,#e0533b)!important}input.warn{border-color:#e0a
 .nbClash{margin-top:8px;color:var(--red);font-weight:600;font-size:13px}
 .nbMoney{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.nbMoney>div{background:var(--card2);border-radius:10px;padding:8px;text-align:center}.nbMoney small{display:block;font-size:11px;color:var(--mut)}.nbMoney b{font-size:15px}.nbMoney b.due{color:#f0a24a}
 .nbPays{margin-top:6px}.nbPays .chip{padding:1px 7px}
+.nbOwe{margin-top:8px;padding:8px 10px;border-radius:10px;background:rgba(240,162,74,.14);border:1px solid rgba(240,162,74,.5);color:var(--txt,inherit);font-size:12.5px;line-height:1.45}
 /* 0.6.52 bookings: prices, add-ons, group, discounts, refunds, codes */
 .nbIn{display:inline-block!important;width:58px!important;padding:4px 6px!important;margin:0 3px!important;vertical-align:middle}
 .nbDow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.nbDow .hfld{font-size:11px;text-align:center}.nbDow .rin{padding:6px 3px;text-align:center}
