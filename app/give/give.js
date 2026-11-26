@@ -126,7 +126,7 @@ function joinForm(cats){
 // 0.7.79 (owner: no Shopee API, hand-picked affiliate links): the list lives in the owner's Google Sheet, edited at myihsan.app/admin.
 // feeds/gifts.json on the website (and its backup copy) says where the Sheet's feed is; until it is set, the old GitHub Pages list.
 var GIFT_PTR = ["https://myihsan.app/feeds/gifts.json", "https://ihsanrahim.github.io/My-Ihsan-Wifi/feeds/gifts.json"];
-function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null); if(c && c.t > Date.now() - 6 * 3600000) return cb(c.url || SHOP_URL);
+function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null); if(c && c.url && c.t > Date.now() - 6 * 3600000) return cb(c.url);   // no Sheet yet: ask again every time
   if(!H.fetch) return cb((c && c.url) || SHOP_URL);
   var i = 0, next = function(){ if(i >= GIFT_PTR.length) return cb((c && c.url) || SHOP_URL);
     H.fetch(GIFT_PTR[i++], function(st, body){ var u = ""; if(st === 200){ try{ u = String(JSON.parse(body).url || ""); }catch(e){ u = ""; } if(u && !/^https:\/\/script\.google(usercontent)?\.com\//.test(u)) u = ""; H.save("ihsan_giftsrc", {t: Date.now(), url: u}); return cb(u || SHOP_URL); } next(); }); };
@@ -134,6 +134,9 @@ function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null); if(c && c.t > Date.
 function gift(el){
   giftSrc(function(url){ feed("ihsan_shop", url, window.SHOP_DATA || null, function(data, fresh){ if(!fresh || document.body.contains(el)) drawGift(el, data); }); });
 }
+// 0.7.80: a Drive photo (lh3 link) that does not open tries Drive's thumbnail address once; dates show as "26 Nov 2026"
+window.gvImgErr = function(im){ var m = /lh3\.googleusercontent\.com\/d\/([\w-]+)/.exec(im.src); if(m && !im._t){ im._t = 1; im.src = "https://drive.google.com/thumbnail?id=" + m[1] + "&sz=w800"; return; } im.remove(); };
+function day(v){ var d = /^\d{4}-\d\d-\d\d/.test(String(v||"")) ? new Date(String(v).slice(0, 10) + "T12:00:00") : new Date(v); if(!v || isNaN(d)) return String(v||""); return d.getDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][d.getMonth()]+" "+d.getFullYear(); }
 function money(p, cur){ if(p==null) return ""; return (cur||"RM")+" "+(+p).toFixed(2); }
 function drawGift(el, data){
   var cats = (data && data.cats || []).filter(function(c){ return c.items && c.items.length; });
@@ -144,9 +147,9 @@ function drawGift(el, data){
   else {
     h += '<div class="gvcats">'+[{id:"", ic:"🎁", ms:"Pilihan", en:"Top picks"}].concat(cats).map(function(c){ return '<button class="chip g3d'+(G.cat===c.id ? ' on' : '')+'" data-gk="'+esc(c.id)+'">'+c.ic+' '+esc(L(c.ms, c.en))+'</button>'; }).join("")+'</div>';
     var items = G.cat ? cats.filter(function(c){ return c.id===G.cat; })[0].items : cats.map(function(c){ return c.items.slice(0, 2).map(function(it){ it._c = c; return it; }); }).reduce(function(a, b){ return a.concat(b); }, []);
-    h += '<div class="gvgrid">'+items.map(function(it){ return '<button class="gvit" data-url="'+esc(it.url)+'"><div class="gvimg">'+(it.img ? '<img src="'+esc(it.img)+'" alt="" loading="lazy" onerror="this.remove()">' : '🎁')+(it.mall ? '<i class="gvmall">Mall</i>' : '')+(it.tag ? '<i class="gvtag">'+esc(it.tag)+'</i>' : '')+'</div>'+
+    h += '<div class="gvgrid">'+items.map(function(it){ return '<button class="gvit" data-url="'+esc(it.url)+'"><div class="gvimg">'+(it.img ? '<img src="'+esc(it.img)+'" alt="" loading="lazy" onerror="gvImgErr(this)">' : '🎁')+(it.mall ? '<i class="gvmall">Mall</i>' : '')+(it.tag ? '<i class="gvtag">'+esc(it.tag)+'</i>' : '')+'</div>'+
       '<div class="gvin">'+esc(it.n)+'</div><div class="gvip"><b>'+money(it.p, data.cur)+'</b>'+(it.r ? ' <span>⭐'+(+it.r).toFixed(1)+'</span>' : '')+'</div><div class="mut tiny">'+(it.sold ? esc(it.sold)+L(" terjual"," sold") : '')+(it.shop ? ' · '+esc(it.shop) : '')+'</div></button>'; }).join("")+'</div>';
-    h += '<div class="mut tiny" style="padding:6px 4px">'+L("Dikemas kini ","Updated ")+esc(data.updated||"")+' · '+esc(data.source||"Shopee")+'</div>';
+    h += '<div class="mut tiny" style="padding:6px 4px">'+L("Dikemas kini ","Updated ")+esc(day(data.updated))+' · '+esc(data.source||"Shopee")+'</div>';
   }
   h += '<div class="card gvjoin"><h3>🛍 '+L("Penjual: tonjolkan produk anda","Sellers: feature your products")+'</h3><div class="small">'+L("Ada produk Islamik yang berkualiti? Hantar pautan kedai anda untuk dipertimbangkan.","Have quality Islamic products? Send your shop link to be considered.")+'</div><button class="btn alt full g3d" id="gvSell" style="margin-top:8px">📝 '+L("Hubungi kami","Contact us")+'</button></div>';
   el.innerHTML = h;

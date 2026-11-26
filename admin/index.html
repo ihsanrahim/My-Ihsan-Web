@@ -48,6 +48,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 .cat{display:grid;grid-template-columns:44px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin:6px 0}
 .cat .ic{font-size:24px;text-align:center}.hide{display:none!important}
 .imgrow{display:flex;gap:10px;align-items:center}.imgrow .thumb{width:72px;height:72px;flex:0 0 72px}.imgbtns{display:flex;gap:8px;flex:1;flex-wrap:wrap}.imgbtns .btn{flex:1;min-width:120px;padding:0 10px}
+.mvc{height:32px;margin-top:6px;font-size:13px;padding:0 8px;border-radius:8px}
 .sw{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px}.sw input{width:20px;height:20px}
 </style>
 </head>
@@ -102,18 +103,20 @@ function badge(n){ return '<span class="n' + (n >= 5 && n <= 10 ? " ok" : n > 10
 function main(){ var live = DATA.prods.filter(function(p){ return on(p.on); }).length, full = DATA.cats.filter(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length; return n >= 5; }).length;
   var h = '<div class="top"><h1>🎁 Gifts admin</h1><span class="sp"></span><button class="btn alt fix" id="rf" title="Reload" aria-label="Reload" style="width:42px;padding:0">⟳</button></div>' +
     '<div class="tabs">' + [["prod", "📦 Products"], ["add", "＋ Add"], ["cats", "🗂 Categories"], ["set", "⚙"]].map(function(t){ return '<button data-t="' + t[0] + '" class="' + (TAB === t[0] ? "on" : "") + '">' + t[1] + '</button>'; }).join("") + '</div>';
+  if(SV !== null && SV < NEED) h += '<div class="card small" style="border-color:var(--warn)"><b>⚠ Update the Sheet\'s script</b><div class="mut" style="margin-top:4px">Your script is version ' + SV + '; this page needs version ' + NEED + ' (photos and dates). Until then photos can\'t be saved. Steps: ⚙ › How to update the script (about 1 minute).</div></div>';
   if(PTR !== null && PTR !== ST.url) h += '<div class="card small" id="ptr" style="border-color:var(--warn)"><b>⚠ The app isn\'t reading this Sheet yet.</b><div class="mut" style="margin-top:4px">Products here won\'t show in the app or web app until this Sheet\'s link is put in the website\'s settings (feeds/gifts.json). Copy the link and send it to the developer. This is needed only once.</div><button class="btn full" id="ptrc" style="margin-top:8px">📋 Copy the Sheet link</button></div>';
   if(TAB === "prod") h += '<div class="sum" style="margin-top:10px"><div><b>' + live + '</b><span class="tiny mut">live products</span></div><div><b>' + full + '/' + DATA.cats.length + '</b><span class="tiny mut">categories with 5+</span></div><div><b>' + DATA.prods.length + '</b><span class="tiny mut">rows in the Sheet</span></div></div>' + chips() + prodList();
   if(TAB === "add") h += addForm();
   if(TAB === "cats") h += catList();
   if(TAB === "set") h += settings();
   $("#app").innerHTML = h; bind(); if($("#ptrc")) $("#ptrc").onclick = function(){ navigator.clipboard.writeText(ST.url).then(function(){ toast("Link copied"); }, function(){ prompt("Copy this link:", ST.url); }); }; }
+var SV = null, NEED = 3; function ping(){ if(ST.url) fetch(ST.url + "?a=ping", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ SV = +j.v || 1; if(DATA) main(); }, function(){}); } ping();
 var PTR = null; fetch("../feeds/gifts.json", {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(j){ PTR = String(j.url || ""); if(DATA) main(); }, function(){});
 function chips(){ var all = DATA.prods.filter(function(p){ return on(p.on); }).length;
   return '<label for="cs0" class="hide">Category</label><select id="cs0" style="margin-top:10px;font-weight:600">' + '<option value="">🗂 All categories (' + all + ' live)</option>' + DATA.cats.map(function(c){ var n = inCat(c.id).filter(function(p){ return on(p.on); }).length;
     return '<option value="' + E(c.id) + '"' + (CUR === String(c.id) ? " selected" : "") + '>' + E(c.icon + " " + c.name_en) + " — " + n + (n < 5 ? " ⚠" : n > 10 ? " ▲" : " ✓") + (on(c.on) ? "" : " (hidden)") + '</option>'; }).join("") + '</select><div class="tiny mut" style="margin-top:4px">⚠ under 5 · ✓ 5–10 · ▲ over 10 live links</div>'; }
-function itemHtml(p, c, i, l){ return '<div class="it' + (on(p.on) ? "" : " off") + '"><div class="thumb">' + (p.image ? '<img src="' + E(p.image) + '" alt="" loading="lazy" onerror="this.remove()">' : E(c.icon)) + '</div>' +
-  '<div style="min-width:0"><b>' + E(p.name || "(no name)") + '</b><div class="small">' + money(p.price) + (p.tag ? '<span class="tag">' + E(p.tag) + '</span>' : '') + (on(p.on) ? '' : ' · <span class="mut">hidden</span>') + '</div><a class="tiny mut" href="' + E(p.link) + '" target="_blank" rel="noopener" style="overflow-wrap:anywhere">' + E(p.link) + '</a></div>' +
+function itemHtml(p, c, i, l){ return '<div class="it' + (on(p.on) ? "" : " off") + '"><div class="thumb">' + (p.image ? '<img src="' + E(p.image) + '" alt="" loading="lazy" onerror="imgErr(this)">' : E(c.icon)) + '</div>' +
+  '<div style="min-width:0"><b>' + E(p.name || "(no name)") + '</b>' + (p.image ? '' : '<div class="tiny" style="color:var(--warn)">No photo yet · ✎ to add</div>') + '<div class="small">' + money(p.price) + (p.tag ? '<span class="tag">' + E(p.tag) + '</span>' : '') + (on(p.on) ? '' : ' · <span class="mut">hidden</span>') + '</div><a class="tiny mut" href="' + E(p.link) + '" target="_blank" rel="noopener" style="overflow-wrap:anywhere">' + E(p.link) + '</a><select class="mvc" data-mv="' + E(p.id) + '" aria-label="Category">' + catOpts(p.cat) + '</select></div>' +
   '<div class="acts"><button data-up="' + i + '" data-cid="' + E(c.id) + '" aria-label="Move up"' + (i ? '' : ' disabled') + '>↑</button><button data-ed="' + E(p.id) + '" aria-label="Edit">✎</button><button data-dn="' + i + '" data-cid="' + E(c.id) + '" aria-label="Move down"' + (i < l.length - 1 ? '' : ' disabled') + '>↓</button><button data-on="' + E(p.id) + '" aria-label="Show or hide">' + (on(p.on) ? "👁" : "🚫") + '</button></div></div>'; }
 function prodList(){ if(!DATA.cats.length) return '<div class="card mut">Add a category first.</div>';
   if(!CUR){ var any = DATA.cats.filter(function(c){ return inCat(c.id).length; });
@@ -129,7 +132,7 @@ function fields(p){ p = p || {}; return '<label for="pc">Category</label><select
   '<label for="pl">Affiliate link</label><input id="pl" inputmode="url" placeholder="https://s.shopee.com.my/…" value="' + E(p.link) + '" autocomplete="off">' +
   '<label for="pn">Product name (short)</label><input id="pn" maxlength="120" placeholder="Telekung Cotton Premium Putih" value="' + E(p.name) + '">' +
   '<div class="g2"><div><label for="pp">Price (RM)</label><input id="pp" type="number" step="0.01" min="0" inputmode="decimal" value="' + E(p.price) + '"></div><div><label for="pt">Tag</label><select id="pt">' + tagOpts(p.tag) + '</select></div></div>' +
-  '<label for="pi">Photo (optional)</label><div class="imgrow"><div class="thumb" id="piv">' + (p.image ? '<img src="' + E(p.image) + '" alt="" onerror="this.remove()">' : '🖼') + '</div><div class="imgbtns"><button type="button" class="btn alt" id="pif">🖼 From phone</button><button type="button" class="btn alt" id="pip">📋 Paste</button></div></div>' +
+  '<label for="pi">Photo (optional)</label><div class="imgrow"><div class="thumb" id="piv">' + (p.image ? '<img src="' + E(p.image) + '" alt="" onerror="imgErr(this)">' : '🖼') + '</div><div class="imgbtns"><button type="button" class="btn alt" id="pif">🖼 From phone</button><button type="button" class="btn alt" id="pip">📋 Paste</button></div></div>' +
   '<input type="file" id="pifile" accept="image/*" class="hide"><input id="pi" inputmode="url" placeholder="…or paste an image link (https://…)" value="' + E(p.image) + '" autocomplete="off" style="margin-top:8px"><div class="tiny mut" id="pis"></div>' +
   '<label class="sw"><input type="checkbox" id="po"' + (p.id && !on(p.on) ? '' : ' checked') + '> Show in the app</label><div class="err" id="pe"></div>'; }
 // ---------- photos: pick from the phone or paste; shrunk to 900 px JPEG here, saved by the Sheet's script in Drive (folder "My Ihsan Gifts images") ----------
@@ -150,6 +153,9 @@ function imgUI(root){ var f = $("#pifile", root); if(!f) return;
   $("#pi", root).addEventListener("change", function(){ var v = this.value.trim(); $("#piv", root).innerHTML = /^https:\/\//.test(v) ? '<img src="' + E(v) + '" alt="" onerror="this.remove()">' : '🖼'; }); }
 document.addEventListener("paste", function(e){ var root = $(".sheet") || document; if(!$("#pi", root)) return; var it = [].slice.call((e.clipboardData && e.clipboardData.items) || []).filter(function(x){ return x.kind === "file" && /^image\//.test(x.type); })[0];
   if(it){ e.preventDefault(); upImg(it.getAsFile(), root); } });
+// a Drive photo link that does not open: try Drive's other picture address once, then say so
+window.imgErr = function(im){ var m = /lh3\.googleusercontent\.com\/d\/([\w-]+)/.exec(im.src); if(m && !im._t){ im._t = 1; im.src = "https://drive.google.com/thumbnail?id=" + m[1] + "&sz=w800"; return; }
+  var b = im.parentNode; im.remove(); if(b && b.parentNode && !b.parentNode.querySelector(".imgbad")){ var w = document.createElement("div"); w.className = "tiny imgbad"; w.style.color = "var(--bad)"; w.textContent = "⚠ The photo link doesn't open. ✎ and add it again."; var t = b.nextElementSibling; if(t) t.insertBefore(w, t.children[1] || null); } };
 function readF(){ return {cat: $("#pc").value, link: $("#pl").value.trim(), name: $("#pn").value.trim(), price: $("#pp").value === "" ? "" : +$("#pp").value, tag: $("#pt").value, image: $("#pi").value.trim(), on: $("#po").checked}; }
 function check(r){ if(!r.cat) return "Choose a category."; if(!linkOk(r.link)) return ERR.link; if(!r.name) return "Type the product name."; if(r.image && !/^https:\/\//.test(r.image)) return "The image link must start with https://"; return ""; }
 function addForm(){ return '<div class="card"><h2>＋ Add a product</h2>' + fields() + '<button class="btn full" id="sv" style="margin-top:6px">Save and add another</button></div>' +
@@ -173,6 +179,8 @@ function bind(){
   if($("#cs0")) $("#cs0").onchange = function(){ CUR = this.value; main(); };
   $$("[data-add]").forEach(function(b){ b.onclick = function(){ TAB = "add"; main(); }; });
   $$("[data-ed]").forEach(function(b){ b.onclick = function(){ editProd(b.getAttribute("data-ed")); }; });
+  $$("[data-mv]").forEach(function(sel){ sel.onchange = function(){ var p = DATA.prods.filter(function(x){ return String(x.id) === sel.getAttribute("data-mv"); })[0], to = sel.value, from = p.cat; sel.disabled = true;
+    api("saveProd", {row: {id: p.id, cat: to, link: p.link, order: inCat(to).length + 1}}).then(function(r){ p.cat = to; p.order = r.row.order; toast("✓ Moved to " + cat(to).name_en); main(); }, function(e){ sel.value = from; sel.disabled = false; toast(e.message); }); }; });
   $$("[data-on]").forEach(function(b){ b.onclick = function(){ var p = DATA.prods.filter(function(x){ return String(x.id) === b.getAttribute("data-on"); })[0]; busy(b, api("saveProd", {row: {id: p.id, cat: p.cat, link: p.link, on: !on(p.on)}})).then(function(r){ p.on = r.row.on; main(); }, function(e){ toast(e.message); }); }; });
   var mv = function(what, list, i, d, btn){ var ids = list.map(function(x){ return x.id; }), t = ids[i]; ids[i] = ids[i + d]; ids[i + d] = t;
     busy(btn, api("order", {what: what, ids: ids})).then(function(){ ids.forEach(function(id, k){ list.filter(function(x){ return x.id === id; })[0].order = k + 1; }); DATA.prods.sort(byOrder); DATA.cats.sort(byOrder); main(); }, function(e){ toast(e.message); }); };

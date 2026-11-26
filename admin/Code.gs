@@ -6,7 +6,7 @@
    script's properties, never in this file or on the website). Change it later in the admin page › Settings.
    Reading the gift list (GET …/exec) is public; every change needs the password. 8 wrong passwords lock changes for 15 minutes. */
 
-var VER = 2;   // 2: photos (op img → Drive folder "My Ihsan Gifts images", shared to view by link)
+var VER = 3;   // 3: dates as yyyy-MM-dd; 2: photos (op img → Drive folder "My Ihsan Gifts images", shared to view by link)
 var CAT_H = ["id", "icon", "name_ms", "name_en", "order", "on"];
 var PROD_H = ["id", "cat", "name", "price", "link", "image", "tag", "on", "order", "added", "updated"];
 var START = [
@@ -29,7 +29,7 @@ function tab(name, head){ var s = book().getSheetByName(name);
     if(name === "Categories") s.getRange(2, 1, START.length, 6).setValues(START.map(function(c, i){ return [c[0], c[1], c[2], c[3], i + 1, true]; })); }
   return s; }
 function rows(name, head){ var s = tab(name, head), v = s.getDataRange().getValues(), h = v.shift();
-  return v.map(function(r, i){ var o = {_row: i + 2}; h.forEach(function(k, j){ o[k] = r[j]; }); return o; }).filter(function(o){ return o.id !== ""; }); }
+  return v.map(function(r, i){ var o = {_row: i + 2}; h.forEach(function(k, j){ o[k] = r[j] instanceof Date ? Utilities.formatDate(r[j], "Asia/Kuala_Lumpur", "yyyy-MM-dd") : r[j]; }); return o; }).filter(function(o){ return o.id !== ""; }); }
 function yes(v){ return v === true || String(v).toUpperCase() === "TRUE" || v === 1 || v === "1" || v === "Y"; }
 function host(u){ return String(u).replace(/^https?:\/\//, "").split("/")[0].toLowerCase(); }
 function linkOk(u){ var h = host(u); return /^https:\/\//.test(u) && OK_HOSTS.some(function(x){ return h === x || h.slice(-x.length - 1) === "." + x; }); }
