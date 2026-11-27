@@ -2465,6 +2465,8 @@ select{accent-color:var(--gold)}
 .ibdt.open .ibdtX{position:absolute;left:0;right:0;top:calc(100% - 1px);width:auto;box-sizing:border-box;animation:none}
 .ibdt.open.up .ibdtX{top:auto;bottom:calc(100% - 1px)}
 .ibdt.both.open .ibdtX{min-width:280px}
+/* 0.7.83 (owner: Period dates could not be picked): the card holding an open date wheel sits above the cards after it, so the wheel and ✓ Done are never covered */
+.card.ibUp,.card:has(> .ibdt.open),.card:has(.ibdt.open){position:relative;z-index:61}
 .ibdtF{display:grid;grid-template-columns:auto auto auto 1fr;gap:4px}.ibdtF .chip{min-width:0;padding:4px 6px;justify-content:center}.ibdtF [data-ibf="ok"]{margin-left:0}
 /* 0.6.73 (owner) planner add row: the time box just fits its time; ＋ as tall as it, wider */
 .plAdd{align-items:stretch}.plAdd .ibdt{flex:none;margin:0;width:calc(9ch + 46px)}.plAdd .ibdt .ibdtT{width:100%;min-height:44px}

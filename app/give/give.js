@@ -21,10 +21,10 @@ function waUrl(t){ var n = String(t).replace(/[^0-9]/g, ""); if(n.charAt(0)==="0
 
 // newest list: remote (when online) > cached > bundled
 function feed(key, url, bundled, done){
-  var c = H.load(key, null), best = c && c.v ? c : bundled;
+  var c = H.load(key, null), best = c && c.v && (!c._src || c._src === url) ? c : bundled;   // 0.7.81: a cached list from another source is not reused
   done(best, false);
   if(!H.fetch) return;
-  H.fetch(url, function(st, body){ if(st!==200) return; try{ var j = JSON.parse(body); if(j && j.v && (!best || !best.updated || j.updated >= best.updated)){ H.save(key, j); done(j, true); } }catch(e){} });
+  H.fetch(url, function(st, body){ if(st!==200) return; try{ var j = JSON.parse(body); if(j && j.v){ j._src = url; H.save(key, j); done(j, true); } }catch(e){} });   // 0.7.82: the list just fetched always wins (dates in different formats compared as text kept an old list)
 }
 
 // ---------------- 0.5.87 (owner): Donate to My Ihsan ----------------
@@ -126,13 +126,16 @@ function joinForm(cats){
 // 0.7.79 (owner: no Shopee API, hand-picked affiliate links): the list lives in the owner's Google Sheet, edited at myihsan.app/admin.
 // feeds/gifts.json on the website (and its backup copy) says where the Sheet's feed is; until it is set, the old GitHub Pages list.
 var GIFT_PTR = ["https://myihsan.app/feeds/gifts.json", "https://ihsanrahim.github.io/My-Ihsan-Wifi/feeds/gifts.json"];
-function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null); if(c && c.url && c.t > Date.now() - 6 * 3600000) return cb(c.url);   // no Sheet yet: ask again every time
-  if(!H.fetch) return cb((c && c.url) || SHOP_URL);
-  var i = 0, next = function(){ if(i >= GIFT_PTR.length) return cb((c && c.url) || SHOP_URL);
-    H.fetch(GIFT_PTR[i++], function(st, body){ var u = ""; if(st === 200){ try{ u = String(JSON.parse(body).url || ""); }catch(e){ u = ""; } if(u && !/^https:\/\/script\.google(usercontent)?\.com\//.test(u)) u = ""; H.save("ihsan_giftsrc", {t: Date.now(), url: u}); return cb(u || SHOP_URL); } next(); }); };
+// 0.7.81: the saved Sheet address is used at once, and the website is asked again on every open; when the owner moves to a new
+// Sheet the page switches straight away (before: up to 6 hours on the old one)
+function giftSrc(cb){ var c = H.load("ihsan_giftsrc", null), cur = (c && c.url) || SHOP_URL; cb(cur);
+  if(!H.fetch) return;
+  var i = 0, next = function(){ if(i >= GIFT_PTR.length) return;
+    H.fetch(GIFT_PTR[i++], function(st, body){ if(st !== 200) return next(); var u = ""; try{ u = String(JSON.parse(body).url || ""); }catch(e){ u = ""; }
+      if(u && !/^https:\/\/script\.google(usercontent)?\.com\//.test(u)) u = ""; H.save("ihsan_giftsrc", {t: Date.now(), url: u}); var nu = u || SHOP_URL; if(nu !== cur) cb(nu); }); };
   next(); }
-function gift(el){
-  giftSrc(function(url){ feed("ihsan_shop", url, window.SHOP_DATA || null, function(data, fresh){ if(!fresh || document.body.contains(el)) drawGift(el, data); }); });
+function gift(el){ var want = "";
+  giftSrc(function(url){ want = url; feed("ihsan_shop", url, window.SHOP_DATA || null, function(data, fresh){ if(url !== want) return; if(!fresh || document.body.contains(el)) drawGift(el, data); }); });
 }
 // 0.7.80: a Drive photo (lh3 link) that does not open tries Drive's thumbnail address once; dates show as "26 Nov 2026"
 window.gvImgErr = function(im){ var m = /lh3\.googleusercontent\.com\/d\/([\w-]+)/.exec(im.src); if(m && !im._t){ im._t = 1; im.src = "https://drive.google.com/thumbnail?id=" + m[1] + "&sz=w800"; return; } im.remove(); };

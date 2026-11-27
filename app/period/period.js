@@ -7,6 +7,7 @@
 (function(){
 "use strict";
 var H = null, D = window.PERIOD_DATA, KEY = "ihsan_period";
+var PDMIN = (new Date().getFullYear() - 3) + "-01-01", PDMAX = (new Date().getFullYear() + 1) + "-12-31";   // 0.7.84 (owner: date stuck at 1926): period dates offer only recent years
 var V = {tab:"today", d:null, m:null, start:false, end:false, study:null, edit:null};
 function L2(a,b){ return H.L2x(a,b); }
 function tx(p){ return Array.isArray(p) ? L2(p[0], p[1]) : String(p==null ? "" : p); }
@@ -149,7 +150,7 @@ function render(el){
   if(!p.who){ el.innerHTML = setupHtml(); bind(el); return; }
   var cl = classifyAll(p), st = stats(p, cl), body = bodyFor(V.tab, p, cl, st);
   // 0.5.22: the five pages are a level-3 bar at the bottom (above the sub-tabs), like every other page
-  el.innerHTML = '<div class="dock pdtabs"><div class="chips">'+TABS.map(function(t){ return '<button class="chip'+(V.tab===t[0] ? ' on' : '')+'" data-pt="'+t[0]+'">'+t[1]+' '+L2(t[2], t[3])+'</button>'; }).join("")+'</div></div>'+
+  el.innerHTML = '<div class="dock pdtabs"><div class="chips">'+TABS.map(function(t){ return '<button class="chip'+(V.tab===t[0] ? ' on' : '')+'" data-pt="'+t[0]+'"><span>'+t[1]+'</span>'+L2(t[2], t[3])+'</button>'; }).join("")+'</div></div>'+
     (spouse() ? '<div class="pdwho">👤 '+L2("Menjejak isteri","Tracking your wife")+(p.name ? ': <b>'+esc(p.name)+'</b>' : '')+'</div>' : '')+'<div class="pdpg">'+body+'</div>'+
     '<div class="mut tiny pdpriv">🔒 '+L2("Semua data haid disimpan dalam telefon ini sahaja (termasuk dalam sandaran aplikasi). Kunci aplikasi ada dalam Tetapan.","All period data stays on this phone only (it is included in the app backup). App lock is in Settings.")+'</div>';
   bind(el); swipe(el); if(window.ibChips) setTimeout(window.ibChips, 30); if(window.IBH && IBH.dockFix) setTimeout(IBH.dockFix, 0);
@@ -179,26 +180,26 @@ function statusCard(p, cl, st){
     var n = dd(c.s, now)+1, k = c.kind, lab = {haid:L2("Haid","Haid"), nifas:L2("Nifas","Nifas"), istihadhah:"Istihadhah", pending:L2("Haid (belum 24 jam)","Haid (under 24 h)")}[k];
     if(k==="haid" && c.ist.length && now > c.ist[c.ist.length-1][0]) lab = "Istihadhah";
     h += '<div class="pdring '+(lab==="Istihadhah" ? "ist" : k)+'"><b>'+n+'</b><span>'+L2("hari","day")+'</span></div><div><div class="pdh">'+esc(lab)+' · '+L2("hari ke-","day ")+n+'</div><div class="small mut">'+L2("Bermula ","Started ")+fmtDT(c.s)+'</div>'+
-      '<button class="btn gold full" data-pa="endform" style="margin-top:8px">✓ '+who("Darah berhenti (suci)","Bleeding stopped (pure)","Darah isteri berhenti","Her bleeding stopped")+'</button></div>';
+      '<button class="btn gold full" data-pa="endform" style="margin-top:8px">'+(V.end ? '▼ '+L2("Isi di bawah","Fill in below") : '✓ '+who("Darah berhenti (suci)","Bleeding stopped (pure)","Darah isteri berhenti","Her bleeding stopped"))+'</button></div>';
   } else {
     var since = st.last ? dd(st.last, now) + 1 : null, toN = st.next ? dd(now, st.next) : null, fert = st.fert && p.fert && now >= day0(st.fert[0]) && now <= addD(day0(st.fert[1]), 1);
     h += '<div class="pdring clean"><b>'+(toN!=null ? (toN >= 0 ? toN : "+"+(-toN)) : "—")+'</b><span>'+(toN!=null && toN < 0 ? L2("lewat","late") : L2("hari lagi","days to go"))+'</span></div><div><div class="pdh">'+(st.last ? L2("Suci · hari ke-","Pure · cycle day ")+since : L2("Belum ada rekod","Nothing logged yet"))+'</div>'+
       (st.next ? '<div class="small mut">'+L2("Haid seterusnya dijangka ","Next period expected ")+'<b>'+fmtD(st.next, {weekday:"short", day:"numeric", month:"short"})+'</b>'+(st.auto ? "" : L2(" (anggaran 28 hari)"," (28-day estimate)"))+'</div>' : '')+
       (fert ? '<div class="small pdfert">🌱 '+L2("Dalam tempoh subur sekarang","In the fertile window now")+'</div>' : (p.fert && st.ov ? '<div class="small mut">🌱 '+L2("Ovulasi dijangka ","Ovulation expected ")+fmtD(st.ov)+'</div>' : ''))+
-      '<button class="btn gold full" data-pa="startform" style="margin-top:8px">🩸 '+who("Haid bermula","Period started","Haid isteri bermula","Her period started")+'</button></div>';
+      '<button class="btn gold full" data-pa="startform" style="margin-top:8px">'+(V.start ? '▼ '+L2("Isi di bawah","Fill in below") : '🩸 '+who("Haid bermula","Period started","Haid isteri bermula","Her period started"))+'</button></div>';
     if(toN!=null && toN <= -7 && !p.preg.on) h += '<div class="pdlate">⏰ '+L2("Haid lewat "+(-toN)+" hari. Jika mungkin hamil, buat ujian kehamilan.","Period "+(-toN)+" days late. If pregnancy is possible, take a pregnancy test.")+'<div class="btns" style="margin-top:6px"><button class="chip" data-pa="pregon">🤰 '+L2("Ujian positif","Test is positive")+'</button><button class="chip" data-pt2="health">🩺 '+L2("Semak kehamilan","Pregnancy check")+'</button></div></div>';
   }
   return h+'</div>';
 }
 function startForm(p){
   var now = dts(new Date());
-  return '<div class="card pdform"><h3>🩸 '+L2("Rekod mula darah","Log when bleeding started")+'</h3><label class="pdl">'+L2("Tarikh & masa","Date & time")+'<input type="datetime-local" id="pdS" class="rin" value="'+now+'"></label>'+
+  return '<div class="card pdform"><h3>🩸 '+L2("Rekod mula darah","Log when bleeding started")+'</h3><label class="pdl">'+L2("Tarikh & masa","Date & time")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" id="pdS" class="rin" value="'+now+'"></label>'+
     '<div class="rseg" id="pdT"><button class="chip on" data-ty="haid">'+L2("Haid","Haid")+'</button><button class="chip" data-ty="nifas">'+L2("Nifas (selepas bersalin)","Nifas (after birth)")+'</button></div>'+
     (!spouse() ? '<label class="pdchk"><input type="checkbox" id="pdUz"'+(p.uzur ? ' checked' : '')+'> '+L2("Jeda makluman solat (mod uzur) sehingga suci","Pause prayer alerts (uzur mode) until pure")+'</label>' : '')+
     '<div class="btns" style="margin-top:8px"><button class="btn gold" data-pa="startsave">'+L2("Simpan","Save")+'</button><button class="btn alt" data-pa="cancel">'+L2("Batal","Cancel")+'</button></div></div>';
 }
 function endForm(){
-  return '<div class="card pdform"><h3>✓ '+L2("Rekod darah berhenti","Log when bleeding stopped")+'</h3><label class="pdl">'+L2("Tarikh & masa darah benar-benar berhenti","Date & time the bleeding really stopped")+'<input type="datetime-local" id="pdE" class="rin" value="'+dts(new Date())+'"></label>'+
+  return '<div class="card pdform"><h3>✓ '+L2("Rekod darah berhenti","Log when bleeding stopped")+'</h3><label class="pdl">'+L2("Tarikh & masa darah benar-benar berhenti","Date & time the bleeding really stopped")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" id="pdE" class="rin" value="'+dts(new Date())+'"></label>'+
     '<div class="mut tiny">'+L2("Tanda suci: kapas putih bersih tanpa kesan darah, perang atau kuning.","Sign of purity: a white cotton bud comes out clean, with no blood, brown or yellow.")+'</div>'+
     '<div class="btns" style="margin-top:8px"><button class="btn gold" data-pa="endsave">'+L2("Simpan","Save")+'</button><button class="btn alt" data-pa="cancel">'+L2("Batal","Cancel")+'</button></div></div>';
 }
@@ -225,7 +226,7 @@ function logCard(p){
   // 0.5.4 (Ihsan): each field is a dropdown: hold the value and slide up / down to pick (release to choose), or ▾ for the whole list
   var d = V.d || ymd(new Date()), x = p.days[d] || {}, chips = function(list, key, val, multi){ if(!window.IbDrop) return '';
     return window.IbDrop.html("pd"+key, ddItems(list, key, multi), multi ? (x[key]||[]) : val, multi, multi ? L2("Tiada dipilih","None chosen") : L2("Belum dipilih","Not set")); };
-  return '<div class="card pdlog"><div class="pdlogh"><h3>📝 '+L2("Catatan harian","Daily log")+'</h3><input type="date" id="pdD" class="rin" value="'+d+'"></div>'+
+  return '<div class="card pdlog"><div class="pdlogh"><h3>📝 '+L2("Catatan harian","Daily log")+'</h3><input type="date" min="'+PDMIN+'" max="'+PDMAX+'" id="pdD" class="rin" value="'+d+'"></div>'+
     '<div class="pdrow"><div class="rlab">'+L2("Aliran","Flow")+'</div>'+chips(FLOW, "f", x.f==null ? "" : x.f)+'</div>'+
     '<div class="pdrow"><div class="rlab">'+L2("Warna darah (untuk hukum istihadhah)","Blood colour (for the istihadhah ruling)")+'</div>'+chips(COLOUR, "c", x.c||"")+'</div>'+
     '<div class="pdrow"><div class="rlab">'+L2("Sakit / senggugut","Pain / cramps")+'</div>'+chips(PAIN, "p", x.p==null ? "" : x.p)+'</div>'+
@@ -307,7 +308,7 @@ function recHtml(p, cl, st){
     h += '<div class="pdrec"><div class="pdrh"><b>'+esc(nm)+'</b> · '+fmtDT(r.s)+' → '+(r.e.e ? fmtDT(r.en) : L2("sedang berlaku","ongoing"))+(len ? ' · '+len+L2(" hari"," days") : '')+'</div>'+
       (r.ist.length ? '<div class="small pdisttxt">💧 Istihadhah: '+r.ist.map(function(x){ return fmtD(x[0])+" – "+fmtD(x[1]); }).join(", ")+'</div>' : '')+
       '<details class="small"><summary>'+L2("Kenapa?","Why?")+'</summary><ul class="ul">'+r.why.map(function(w){ return '<li>'+esc(tx(w))+'</li>'; }).join("")+'</ul></details>'+
-      (V.edit===r.i ? '<div class="pdedit"><label class="pdl">'+L2("Mula","Start")+'<input type="datetime-local" class="rin" id="peS" value="'+r.e.s+'"></label><label class="pdl">'+L2("Tamat","End")+'<input type="datetime-local" class="rin" id="peE" value="'+(r.e.e||"")+'"></label><div class="rseg"><button class="chip'+(r.e.t!=="nifas" ? ' on' : '')+'" data-pet="haid">Haid</button><button class="chip'+(r.e.t==="nifas" ? ' on' : '')+'" data-pet="nifas">Nifas</button></div><div class="btns"><button class="btn gold" data-pa="editsave">'+L2("Simpan","Save")+'</button><button class="btn alt" data-pa="editdel">🗑️</button><button class="btn alt" data-pa="cancel">'+L2("Batal","Cancel")+'</button></div></div>' : '<button class="chip" data-pe="'+r.i+'">✏️ '+L2("Ubah","Edit")+'</button>')+'</div>';
+      (V.edit===r.i ? '<div class="pdedit"><label class="pdl">'+L2("Mula","Start")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" class="rin" id="peS" value="'+r.e.s+'"></label><label class="pdl">'+L2("Tamat","End")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" class="rin" id="peE" value="'+(r.e.e||"")+'"></label><div class="rseg"><button class="chip'+(r.e.t!=="nifas" ? ' on' : '')+'" data-pet="haid">Haid</button><button class="chip'+(r.e.t==="nifas" ? ' on' : '')+'" data-pet="nifas">Nifas</button></div><div class="btns"><button class="btn gold" data-pa="editsave">'+L2("Simpan","Save")+'</button><button class="btn alt" data-pa="editdel">🗑️</button><button class="btn alt" data-pa="cancel">'+L2("Batal","Cancel")+'</button></div></div>' : '<button class="chip" data-pe="'+r.i+'">✏️ '+L2("Ubah","Edit")+'</button>')+'</div>';
   });
   h += '<button class="btn alt full" data-pa="addpast" style="margin-top:8px">＋ '+L2("Tambah rekod lama","Add an earlier record")+'</button></div>';
   return h;
@@ -337,9 +338,9 @@ function fiqhHtml(p, cl){
 function studyHtml(p, cl){
   var s = V.study || {}, r = s.res, last = cl.filter(function(x){ return x.e.e && (x.kind==="haid" || x.kind==="nifas"); }).pop();
   var h = '<div class="small" style="line-height:1.45;margin-bottom:8px">'+L2("Isi apa yang anda tahu. Aplikasi menggunakan hukum mazhab Syafi'i untuk menentukan sama ada darah itu haid, istihadhah atau bukan haid, dan apa yang perlu dibuat.","Fill in what you know. The app uses the Shafi'i rules to tell whether the blood is haid, istihadhah or not haid, and what to do.")+'</div>'+
-    '<label class="pdl">'+L2("Darah mula","Bleeding started")+'<input type="datetime-local" id="psS" class="rin" value="'+(s.s||"")+'"></label>'+
-    '<label class="pdl">'+L2("Darah berhenti (kosongkan jika masih berdarah)","Bleeding stopped (leave empty if still bleeding)")+'<input type="datetime-local" id="psE" class="rin" value="'+(s.e||"")+'"></label>'+
-    '<label class="pdl">'+L2("Haid sebelumnya berakhir pada (jika tahu)","The haid before it ended on (if known)")+'<input type="datetime-local" id="psL" class="rin" value="'+(s.l || (last ? (last.e.e||"") : ""))+'"></label>'+
+    '<label class="pdl">'+L2("Darah mula","Bleeding started")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" id="psS" class="rin" value="'+(s.s||"")+'"></label>'+
+    '<label class="pdl">'+L2("Darah berhenti (kosongkan jika masih berdarah)","Bleeding stopped (leave empty if still bleeding)")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" id="psE" class="rin" value="'+(s.e||"")+'"></label>'+
+    '<label class="pdl">'+L2("Haid sebelumnya berakhir pada (jika tahu)","The haid before it ended on (if known)")+'<input type="datetime-local" min="'+PDMIN+'" max="'+PDMAX+'" id="psL" class="rin" value="'+(s.l || (last ? (last.e.e||"") : ""))+'"></label>'+
     '<div class="r3c"><label class="pdl">'+L2("Kebiasaan haid (hari, 0 = tiada)","Usual haid (days, 0 = none)")+'<input type="number" id="psH" class="rin" min="0" max="15" value="'+(s.h!=null ? s.h : (p.habit||0))+'"></label><label class="pdl">'+L2("Hari darah kuat (hitam/pekat)","Days of strong (dark/thick) blood")+'<input type="number" id="psK" class="rin" min="0" max="60" value="'+(s.k||0)+'"></label></div>'+
     '<button class="btn gold full" data-pa="study">🔎 '+L2("Semak","Check")+'</button>';
   if(r){ h += '<div class="pdres pd-'+r.kind+'"><div class="pdh">'+esc(r.title)+'</div>'+ul(r.why)+(r.todo.length ? '<b>'+L2("Apa perlu dibuat","What to do")+'</b>'+ul(r.todo) : '')+'</div>'; }
@@ -366,7 +367,7 @@ function runStudy(el){
 }
 function healthHtml(p, cl, st){
   var f = flags(p, cl, st), lmp = p.preg.lmp || (st.last ? ymd(st.last) : ""), edd = lmp ? addD(dt(lmp), 280) : null, wk = lmp ? dd(dt(lmp), new Date()) : 0;
-  var preg = '<div class="small" style="margin-bottom:6px">'+ul(D.PREG)+'</div><label class="pdl">'+L2("Hari pertama haid terakhir (LMP)","First day of the last period (LMP)")+'<input type="date" id="pdLmp" class="rin" value="'+lmp+'"></label>'+
+  var preg = '<div class="small" style="margin-bottom:6px">'+ul(D.PREG)+'</div><label class="pdl">'+L2("Hari pertama haid terakhir (LMP)","First day of the last period (LMP)")+'<input type="date" min="'+PDMIN+'" max="'+PDMAX+'" id="pdLmp" class="rin" value="'+lmp+'"></label>'+
     (edd ? '<div class="pdedd">🤰 '+L2("Jika hamil: ","If pregnant: ")+'<b>'+Math.floor(wk/7)+L2(" minggu "," weeks ")+(wk%7)+L2(" hari"," days")+'</b> · '+L2("jangkaan bersalin ","due date ")+'<b>'+fmtD(edd, {day:"numeric", month:"long", year:"numeric"})+'</b></div>' : '')+
     '<div class="btns" style="margin-top:8px">'+(p.preg.on ? '<button class="btn alt" data-pa="pregoff">'+L2("Tamatkan mod hamil","End pregnancy mode")+'</button>' : '<button class="btn gold" data-pa="pregon">🤰 '+L2("Hidupkan mod hamil","Turn on pregnancy mode")+'</button>')+'</div>';
   return (f.length ? '<div class="card pdflags"><h3>⚠ '+L2("Daripada rekod anda","From your records")+'</h3>'+ul(f)+'</div>' : '<div class="card pdok2">✔ '+L2("Tiada tanda tidak normal dalam rekod setakat ini.","No abnormal signs in the records so far.")+'</div>')+
@@ -431,8 +432,10 @@ function act(a, el){
   if(a==="pshare"){ partnerShare(P()); return; }
   if(a==="pimport"){ partnerImport(P(), el); return; }
   var p = P(), g = function(id){ return (el.querySelector("#"+id)||{}).value || ""; };
-  if(a==="startform"){ V.start = true; V.end = false; render(el); return; }
-  if(a==="endform"){ V.end = true; V.start = false; render(el); return; }
+  // 0.7.87 (owner video: tapping "Period started" again did nothing but flicker): when the form is already open, go to it instead of redrawing
+  var toForm = function(){ var f = el.querySelector(".pdform"); if(!f) return; f.scrollIntoView({behavior:"smooth", block:"center"}); f.classList.remove("pdflash"); void f.offsetWidth; f.classList.add("pdflash"); };
+  if(a==="startform"){ if(V.start){ toForm(); return; } V.start = true; V.end = false; render(el); toForm(); return; }
+  if(a==="endform"){ if(V.end){ toForm(); return; } V.end = true; V.start = false; render(el); toForm(); return; }
   if(a==="cancel"){ V.start = V.end = false; V.edit = null; V.ask = null; render(el); return; }
   if(a==="startsave"){
     var s = g("pdS"); if(!s) return; var ty = (el.querySelector("[data-ty].on")||{}).getAttribute ? el.querySelector("[data-ty].on").getAttribute("data-ty") : "haid";
