@@ -7,7 +7,7 @@
 (function(){
 "use strict";
 var H, L2, E, el0=null, page="body", SHOT=false, fig=null, mvF={p:"", l:0, lo:false}, trM=null, rtTab="ready";
-var PAGES=[["body","🧍","Badan","Body"],["moves","🏃","Gerakan","Moves"],["rutin","⏱","Rutin","Routines"],["plan","📋","Pelan","Plan"],["track","📅","Jejak","Tracker"],["health","❤️","Kesihatan","Health"]];
+var PAGES=[["body","🧍","Badan","Body"],["moves","🤸","Gerakan","Moves"],["rutin","⏲","Rutin","Routines"],["plan","🗒","Pelan","Plan"],["track","👟","Jejak","Tracker"],["health","❤️","Kesihatan","Health"]];
 var D=null;
 function DEF(){ return {sex:"m", col:{top:9,pants:9,hj:9,sk:1,cap:true}, lvl:1, foc:[], by:null, h:null, w:null, act:1.375, goal:"keep", plan:null, log:[], wl:{}, my:[], water:{}, sl:{}, bp:[], gl:[], hm:{}, rem:{on:true, hm:"17:30"}, voice:true, qmin:10, mvT:{w:30,r:15,s:3}}; }
 function ld(){ D=H.load("ihsan_fit",null); var d=DEF(); if(!D) D=d; for(var k in d) if(D[k]===undefined) D[k]=d[k];
@@ -439,7 +439,12 @@ function actSheet(k){
 function bmiCat(b){ if(b<18.5) return ["low",L2("Kurang berat badan","Underweight")]; if(b<23) return ["ok",L2("Normal","Normal")]; if(b<27.5) return ["mid",L2("Lebih berat badan","Overweight")]; return ["high",L2("Obes","Obese")]; }
 function pHealth(box){
   var hm=D.hm, a=age(), bmi=D.h&&D.w?D.w/Math.pow(D.h/100,2):null, t=ymd();
-  var h='<div class="card"><h3>👤 '+L2("Profil","Profile")+'</h3><div class="fgrid2">'+
+  // 0.7.93 (owner #28): pulse with the camera (fit/pulse.js); the result becomes the resting pulse and goes in a small log
+  var pl=(hm.pl||[]).slice(-7);
+  var h='<div class="card fpls"><div class="row"><h3 style="margin:0">❤️ '+L2("Nadi","Pulse")+'</h3><button class="btn gold" id="plsGo">📷 '+L2("Ukur dengan kamera","Measure with the camera")+'</button></div>'+
+    '<div class="mut small">'+(pl.length?L2("Terakhir: ","Last: ")+'<b>'+pl[pl.length-1].b+' BPM</b> · '+pl[pl.length-1].d+(pl.length>1?' · '+L2("7 bacaan: ","7 readings: ")+pl.map(function(x){ return x.b; }).join(", "):''):L2("Letak hujung jari pada kamera belakang dengan lampu menyala, 30 saat.","Put a fingertip over the back camera with the light on, 30 seconds."))+'</div>'+
+    '<div class="mut tiny">'+L2("Anggaran kesihatan umum, bukan alat perubatan.","A general wellness estimate, not a medical device.")+'</div></div>'+
+    '<div class="card"><h3>👤 '+L2("Profil","Profile")+'</h3><div class="fgrid2">'+
     '<label>'+L2("Jantina","Sex")+'<span class="seg">'+[["m",L2("Lelaki","Male")],["f",L2("Perempuan","Female")]].map(function(x){ return '<button class="'+(D.sex===x[0]?"on":"")+'" data-hsx="'+x[0]+'">'+x[1]+'</button>'; }).join("")+'</span></label>'+
     '<label>'+L2("Tahun lahir","Birth year")+'<input type="number" data-hp="by" value="'+(D.by||"")+'" placeholder="1990" min="1920" max="2025"></label>'+
     '<label>'+L2("Tinggi (cm)","Height (cm)")+'<input type="number" data-hp="h" value="'+(D.h||"")+'" placeholder="160" step="0.5"></label>'+
@@ -503,6 +508,7 @@ function pHealth(box){
   box.innerHTML=h;
   box.querySelectorAll("[data-hsx]").forEach(function(b){ b.onclick=function(){ D.sex=b.getAttribute("data-hsx"); sv(); draw(); }; });
   box.querySelectorAll("[data-hp]").forEach(function(i){ i.onchange=function(){ var k=i.getAttribute("data-hp"), v=parseFloat(i.value); D[k]=isFinite(v)&&v>0?v:null; if(k==="w" && D.w) D.wl[ymd()]=D.w; sv(); draw(); }; });
+  var pg=box.querySelector("#plsGo"); if(pg) pg.onclick=function(){ var run=function(){ IbPulse.open(H, function(b){ D.hm=D.hm||{}; D.hm.rhr=b; D.hm.pl=(D.hm.pl||[]).concat([{d:ymd(), b:b}]).slice(-60); sv(); draw(); H.toast("❤️ "+b+" BPM"); }); }; if(window.IbPulse) run(); else H.loadJs(["fit/pulse.js"], run, function(){}); };
   box.querySelectorAll("[data-hm]").forEach(function(i){ i.onchange=function(){ var v=parseFloat(i.value); D.hm[i.getAttribute("data-hm")]=isFinite(v)&&v>0?v:null; sv(); draw(); }; });
   box.querySelector("#hAct").onchange=function(){ D.act=+this.value; sv(); draw(); };
   box.querySelector("#hGoal").onchange=function(){ D.goal=this.value; sv(); draw(); };

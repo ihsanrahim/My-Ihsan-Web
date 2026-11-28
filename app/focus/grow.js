@@ -160,7 +160,7 @@ function go(p){ PG = p; db().set.pg = p; H.save(KEY, db()); if(H.onPage && H.onP
 
 // ---------------- pages ----------------
 // 0.6.41 (owner "merge with focus"): the focus timer, garden, plans and Time Nudge (focus/focus.js) live inside Today; no separate Timer page
-var PAGES = [["today","☀️","Hari ini","Today"],["goals","🎯","Matlamat","Goals"],["habits","🔁","Tabiat","Habits"],["grow","🌱","Bina diri","Grow"],["me","👤","Saya","Me"]];
+var PAGES = [["today","🔆","Hari ini","Today"],["goals","🎯","Matlamat","Goals"],["habits","🔁","Tabiat","Habits"],["grow","🌱","Bina diri","Grow"],["me","👤","Saya","Me"]];
 function view(el, h){ H = h; G = null; EL = el; db(); if(H.page) PG = H.page;
   if(!PG){ var fs = (H.load("ihsan_focus", {}) || {}).sess; PG = fs && fs.on ? "today" : (db().set.pg || "today"); }
   if(!PAGES.some(function(p){ return p[0] === PG; }) && PG !== "focus") PG = "today";

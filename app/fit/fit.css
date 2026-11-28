@@ -218,3 +218,13 @@
 .rnSegT{text-align:right;font-weight:700;display:flex;flex-direction:column}.rnSegT small{font-weight:400;color:var(--mut)}
 /* 0.6.1 (owner): 3D workout figure another 20% shorter */
 .fbox.fbox8{height:min(36vh,282px);min-height:180px}
+
+/* 0.7.93 camera pulse */
+#overlay.plsov{background:#0b0f18!important;color:#fff;justify-content:flex-start;align-items:stretch}
+.plsHead{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 8px) 12px 8px}.plsHead .chip{width:44px;height:40px;justify-content:center;font-size:20px}
+#plV{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.plsBody{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:16px;max-width:520px;width:100%;margin:0 auto;box-sizing:border-box}
+.plsRing{position:relative;width:200px;height:200px}.plsRing svg{width:100%;height:100%;transform:rotate(-90deg)}.plsB{fill:none;stroke:#2a3040;stroke-width:9}.plsF{fill:none;stroke:#e0605a;stroke-width:9;stroke-linecap:round;transition:stroke-dasharray .3s}
+.plsRing>div{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}.plsRing b{font-size:54px;line-height:1}.plsRing small{color:#aab}
+.plsW{width:100%;height:80px;background:#131a28;border-radius:12px}.plsMsg{text-align:center;font-size:15px;min-height:42px}.plsNote{text-align:center;color:#99a}
+.fpls .row{align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}

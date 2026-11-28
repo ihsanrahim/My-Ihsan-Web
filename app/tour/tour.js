@@ -21,7 +21,7 @@ var CH=[
  ["l5", "💰", "Wang & Rancangan", "Money & Plans", 5, "Belanja dengan resit, komitmen, hutang, zakat, wasiat; Perancang dengan Fokus, Himpun (majlis, mesyuarat, Pembesar suara, walkie) dan Jejak.", "Expenses with receipts, commitments, debts, zakat, will; Planner with Focus, Gather (events, meetings, Speaker, walkie) and Track."],
  ["l6","🏃","Mukmin yang Kuat","Strong Believer",3,"Pilih jenis badan, rutin, kardio, sukan, huruf dan isyarat, pelan dan penjejak.","Body type, routines, cardio, sports, letters and signing, plan and tracker."],
  ["l7","👨‍👩‍👧","Silaturahim","Ties of Kinship",4,"Salasilah, hari jadi, bayi, jagaan, haiwan, kumpulan, majlis, haid dan mod kanak-kanak.","Family tree, birthdays, baby, care, pets, groups, events, period and kids mode."],
- ["l8","🏷️","Halal & Baik","Halal & Wholesome",3,"Imbas label, nombor E, resepi dari pautan dan video, pelan makan, senarai beli.","Scan a label, E-numbers, recipes from links and videos, meal plan, shopping list."],
+ ["l8","🏷️","Halal & Baik","Halal & Wholesome",3,"Imbas label, nombor E, resepi dari pautan dan video, kalori, pelan makan, senarai beli.","Scan a label, E-numbers, recipes from links and videos, calories, meal plan, shopping list."],
  ["l9","✍️","Pena & Skrin","Pen & Screen",3,"Nota, kad ucapan, Karya; papan iklan, jam paparan masjid dan kod paparan.","Notes, greeting cards, Karya; billboard, masjid display clock and display codes."],
  ["l10","🧭","Khazanah untuk Diteroka","Treasures to Explore",4,"Kisah, dengar, haji dan umrah, falak, kalendar, puasa, Cari, tema dan sandaran.","Stories, listening, Hajj and Umrah, astronomy, calendar, fasting, Find, themes and backup."]
 ];
@@ -166,6 +166,7 @@ var S0=[
   ["h.recipe","tab:alat/halal","#view","Simpan resepi dari pautan, video TikTok atau YouTube, gambar atau kamera. AI menulisnya dengan kemas.","Save a recipe from a link, TikTok or YouTube video, a photo or the camera. AI writes it out neatly.","ai"],
   ["h.share","tab:alat/halal","","Dari TikTok, Facebook, Instagram atau YouTube, tekan Kongsi dan pilih My Ihsan Recipe. Resepi terus masuk ke sini.","From TikTok, Facebook, Instagram or YouTube, tap Share and pick My Ihsan Recipe. The recipe comes straight in here.","img:share"],
   ["h.builder","tab:alat/halal","","Dalam pembina resepi, ubah hidangan dan tukar ramuan kepada yang halal. ⋮ membuat PDF berbingkai.","In the recipe builder, change servings and swap ingredients for halal ones. ⋮ makes a framed PDF."],
+  ["h.kal","tab:alat/halal","[data-rtab=\"kal\"]","Kalori: rekod makanan ikut waktu solat. Satu imbasan kod bar memberi status halal dan kalori. Dalam Ramadan slotnya jadi Sahur, Iftar dan Moreh.","Kalori: log food by prayer-time meal slots. One barcode scan gives the halal status and the calories. In Ramadan the slots become Sahur, Iftar and Moreh."],
   ["h.plan","tab:alat/halal","~📅","Rancang makanan seminggu.","Plan the week's meals."],
   ["h.shop","tab:alat/halal","~🛒","Senarai beli terbina sendiri dari pelan anda.","The shopping list builds itself from your plan."],
   ["h.find","tab:alat/cari","#view","Makanan halal, masjid dan surau berdekatan.","Halal food, mosques and surau near you."],

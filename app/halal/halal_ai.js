@@ -276,7 +276,8 @@ var FEATS = [   // id, icon, BM, EN, reads photos, private (no free fallback), v
   ["niaga","📑","Niaga: isi dari chat","Business: fill from chat",0,1,"membaca chat","reading the chat"],
   ["dokumen","📄","Dokumen","Documents",1,0,"menyusun dokumen","drafting the document"],
   ["trip","✈️","Perancang trip","Trip planner",1,0,"merancang trip","planning the trip"],
-  ["kplan","📅","Perancang anak (sekolah)","Child planner (school)",1,0,"membaca jadual","reading the timetable"]];   // 0.7.61: timetable, takwim and school posters   // 0.7.20: Time › Trip (reads booking screenshots)   // 0.6.60 (owner: free AI allowed; private types warn first)   // 0.6.29: WhatsApp order chat → document lines (private: customer data)
+  ["kplan","📅","Perancang anak (sekolah)","Child planner (school)",1,0,"membaca jadual","reading the timetable"],
+  ["kalori","🍽️","Kalori: gambar makanan & label","Calories: meal & label photos",1,0,"membaca hidangan","reading the meal"]];   // 0.7.90   // 0.7.61: timetable, takwim and school posters   // 0.7.20: Time › Trip (reads booking screenshots)   // 0.6.60 (owner: free AI allowed; private types warn first)   // 0.6.29: WhatsApp order chat → document lines (private: customer data)
 var FEAT = {}; FEATS.forEach(function(f){ FEAT[f[0]] = {id:f[0], ic:f[1], ms:f[2], en:f[3], photo:!!f[4], priv:!!f[5], vms:f[6], ven:f[7]}; });
 var ORDER = ["openrouter","gemini","groq","mistral","qwen","deepseek","openai","anthropic","xai","custom"];
 var VISION_MODEL = {groq:"meta-llama/llama-4-scout-17b-16e-instruct", qwen:"qwen-vl-max", mistral:"mistral-small-latest", pollinations:"openai", openrouter:"google/gemini-2.5-flash"};

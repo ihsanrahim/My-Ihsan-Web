@@ -407,7 +407,7 @@ function pMine(){ var q = (ST.mq || "").toLowerCase(), D = docs().filter(functio
 
 // ---------- module ----------
 function view_(el, h){ H = h; EL = el; T = window.DokTypes; draw(); }
-window.DokumenView = {view:view_, back:function(){ if(ST.pg === "home") return false; if(ST.pg === "doc" || ST.pg === "mine" || ST.pg === "pick") go("home"); else if(ST.pg === "form") { keepDraft(); go("pick"); } else if(ST.pg === "prof") go(ST.form ? "form" : "home"); return true; },
+window.DokumenView = {pg:function(){ return ST.pg; }, view:view_, back:function(){ if(ST.pg === "home") return false; if(ST.pg === "doc" || ST.pg === "mine" || ST.pg === "pick") go("home"); else if(ST.pg === "form") { keepDraft(); go("pick"); } else if(ST.pg === "prof") go(ST.form ? "form" : "home"); return true; },
   navGet:function(){ return {pg:ST.pg, id:ST.id, type:ST.type, cat:ST.cat, k:ST.pg + "/" + (ST.id || ST.type || ST.cat || "")}; },
   navSet:function(o){ if(!o) return; ST.pg = o.pg || "home"; ST.id = o.id || null; ST.cat = o.cat || ""; if(ST.pg === "form"){ var dr = H && H.load(K.draft, null); if(dr && dr.type === o.type) ST.form = dr; else if(o.type) ST.form = newDoc(o.type); else ST.pg = "home"; } if(EL) draw(); },
   _t:{template:template, parse:parse, workdays:workdays, msgsFor:msgsFor, newDoc:newDoc, gapsOf:gapsOf, missing:missing, ST:ST, docs:docs}};

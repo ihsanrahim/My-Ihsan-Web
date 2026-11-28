@@ -9,7 +9,7 @@
 (function(){
 "use strict";
 var H, L2, E, U, D, cur=null, page="info", fil="up", gF="all";
-var PAGES=[["info","📋","Butiran","Details"],["guest","👥","Tetamu","Guests"],["seat","🪑","Susun meja","Seating"],["food","🍛","Makanan","Food"],["vend","🧑‍🍳","Vendor","Vendors"],["bud","💰","Bajet","Budget"],["iti","🗓","Atur cara","Itinerary"],["task","✅","Semakan","Checklist"],["rsvp","💌","RSVP","RSVP"]];
+var PAGES=[["info","📋","Butiran","Details"],["guest","👥","Tetamu","Guests"],["seat","🪑","Susun meja","Seating"],["food","🍛","Makanan","Food"],["duty","🙋","Tugasan","Duties"],["vend","🧑‍🍳","Vendor","Vendors"],["bud","💰","Bajet","Budget"],["iti","🗓","Atur cara","Itinerary"],["task","✅","Semakan","Checklist"],["rsvp","💌","RSVP","RSVP"]];
 // vendor categories
 var VC=[["cater","🍛","Katering","Catering"],["cendol","🍧","Cendol","Cendol"],["air","🥤","Air balang","Drinks"],["ais","🍦","Aiskrim","Ice cream"],["satay","🍢","Satay","Satay"],["golek","🐑","Kambing golek","Roast lamb"],
   ["kek","🎂","Kek & pencuci mulut","Cake & desserts"],["khemah","⛺","Khemah & kanopi","Tents & canopy"],["meja","🪑","Kerusi & meja","Tables & chairs"],["dewan","🏛","Dewan / tempat","Hall / venue"],["pelamin","💐","Pelamin & hiasan","Dais & decor"],
@@ -367,6 +367,31 @@ function itiEdit(e, id){ var i=id?e.iti.filter(function(x){ return x.id===id; })
   bind(ov,"#eiX",function(){ e.iti=e.iti.filter(function(x){ return x!==i; }); sv(); H.closeOverlay(); draw(); }); }
 
 // ---------- page: checklist (nikah events also get the official steps) ----------
+// 0.7.93 (owner #37): who does which job. Presets, assign from the guest list or any name, tick when done, share one list with the potluck dishes and RSVP count, remind everyone the evening before.
+var DUTY=[["Sambut tetamu","Welcome guests"],["Susun kerusi & meja","Set out chairs & tables"],["Pasang khemah","Put up the tent"],["Jaga tempat letak kereta","Parking"],["Ketua doa / tahlil","Lead the doa / tahlil"],["Hidang makanan","Serve the food"],["Air minuman","Drinks"],["Basuh pinggan","Wash up"],["Ambil gambar","Photos"],["Kemas selepas majlis","Clear up afterwards"],["Jaga kanak-kanak","Look after the children"],["Bungkus makanan lebih","Pack leftover food"]];
+function pDuty(el, e){ e.duty=e.duty||[]; var p=pax(e), f=e.food||{dish:[]}, names=(e.g||[]).map(function(g){ return g.n; }).filter(Boolean);
+  var h='<div class="card"><h3>🙋 '+L2("Tugasan","Duties")+'</h3><div class="mut small">'+L2("RSVP: ","RSVP: ")+'✅ '+p.yes+' · ❔ '+p.wait+' · ❌ '+p.no+' · '+L2("hidangan potluck ","potluck dishes ")+((f.dish||[]).length)+'</div>'+
+    (e.duty.length?'<div class="flist">'+e.duty.map(function(d){ return '<div class="frow"><label class="fck"><input type="checkbox" data-uk="'+d.id+'" '+(d.ok?"checked":"")+'><span></span></label><div class="fmain"><b>'+E(d.n)+'</b><small>'+(d.who?"🙋 "+E(d.who):'<span class="mut">'+L2("belum ada orang","nobody yet")+'</span>')+(d.tm?" · "+E(d.tm):"")+'</small></div><button class="chip" data-uw="'+d.id+'">🙋</button><button class="evDx" data-ux="'+d.id+'">✕</button></div>'; }).join("")+'</div>':'<div class="mut small" style="margin:6px 0">'+L2("Pilih tugasan di bawah atau tulis sendiri.","Pick duties below or write your own.")+'</div>')+
+    '<div class="chips" style="flex-wrap:wrap;margin-top:8px">'+DUTY.filter(function(x){ return !e.duty.some(function(d){ return d.n===L2(x[0],x[1]); }); }).map(function(x){ return '<button class="chip" data-uq="'+E(L2(x[0],x[1]))+'">＋ '+E(L2(x[0],x[1]))+'</button>'; }).join("")+'</div>'+
+    '<div class="row" style="gap:6px;margin-top:8px"><input id="euN" class="rin" style="flex:1" maxlength="60" placeholder="'+L2("Tugasan lain…","Another duty…")+'"><button class="btn gold" id="euA">＋</button></div>'+
+    '<div class="row" style="gap:6px;margin-top:10px;flex-wrap:wrap"><button class="btn alt" id="euS">📤 '+L2("Kongsi senarai tugasan & potluck","Share duties & potluck")+'</button><button class="btn alt" id="euR">🔔 '+L2("Ingatkan malam sebelum","Remind the evening before")+'</button></div></div>';
+  el.innerHTML=h;
+  var find=function(id){ return e.duty.filter(function(d){ return d.id===id; })[0]; };
+  el.querySelectorAll("[data-uk]").forEach(function(c){ c.onchange=function(){ var d=find(c.getAttribute("data-uk")); if(d){ d.ok=c.checked; sv(); } }; });
+  el.querySelectorAll("[data-uq]").forEach(function(b){ b.onclick=function(){ e.duty.push({id:uid(), n:b.getAttribute("data-uq")}); sv(); draw(); }; });
+  el.querySelectorAll("[data-ux]").forEach(function(b){ b.onclick=function(){ var id=b.getAttribute("data-ux"); e.duty=e.duty.filter(function(d){ return d.id!==id; }); sv(); draw(); }; });
+  el.querySelectorAll("[data-uw]").forEach(function(b){ b.onclick=function(){ var d=find(b.getAttribute("data-uw")); if(!d) return;
+    var body='<div class="chips" style="flex-wrap:wrap">'+names.map(function(n){ return '<button class="chip'+(d.who===n?" on":"")+'" data-un="'+E(n)+'">'+E(n)+'</button>'; }).join("")+'</div><input id="euW" class="rin" style="width:100%;margin-top:8px" maxlength="40" placeholder="'+L2("Atau tulis nama","Or type a name")+'" value="'+E(d.who||"")+'"><input id="euT" class="rin" type="time" style="width:100%;margin-top:8px" value="'+E(d.tm||"")+'"><button class="btn gold full" id="euOk" style="margin-top:8px">'+L2("Simpan","Save")+'</button>';
+    var ov=H.showSheet("🙋 "+E(d.n), body); ov.querySelectorAll("[data-un]").forEach(function(x){ x.onclick=function(){ ov.querySelector("#euW").value=x.getAttribute("data-un"); }; });
+    ov.querySelector("#euOk").onclick=function(){ d.who=ov.querySelector("#euW").value.trim(); d.tm=ov.querySelector("#euT").value; sv(); H.closeOverlay(); draw(); }; }; });
+  bind(el,"#euA",function(){ var v=el.querySelector("#euN").value.trim(); if(!v) return; e.duty.push({id:uid(), n:v.slice(0,60)}); sv(); draw(); });
+  bind(el,"#euS",function(){ share("🙋 "+L2("Tugasan ","Duties: ")+e.n+" · "+dRange(e)+(e.loc?" · "+e.loc:"")+"\n\n"+e.duty.map(function(d,i){ return (i+1)+". "+d.n+(d.tm?" ("+d.tm+")":"")+" — "+(d.who||"…"); }).join("\n")+
+    ((f.dish||[]).length?"\n\n🥘 Potluck:\n"+f.dish.map(function(d,i){ return (i+1)+". "+d.n+(d.q?" ("+d.q+")":"")+" — "+(d.who||"…"); }).join("\n"):"")+"\n\n"+L2("Sila balas jika ada perubahan. Terima kasih!","Please reply if anything changes. Thank you!")); });
+  bind(el,"#euR",function(){ if(!e.d){ H.toast(L2("Tetapkan tarikh majlis dahulu","Set the event date first")); return; } if(!H.xrem){ H.toast(L2("Peringatan tidak tersedia","Reminders are not available")); return; }
+    var d0=U.pd(e.d); d0.setDate(d0.getDate()-1); d0.setHours(20,0,0,0); var mine=e.duty.map(function(d){ return d.n+(d.who?" — "+d.who:""); }).join(", ");
+    var ok=H.xrem("evduty_"+e.id, d0.getTime(), "🙋 "+L2("Esok: ","Tomorrow: ")+e.n, mine||L2("Semak tugasan majlis","Check the event duties"), "majlis");
+    H.toast(ok?"🔔 "+L2("Peringatan ditetapkan untuk malam sebelum","Reminder set for the evening before"):L2("Tarikh sudah lepas","That date has passed")); });
+}
 function pTask(el, e){
   var t=U.today(), h='';
   if(e.ty==="nikah"){ var K=e.nk=e.nk||{ck:{}}, d=evDate(e), NS=U.NSTEP;
@@ -438,7 +463,7 @@ function printPlan(e){
 
 // ---------- hub ----------
 function pSeat(el, e){ if(!window.EvSeat){ el.innerHTML='<div class="card mut">…</div>'; return; } EvSeat.page(el, e, {H:H, L2:L2, E:E, sv:sv, draw:draw}); }   // 0.6.71 (owner): table arrangement for a hall / space
-function fn(k){ return {info:pInfo, guest:pGuest, seat:pSeat, food:pFood, vend:pVend, bud:pBud, iti:pIti, task:pTask, rsvp:pRsvp}[k]||pInfo; }
+function fn(k){ return {info:pInfo, guest:pGuest, seat:pSeat, food:pFood, duty:pDuty, vend:pVend, bud:pBud, iti:pIti, task:pTask, rsvp:pRsvp}[k]||pInfo; }
 function head(e){ var ty=T(e.ty), d=evDate(e), n=d?U.days(U.today(),d):null;
   return '<div class="card evhd"><div class="row"><button class="chip g3d" id="evBk">‹ '+L2("Semua majlis","All events")+'</button>'+(n!=null&&n>=0?'<span class="evcd"><b>'+(n===0?"🎉":n)+'</b><small>'+(n===0?L2("hari ini","today"):L2("hari lagi","days to go"))+'</small></span>':'')+'</div>'+
     '<div class="evht"><span class="evic">'+ty[1]+'</span><span class="fmain"><b>'+E(e.n)+'</b><small>'+dRange(e)+(e.t?' · '+tm(e.t):'')+(e.loc?' · '+E(e.loc):'')+'</small></span>'+(e.sh?'<button class="chip g3d evShC" id="evShC">🔗 '+L2("Dikongsi","Shared")+'</button>':'')+'</div></div>'+

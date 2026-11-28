@@ -207,3 +207,8 @@
 .kpViews button.on{background:linear-gradient(135deg,var(--kp),var(--kp2,var(--kp)))}
 .kpTabsD .chip.on{background:var(--gold);color:#111}
 .kpEd{cursor:pointer}
+/* 0.7.95 (owner #15): Planner and Report look like Learn: no solid backdrop, every panel transparent black (never light glass) */
+.kp{--card2:rgba(10,14,24,.5);--line:rgba(255,255,255,.12);--fg:#f2f3f5;--mut:#aab3c2;color:var(--fg)}
+html .kp .card,html .kp .kpCard,html .kp .kpLi,html .kp .kpIt,html .kp .kpCount,html .kp .kpEmpty,html .kp .kpTabs{background:rgba(10,14,24,.55)!important;border-color:rgba(255,255,255,.12)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--fg)}
+html .kp .kpIt.k-pray{background:rgba(10,14,24,.4)!important}
+html .kp .chip{background:rgba(10,14,24,.55);color:var(--fg);border-color:rgba(255,255,255,.14)}html .kp .chip.on{background:var(--kp);color:#fff}

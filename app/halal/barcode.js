@@ -92,7 +92,7 @@ function scan(helpers, done){
 // Look a barcode up in Open Food Facts. cb({found, name, brand, ingr, halal, img, code}) or cb({error:"net"})
 function lookup(helpers, code, cb){
   H=helpers;
-  var url="https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json?fields=code,product_name,product_name_ms,product_name_en,brands,ingredients_text,ingredients_text_ms,ingredients_text_en,labels_tags,image_front_small_url";
+  var url="https://world.openfoodfacts.org/api/v2/product/"+encodeURIComponent(code)+".json?fields=code,product_name,product_name_ms,product_name_en,brands,ingredients_text,ingredients_text_ms,ingredients_text_en,labels_tags,image_front_small_url,nutriments,serving_size,serving_quantity,product_quantity,quantity";   // 0.7.90: nutrition too, for Kalori
   H.fetch(url, function(status, body){
     var j=null; try{ j=JSON.parse(body); }catch(e){}
     if(!j){ cb({error:"net", code:code}); return; }
@@ -101,9 +101,16 @@ function lookup(helpers, code, cb){
     var ingr=String(p.ingredients_text_en||p.ingredients_text_ms||p.ingredients_text||"").replace(/_/g,"").trim();
     var labels=(p.labels_tags||[]).join(" ");
     cb({found:true, code:code, name:String(p.product_name_ms||p.product_name_en||p.product_name||"").trim(), brand:String(p.brands||"").split(",")[0].trim(),
-      ingr:ingr, halal:/(^|\s)(en:halal|ms:halal)/.test(labels), img:/^https:\/\//.test(p.image_front_small_url||"")?p.image_front_small_url:""});
+      ingr:ingr, halal:/(^|\s)(en:halal|ms:halal)/.test(labels), img:/^https:\/\//.test(p.image_front_small_url||"")?p.image_front_small_url:"", nut:nutOf(p)});
   });
 }
 
-window.HalalBarcode={ scan:scan, lookup:lookup, valid:validCode };
+// 0.7.90: Open Food Facts nutriments → {per100:{kcal,p,c,f,fb,su,na}, serv:{…}|null, servG, servTxt, packG}; sodium in mg
+function nutOf(p){ var n=p.nutriments||{}, num=function(v){ v=parseFloat(v); return isFinite(v)?v:null; };
+  var pick=function(sfx){ var kcal=num(n["energy-kcal"+sfx]); if(kcal==null){ var kj=num(n["energy-kj"+sfx]!=null?n["energy-kj"+sfx]:n["energy"+sfx]); if(kj!=null) kcal=kj/4.184; } if(kcal==null) return null;
+    var na=num(n["sodium"+sfx]); if(na==null){ var salt=num(n["salt"+sfx]); if(salt!=null) na=salt/2.5; }
+    return {kcal:Math.round(kcal), p:num(n["proteins"+sfx])||0, c:num(n["carbohydrates"+sfx])||0, f:num(n["fat"+sfx])||0, fb:num(n["fiber"+sfx])||0, su:num(n["sugars"+sfx])||0, na:na!=null?Math.round(na*1000):0}; };
+  var per100=pick("_100g"), serv=pick("_serving"); if(!per100 && !serv) return null;
+  return {per100:per100, serv:serv, servG:num(p.serving_quantity), servTxt:String(p.serving_size||""), packG:num(p.product_quantity), packTxt:String(p.quantity||"")}; }
+window.HalalBarcode={ scan:scan, lookup:lookup, valid:validCode, nutOf:nutOf };
 })();

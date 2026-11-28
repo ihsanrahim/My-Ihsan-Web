@@ -222,6 +222,10 @@ function khatam(){
       [["juz",30,"1 juz sehari (30 hari)","1 juz a day (30 days)"],["hizb",60,"1 hizb sehari (60 hari)","1 hizb a day (60 days)"],["manzil",7,"1 manzil sehari (7 hari)","1 manzil a day (7 days)"]].map(function(x){ return '<button class="chip" data-planu="'+x[0]+'" data-pd="'+x[1]+'">'+L2(x[2],x[3])+'</button>'; }).join("")+'</div>'+
       '<button class="btn gold full" id="qRam" style="margin-top:10px">🌙 '+L2("Khatam Ramadan (1 hingga 29 Ramadan)","Ramadan khatam (1 to 29 Ramadan)")+'</button>';
   }
+  // 0.7.93 (owner #7): Khatam together is also an option here
+  h+='</div><div class="card qkb"><h3>👨‍👩‍👧‍👦 '+L2("Khatam bersama keluarga","Family khatam")+'</h3><div class="mut small">'+L2("Bahagikan 30 juz kepada ahli keluarga atau usrah. Setiap orang tanda juz masing-masing; doa khatam dikongsi bila semua selesai.","Split the 30 juz among family or usrah. Each person ticks their juz; the khatam doa is shared when everyone is done.")+'</div>'+
+    (D.grp.length?'<div class="qkbL">'+D.grp.map(function(x){ var n=x.d.split("").filter(function(c){ return c==="1"; }).length; return '<button class="chip" data-kgrp="'+x.id+'">'+E(x.n)+' · '+n+'/30</button>'; }).join("")+'</div>':'')+
+    '<button class="btn gold full" data-qgo="grp" style="margin-top:8px">'+(D.grp.length?L2("Urus kumpulan khatam","Manage khatam groups"):"＋ "+L2("Mula khatam bersama","Start a family khatam"))+'</button>';
   h+='</div><div class="card"><h3>🎯 '+L2("Sasaran harian","Daily goal")+'</h3><div class="chips">'+[["ayat","Ayat","Ayat"],["page","Muka surat","Pages"],["min","Minit","Minutes"]].map(function(x){ return '<button class="chip'+(D.goal.k===x[0]?" on":"")+'" data-gk="'+x[0]+'">'+L2(x[1],x[2])+'</button>'; }).join("")+'</div>'+
     '<div class="row" style="margin-top:10px"><button class="chip" data-gn="-1">−</button><b style="font-size:20px">'+D.goal.n+' '+goalUnit(D.goal.k)+'</b><button class="chip" data-gn="1">+</button></div></div>';
   // last 14 days
@@ -232,6 +236,8 @@ function khatam(){
   return h;
 }
 function bindKhatam(){
+  qa("[data-qgo]").forEach(function(b){ b.onclick=function(){ goV(b.getAttribute("data-qgo")); }; });
+  qa("[data-kgrp]").forEach(function(b){ b.onclick=function(){ st.grp=b.getAttribute("data-kgrp"); goV("grp"); }; });
   qa("[data-plan]").forEach(function(b){ b.onclick=function(){ D.plan={d0:ymd(), days:+b.getAttribute("data-plan")}; D.pr=new Array(605).join("0"); saveD(); home(); }; });
   qa("[data-planu]").forEach(function(b){ b.onclick=function(){ D.plan={d0:ymd(), days:+b.getAttribute("data-pd"), u:b.getAttribute("data-planu")}; D.pr=new Array(605).join("0"); if(!D.set.rem) D.set.rem={}; D.set.rem.daily=true; saveD(); home(); H.toast(L2("Peringatan harian dihidupkan","Daily reminder switched on")); }; });
   var rb=q("#qRam"); if(rb) rb.onclick=function(){ var d0=ramadanStart(); if(!d0){ H.toast(L2("Tarikh Ramadan tidak dapat dikira","Could not work out the Ramadan date")); return; } D.plan={d0:d0, days:29, ram:true}; D.pr=new Array(605).join("0"); saveD(); home(); };
@@ -773,10 +779,12 @@ function wordRoot(k, wi){ var r=fromIdx(k), d=SUR[r[0]]; return d && d.r && d.r[
 function rootRow(i){ return '<button class="qsr" data-root="'+i+'"><span class="qrl" dir="rtl">'+E(rootLetters(RT.r[i]))+'</span><span class="qsn"><b>'+E(RT.rg[i]||"")+'</b><small>'+RT.ra[i].length+' '+L2("ayat","ayat")+' · '+RT.rn[i]+' '+L2("kali","times")+'</small></span><span class="shGo">›</span></button>'; }
 var ABJ="ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي".split(" ");
 function dictTab(){
-  return '<input type="search" class="ilq qfind" id="qDQ" placeholder="'+L2("Cari akar: رحم atau maksud: mercy","Find a root: رحم or a meaning: mercy")+'" value="'+E(st.dq||"")+'"><div class="qabj" dir="rtl">'+ABJ.map(function(c){ return '<button class="chip'+(st.dl===c?" on":"")+'" data-dl="'+c+'">'+c+'</button>'; }).join("")+'</div><div id="qDL" class="qlist"><div class="mut small">'+L2("Memuatkan…","Loading…")+'</div></div>'+
+  var wq=(D.wq||{})[ymd()];
+  return '<button class="qwqB g3d" id="qWq"><span>🧩</span><span><b>'+L2("Kuiz 5 kata Al-Quran hari ini","Today\u2019s 5-word Quran quiz")+'</b><small>'+(wq!=null?L2("Skor hari ini: ","Today\u2019s score: ")+wq+"/5 · "+L2("cuba lagi untuk latihan","play again to practise"):L2("Kata paling kerap dalam Al-Quran, 5 sehari","The Quran\u2019s most frequent words, 5 a day"))+' · 🔥 '+wqStreak()+'</small></span></button>'+'<input type="search" class="ilq qfind" id="qDQ" placeholder="'+L2("Cari akar: رحم atau maksud: mercy","Find a root: رحم or a meaning: mercy")+'" value="'+E(st.dq||"")+'"><div class="qabj" dir="rtl">'+ABJ.map(function(c){ return '<button class="chip'+(st.dl===c?" on":"")+'" data-dl="'+c+'">'+c+'</button>'; }).join("")+'</div><div id="qDL" class="qlist"><div class="mut small">'+L2("Memuatkan…","Loading…")+'</div></div>'+
     '<div class="mut tiny">'+L2("Akar kata dan morfologi: Quranic Arabic Corpus (Universiti Leeds, GPL). Maksud: Quran.com (Bahasa Inggeris).","Roots and morphology: Quranic Arabic Corpus (University of Leeds, GPL). Meanings: Quran.com.")+'</div>';
 }
 function bindDict(){
+  var wb=q("#qWq"); if(wb) wb.onclick=function(){ st.wq=null; goV("wq"); };
   needRoot(function(){ var L=q("#qDL"), Q=q("#qDQ"); if(!L) return;
     var draw=function(){ var v=(st.dq||"").trim(), ids=[];
       if(v && LET.test(v)){ var nv=arNorm(v).replace(/\s|-/g,"").replace(/[ىي]/g,"ي"); for(var i=0;i<RT.r.length;i++){ var rr=arNorm(RT.r[i]).replace(/-/g,""); if(rr.indexOf(nv)===0 || rr===nv) ids.push(i); } }
@@ -790,6 +798,34 @@ function bindDict(){
     qa("[data-dl]").forEach(function(b){ b.onclick=function(){ var c=b.getAttribute("data-dl"); st.dl=st.dl===c?"":c; st.dq=""; Q.value=""; qa("[data-dl]").forEach(function(x){ x.classList.toggle("on", x.getAttribute("data-dl")===st.dl); }); draw(); }; });
     draw(); });
 }
+// ----- 0.7.93 (owner #8): Quran word quiz inside Kamus. 5 roots a day from the 300 most frequent; pick the meaning from 4 -----
+function wqRand(seed){ var x=seed>>>0||1; return function(){ x=(x*1664525+1013904223)>>>0; return x/4294967296; }; }
+function wqGloss(i){ return String(RT.rg[i]||"").split(";").map(function(t){ return t.trim(); }).filter(Boolean).slice(0,3).join(", "); }
+function wqMake(practice){ var top=[]; for(var i=0;i<RT.r.length;i++) if(RT.rg[i]) top.push(i); top.sort(function(a,b){ return RT.rn[b]-RT.rn[a]; }); top=top.slice(0,300);
+  var d=ymd(), rnd=wqRand(practice?Date.now():+d.replace(/-/g,"")), pick=[], used={};
+  while(pick.length<5){ var c=top[Math.floor(rnd()*top.length)]; if(used[c]) continue; used[c]=1; var opts=[c], og={}; og[wqGloss(c)]=1;
+    while(opts.length<4){ var o=top[Math.floor(rnd()*top.length)], g=wqGloss(o); if(og[g]||o===c) continue; og[g]=1; opts.push(o); }
+    for(var j=3;j>0;j--){ var r=Math.floor(rnd()*(j+1)), t=opts[j]; opts[j]=opts[r]; opts[r]=t; } pick.push({k:c, o:opts}); }
+  return {q:pick, i:0, sc:0, practice:!!practice, ans:[]}; }
+function wqStreak(){ var n=0, t=new Date(); while(D.wq && D.wq[ymd(t)]!=null){ n++; t.setDate(t.getDate()-1); } return n; }
+function wqView(){ needRoot(function(){ if(st.v!=="wq") return; var Z=st.wq=st.wq||wqMake(false);
+  var h=topBar("🧩 "+L2("Kuiz kosa kata","Word quiz"), (Z.practice?L2("Latihan","Practice"):L2("Hari ini","Today"))+" · "+Math.min(Z.i+1,5)+"/5");
+  if(Z.i>=5){ var known=Object.keys(D.wqk||{}).length;
+    h+='<div class="card qwqEnd"><div class="qwqSc">'+Z.sc+'/5</div><div>'+(Z.sc===5?"🌟 "+L2("Sempurna! Masya-Allah.","Perfect! Masha'Allah."):Z.sc>=3?"👍 "+L2("Bagus!","Well done!"):"🌱 "+L2("Teruskan, sedikit demi sedikit.","Keep going, a little at a time."))+'</div>'+
+      '<div class="mut small">'+L2("Akar dikuasai: ","Roots learned: ")+known+' · 🔥 '+wqStreak()+' '+L2("hari","days")+'</div>'+
+      Z.ans.map(function(a){ return '<button class="qwqR'+(a.ok?' ok':' no')+'" data-root="'+a.k+'"><b dir="rtl" lang="ar">'+E(rootLetters(RT.r[a.k]))+'</b><span>'+E(wqGloss(a.k))+'</span><i>'+(a.ok?"✓":"✗")+'</i></button>'; }).join("")+
+      '<button class="btn gold full" id="wqAg">🔁 '+L2("Latihan 5 lagi","Practise 5 more")+'</button></div>';
+    box.innerHTML=h; bindTop(); bindRoots(); q("#wqAg").onclick=function(){ st.wq=wqMake(true); wqView(); }; return; }
+  var Q=Z.q[Z.i], n=RT.rn[Q.k];
+  h+='<div class="card qwqC"><div class="mut small">'+L2("Apakah maksud akar ini?","What does this root mean?")+'</div><div class="qwqAr" dir="rtl" lang="ar">'+E(rootLetters(RT.r[Q.k]))+'</div><div class="mut tiny">'+L2("Muncul ","Appears ")+n+L2(" kali dalam Al-Quran"," times in the Quran")+'</div>'+
+    '<div class="qwqO">'+Q.o.map(function(o){ return '<button class="btn alt" data-wqo="'+o+'">'+E(wqGloss(o))+'</button>'; }).join("")+'</div><div id="wqF"></div></div>'+
+    '<div class="mut tiny">'+L2("Maksud dalam Bahasa Inggeris dari Quranic Arabic Corpus.","English meanings from the Quranic Arabic Corpus.")+'</div>';
+  box.innerHTML=h; bindTop();
+  qa("[data-wqo]").forEach(function(b){ b.onclick=function(){ if(Q.done) return; Q.done=1; var o=+b.getAttribute("data-wqo"), ok=o===Q.k; if(ok){ Z.sc++; D.wqk=D.wqk||{}; D.wqk[Q.k]=(D.wqk[Q.k]||0)+1; } Z.ans.push({k:Q.k, ok:ok});
+    qa("[data-wqo]").forEach(function(x){ var v=+x.getAttribute("data-wqo"); x.classList.add(v===Q.k?"ok":(x===b?"no":"dim")); }); if(H.N && H.N.vibrate) H.N.vibrate(ok?20:[30,40,30]);
+    var F=q("#wqF"); F.innerHTML='<div class="qwqFb '+(ok?"ok":"no")+'">'+(ok?"✓ "+L2("Betul","Right"):"✗ "+L2("Jawapan: ","Answer: ")+E(wqGloss(Q.k)))+'</div><button class="btn gold full" id="wqN">'+(Z.i<4?L2("Seterusnya","Next")+" ›":L2("Lihat keputusan","See results"))+'</button>';
+    q("#wqN").onclick=function(){ Z.i++; if(Z.i>=5 && !Z.practice){ D.wq=D.wq||{}; if(D.wq[ymd()]==null) D.wq[ymd()]=Z.sc; var ks=Object.keys(D.wq).sort(); while(ks.length>400) delete D.wq[ks.shift()]; } saveD(); wqView(); view().scrollTop=0; }; }; });
+}); }
 function bindRoots(){ qa("[data-root]").forEach(function(b){ if(b._b) return; b._b=1; b.onclick=function(){ rootList(+b.getAttribute("data-root")); }; }); }
 function rootList(i){ needRoot(function(){ var r=RT.r[i];
   showList({icon:"🌱", ar:rootLetters(r), title:L2("Akar ","Root ")+rootLetters(r), sub:(RT.rg[i]||"")+" · "+RT.ra[i].length+" "+L2("ayat","ayat"), ks:RT.ak(i), root:i}); }); }
@@ -880,13 +916,32 @@ function solatSheet(){
 var HZI=[1,1,3,7,14,30];
 function hzDue(){ var d=ymd(), out=[]; for(var k in D.hz.c){ if(D.hz.c[k][1]<=d) out.push(+k); } return out.sort(function(a,b){ return a-b; }); }
 function addDaysY(n){ var t=new Date(); t.setDate(t.getDate()+n); return ymd(t); }
+// 0.7.93 (owner #6): fade mode. The whole ayat shows; each "Fade" hides one more word (spread out, not just the end). Recite, then tap the words you missed; Done updates the review schedule.
+function hzFadeOrder(n, k){ var o=[], r=wqRand(k*7919+n); for(var i=0;i<n;i++) o.push(i); for(var j=n-1;j>0;j--){ var x=Math.floor(r()*(j+1)), t=o[j]; o[j]=o[x]; o[x]=t; } return o; }
+function hzFade(L, list){
+  L.innerHTML='<div class="card mut small">'+L2("Baca ayat, tekan 🫥 untuk memudarkan satu lagi perkataan, dan baca semula dari ingatan. Ketik perkataan yang anda terlupa (jadi merah), kemudian ✓ Selesai.","Read the ayat, tap 🫥 to fade one more word, and recite again from memory. Tap any word you forgot (it turns red), then ✓ Done.")+'</div>'+
+    list.slice(0,80).map(function(k){ var r=fromIdx(k), w=plainAyah(k).split(/\s+/).filter(Boolean);
+      return '<div class="card hzf" data-k="'+k+'" data-lv="0"><div class="qah"><span class="qn">'+r[0]+':'+r[1]+'</span><button class="ib" data-hzp="'+k+'" aria-label="'+L2("Dengar","Listen")+'">🔊</button></div>'+
+        '<div class="qlar hzft" dir="rtl" lang="ar">'+w.map(function(x, i){ return '<span class="hzfw" data-i="'+i+'">'+E(x)+'</span>'; }).join(" ")+'</div>'+
+        '<div class="row hzfb"><button class="btn alt" data-hzf="1">🫥 '+L2("Pudar","Fade")+' <small>0/'+w.length+'</small></button><button class="btn alt" data-hzf="0">↺</button><button class="btn gold" data-hzd="1">✓ '+L2("Selesai","Done")+'</button></div></div>'; }).join("");
+  L.onclick=function(e){ var card=e.target.closest(".hzf"); if(!card) return; var k=+card.getAttribute("data-k"), ws=card.querySelectorAll(".hzfw"), n=ws.length, ord=hzFadeOrder(n, k);
+    var wd=e.target.closest(".hzfw"); if(wd && !card.classList.contains("done")){ wd.classList.toggle("miss"); return; }
+    var b=e.target.closest("button"); if(!b) return;
+    if(b.hasAttribute("data-hzp")){ playRange(k,k,1,1); return; }
+    if(b.hasAttribute("data-hzf")){ var lv=b.getAttribute("data-hzf")==="1"?Math.min(n, +card.getAttribute("data-lv")+1):0; card.setAttribute("data-lv", lv);
+      [].forEach.call(ws, function(x){ x.classList.remove("gone"); }); for(var i=0;i<lv;i++) ws[ord[i]].classList.add("gone");
+      card.querySelector('[data-hzf="1"] small').textContent=lv+"/"+n; return; }
+    if(b.hasAttribute("data-hzd")){ var miss=card.querySelectorAll(".hzfw.miss").length, lv2=+card.getAttribute("data-lv"), ok=!miss && lv2>=Math.ceil(n/2), cur=D.hz.c[k]||[0,""], bx=ok?Math.min(5,cur[0]+1):0;
+      if(miss){ D.hz.m=D.hz.m||{}; D.hz.m[k]=(D.hz.m[k]||0)+1; } D.hz.c[k]=[bx, addDaysY(ok?HZI[bx]:1)]; saveD(); card.classList.add("done", ok?"ok":"no");
+      card.querySelector(".hzfb").innerHTML='<span class="small">'+(ok?"✓ "+L2("Ulang pada ","Next review ")+D.hz.c[k][1]:miss?"✗ "+miss+L2(" perkataan terlupa · ulang esok"," words missed · review tomorrow"):"🌱 "+L2("Pudarkan sekurang-kurangnya separuh untuk dikira hafal · ulang esok","Fade at least half to count as known · review tomorrow"))+'</span>'; } };
+}
 function hzView(){
   var s=D.hz.s||114, m=sMeta(s), mode=st.hzMode||"surah", list=[];
   if(mode==="due") list=hzDue(); else for(var a=1;a<=m[4];a++) list.push(gIdx(s,a));
   var known=0; for(var a2=1;a2<=m[4];a2++){ var c=D.hz.c[gIdx(s,a2)]; if(c && c[0]>=3) known++; }
   var h=topBar("🧠 "+L2("Hafazan","Memorise"), mode==="due"?L2("Ulang kaji: ","Review: ")+list.length+" ayat":E(sName(s))+" · "+known+"/"+m[4]+" "+L2("hafal","known"));
   h+='<div class="card"><div class="row"><select id="hzS" style="flex:1">'+(function(){ var o=''; for(var i=114;i>=1;i--) o+='<option value="'+i+'"'+(i===s?" selected":"")+'>'+i+'. '+E(sName(i))+'</option>'; return o; })()+'</select></div>'+
-    '<div class="chips" style="margin-top:8px"><button class="chip'+(mode==="surah"?" on":"")+'" data-hzm="surah">📜 '+L2("Seluruh surah","Whole surah")+'</button><button class="chip'+(mode==="due"?" on":"")+'" data-hzm="due">🔁 '+L2("Ulang kaji","Review")+' ('+hzDue().length+')</button></div>'+
+    '<div class="chips" style="margin-top:8px"><button class="chip'+(mode==="surah"?" on":"")+'" data-hzm="surah">📜 '+L2("Seluruh surah","Whole surah")+'</button><button class="chip'+(mode==="due"?" on":"")+'" data-hzm="due">🔁 '+L2("Ulang kaji","Review")+' ('+hzDue().length+')</button><button class="chip'+(mode==="fade"?" on":"")+'" data-hzm="fade">🫥 '+L2("Pudar","Fade")+'</button></div>'+
     '<div class="mut tiny" style="margin-top:6px">'+L2("Baca dari ingatan, kemudian tekan Tunjuk dan tanda sendiri. Ayat yang belum lekat akan kembali esok; yang betul kembali selepas 3, 7, 14 dan 30 hari.","Recite from memory, then tap Show and mark yourself. Weak ayat come back tomorrow; correct ones after 3, 7, 14 and 30 days.")+'</div></div>';
   var ml=Object.keys(D.hz.m||{}).sort(function(x, y){ return D.hz.m[y]-D.hz.m[x]; }).slice(0,8);
   if(ml.length) h+='<div class="card"><h3>⚠ '+L2("Paling kerap silap","Most missed")+'</h3><div class="chips" style="flex-wrap:wrap">'+ml.map(function(k){ var r=fromIdx(+k); return '<button class="chip" data-open="'+k+'">'+E(sName(r[0]))+' '+r[0]+':'+r[1]+' · '+D.hz.m[k]+'×</button>'; }).join("")+'</div><button class="chip" id="hzMx" style="margin-top:6px">⟲ '+L2("Kosongkan log","Clear the log")+'</button></div>';
@@ -897,6 +952,7 @@ function hzView(){
   qa("[data-hzm]").forEach(function(b){ b.onclick=function(){ st.hzMode=b.getAttribute("data-hzm"); hzView(); }; });
   var surs={}; list.forEach(function(k){ surs[fromIdx(k)[0]]=1; }); var ss=Object.keys(surs), i=0;
   var go=function(){ if(i<ss.length){ needSurah(+ss[i++], go); return; } var L=q("#hzL"); if(!L) return;
+    if(mode==="fade"){ hzFade(L, list); return; }
     L.innerHTML=list.slice(0,80).map(function(k){ var r=fromIdx(k), c=D.hz.c[k], t=plainAyah(k), w=t.split(/\s+/);
       return '<div class="card hzc" data-k="'+k+'"><div class="qah"><span class="qn">'+r[0]+':'+r[1]+'</span>'+(c?'<span class="badge">'+["🌱","🌿","🌿","🌳","🌳","⭐"][c[0]]+' '+(c[0]>=3?L2("hafal","known"):L2("belajar","learning"))+'</span>':'')+'<span style="flex:1"></span><button class="ib" data-hzp="'+k+'">🔊</button></div>'+
         '<div class="qlar hzt" dir="rtl" lang="ar"><span class="hzh">'+E(w[0])+'</span> <span class="hzx">'+w.slice(1).map(function(x){ return '<span class="hzw">'+E(x)+'</span>'; }).join(" ")+'</span></div>'+
@@ -1080,7 +1136,7 @@ function sayStop(){
 function render(){
   if(!box) return;
   closePop();
-  if(st.v==="read") reader(); else if(st.v==="list") listView(); else if(st.v==="hz") hzView(); else if(st.v==="grp") grpView(); else if(st.v==="map") mapView(); else { clearInterval(audioTimer); clearInterval(track._i); if(io) io.disconnect(); flush(); home(); }
+  if(st.v==="read") reader(); else if(st.v==="list") listView(); else if(st.v==="hz") hzView(); else if(st.v==="grp") grpView(); else if(st.v==="map") mapView(); else if(st.v==="wq") wqView(); else { clearInterval(audioTimer); clearInterval(track._i); if(io) io.disconnect(); flush(); home(); }
 }
 function back(){
   closePop(); sayStop();
@@ -1089,6 +1145,7 @@ function back(){
   if(st.v==="read"){ stopAuto(); flush(); st.v="home"; render(); view().scrollTop=0; return true; }
   if(st.v==="list"){ st.v="home"; st.list=null; render(); view().scrollTop=0; return true; }
   if(st.v==="grp" && st.grp){ st.grp=null; render(); return true; }
+  if(st.v==="wq"){ st.v="home"; st.tab="kamus"; render(); view().scrollTop=0; return true; }
   if(st.v==="hz"||st.v==="grp"||st.v==="map"){ st.v="home"; render(); view().scrollTop=0; return true; }
   if(st.tab!=="surah"){ st.tab="surah"; render(); return true; }
   return false;

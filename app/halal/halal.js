@@ -238,7 +238,8 @@ function bind(el){
   el.querySelector("#hBc").onclick = function(){ startBarcode(); };
   el.querySelectorAll("[data-hact]").forEach(function(b){ b.onclick=function(){ var a=b.getAttribute("data-hact");
     if(a==="cam") pick("camera", el); else if(a==="scan") startBarcode();
-    else if(a==="jk"){ st.jq=b.getAttribute("data-q")||""; jakimGo(st.jq); } }; });
+    else if(a==="jk"){ st.jq=b.getAttribute("data-q")||""; jakimGo(st.jq); }
+    else if(a==="kal" && window.Kalori && st.prod){ Kalori.fromScan(st.prod, st.res ? st.res.verdict : null, H); } }; });
   var jq=el.querySelector("#hjQ"); if(jq){ jq.oninput=function(){ st.jq=jq.value; }; jq.onkeydown=function(e){ if(e.key==="Enter") jakimGo(jq.value); }; }
   var jg=el.querySelector("#hjGo"); if(jg) jg.onclick=function(){ jakimGo(el.querySelector("#hjQ").value); };
   var ja=el.querySelector("#hjApp"); if(ja) ja.onclick=function(){ var u="market://search?q="+encodeURIComponent("Verify Halal JAKIM")+"&c=apps"; if(window.Native) H.N.openUrl(u); else window.open("https://play.google.com/store/search?q=Verify%20Halal%20JAKIM&c=apps"); };
@@ -275,6 +276,7 @@ function prodHtml(p){
   if(!p.ingr) return h+head+'<div class="small" style="margin-top:8px">'+L2("Senarai ramuan belum dimasukkan untuk produk ini. Ambil gambar ramuan pada bungkusan.","No ingredient list has been entered for this product yet. Take a photo of the ingredients on the pack.")+'</div>'+acts+'</div>';
   return h+head+(p.halal?'<div class="hpL">🏷️ '+L2("Pengguna Open Food Facts melaporkan logo halal pada produk ini. Pastikan logo halal JAKIM ada pada bungkusan anda.","Open Food Facts users report a halal logo on this product. Make sure the JAKIM halal logo is on your pack.")+'</div>':'')+
     '<div class="mut tiny" style="margin-top:8px">'+L2("Ramuan di bawah diambil dari Open Food Facts (diisi oleh sukarelawan) dan mungkin berbeza dengan bungkusan anda. Bandingkan dengan label.","The ingredients below come from Open Food Facts (entered by volunteers) and may differ from your pack. Compare with the label.")+'</div>'+
+    (window.Kalori ? '<button class="btn gold full" data-hact="kal" style="margin-top:8px">🍽️ '+L2("Tambah ke diari Kalori","Add to the Kalori diary")+(p.nut && (p.nut.serv||p.nut.per100) ? ' · '+(p.nut.serv||p.nut.per100).kcal+' kcal'+(p.nut.serv?'':' / 100 g') : '')+'</button>' : '')+   // 0.7.90: one scan, two answers
     '<div class="btns hpA">'+(p.brand?'<button class="btn alt" data-hact="jk" data-q="'+esc(p.brand)+'">🏷️ '+L2("Semak sijil JAKIM jenama ini","Check this brand with JAKIM")+'</button>':'')+'<button class="btn alt" data-hact="scan">'+L2("Imbas lagi","Scan again")+'</button></div></div>';
 }
 function jakimHtml(){
@@ -378,7 +380,7 @@ function bindList(el){
 
 window.HalalCheck = { analyse: analyse };
 window.HalalView = function(el, helpers){ H = helpers; window.HalalAI._on = helpers.on; window.HalalAI._off = helpers.off;
-  if(window.HalalRecipe){ HalalRecipe.init(helpers); if(helpers.auto==="recipe") HalalRecipe.take(); else if(helpers.auto==="recipes"||helpers.auto==="rplan") HalalRecipe.open(helpers.auto==="rplan"?"plan":"list"); else if(helpers.auto==="barcode") HalalRecipe.open("check"); }
+  if(window.HalalRecipe){ HalalRecipe.init(helpers); if(helpers.auto==="recipe") HalalRecipe.take(); else if(helpers.auto==="recipes"||helpers.auto==="rplan") HalalRecipe.open(helpers.auto==="rplan"?"plan":"list"); else if(helpers.auto==="kal") HalalRecipe.open("kal"); else if(helpers.auto==="barcode") HalalRecipe.open("check"); }
   render(el);
   if(helpers.auto==="barcode") setTimeout(startBarcode, 120); };
 })();

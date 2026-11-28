@@ -1,0 +1,31 @@
+/* My Ihsan 0.7.93 · Pelindung, 40 Rabbana, Sedekah jar (full-screen overlay) */
+#overlay.i2ov{background:var(--bg)!important;color:var(--fg);justify-content:flex-start;align-items:stretch;user-select:text}
+.i2Head{display:flex;align-items:center;gap:10px;padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;border-bottom:1px solid var(--line);background:var(--card)}
+.i2Head b{font-size:16px}.i2Head .chip{width:44px;height:40px;justify-content:center;font-size:20px}
+.i2Body{flex:1;overflow-y:auto;padding:10px 12px calc(env(safe-area-inset-bottom) + 24px);max-width:760px;width:100%;margin:0 auto;box-sizing:border-box}
+.i2Card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.i2Card h3{margin:6px 0}
+.i2Top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.i2Ar{font-family:var(--qfont,"KFGQPC","Amiri",serif);font-size:26px;line-height:2;text-align:right;margin:8px 0;color:var(--fg)}
+.i2Ref{color:var(--gold);font-size:12.5px}.i2Tr{font-size:13.5px;line-height:1.5;margin-top:6px;color:var(--fg)}
+.i2Grid{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:5px;margin-bottom:10px}
+.i2Grid button{height:38px;border-radius:9px;border:1px solid var(--line);background:var(--card2);color:var(--fg);font:inherit;font-size:13px;cursor:pointer}
+.i2Grid button.ok{background:rgba(63,178,127,.25);border-color:rgba(63,178,127,.5)}.i2Grid button.on{outline:2px solid var(--gold)}
+.i2Foot{margin:4px 2px 10px;line-height:1.45}
+.i2Tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}.i2Tabs .chip{flex:0 0 auto}
+.i2Note{font-size:12px;background:rgba(217,164,58,.12);border-radius:10px;padding:8px 10px;margin-bottom:10px;line-height:1.4}
+.i2Pel.done{border-color:rgba(63,178,127,.6);opacity:.8}
+.i2Bot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.i2Cnt{min-width:86px;min-height:44px;border-radius:22px;border:0;background:var(--gold);color:#1a1405;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.i2Pel.done .i2Cnt{background:#3fb27f}
+.i2Jar{display:flex;gap:14px;align-items:center}
+.i2JarV{position:relative;flex:0 0 74px;height:100px;border:3px solid var(--line);border-top-width:8px;border-radius:12px 12px 18px 18px;overflow:hidden;background:var(--card2)}
+.i2JarV i{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,#f1c96a,#d9a43a);transition:height .6s}
+.i2JarV span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--fg);text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.i2JarT{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.i2Mon{display:flex;align-items:center;gap:8px}.i2Mon b{flex:1;text-align:center}.i2Mon .chip{width:40px;height:36px;justify-content:center}
+.i2Wrap{flex-wrap:wrap}.i2Row{display:flex;gap:8px;margin:8px 0}.i2Row .rin{flex:1;min-width:0}
+.i2List{padding:4px 12px}.i2Li{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.i2Li:last-child{border-bottom:0}
+.i2LiN{flex:1;min-width:0;font-size:13.5px}.i2LiN small{display:block;color:var(--mut);font-size:11px}
+.i2X{background:none;border:0;color:var(--mut);width:36px;height:40px;cursor:pointer}
+.i2Had{font-size:13.5px;line-height:1.5}.i2Had small{color:var(--gold);font-size:11.5px}

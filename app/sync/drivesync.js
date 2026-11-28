@@ -17,19 +17,19 @@
 var META = "ihsan_sync_meta", DAY = 864e5;
 // §7 data map: section → keys (a trailing * is a prefix). Web rights: e = edit, v = view, p = PIN.
 var SECTIONS = [
-  ["notes", "📝", "Nota & perancang", "Notes & planner", "e", ["ihsan_notes","ihsan_planner","ihsan_events","ihsan_icsopt","ihsan_xrem","ihsan_kad","ihsan_meet","ihsan_dok_set","ihsan_dok_profile","ihsan_dok_docs","ihsan_tekap"]],
+  ["notes", "📝", "Nota & perancang", "Notes & planner", "e", ["ihsan_notes","ihsan_lnotes","ihsan_planner","ihsan_events","ihsan_icsopt","ihsan_xrem","ihsan_kad","ihsan_meet","ihsan_dok_set","ihsan_dok_profile","ihsan_dok_docs","ihsan_tekap"]],
   ["karya", "✒️", "Karya", "Karya", "e", ["ihsan_karya"]],
   ["niaga", "📑", "Niaga", "Business", "e", ["ihsan_biz"]],
-  ["recipes", "🍲", "Resepi", "Recipes", "e", ["ihsan_recipes","ihsan_rcp_set","ihsan_rcp_plan","ihsan_rcp_shop","ihsan_shop","ihsan_halal_hist"]],
-  ["ibadah", "🕌", "Ibadah", "Worship", "v", ["ihsan_prlog","ihsan_qsolat","ihsan_jamma","ihsan_qada","ihsan_quran","ihsan_qwords","ihsan_tasbih","ihsan_counters","ihsan_tbtot","ihsan_mydoa","ihsan_myzikir","ihsan_deeds","ihsan_muhasabah","ihsan_ramadan","ihsan_n40","ihsan_asma","ihsan_sbk"]],
-  ["ilmu", "📚", "Ilmu", "Learning", "v", ["ihsan_silibus","ihsan_iqra","ihsan_hijaiyah","ihsan_huruf","ihsan_tajwid","ihsan_khat","ihsan_sci","ihsan_sirah","ihsan_sirah_kids","ihsan_sahabat","ihsan_fiqh","ihsan_books","ihsan_books_set","ihsan_pod","ihsan_radio_fav","ihsan_chess","ihsan_chess_stats","ihsan_askai","ihsan_uni_*"]],
+  ["recipes", "🍲", "Resepi", "Recipes", "e", ["ihsan_recipes","ihsan_rcp_set","ihsan_rcp_plan","ihsan_rcp_shop","ihsan_shop","ihsan_halal_hist","ihsan_kal_log","ihsan_kal_goal","ihsan_kal_fav","ihsan_kal_my"]],
+  ["ibadah", "🕌", "Ibadah", "Worship", "v", ["ihsan_sadaqah","ihsan_rabbana","ihsan_ayamal","ihsan_prlog","ihsan_qsolat","ihsan_jamma","ihsan_qada","ihsan_quran","ihsan_qwords","ihsan_tasbih","ihsan_counters","ihsan_tbtot","ihsan_mydoa","ihsan_myzikir","ihsan_deeds","ihsan_muhasabah","ihsan_ramadan","ihsan_n40","ihsan_asma","ihsan_sbk"]],
+  ["ilmu", "📚", "Ilmu", "Learning", "v", ["ihsan_kg","ihsan_hist","ihsan_silibus","ihsan_iqra","ihsan_hijaiyah","ihsan_huruf","ihsan_tajwid","ihsan_khat","ihsan_sci","ihsan_sirah","ihsan_sirah_kids","ihsan_sahabat","ihsan_fiqh","ihsan_books","ihsan_books_set","ihsan_pod","ihsan_radio_fav","ihsan_chess","ihsan_chess_stats","ihsan_askai","ihsan_uni_*"]],
   ["move", "🏃", "Gerak", "Move", "v", ["ihsan_runs","ihsan_runsegs","ihsan_runbadges","ihsan_run_cfg","ihsan_routes","ihsan_fit","ihsan_sport","ihsan_fitrem","ihsan_focus","ihsan_focus_ex","ihsan_grow","ihsan_grow_ex","ihsan_screen","ihsan_usage","ihsan_insights"]],
-  ["family", "👨‍👩‍👧", "Keluarga", "Family", "e", ["ihsan_family","ihsan_famrem","ihsan_baby","ihsan_kids","ihsan_kprof","ihsan_kp_*","ihsan_kplan","ihsan_pets","ihsan_vpet","ihsan_kwav"]],   // 0.7.66: the children's planners; 0.7.72: pets and phone pets
-  ["finance", "💰", "Kewangan", "Finance", "e", ["ihsan_fin","ihsan_expense","ihsan_receipts","ihsan_receipt","ihsan_split","ihsan_splitev_*","ihsan_zcalc","ihsan_zstate","ihsan_gold","ihsan_saham","ihsan_fx","ihsan_donate"]],
+  ["family", "👨‍👩‍👧", "Keluarga", "Family", "e", ["ihsan_famcal","ihsan_plants","ihsan_family","ihsan_famrem","ihsan_baby","ihsan_kids","ihsan_kprof","ihsan_kp_*","ihsan_kplan","ihsan_pets","ihsan_vpet","ihsan_kwav"]],   // 0.7.66: the children's planners; 0.7.72: pets and phone pets
+  ["finance", "💰", "Kewangan", "Finance", "e", ["ihsan_vault","ihsan_car","ihsan_fin","ihsan_expense","ihsan_receipts","ihsan_receipt","ihsan_split","ihsan_splitev_*","ihsan_zcalc","ihsan_zstate","ihsan_gold","ihsan_saham","ihsan_fx","ihsan_donate"]],
   ["hajj", "🕋", "Haji & Umrah", "Hajj & Umrah", "e", ["ihsan_umrahdiy","ihsan_hajj","ihsan_umdocs","ihsan_tawaf","ihsan_umrah_live","ihsan_hjtrace"]],
   ["groups", "👥", "Kumpulan", "Groups", "e", ["ihsan_groups","ihsan_gset","ihsan_gblock","ihsan_gposts_*"]],
-  ["care", "🌸", "Haid & Jaga (pilihan)", "Period & Care (opt-in)", "p", ["ihsan_period","ihsan_care"]],
-  ["misc", "🧭", "Lain-lain", "Other", "v", ["ihsan_falak","ihsan_log","ihsan_tour","ihsan_news"]]];
+  ["care", "🌸", "Haid & Jaga (pilihan)", "Period & Care (opt-in)", "p", ["ihsan_period","ihsan_care","ihsan_meds"]],
+  ["misc", "🧭", "Lain-lain", "Other", "v", ["ihsan_falak","ihsan_log","ihsan_tour","ihsan_news","ihsan_util"]]];
 // never synced, whatever the map says (settings, caches, secrets, outboxes, this file's own state)
 var NEVER = /^ihsan_(settings|setlast|wall|side|view|navlast|news_head|extra|displays|dsauto|dscol|dsplay|dsqueue|dsremote.*|radio_cache.*|wx|gkey|pin|umdocpin|goutbox|splitout|sync_meta|tb_remote|.*img_.*|phx_.*|podf_.*)$/;
 // written by the app in the background all the time (screen time, counters…): they ride along with the next sync but never start one

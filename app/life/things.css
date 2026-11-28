@@ -1,0 +1,20 @@
+/* My Ihsan 0.7.93 · warranty vault, car care, plants */
+.thSum{display:flex;align-items:center;gap:12px}.thSum>div{flex:1;min-width:0}.thSum b{display:block;font-size:20px;color:var(--gold)}.thSum small{color:var(--mut);font-size:11.5px}
+.thQ{width:100%;margin-bottom:8px}
+.vaRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;color:var(--fg);font:inherit;cursor:pointer;padding:10px 12px}.vaRow img{width:46px;height:46px;object-fit:cover;border-radius:8px}.thIc{font-size:28px;width:46px;text-align:center}
+.thM{flex:1;min-width:0}.thM b{display:block;font-size:14.5px}.thM small{color:var(--mut);font-size:11.5px}
+.thB{font-size:11px;font-weight:700;border-radius:8px;padding:3px 7px;white-space:nowrap}.thB.ok{background:rgba(63,178,127,.18);color:#3fb27f}.thB.w{background:rgba(232,185,60,.2);color:#d9a43a}.thB.x{background:rgba(224,96,90,.18);color:#e0605a}
+.thF{display:block;margin-top:8px}.thF span{display:block;font-size:12px;color:var(--mut);margin-bottom:3px}.thF .rin{width:100%}
+.thG2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.thG3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.thBtns{display:flex;gap:8px;margin-top:12px}.thBtns .btn{flex:1}.thBtns .btn.alt{flex:0 0 56px}
+.thPh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.thPh img{width:100%;max-height:220px;object-fit:contain;border-radius:10px;background:#fff}
+.thEmpty{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}.thBig{font-size:56px}
+.thCars{flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px}.thCars .chip{flex:0 0 auto}
+.thHead{display:flex;align-items:center;gap:8px;margin-bottom:6px}.thHead b{font-size:17px}.thHead span{flex:1}
+.thLine{display:grid;grid-template-columns:1fr 140px auto;gap:8px;align-items:center;padding:6px 0;border-top:1px solid var(--line);font-size:13.5px}.thLine .rin{width:100%}
+.thStats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;text-align:center}.thStats>div{background:var(--card2);border-radius:10px;padding:6px}.thStats b{display:block;font-size:16px;color:var(--gold)}.thStats small{font-size:11px;color:var(--mut)}
+.thLog{margin-top:8px;font-size:12.5px}.thLog>div{display:grid;grid-template-columns:1.2fr .7fr 1fr 1fr;gap:6px;padding:4px 0;border-top:1px solid var(--line)}.thLog1{font-size:13px;padding:5px 0;border-top:1px solid var(--line)}
+.thPlants{display:flex;flex-direction:column;gap:0}.thPlant{display:flex;align-items:center;gap:10px;padding:10px 12px}.thPlant.need{border-color:rgba(76,150,230,.6)}
+.thPi{width:56px;height:56px;border-radius:12px;border:0;background:var(--card2);padding:0;overflow:hidden;cursor:pointer;flex:none}.thPi img{width:100%;height:100%;object-fit:cover}.thPi span{font-size:30px}
+.thPm{flex:1;min-width:0}.thPm b{display:block}.thPm small{color:var(--mut);font-size:11.5px}.thPb{display:flex;gap:4px}.thPb .chip{min-width:40px;min-height:40px;justify-content:center}
+.thIcs{flex-wrap:wrap}.thGal{display:flex;gap:6px;overflow-x:auto;margin-top:10px}.thGal figure{margin:0;flex:0 0 96px}.thGal img{width:96px;height:96px;object-fit:cover;border-radius:8px}.thGal figcaption{font-size:10.5px;color:var(--mut);text-align:center}

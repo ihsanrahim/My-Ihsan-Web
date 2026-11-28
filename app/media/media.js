@@ -99,7 +99,7 @@ function openPlayer(){
     '<div class="npC">'+(live?'':'<button class="npb" data-np="back" aria-label="back 15 seconds">↺<small>15</small></button>')+'<button class="npb big" data-np="tog" id="npPlay" aria-label="play/pause">▶</button>'+(live?'<button class="npb" data-np="stop" aria-label="stop">⏹</button>':'<button class="npb" data-np="fwd" aria-label="forward 30 seconds">↻<small>30</small></button>')+'</div>'+
     '<div class="npO">'+(live?'<button class="chip'+(fav?' on':'')+'" data-np="fav">'+(fav?"★":"☆")+' '+L2x("Kegemaran","Favourite")+'</button>':'<button class="chip" data-np="speed" id="npSp">1×</button>')+
       '<button class="chip" data-np="sleep" id="npSl">🌙 '+L2x("Pemasa tidur","Sleep timer")+'</button>'+(!live&&c.show&&c.show.feed?'<button class="chip" data-np="show">📂 '+L2x("Semua episod","All episodes")+'</button>':'')+'<button class="chip" data-np="stop2">⏹ '+L2x("Henti","Stop")+'</button></div>'+
-    '<div class="npTabs"><button class="'+(M.ptab==="tr"?"on":"")+'" data-pt="tr">📝 '+L2x("Teks / lirik","Lyrics / transcript")+'</button><button class="'+(M.ptab==="notes"?"on":"")+'" data-pt="notes">ℹ️ '+(live?L2x("Stesen","Station"):L2x("Nota episod","Show notes"))+'</button></div>'+
+    '<div class="npTabs"><button class="'+(M.ptab==="tr"?"on":"")+'" data-pt="tr">📝 '+L2x("Teks / lirik","Lyrics / transcript")+'</button><button class="'+(M.ptab==="notes"?"on":"")+'" data-pt="notes">ℹ️ '+(live?L2x("Stesen","Station"):L2x("Nota episod","Show notes"))+'</button>'+(live?'':'<button class="'+(M.ptab==="kn"?"on":"")+'" data-pt="kn">📌 '+L2x("Nota kuliah","Talk notes")+'</button>')+'</div>'+
     '<div class="npPane" id="npPane"></div></div>';
   ov.classList.remove("hidden");
   ov._close=function(){ M.ovOpen=false; H.closeOverlay(); H.render(); };
@@ -139,6 +139,7 @@ function updPlayer(){
 // ----- lyrics / transcript pane
 function pane(){
   var el=document.getElementById("npPane"); if(!el) return; var c=M.cur, ep=c.ep||{};
+  if(M.ptab==="kn" && !c.live){ talkNotes(el, c, ep); return; }
   if(M.ptab==="notes"){
     if(c.live){ var st=c.st||{}; el.innerHTML='<div class="npN"><div><b>'+esc(st.n)+'</b></div><div class="mut small">'+flag(st.cc)+' '+esc(st.country||"")+(st.lang?' · '+esc(st.lang):'')+(st.br?' · '+st.br+' kbps':'')+(st.codec?' · '+esc(st.codec):'')+'</div>'+
       (st.tags&&st.tags.length?'<div class="chips" style="margin-top:6px">'+st.tags.slice(0,8).map(function(t){ return '<span class="chip">'+esc(t)+'</span>'; }).join("")+'</div>':'')+
@@ -467,6 +468,29 @@ function tickWidget(){
 }
 
 // ---------- public ----------
+// 0.7.93 (owner #26): talk notes. 📌 mark moments while listening (time + a line), then ✨ the AI writes 5 key points from the transcript
+// (when the publisher gives one) or the show notes plus your marks; 💾 saves it all to Write › Notes with the label "kuliah".
+function tnDb(){ return H.load("ihsan_lnotes",{})||{}; }
+function talkNotes(el, c, ep){ var d=tnDb(), n=d[c.key]||{m:[], p:""}, mm=function(s){ return fmtT(s*1000); };
+  el.innerHTML='<div class="npN tn"><div class="row" style="gap:6px"><input id="tnT" class="rin" style="flex:1" maxlength="140" placeholder="'+esc(L2x("Catatan ringkas (pilihan)","A short note (optional)"))+'"><button class="btn gold" id="tnM">📌 '+L2x("Tanda","Mark")+'</button></div>'+
+    (n.m.length?'<div class="tnL">'+n.m.map(function(x,i){ return '<div class="tnR"><button class="chip" data-tseek="'+x.s+'">'+mm(x.s)+'</button><span>'+esc(x.t||"📌")+'</span><button class="tnX" data-tdel="'+i+'">✕</button></div>'; }).join("")+'</div>':'<div class="mut small" style="margin:8px 0">'+L2x("Tekan 📌 pada bahagian penting semasa mendengar.","Tap 📌 at the important parts while you listen.")+'</div>')+
+    '<div class="row" style="gap:6px;margin-top:8px"><button class="btn alt" id="tnA">✨ '+L2x("5 isi penting (AI)","5 key points (AI)")+'</button><button class="btn gold" id="tnS">💾 '+L2x("Simpan ke Nota","Save to Notes")+'</button></div>'+
+    '<textarea id="tnP" class="rin" rows="7" style="width:100%;margin-top:8px" placeholder="'+esc(L2x("Isi penting akan muncul di sini. Boleh diubah.","Key points appear here. You can edit them."))+'">'+esc(n.p||"")+'</textarea>'+
+    '<div class="mut tiny">'+L2x("AI membaca transkrip penerbit (jika ada) atau nota episod, bersama tanda anda. Semak semula isi agama dengan ustaz.","The AI reads the publisher's transcript (if any) or the show notes, plus your marks. Check religious points with an ustaz.")+'</div></div>';
+  var put=function(){ d[c.key]=n; var ks=Object.keys(d); if(ks.length>200) delete d[ks[0]]; H.save("ihsan_lnotes",d); };
+  el.querySelector("#tnM").onclick=function(){ var t=el.querySelector("#tnT").value.trim(); n.m.push({s:Math.round((M.st.pos||0)/1000), t:t}); n.m.sort(function(a,b){ return a.s-b.s; }); put(); H.toast("📌 "+mm(Math.round((M.st.pos||0)/1000))); talkNotes(el, c, ep); };
+  el.querySelectorAll("[data-tseek]").forEach(function(b){ b.onclick=function(){ P.cmd("seek", +b.getAttribute("data-tseek")*1000); }; });
+  el.querySelectorAll("[data-tdel]").forEach(function(b){ b.onclick=function(){ n.m.splice(+b.getAttribute("data-tdel"),1); put(); talkNotes(el, c, ep); }; });
+  el.querySelector("#tnP").oninput=function(){ n.p=this.value; put(); };
+  el.querySelector("#tnA").onclick=function(){ var b=this, tr=(M.tr&&M.tr.key===c.key&&M.tr.cues)?M.tr.cues.map(function(x){ return x.t; }).join(" ").slice(0,24000):"";
+    var src=tr?"TRANSCRIPT:\n"+tr:"SHOW NOTES:\n"+String(ep.desc||"").slice(0,6000);
+    var marks=n.m.map(function(x){ return "["+mm(x.s)+"] "+(x.t||""); }).join("\n");
+    var prompt="You help a Muslim listener take notes from an Islamic talk or podcast. Title: "+c.title+" ("+(c.artist||"")+").\n"+src+(marks?"\nLISTENER'S MARKED MOMENTS:\n"+marks:"")+"\nWrite exactly 5 short key points as a numbered list in "+(H.en()?"English":"Bahasa Melayu")+". Only use what the source says; if the source is thin, say so in point 5. No preamble.";
+    b.disabled=true; b.textContent="⏳ …"; H.ai(prompt).then(function(t){ n.p=String(t||"").trim(); put(); talkNotes(el, c, ep); }, function(err){ b.disabled=false; b.textContent="✨ "+L2x("5 isi penting (AI)","5 key points (AI)"); H.toast(String(err&&err.message||err)); }); };
+  el.querySelector("#tnS").onclick=function(){ if(!n.p.trim() && !n.m.length){ H.toast(L2x("Tiada nota untuk disimpan","Nothing to save yet")); return; }
+    var body=(n.p.trim()?n.p.trim()+"\n\n":"")+(n.m.length?"📌 "+L2x("Tanda masa","Marked moments")+":\n"+n.m.map(function(x){ return mm(x.s)+"  "+(x.t||""); }).join("\n")+"\n\n":"")+"🎙 "+c.title+(c.artist?" · "+c.artist:"");
+    H.saveNote("🎙 "+c.title, body, ["kuliah"]); H.toast("💾 "+L2x("Disimpan dalam Tulis › Nota (label: kuliah)","Saved in Write › Notes (label: kuliah)")); };
+}
 window.IbMedia={
   render:function(el, page){ if(page==="radio") vRadio(el); else vPodcast(el); },
   navGet:function(){ var p=M.page; return {show:p.show, sp:p.sp, tab:p.tab, k:(p.tab||"")+"/"+(p.show?p.show.feed:"")+"/"+(p.sp?JSON.stringify(p.sp).slice(0,60):"")}; },

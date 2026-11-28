@@ -55,7 +55,7 @@ function nmOf(p){ var t = p.toLowerCase(); return L(NM[st.set.theme][t][0], NM[s
 function draw(){ var el = root; if(!el) return; var s = st.set, flipTxt = L("Pusing papan","Flip board");
   el.innerHTML = '<div class="chTop"><button class="chip" id="chBack">‹ '+L("Tetapan","Setup")+'</button><b>♟️ '+(s.mode==="ai" ? "🤖 "+L("Robot tahap ","Robot level ")+s.level : "👥 "+L("2 pemain","2 players"))+'</b><button class="chip" id="chGd">📖</button><span class="chip" id="chTurn"></span></div>'+
     '<div class="ch3d" id="ch3d"><div class="chClk chClkT" id="chCT"></div><div class="chClk chClkB" id="chCB"></div><div class="chMsg hidden" id="chMsg"></div></div>'+
-    '<div class="chCap" id="chCap"></div>'+
+    '<div class="chCap noico" id="chCap"></div>'+
     '<div class="chBtns"><button class="btn alt g3d" id="chUndo">↶ '+L("Undur","Undo")+'</button><button class="btn alt g3d" id="chDraw">🤝 '+L("Seri?","Draw?")+'</button><button class="btn alt g3d" id="chResign">🏳 '+L("Menyerah","Resign")+'</button><button class="btn alt g3d" id="chFlip">🔄 '+flipTxt+'</button></div>'+
     '<div class="card chMoves"><h3>📜 '+L("Langkah","Moves")+'</h3><div id="chList" class="chList"></div></div>'+
     '<button class="btn gold full g3d" id="chNew" style="margin-bottom:12px">＋ '+L("Permainan baharu","New game")+'</button>';

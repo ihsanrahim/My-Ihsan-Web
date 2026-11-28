@@ -688,10 +688,11 @@ function tabs(){
   var p = R.page.split(":")[0], on = function(k){ return (k==="list" ? (p==="list"||p==="r"||p==="edit") : p===k) ? " on" : ""; };
   // 0.5.4 (Ihsan): Resepi first (the default page), Semak at the far right
   // 0.5.69: the recipe row is the level-3 dock at the bottom, just above the level-2 bar
-  var b = function(k, ic, a, e){ return '<button data-rtab="'+k+'" class="chip g3d'+on(k)+'">'+ic+' '+L2(a,e)+'</button>'; };
-  return '<div class="dock rtabs"><div class="grp3 g4">'+b("list","🍲","Resepi","Recipes")+b("plan","📅","Rancang","Plan")+b("shop","🛒","Beli","Shop")+b("check","🔍","Semak","Check")+'</div></div>';
+  // 0.7.96 (owner): label under the icon; pages unticked in the left bar (Suite › Halal) are left out
+  var T = [["list","🍲","Resepi","Recipes"],["kal","🥗","Kalori","Calories"],["plan","🍱","Rancang","Plan"],["shop","🛒","Beli","Shop"],["check","🔍","Semak","Check"]].filter(function(x){ return !window.l3On || window.l3On("alat/halal/"+x[0]) || on(x[0]); });
+  return '<div class="dock rtabs"><div class="lfNav" style="grid-template-columns:repeat('+T.length+',minmax(0,1fr))">'+T.map(function(x){ return '<button data-rtab="'+x[0]+'" class="'+on(x[0]).trim()+'"><span>'+x[1]+'</span>'+L2(x[2],x[3])+'</button>'; }).join("")+'</div></div>';
 }
-var PGS = ["list","plan","shop","check"];
+var PGS = ["list","kal","plan","shop","check"];   // 0.7.90: Kalori second
 function pgIdx(){ var p = R.page; if(p.indexOf("r:")===0 || p.indexOf("edit:")===0) return -1; var i = PGS.indexOf(p); return i<0 ? 0 : i; }
 function openPg(t){ if(t==="check"){ R.page = "check"; H.appRender(); var v = view(); if(v) v.scrollTop = 0; return; } go(t); }
 function bindTabs(el){ el.querySelectorAll("[data-rtab]").forEach(function(b){ b.onclick = function(){ openPg(b.getAttribute("data-rtab")); }; }); swipePg(el); if(window.IBH && IBH.dockFix) IBH.dockFix(); if(window.ibChips) setTimeout(window.ibChips, 30); }
@@ -716,9 +717,10 @@ function render(el){
   else if(p.indexOf("edit:")===0) body = editHtml(p.slice(5)==="new" ? null : get(p.slice(5)));
   else if(p==="plan") body = planHtml();
   else if(p==="shop") body = shopHtml();
+  else if(p==="kal") body = window.Kalori ? Kalori.html(H) : "";
   else body = listHtml();
   el.innerHTML = tabs() + '<div class="rcp">'+body+'</div>';
-  bindTabs(el); bindAll(el);
+  bindTabs(el); if(p==="kal"){ if(window.Kalori) Kalori.bind(el, H, function(){ render(el); }); } else bindAll(el);
 }
 function impHtml(){
   var m = R.imp; if(!m) return "";
@@ -1176,7 +1178,7 @@ function bindAll(el){
   }; });
   el.querySelectorAll("[data-ra]").forEach(function(b){ b.onclick = function(){ act(b.getAttribute("data-ra"), el); }; });
 }
-function moreSheet(r, el){ var A = [["cook","👨‍🍳","Mula masak","Start cooking"],["shop","🛒","Ke senarai beli","To shopping list"],["plan","📅","Rancang","Plan"],["fav", r.fav ? "★" : "☆", r.fav ? "Buang kegemaran" : "Kegemaran", r.fav ? "Unfavourite" : "Favourite"],
+function moreSheet(r, el){ var A = [["cook","👨‍🍳","Mula masak","Start cooking"],["shop","🛒","Ke senarai beli","To shopping list"],["plan","🍱","Rancang","Plan"],["fav", r.fav ? "★" : "☆", r.fav ? "Buang kegemaran" : "Kegemaran", r.fav ? "Unfavourite" : "Favourite"],
     ["col","📁","Koleksi","Collection"],["edit","✏️","Sunting","Edit"],["share","📤","Kongsi teks","Share text"],["card","🖼️","Kad resepi","Recipe card"],["pdf","📄","PDF berbingkai","Framed PDF"],["ai","✨","Semak semula dengan AI","Re-check with AI"],["del","🗑️","Padam","Delete"]];
   var ov = H.showSheet("⋮ "+esc(r.title), '<div class="rmoreL">'+A.map(function(x, i){ return '<button class="btn '+(i ? 'alt' : 'gold')+' g3d" data-rma="'+x[0]+'">'+x[1]+' '+L2(x[2], x[3])+'</button>'; }).join("")+'</div>');
   ov.querySelectorAll("[data-rma]").forEach(function(b){ b.onclick = function(){ var a = b.getAttribute("data-rma"); H.closeOverlay(); setTimeout(function(){ act(a, el, r); }, 30); }; }); }

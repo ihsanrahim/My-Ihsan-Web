@@ -370,7 +370,7 @@ details.nabi[open] summary::after{content:" ▴"}
 .dsubs{display:grid;gap:5px;padding:2px 0 7px}
 .dsub{background:transparent;border:1px solid var(--line);color:var(--fg);border-radius:9px;padding:5px 3px;font-size:11.5px;line-height:1.2;min-height:32px;min-width:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-align:center;word-break:break-word}
 .dsub.on{border-color:var(--gold);color:var(--gold);background:rgba(201,166,70,.13);font-weight:700}
-.dgrps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;border-top:1px dashed var(--line);padding:7px 0 3px}
+.dgrps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;border-top:1px dashed var(--line);padding:7px 0 3px}
 .dgrp{background:var(--card2);border:0;color:var(--mut);border-radius:12px;padding:6px 2px;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dgrp span{font-size:16px;line-height:1.1}
 .dgrp.on{background:var(--gold);color:#111}
@@ -2666,11 +2666,11 @@ details.aiWhich>summary b{color:var(--gold)}
 .bnHalf .bnHero .shTxt b{padding-right:36px}
 .bnHalf .bnHero .shTxt small{padding-right:10px}
 /* 0.7.66 (owner): the Home shortcut row floats over the page at 50%, full when pressed */
-#qtBar .qtB{opacity:.5;transition:opacity .15s}
+#qtBar .qtB{opacity:1;transition:opacity .15s}   /* 0.7.94 (owner): shortcut buttons fully visible */
 #qtBar .qtB:active,#qtBar .qtB:focus-visible,#qtBar .qtB:hover{opacity:1}
 /* 0.7.69 (owner): top bar. No ☰ / ⚙ (the side notches sit at the top instead), Gregorian and Hijri dates on two lines at double size,
    on the right: now · countdown · next prayer at one size; about 15% lower. Applies while the notches are on (body.ntTop). */
-body.ntTop #hMenu,body.ntTop #hSet{display:none!important}
+/* 0.7.89: ☰ / ⚙ are back (see the block at the end) */
 body.ntTop header#top{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:8px;row-gap:0;align-items:start;padding:2px calc(var(--ntW,32px) + 4px) 2px}
 body.ntTop header#top .hrow{display:contents}
 body.ntTop #topTitle{grid-column:1;grid-row:1;line-height:1;align-self:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -2683,7 +2683,6 @@ body.ntTop #topHij{color:var(--gold)}
 body.ntTop #hCur,body.ntTop #hLeft,body.ntTop #hNext,body.ntTop #hLeft .hl{font-size:14px!important;line-height:15px;font-weight:600;color:var(--fg);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
 body.ntTop #hCur b,body.ntTop #hNext b{color:var(--gold)}
 body.ntTop .hbar{grid-column:1/-1;grid-row:3;margin-top:2px}
-body.ntTop .edgeN{bottom:auto!important}
 html[data-dz=s] body.ntTop header#top{padding:3px calc(var(--ntW,32px) + 6px) 2px}
 /* 0.7.71: #app is a flex item of body; with the grid top bar it shrank to its content on some pages (School was 28px narrow on the right) */
 #app{width:100%;min-width:0;flex:1 1 auto}
@@ -2706,3 +2705,128 @@ html[data-dz=s] body.ntTop header#top{padding:3px calc(var(--ntW,32px) + 6px) 2p
 .tlR.k-pray{background:color-mix(in srgb,var(--gold) 9%,transparent);border-radius:10px;border-top-color:transparent;margin:2px 0}.tlR.k-pray .tlN{font-weight:700;color:var(--gold)}
 .tlR.k-kid .tlN,.tlR.k-ev .tlN{color:var(--mut)}
 .tlNow{display:flex;align-items:center;gap:8px;color:#ff8787;font:700 11.5px system-ui,sans-serif;margin:4px 0}.tlNow i{flex:1;height:2px;background:#ff8787;border-radius:2px;order:2}
+
+/* 0.7.89 (owner): ☰ top left and ⚙ top right again (the 2-line dates and the prayer column stay); the side notches are back at the sides */
+body.ntTop header#top{grid-template-columns:auto minmax(0,1fr) auto;padding:2px 8px}
+html[data-dz=s] body.ntTop header#top{padding:3px 8px 2px}
+body.ntTop #hMenu{display:flex!important;grid-column:1;grid-row:1/3;align-self:center;align-items:center;justify-content:center;width:36px;height:36px;margin-right:4px}
+body.ntTop #topTitle{grid-column:2}
+body.ntTop #hBtns{grid-column:3}
+body.ntTop #hSet{display:flex!important}
+body.ntTop .hL{grid-column:2}
+body.ntTop .hR{grid-column:3}
+/* 0.7.89 (owner): no ✕ (auto-hide) on the middle notch */
+#notch #ntA{display:none!important}
+
+/* 0.7.89 (owner): foldable side bar: 1st and 2nd level buttons sit at one even spacing; the opened 2nd level keeps its gold edge and smaller buttons */
+#app.rail nav#nav{justify-content:center!important;gap:6px!important}
+#app.rail nav#nav>button:not(.railSw){flex:0 0 auto!important;height:62px!important;min-height:0!important;max-height:none!important}
+#app.rail.railDrop nav#nav #subnav.snDrop{gap:6px!important;margin:0!important;padding:0 4px!important}
+#app.rail.railDrop nav#nav #subnav.snDrop button{flex:0 0 auto!important;height:50px!important;min-height:0!important;max-height:none!important}
+/* 0.7.89 (owner): bar at the bottom of a foldable: the 2nd level opens in the same row, right after its 1st-level button */
+#app.rowDrop nav#nav{align-items:stretch;gap:4px}
+#app.rowDrop nav#nav>button{flex:1 1 0;min-width:0}
+#app.rowDrop nav#nav #subnav.snDrop{position:static!important;display:flex;flex-direction:row;flex:0 1 auto;gap:4px;padding:3px 4px 0;margin:0;border:0;border-top:3px solid var(--gold);border-radius:0;background:transparent;box-shadow:none;width:auto;left:auto;right:auto;bottom:auto}
+#app.rowDrop nav#nav #subnav.snDrop button{flex:0 0 auto;min-width:64px;height:auto;padding:2px 6px;font-size:11px;line-height:1.15;flex-direction:column;justify-content:center;border-radius:10px}
+#app.rowDrop nav#nav #subnav.snDrop button span{font-size:15px}
+#app.rowDrop nav#nav>button.on{border-radius:12px 12px 4px 4px}
+/* 0.7.89: the side notch on the rail's side sits just inside the rail, not on top of its buttons */
+body.railRb #edgeR{right:88px!important}
+body.railLb #edgeL{left:88px!important}
+
+/* 0.7.90: Kalori widget bar */
+.wkBar{height:7px;border-radius:4px;background:var(--card2);overflow:hidden;margin:6px 0 4px}.wkBar i{display:block;height:100%;border-radius:4px}
+/* 0.7.93 Home widgets: add-sheet previews, world clock, air quality, next 3, ayah & action, quick tools, countdown, Jumaat rain */
+.waPv{position:relative;overflow:hidden;pointer-events:none;margin:10px 0 0;border-radius:14px}
+.waPvG{transform-origin:0 0;margin:0!important;grid-auto-flow:row}
+.waPv+.wai{border-bottom:1px solid var(--line);padding-top:4px}
+.wcW{display:flex;flex-direction:column;justify-content:center;padding:8px 6px}
+.wcRow{display:grid;grid-template-columns:repeat(var(--wcn,3),minmax(0,1fr));gap:4px;height:100%;align-items:center}
+.wcOne{display:flex;flex-direction:column;align-items:center;min-width:0;gap:1px;text-align:center}
+.wcSvg{width:min(100%,82px);aspect-ratio:1;height:auto}
+.wcF{fill:var(--card2);stroke:var(--line);stroke-width:1.5}.wcOne.night .wcF{fill:#0d1424}
+.wcT{stroke:var(--mut);stroke-width:1.2}.wcT4{stroke:var(--fg);stroke-width:2.4}
+.wcH{stroke:var(--fg);stroke-width:4;stroke-linecap:round}.wcM{stroke:var(--fg);stroke-width:2.6;stroke-linecap:round}.wcS{stroke:var(--gold);stroke-width:1.2;stroke-linecap:round}.wcC{fill:var(--gold)}
+.wcD{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}.wc-d .wcD{font-size:calc(27px - var(--wcn,3) * 2.6px);font-weight:600;color:var(--gold);max-width:100%;overflow:hidden}.wc-d .wcOne.night .wcD{color:#9fb4ff}
+.wcN{font-size:11px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wcO{font-size:10px;color:var(--mut)}
+.wcOne.sm .wcO{display:none}
+.wxJum{font-size:12px;margin-top:6px;padding:5px 8px;border-radius:8px;background:var(--card2);line-height:1.35}.wxJum.wet{background:rgba(80,140,230,.18);color:#9cc4ff}
+.wxWg.big{overflow:auto}
+.aqTop{display:flex;align-items:center;gap:10px}.aqN{font-size:30px;font-weight:700;min-width:52px;text-align:center;border-radius:10px;padding:2px 6px;color:#1a1405}
+.aq-g{background:#4cc38a}.aq-m{background:#e8c547}.aq-u{background:#ef9a3c}.aq-v{background:#e0605a;color:#fff}.aq-h{background:#8e5bd6;color:#fff}
+.aqAdv{margin:6px 0 4px;line-height:1.4}
+.n3R{display:flex;align-items:center;gap:8px;width:100%;background:none;border:0;border-top:1px solid var(--line);color:var(--fg);font:inherit;padding:7px 0;text-align:left;cursor:pointer}
+.n3R:first-of-type{border-top:0}.n3I{font-size:18px;width:24px;text-align:center}.n3N{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px}.n3R b{font-size:12.5px;color:var(--gold);white-space:nowrap}
+.ayW.ok{border-color:rgba(63,178,127,.5)}
+.ayQ{display:block;width:100%;background:none;border:0;color:var(--fg);font:inherit;text-align:left;padding:0;font-size:14px;line-height:1.45;cursor:pointer}.ayQ small{display:block;color:var(--gold);font-size:11.5px;margin-top:2px}
+.ayA{margin:8px 0;padding:7px 9px;background:var(--card2);border-radius:10px;font-size:13px;line-height:1.4}
+.ayF{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.qtW{padding:6px}.qtlRow{display:grid;grid-template-columns:repeat(var(--qtn,5),minmax(0,1fr));gap:4px;height:100%}
+.qtlRow button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:var(--card2);border:0;border-radius:10px;color:var(--fg);font:inherit;cursor:pointer;min-height:44px;padding:4px 2px}
+.qtlRow span{font-size:20px;line-height:1}.qtlRow small{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cdW{cursor:pointer}.cdR{display:flex;align-items:center;gap:8px;padding:3px 0}.cdR>span:first-child{font-size:20px}.cdN{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px;font-weight:600}
+.cdD{text-align:right;line-height:1}.cdD b{display:block;font-size:22px;color:var(--gold)}.cdD small{font-size:10px;color:var(--mut)}
+/* 0.7.93 Iman banners (Doa: Pelindung, Rabbana · Deeds: Sedekah) */
+.i2Ban{display:flex;gap:8px;margin:0 0 10px}
+.i2Ban button{flex:1;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(217,164,58,.2),rgba(63,178,127,.15));border:1px solid var(--line);border-radius:12px;color:var(--fg);font:inherit;padding:10px;text-align:left;cursor:pointer;min-height:52px}
+.i2Ban span{font-size:24px}.i2Ban b{font-size:13.5px;line-height:1.2}.i2Ban small{display:block;color:var(--mut);font-size:11px;font-weight:400}
+/* 0.7.93 moon phase & White Days (Track › Hijri) */
+.mnTop{display:flex;align-items:center;gap:12px}.mnSvg{width:72px;height:72px;flex:none}.mnD{fill:#1c2336;stroke:var(--line)}.mnL{fill:#f3e6b8}
+.mnWd{margin-top:10px;font-size:13.5px}.mnDays{display:flex;gap:6px;margin:6px 0}.mnDays span{flex:1;background:var(--card2);border-radius:10px;padding:6px 4px;text-align:center}.mnDays b{display:block;font-size:20px;color:var(--gold)}.mnDays small{font-size:11px;color:var(--mut)}.mnDays span.no{opacity:.5;text-decoration:line-through}
+/* 0.7.93 Kids game banners (Learn › Kids) */
+.kgBans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+.kgBan{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:2px;min-height:118px;border:0;border-radius:20px;padding:12px;color:#fff;font:inherit;text-align:left;cursor:pointer;overflow:hidden;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.kgBan span{position:absolute;top:8px;right:10px;font-size:44px;filter:drop-shadow(0 3px 4px #0005)}.kgBan b{font-size:17px;line-height:1.15;text-shadow:0 2px 4px #0006}.kgBan small{font-size:11.5px;opacity:.95;line-height:1.25;text-shadow:0 1px 3px #0007}
+.kgBan:active{transform:scale(.98)}
+@media (min-width:700px){.kgBans{grid-template-columns:repeat(4,1fr)}}
+/* 0.7.93 history timeline banner */
+.hsHero{background:linear-gradient(135deg,#1b2a4a 0%,#7a4f2a 60%,#e6b941 100%)!important}
+/* 0.7.93 family calendar (Planner › Family) */
+.fcTop .row{align-items:center;justify-content:space-between}.fcTop .chip{min-width:44px;justify-content:center}
+.fcWho{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-top:8px}.fcWho .chip{flex:0 0 auto}.fcWho i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+.fcDay{padding:10px 12px}.fcDay.now{border-color:var(--gold)}.fcDh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:4px}
+.fcIt{display:flex;align-items:center;gap:8px;border-left:4px solid var(--gold);padding:5px 8px;margin-top:4px;background:var(--card2);border-radius:0 8px 8px 0}.fcIt.done{opacity:.55;text-decoration:line-through}
+.fcT{min-width:62px;font-size:12px;color:var(--mut);font-variant-numeric:tabular-nums}.fcN{flex:1;min-width:0;font-size:13.5px}.fcX{background:none;border:0;color:var(--mut);width:30px;height:32px}
+.fcRow{display:flex;gap:8px;margin:8px 0;align-items:center}.fcRow .rin{flex:1;min-width:0}
+/* 0.7.93 My meds (Track › 💊) */
+.mdNote{font-size:12px;background:rgba(217,164,58,.12);border-radius:10px;padding:8px 10px;margin-bottom:10px;line-height:1.4}
+.mdD,.mdM,.mdV{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.mdD:first-of-type{border-top:0}
+.mdT{min-width:46px;font-variant-numeric:tabular-nums;font-weight:700}.mdN{flex:1;min-width:0}.mdN b{display:block;font-size:14px}.mdN small{color:var(--mut);font-size:11.5px}
+.mdD.ok{opacity:.6}.mdD.late .mdT{color:#e0605a}.mdD .chip{min-height:38px}
+.mdM span{flex:1;min-width:0}.mdM b{display:block}.mdM small{color:var(--mut);font-size:11.5px}.mdM.off{opacity:.5}.mdX{background:none;border:0;color:var(--mut);width:32px;height:36px}
+.mdLow{border-color:rgba(232,185,60,.6)}
+.mdAdd summary{cursor:pointer;margin-top:8px;font-weight:600}.mdAdd .rin{width:100%;margin-top:6px}.medRow{display:flex;gap:6px}.medRow .rin{flex:1;min-width:0}
+.mdVi{font-size:22px;width:28px;text-align:center}.mdVd{width:138px;flex:none}.mdV.due b{color:#e0605a}
+.evDx{background:none;border:0;color:var(--mut);width:34px;height:40px;cursor:pointer}
+/* 0.7.93 document scanner banner (Write › Documents) */
+.dsBan{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:16px;padding:12px;margin:0 0 10px;background:linear-gradient(135deg,#1d4e89,#3f8fd1);color:#fff;font:inherit;text-align:left;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.dsBan span{font-size:32px}.dsBan b{font-size:15.5px}.dsBan small{display:block;font-weight:400;font-size:12px;opacity:.9}
+/* 0.7.95 Sunnah & Deeds: one row of 6 sub tabs */
+.amhdr .lv6{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px}.amhdr .lv6 button{min-width:0;font-size:10.5px;line-height:1.15;white-space:normal;padding:4px 2px}
+/* 0.7.95 Suite › Kit */
+.finNav{margin:0}.finNav button{font-size:9.5px;letter-spacing:-.3px}
+/* 0.7.95 (owner #16): every back button is easy to find: gold, 44 px, top left of full-screen pages */
+button[id$="Back"],button[id$="Bk"],.kgBk,#i2X,#hsX,#dsX,#plX,#lnX,#ppX,#prX.prX,.iqB,.skBack,.uaBk,.fkBtn,#evBk,#exB{background:var(--gold)!important;color:#1a1405!important;border:0!important;border-radius:22px!important;min-width:44px;min-height:40px;padding:0 12px!important;font-weight:800!important;box-shadow:0 0 0 3px rgba(230,185,65,.28),0 4px 12px rgba(0,0,0,.35)!important;display:inline-flex!important;align-items:center;justify-content:center;gap:4px;font-size:16px}
+#overlay button[id$="Back"],#overlay button[id$="Bk"],#overlay .kgBk,#i2X,#hsX,#dsX,#plX,#lnX,#ppX,#overlay .iqB{font-size:22px;line-height:1}
+/* 0.7.95 Business › Staff */
+.stTabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:4px;margin-bottom:8px}.stTabs button{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:12px;padding:7px 2px;font:inherit;font-size:12.5px;cursor:pointer}.stTabs button.on{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.stRow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;color:var(--fg);font:inherit;cursor:pointer;padding:10px 12px}.stRow.left{opacity:.55}
+.stAv{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#1a1405;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}.stAv.sm{width:28px;height:28px;font-size:13px}
+.stM{flex:1;min-width:0}.stM b{display:block;font-size:14px}.stM small{color:var(--mut);font-size:11.5px}
+.stF{display:block;margin-top:8px}.stF>span{display:block;font-size:12px;color:var(--mut);margin-bottom:3px}.stF .rin{width:100%}
+.stG2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stG3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.stBtns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.stBtns .btn{flex:1}
+.stWk{display:flex;align-items:center;justify-content:space-between}.stWk .chip{min-width:44px;justify-content:center}
+.stDay{padding:10px 12px}.stDay.now{border-color:var(--gold)}.stDh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px}
+.stSh{display:flex;align-items:center;gap:8px;padding:5px 0;border-top:1px solid var(--line)}.stX{background:none;border:0;color:var(--mut);width:32px;height:34px;cursor:pointer}
+.stKV{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0;font-size:13.5px}
+.stCl{display:flex;align-items:center;gap:10px;padding:10px 12px}.stCl.on{border-color:#3fb27f}.stCl .btn{flex:none;min-width:110px}
+.stPer{flex-wrap:nowrap;overflow-x:auto;margin-bottom:8px}.stPer .chip{flex:0 0 auto}
+.stSum{display:flex;align-items:baseline;gap:10px}.stSum b{font-size:22px;color:var(--gold)}.stSum span,.stSum small{color:var(--mut);font-size:12px}
+.stPay .stNet{color:var(--gold);font-size:17px}
+.stBar{display:grid;grid-template-columns:minmax(0,1.2fr) 1.4fr auto;gap:8px;align-items:center;padding:4px 0;font-size:13px}.stBar i{height:8px;border-radius:4px;background:var(--card2);overflow:hidden}.stBar em{display:block;height:100%;background:var(--gold)}
+.stHr{display:flex;align-items:flex-end;gap:2px;height:90px;margin-top:8px}.stHr i{flex:1;background:rgba(230,185,65,.45);border-radius:3px 3px 0 0}.stHr i.pk{background:var(--gold)}
+.stHrL{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mut)}
+.stTill{display:flex;align-items:center;gap:8px;margin-bottom:8px}.stTill select{flex:1}
+/* 0.7.99 icon theme preview row in Settings */
+.icoPrev{display:flex;gap:12px;margin:10px 0 6px;color:var(--ic-ink,var(--fg))}

@@ -327,3 +327,20 @@ html[data-th=white] .tj-tarqiq,html[data-th=lightgy] .tj-tarqiq,html[data-th=tem
 .qacts .qt>span:first-child{width:18px;height:18px!important;display:flex!important;align-items:center;justify-content:center;flex:0 0 auto}
 .qacts .qt{gap:3px!important}
 .qacts .qt .qtL{min-height:0!important;height:auto!important;max-height:2.3em;margin:0!important;padding:0!important;overflow:hidden;display:block!important}
+
+/* 0.7.93: family khatam card, Kamus word quiz, hafazan fade */
+.qkbL{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qwqB{display:flex;align-items:center;gap:12px;width:100%;background:linear-gradient(135deg,rgba(217,164,58,.22),rgba(63,178,127,.18));border:1px solid var(--line);border-radius:14px;color:var(--fg);font:inherit;text-align:left;padding:12px;margin-bottom:10px;cursor:pointer}
+.qwqB>span:first-child{font-size:30px}.qwqB b{display:block;font-size:15px}.qwqB small{color:var(--mut);font-size:12px}
+.qwqC{text-align:center}.qwqAr{font-family:var(--qfont,serif);font-size:46px;line-height:1.5;margin:6px 0;color:var(--gold);letter-spacing:6px}
+.qwqO{display:grid;gap:8px;margin-top:10px}.qwqO .btn{min-height:48px;white-space:normal;line-height:1.3}
+.qwqO .btn.ok{background:#3fb27f;color:#06140c;border-color:#3fb27f}.qwqO .btn.no{background:#e0605a;color:#fff;border-color:#e0605a}.qwqO .btn.dim{opacity:.45}
+.qwqFb{margin:10px 0 8px;font-weight:600}.qwqFb.ok{color:#3fb27f}.qwqFb.no{color:#e0605a}
+.qwqEnd{text-align:center}.qwqSc{font-size:52px;font-weight:700;color:var(--gold)}
+.qwqR{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;border-top:1px solid var(--line);color:var(--fg);font:inherit;padding:8px 2px;text-align:left;cursor:pointer}
+.qwqR b{font-size:22px;min-width:70px;color:var(--gold)}.qwqR span{flex:1;font-size:13px}.qwqR.ok i{color:#3fb27f}.qwqR.no i{color:#e0605a}.qwqR i{font-style:normal;font-weight:700}
+.qwqEnd .btn{margin-top:10px}
+.hzft{line-height:2.2}.hzfw{transition:opacity .3s,filter .3s;cursor:pointer;border-radius:6px;padding:0 2px}
+.hzfw.gone{opacity:.06;filter:blur(3px)}.hzfw.miss{background:rgba(224,96,90,.35);opacity:1;filter:none}
+.hzf.done .hzfw{opacity:1;filter:none}.hzf.ok{border-color:rgba(63,178,127,.6)}.hzf.no{border-color:rgba(224,96,90,.5)}
+.hzfb{gap:6px;flex-wrap:wrap}.hzfb small{opacity:.7;font-size:11px}

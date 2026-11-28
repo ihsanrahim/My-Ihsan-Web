@@ -44,7 +44,7 @@ function addLine(c, it, q){ var l = it.id ? c.lines.filter(function(x){ return x
 function nextNo(day){ var p = P(), n = sales().filter(function(s){ return s.pid === p.id && s.day === day; }).length + 1; return "J" + day.slice(2).replace(/-/g, "") + "-" + ("00" + n).slice(-3); }
 function record(lines, o){ var p = P(), t = now(), day = N.ymd(t), sub = lines.reduce(function(a, l){ return a + l.p * l.q; }, 0), disc = Math.min(sub, o.disc || 0), tot = sub - disc;
   if(p.round5 && o.m === "cash") tot = Math.round(tot / 5) * 5;
-  var s = {id:N.rid(), pid:p.id, no:nextNo(day), t:t.toISOString(), day:day, lines:lines.map(function(l){ return {i:l.i, n:l.n, p:l.p, q:l.q}; }), sub:sub, disc:disc, tot:tot, m:o.m || "cash", cash:o.cash || 0, chg:o.cash ? Math.max(0, o.cash - tot) : 0, cust:o.cust || "", void:null, closed:""};
+  var s = {id:N.rid(), pid:p.id, no:nextNo(day), t:t.toISOString(), day:day, lines:lines.map(function(l){ return {i:l.i, n:l.n, p:l.p, q:l.q}; }), sub:sub, disc:disc, tot:tot, st:((D().staffCur || {})[p.id]) || "", m:o.m || "cash", cash:o.cash || 0, chg:o.cash ? Math.max(0, o.cash - tot) : 0, cust:o.cust || "", void:null, closed:""};
   N.stamp(D(), s); sales().push(s); stockMove(s, -1); X.sv(); return s; }
 function stockMove(s, dir){ if(!cfg().stock) return; (s.lines || []).forEach(function(l){ var it = l.i && N.byId(D().items, l.i); if(it && it.stock !== "" && it.stock != null){ it.stock = Math.round((+it.stock + dir * l.q) * 1000) / 1000; N.stamp(D(), it); } }); }
 function voidSale(s, why){ s.void = {t:now().toISOString(), why:why || ""}; stockMove(s, 1); N.stamp(D(), s); X.sv(); }
@@ -52,7 +52,8 @@ function voidSale(s, why){ s.void = {t:now().toISOString(), why:why || ""}; stoc
 function view(el, x){ X = x; H = x.H; css(); if(!ST.day) ST.day = today(); var tabs = [["sell","🛒","Jual","Sell"],["calc","🔢","Kalkulator","Calculator"],["day","📅","Hari ini","Today"],["set","⚙️","Barang","Items"]];
   el.innerHTML = '<div class="psTabs">' + tabs.map(function(t){ return '<button class="' + (ST.tab === t[0] ? "on" : "") + '" data-pst="' + t[0] + '">' + t[1] + ' ' + L(t[2], t[3]) + '</button>'; }).join("") + '</div><div id="psBody"></div>';
   el.querySelectorAll("[data-pst]").forEach(function(b){ b.onclick = function(){ ST.tab = b.getAttribute("data-pst"); if(ST.tab === "day") ST.day = today(); view(el, x); }; });
-  var b = el.querySelector("#psBody"); ({sell:vSell, calc:vCalc, day:vDay, set:vSet}[ST.tab] || vSell)(b, el); }
+  var b = el.querySelector("#psBody"); ({sell:vSell, calc:vCalc, day:vDay, set:vSet}[ST.tab] || vSell)(b, el);
+  if(ST.tab === "sell" && window.NiagaStaff){ var tb = NiagaStaff.tillBar(x); if(tb){ el.insertAdjacentHTML("afterbegin", tb); NiagaStaff.tillBind(el); } } }   // 0.7.95: who is serving (sales by staff)
 function bar(c, el){ var n = cartN(c), held = c.held.length;
   return '<div class="psBar' + (n ? "" : " empty") + '"><button class="psCartB" id="psCart"><b>🧺 ' + n + '</b><span>' + m(cartTot(c)) + '</span></button>' +
     (n ? '<button class="psSm" id="psHold" title="' + L("Tahan", "Park") + '">⏸</button><button class="psSm" id="psClr" title="' + L("Kosongkan", "Clear") + '">✕</button>' : (held ? '<button class="psSm" id="psHeld">⏸ ' + held + '</button>' : '')) +

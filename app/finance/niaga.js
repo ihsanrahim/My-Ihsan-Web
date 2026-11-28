@@ -78,7 +78,7 @@ function pill(st){ var s = N.ST_LAB[st] || N.ST_LAB.draft; return '<span class="
 function calcBind(box){ box.querySelectorAll("[data-calc]").forEach(function(i){ i.addEventListener("blur", function(){ var v = N.calc(i.value); if(v === null){ i.classList.add("bad"); return; } i.classList.remove("bad"); if(v !== "" && String(v) !== i.value){ i.value = v; i.dispatchEvent(new Event("input", {bubbles:true})); } }); }); }
 
 // ---------- view shell ----------
-var NAV = [["papan","📊","Papan","Summary"],["pos","🛒","Jual","Sell"],["book","📅","Tempahan","Bookings"],["dok","📄","Dokumen","Records"],["exp","💸","Belanja","Expenses"],["cust","👥","Pelanggan","Customers"],["item","📦","Barang","Items"],["prof","⚙️","Profil","Profile"]];
+var NAV = [["papan","💹","Papan","Summary"],["pos","🛍","Jual","Sell"],["book","🛎","Tempahan","Bookings"],["dok","🗃","Dokumen","Records"],["exp","💸","Belanja","Expenses"],["cust","🙋","Pelanggan","Customers"],["staff","👔","Staf","Staff"],["item","📦","Barang","Items"],["prof","🪪","Profil","Profile"]];   // 0.7.95 (owner #18): Staff
 function draw(){ if(!root || !document.body.contains(root)) return; var v = document.getElementById("view"), y = v ? v.scrollTop : 0; render(); if(v && !draw.top) v.scrollTop = y; draw.top = false; }
 function goTop(){ draw.top = true; }
 function render(){ ld(); var p = prof(); if(window.__niagaPg){ ST.pg = window.__niagaPg; ST.vw = null; ST.cust = null; ST.ed = null; window.__niagaPg = null; } if(p && p.pos && p.pos.home && !render.ph){ render.ph = 1; ST.pg = "pos"; }
@@ -96,7 +96,8 @@ function render(){ ld(); var p = prof(); if(window.__niagaPg){ ST.pg = window.__
   root.querySelector("#ngNew").onclick = function(){ newDoc(); };
   root.querySelector("#ngPS").onclick = switcher; if(NS()) NS().bind();
   var ln = root.querySelector("#ngLN"); if(ln) ln.onclick = function(){ var l = NS().link(p.id); if(l) l.letterNote = 2; H.save(N.KEY, D); draw(); };
-  if(ST.vw) vDoc(b); else if(ST.cust) vCust(b); else ({papan:vDash, pos:vPos, book:vBook, dok:vDocs, exp:vExp, cust:vCusts, item:vItems, prof:vProf}[ST.pg] || vDash)(b); }
+  if(ST.vw) vDoc(b); else if(ST.cust) vCust(b); else ({papan:vDash, pos:vPos, book:vBook, dok:vDocs, exp:vExp, cust:vCusts, staff:vStaff, item:vItems, prof:vProf}[ST.pg] || vDash)(b); }
+function vStaff(el){ if(window.NiagaStaff) NiagaStaff.view(el, expX()); else el.innerHTML = '<div class="card mut">…</div>'; }
 // 0.6.35: 🛒 Jual (finance/niaga_pos.js): a quick till for stalls and small shops
 function vPos(el){ if(window.NiagaPos) NiagaPos.view(el, expX()); else el.innerHTML = '<div class="card mut">…</div>'; }
 // 0.6.28: 💸 Belanja (finance/niaga_exp.js): petty cash, recurring, receipts, tax summary

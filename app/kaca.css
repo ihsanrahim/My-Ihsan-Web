@@ -4,7 +4,7 @@
 @font-face{font-family:"FrauncesW";src:url(fonts/fraunces-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
 
 html[data-th=kaca]{
-  --bg:#1A2238; --card:rgba(14,18,30,.34); --card2:rgba(255,255,255,.12); --well:rgba(14,18,30,.22);
+  --bg:#1A2238; --card:rgba(14,18,30,.34); --card2:rgba(0,0,0,.3);   /* 0.7.95 (owner #15): light glass → transparent black */ --well:rgba(14,18,30,.22);
   --line:rgba(255,255,255,.12); --line2:rgba(255,255,255,.26);
   --fg:#FFFFFF; --mut:rgba(255,255,255,.80); --mut2:rgba(255,255,255,.72);
   --gold:#F1D58A; --green:#F1D58A; --deep:#F1D58A; --red:#F5A897; --blue:#B9C6FF; --ok:#B2E6C0; --warn:#F5CB94;

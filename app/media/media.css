@@ -86,3 +86,6 @@
 .pgen,.ptop{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 .ptop .chip{font-size:12px;padding:5px 10px}
 .spn .sptop{display:block;color:var(--gold);opacity:.85;font-size:11px}
+
+/* 0.7.93 talk notes tab */
+.tn .tnL{margin:8px 0}.tnR{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}.tnR span{flex:1;min-width:0;font-size:13.5px}.tnX{background:none;border:0;color:var(--mut);width:32px;height:36px}

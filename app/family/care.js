@@ -16,7 +16,7 @@ var H, L2, E, U, C, page="ppl", pf="", vk="bp", host=null;
 // 0.5.51: the Google Play build (window.IHSAN_PLAY) keeps only the non-medical parts of Care: people and family contacts, caregiving turns
 // and tasks, ibadah for the sick and elder mode. Medicines, vital signs, appointments, the emergency card and health fields stay in test APKs.
 var PLAY=!!window.IHSAN_PLAY;
-var PAGES=[["ppl","🧓","Orang","People"],["med","💊","Ubat","Medicines"],["vit","❤️","Tanda vital","Vitals"],["apt","📅","Temujanji","Appointments"],["share","🤝","Giliran","Sharing"],["ib","🤲","Ibadah","Ibadah"]].filter(function(p){ return !PLAY || ["med","vit","apt"].indexOf(p[0])<0; });
+var PAGES=[["ppl","🧓","Orang","People"],["med","💊","Ubat","Medicines"],["mine","👤","Ubat saya","My meds"],["vit","❤️","Tanda vital","Vitals"],["apt","📅","Temujanji","Appointments"],["share","🤝","Giliran","Sharing"],["ib","🤲","Ibadah","Ibadah"]].filter(function(p){ return !PLAY || ["med","mine","vit","apt"].indexOf(p[0])<0; });   // 0.7.95 (owner #12): My meds moved here from Time › Track
 // vital sign types: key, icon, Malay, English, unit, default normal range [lo, hi], step
 var VT=[["bp","🩸","Tekanan darah","Blood pressure","mmHg",[90,140],1],["glu","🍬","Gula darah","Blood glucose","mmol/L",[4,10],0.1],["temp","🌡️","Suhu","Temperature","°C",[36,37.5],0.1],
   ["spo2","🫁","Oksigen (SpO₂)","Oxygen (SpO₂)","%",[94,100],1],["pulse","💓","Nadi","Pulse","/min",[50,100],1],["wt","⚖️","Berat","Weight","kg",[0,0],0.1],["pain","🤕","Skala sakit","Pain score","/10",[0,4],1]];
@@ -377,9 +377,10 @@ function css(){ if(document.getElementById("careCss")) return; var s=document.cr
   document.head.appendChild(s); }
 
 // ---------- the hub ----------
-function fn(k){ return {ppl:pPpl, med:pMed, vit:pVit, apt:pApt, share:pShare, ib:pIb}[k]||pPpl; }
+function pMine(el){ var go=function(){ if(document.body.contains(el)) MyMeds.render(el, H); }; if(window.MyMeds) go(); else { el.innerHTML='<div class="card mut">…</div>'; H.loadJs(["track/meds.js"], go, function(){}); } }
+function fn(k){ return {ppl:pPpl, med:pMed, mine:pMine, vit:pVit, apt:pApt, share:pShare, ib:pIb}[k]||pPpl; }
 function tabs(){ return '<div class="bbtabs noswipe">'+PAGES.map(function(p){ return '<button class="chip g3d'+(page===p[0]?" on":"")+'" data-cp="'+p[0]+'">'+p[1]+' '+L2(p[2],p[3])+'</button>'; }).join("")+'</div>'; }
-function view(el, h, dockHtml){ H=h; L2=h.L2x; E=h.esc; U=FamView.util(); ld(); css(); host=el;
+function view(el, h, dockHtml){ H=h; L2=h.L2x; E=h.esc; U=FamView.util(); ld(); css(); host=el; if(window.__careOpen){ page=window.__careOpen; window.__careOpen=null; }
   if(!PAGES.some(function(x){ return x[0]===page; })) page="ppl";
   if(pf && !P(pf)) pf="";
   el.innerHTML=tabs()+'<div id="crBody"></div>'+(dockHtml||"");
